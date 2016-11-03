@@ -1,0 +1,4 @@
+<h1>Danh sach hoc phan</h1>
+<% @hocphans.each.with_index do |hp,i| %>
+	<h2>Stt<%=i %> Ma hp<%=hp.mahp %>Ten hp<%=hp.tenhp %> Open? <%= hp.open%></h2>
+<% end %>

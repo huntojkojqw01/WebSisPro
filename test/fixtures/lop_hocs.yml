@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  malh: MyString
+  phonghoc: MyString
+  thoigian: MyString
+  mahp_id: 1
+
+two:
+  malh: MyString
+  phonghoc: MyString
+  thoigian: MyString
+  mahp_id: 1

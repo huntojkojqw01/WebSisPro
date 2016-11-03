@@ -1,0 +1,2 @@
+class SinhVien < ApplicationRecord
+end

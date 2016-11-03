@@ -1,0 +1,2 @@
+class GiaoVien < ApplicationRecord
+end
