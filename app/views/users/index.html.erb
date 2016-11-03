@@ -1,0 +1,5 @@
+test
+Co <%=@users.count%> user la:
+<%@users.each.with_index do |u,i| %>
+	<%=i%> ID <%=u.id%>,name <%=u.name%>, loai <%=u.loai%>
+<%end%>

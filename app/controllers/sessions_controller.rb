@@ -3,11 +3,11 @@ class SessionsController < ApplicationController
 
 	end
 	def create
-		user=User.find_by(name: params[:sison][:name])
-		if user&&user.authenticate(params[:sison][:password])
+		user=User.find_by(name: params[:session][:name])
+		if user&&user.authenticate(params[:session][:password])
 			log_in user
-			params[:sison][:remember_me]==1 ? remember(user) : forget(user)
-			redirect_back_or user
+			params[:session][:remember_me]==1 ? remember(user) : forget(user)
+			redirect_back_or root_url
 		else
 			render 'new'
 		end

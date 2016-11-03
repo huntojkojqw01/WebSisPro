@@ -1,0 +1,51 @@
+<nav class="navbar" style="background:#BCDA59">
+  <div class="col-sm-1"></div>
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li class="active"><%= link_to 'Trang chủ',root_path%></li>
+      <% if logged_in? %>
+      <li class="dropdown">
+        <a class="dropdown-toggle " data-toggle="dropdown" href="#">Thông tin người sử dụng
+          <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" style="background:#e0e0eb">        
+          <li><%= link_to 'Đổi mật khẩu',edit_user_path(current_user)%></li>
+          <li><%= link_to 'Thông tin cá nhân',current_user%></li>
+        </ul>
+      </li>
+      <% end %>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Chương trình đào tạo
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu" style="background:#e0e0eb">
+          <li><%= link_to 'Danh mục học phần',hocphan_path%></li>
+          <li><%= link_to 'Chương trình đào tạo sinh viên','#'%></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Kết quả học tập
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu" style="background:#e0e0eb"> 
+          <li><%= link_to 'Bảng điểm cá nhân','#'%></li>
+          <li><%= link_to 'Bảng điểm học phần','#'%></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Đăng kí học tập
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu" style="background:#e0e0eb">
+          <li><%= link_to 'Đăng kí học phần','#'%></li>
+          <li><%= link_to 'Đăng kí lớp học',lophoc_path %></li>
+        </ul>
+      </li>
+       <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Tra cứu
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu" style="background:#e0e0eb">
+          <li><%= link_to 'Danh sách lớp sinh viên','#'%></li>
+          <li><%= link_to 'Sinh viên đăng kí học tập',dklop_path %></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>

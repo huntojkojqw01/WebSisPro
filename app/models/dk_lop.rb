@@ -1,0 +1,2 @@
+class DkLop < ApplicationRecord
+end

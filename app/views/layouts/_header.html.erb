@@ -1,0 +1,43 @@
+<div style="background:#0B2161;padding: 2px">
+  
+  <div class="row">   
+      <div class="col-sm-7">
+      </div>
+      <div class="col-sm-5">
+          <% if !logged_in? %>
+
+          <%= form_for(:session, url: login_path, class: 'form-inline') do |f|%>
+            <div class="form-group">
+              <%= f.label :name, 'tài khoản:' %>
+              <%= f.text_field :name, style:'width:120px;height: 25px' %>
+              <%= f.label :password, 'mật khẩu:' %>
+              <%= f.password_field :password, style: 'width:120px;height: 25px' %>
+              <%= f.submit "Đăng nhập", class: 'btn btn-default btn-xs' %>
+            </div>
+          <% end %>
+
+          <% else %>            
+            <h2><%= hello %> <%= current_user.name %><br>
+            <%=link_to "thoat",logout_path,method: "delete" %></h2>
+            
+            <% end %>
+      </div>
+  </div>
+  
+  <div class="row">
+      <div class="col-sm-2" id="logo">
+           <img class="img-responsive" src="http://soict.hust.edu.vn/~soict2013/images/HUST_logo.jpg" alt="Chania" width="100" height="150">
+      </div>
+      <div class="col-sm-8">
+          <h1 style="color:#D8D8D8;text-align: left" class="text" id="sis">Student System Information</h2>
+          <h3 style="color:#D8D8D8;text-align: left" class="text" id="hust">Hanoi University of Science and Technology</h3>
+      </div>
+  </div>
+  <div class="row">
+  <div class="col-sm-7">
+  </div>
+  <div class="col-sm-4">
+      <h5 class="text" style="color:white;text-align: right">Học kì 20161, ngày 26 tháng 10 năm 2016</h5>
+  </div>
+  </div>
+</div>
