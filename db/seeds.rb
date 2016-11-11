@@ -15,7 +15,6 @@ User.create!(name:"admin",password:"123456",password_confirmation:"123456",loai:
 	Sinhvien.create!(masv:"SinhVien #{i}",tensv:Faker::Name.name,ngaysinh:Faker::Date.between(23.years.ago,18.years.ago),email:Faker::Internet.email,user_id:i)
 end
 
-
 1.upto(20) do |i|
 	Hocphan.create!(mahp:"HocPhan #{i}",tenhp:Faker::Name.name,tc:(Faker::Number.between(1,3)+1)*10,tchp:(Faker::Number.between(1,5)+1)*10,heso:Faker::Number.between(7,8),open:Faker::Boolean.boolean)
 end
