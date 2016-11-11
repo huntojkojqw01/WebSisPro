@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  diem: 1.5
+  sinhvien: one
+  lophoc: one
+
+two:
+  diem: 1.5
+  sinhvien: two
+  lophoc: two

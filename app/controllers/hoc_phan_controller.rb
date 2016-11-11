@@ -1,12 +1,12 @@
 class HocPhanController < ApplicationController
-	def index		
+	def index
 		if(params)
-			@hocphans=HocPhan.where("mahp like ? and tenhp like ?","%#{params[:fmahp]}%","%#{params[:ftenhp]}%")
+			@hocphans=Hocphan.where("mahp like ? and tenhp like ?","%#{params[:fmahp]}%","%#{params[:ftenhp]}%")
 		else
-			@hocphans=HocPhan.all
+			@hocphans=Hocphan.all
 		end
 	end
 	def show
-		@hocphan=HocPhan.find_by_id(params[:id])
+		@hocphan=Hocphan.find_by_id(params[:id])
 	end
 end

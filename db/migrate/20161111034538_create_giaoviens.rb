@@ -1,11 +1,11 @@
-class CreateGiaoViens < ActiveRecord::Migration[5.0]
+class CreateGiaoviens < ActiveRecord::Migration[5.0]
   def change
-    create_table :giao_viens do |t|
+    create_table :giaoviens do |t|
       t.string :magv
       t.string :tengv
       t.string :ngaysinh
       t.string :email
-      t.string :user_id
+      t.references :user, foreign_key: true
 
       t.timestamps
     end

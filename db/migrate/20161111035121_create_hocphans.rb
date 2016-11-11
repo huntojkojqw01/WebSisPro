@@ -1,11 +1,12 @@
-class CreateHocPhans < ActiveRecord::Migration[5.0]
+class CreateHocphans < ActiveRecord::Migration[5.0]
   def change
-    create_table :hoc_phans do |t|
+    create_table :hocphans do |t|
       t.string :mahp
       t.string :tenhp
       t.integer :tc
       t.integer :tchp
       t.integer :heso
+      t.boolean :open
 
       t.timestamps
     end

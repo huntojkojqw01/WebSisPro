@@ -1,12 +1,12 @@
-class BangDiemController < ApplicationController
+class BangDiemsController < ApplicationController
   def index
 		if(params)
-			@diems=DkLop.joins("NATURAL JOIN SinhVien").where("masv like ? and diem != null ","%#{params[:fmasv]}%")
+			@diems=Dklop.joins("NATURAL JOIN Sinhvien").where("masv like ? and diem != null ","%#{params[:fmasv]}%")
 		else
-			@diems=DkLop.where("diem != null ")
+			@diems=Dklop.where("diem != null ")
 		end
 	end
 	def show
-		
-	end	
+
+	end
 end

@@ -1,2 +1,0 @@
-class LopHoc < ApplicationRecord
-end

@@ -1,6 +1,8 @@
 class User < ApplicationRecord
-	attr_accessor :remember_token	
-  validates :name, presence: true, length: { maximum: 50 }  
+  has_one :giaovien
+  has_one :sinhvien
+  attr_accessor :remember_token
+  validates :name, presence: true, length: { maximum: 50 }
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 },allow_nil:true
   # Returns a random token.
@@ -26,5 +28,5 @@ class User < ApplicationRecord
   # Forgets a user.
   def forget
     update_attribute(:remember_digest, nil)
-  end
+end
 end

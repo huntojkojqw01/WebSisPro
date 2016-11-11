@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  malp: MyString
+  phonghoc: MyString
+  thoigian: MyString
+  hocphan: one
+  giaovien: one
+
+two:
+  malp: MyString
+  phonghoc: MyString
+  thoigian: MyString
+  hocphan: two
+  giaovien: two

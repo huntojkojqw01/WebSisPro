@@ -4,8 +4,10 @@ one:
   name: MyString
   password_digest: MyString
   remember_digest: MyString
+  loai: MyString
 
 two:
   name: MyString
   password_digest: MyString
   remember_digest: MyString
+  loai: MyString

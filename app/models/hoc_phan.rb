@@ -1,2 +1,0 @@
-class HocPhan < ApplicationRecord
-end

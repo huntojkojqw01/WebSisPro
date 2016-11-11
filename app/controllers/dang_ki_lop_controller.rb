@@ -1,12 +1,12 @@
 class DangKiLopController < ApplicationController
 	def index
 		if(params)
-			@dklops=DkLop.joins("NATURAL JOIN SinhVien").where("masv like ?","%#{params[:fmasv]}%")
+			@dklops=Dklop.joins("NATURAL JOIN Sinhvien").where("masv like ?","%#{params[:fmasv]}%")
 		else
-			@dklops=DkLop.all
+			@dklops=Dklop.all
 		end
 	end
 	def show
-		@dklop=DkLop.find_by_id(params[:id])
-	end	
+		@dklop=Dklop.find_by_id(params[:id])
+	end
 end

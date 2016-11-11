@@ -10,68 +10,79 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161103093049) do
+ActiveRecord::Schema.define(version: 20161111035412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "dk_lops", force: :cascade do |t|
-    t.integer  "sinh_vien_id"
-    t.integer  "lop_hoc_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+  create_table "dklops", force: :cascade do |t|
     t.float    "diem"
+    t.integer  "sinhvien_id"
+    t.integer  "lophoc_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["lophoc_id"], name: "index_dklops_on_lophoc_id", using: :btree
+    t.index ["sinhvien_id"], name: "index_dklops_on_sinhvien_id", using: :btree
   end
 
-  create_table "giao_viens", force: :cascade do |t|
+  create_table "giaoviens", force: :cascade do |t|
     t.string   "magv"
     t.string   "tengv"
     t.string   "ngaysinh"
     t.string   "email"
-    t.string   "user_id"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_giaoviens_on_user_id", using: :btree
   end
 
-  create_table "hoc_phans", force: :cascade do |t|
+  create_table "hocphans", force: :cascade do |t|
     t.string   "mahp"
     t.string   "tenhp"
     t.integer  "tc"
     t.integer  "tchp"
     t.integer  "heso"
+    t.boolean  "open"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean  "open"
   end
 
-  create_table "lop_hocs", force: :cascade do |t|
-    t.string   "malh"
+  create_table "lophocs", force: :cascade do |t|
+    t.string   "malp"
     t.string   "phonghoc"
     t.string   "thoigian"
-    t.integer  "mahp_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.integer  "hocphan_id"
+    t.integer  "giaovien_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["giaovien_id"], name: "index_lophocs_on_giaovien_id", using: :btree
+    t.index ["hocphan_id"], name: "index_lophocs_on_hocphan_id", using: :btree
   end
 
-  create_table "sinh_viens", force: :cascade do |t|
+  create_table "sinhviens", force: :cascade do |t|
     t.string   "masv"
     t.string   "tensv"
-    t.date     "ngaysinh"
+    t.string   "ngaysinh"
     t.string   "email"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "user_id"
+    t.index ["user_id"], name: "index_sinhviens_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "password_digest"
     t.string   "remember_digest"
+    t.string   "loai"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.string   "type"
-    t.string   "loai"
   end
 
+  add_foreign_key "dklops", "lophocs"
+  add_foreign_key "dklops", "sinhviens"
+  add_foreign_key "giaoviens", "users"
+  add_foreign_key "lophocs", "giaoviens"
+  add_foreign_key "lophocs", "hocphans"
+  add_foreign_key "sinhviens", "users"
 end
