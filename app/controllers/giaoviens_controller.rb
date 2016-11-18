@@ -1,0 +1,2 @@
+class GiaoviensController < ApplicationController
+end

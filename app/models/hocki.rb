@@ -1,0 +1,2 @@
+class Hocki < ApplicationRecord
+end

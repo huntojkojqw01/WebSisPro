@@ -1,0 +1,31 @@
+Ma sinh vien <%=@sinhvien.masinhvien%><br>
+Bang diem sinh vien <%=@sinhvien.tensinhvien%><br>
+<table>
+	<head>
+		<tr>
+			<td>Hoc ki</td>
+			<td>Ma hoc phan</td>
+			<td>Ten hoc phan</td>			
+			<td>Tin chi</td>
+			<td>Lop hoc</td>
+			<td>Dien qua trinh</td>
+			<td>Diem thi</td>
+			<td>Diem chu</td>			
+		</tr>
+	</head>
+	<body>
+		<%@dangkilophocs.each do |dklh| %>
+		<tr>			
+			<td><%=dklh.hocki.mahocki%></td>
+			<td><%=dklh.lophoc.hocphan.mahocphan%></td>
+			<td><%=dklh.lophoc.hocphan.tenhocphan%></td>			
+			<td><%=dklh.lophoc.hocphan.tinchi%></td>
+			<td><%=dklh.lophoc.malophoc%></td>
+			<td><%=dklh.diemquatrinh%></td>
+			<td><%=dklh.diemthi%></td>			
+			<td></td>			
+		</tr>
+		<%end%>
+	</body>
+
+</table>

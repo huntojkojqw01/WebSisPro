@@ -1,15 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  malp: MyString
-  phonghoc: MyString
-  thoigian: MyString
-  hocphan: one
+  malophoc: MyString
+  maxdangki: 1
+  thoigian: 
+  diadiem: MyString
   giaovien: one
+  hocphan: one
+  hocki: one
 
 two:
-  malp: MyString
-  phonghoc: MyString
-  thoigian: MyString
-  hocphan: two
+  malophoc: MyString
+  maxdangki: 1
+  thoigian: 
+  diadiem: MyString
   giaovien: two
+  hocphan: two
+  hocki: two

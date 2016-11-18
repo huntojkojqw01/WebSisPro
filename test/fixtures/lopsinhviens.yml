@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  tenlopsinhvien: MyString
+  khoahoc: MyString
+  giaovien: one
+  khoavien: one
+
+two:
+  tenlopsinhvien: MyString
+  khoahoc: MyString
+  giaovien: two
+  khoavien: two

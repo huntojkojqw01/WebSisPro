@@ -1,0 +1,2 @@
+module DangkihocphansHelper
+end

@@ -1,0 +1,2 @@
+module SinhviensHelper
+end

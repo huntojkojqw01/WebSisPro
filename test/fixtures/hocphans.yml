@@ -1,17 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  mahp: MyString
-  tenhp: MyString
-  tc: 1
-  tchp: 1
-  heso: 1
-  open: false
+  mahocphan: MyString
+  tenhocphan: MyString
+  tinchi: 1
+  tinchihocphi: 1
+  trongso: 1
+  modangki: false
+  khoavien: one
 
 two:
-  mahp: MyString
-  tenhp: MyString
-  tc: 1
-  tchp: 1
-  heso: 1
-  open: false
+  mahocphan: MyString
+  tenhocphan: MyString
+  tinchi: 1
+  tinchihocphi: 1
+  trongso: 1
+  modangki: false
+  khoavien: two

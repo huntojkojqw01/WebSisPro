@@ -10,79 +10,128 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161111035412) do
+ActiveRecord::Schema.define(version: 20161118124855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "dklops", force: :cascade do |t|
-    t.float    "diem"
-    t.integer  "sinhvien_id"
-    t.integer  "lophoc_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["lophoc_id"], name: "index_dklops_on_lophoc_id", using: :btree
-    t.index ["sinhvien_id"], name: "index_dklops_on_sinhvien_id", using: :btree
+  create_table "chuongtrinhdaotaos", force: :cascade do |t|
+    t.integer "hocki"
+    t.integer "lopsinhvien_id"
+    t.integer "hocphan_id"
+    t.index ["hocphan_id"], name: "index_chuongtrinhdaotaos_on_hocphan_id", using: :btree
+    t.index ["lopsinhvien_id"], name: "index_chuongtrinhdaotaos_on_lopsinhvien_id", using: :btree
+  end
+
+  create_table "dangkihocphans", force: :cascade do |t|
+    t.integer "sinhvien_id"
+    t.integer "hocphan_id"
+    t.integer "hocki_id"
+    t.index ["hocki_id"], name: "index_dangkihocphans_on_hocki_id", using: :btree
+    t.index ["hocphan_id"], name: "index_dangkihocphans_on_hocphan_id", using: :btree
+    t.index ["sinhvien_id"], name: "index_dangkihocphans_on_sinhvien_id", using: :btree
+  end
+
+  create_table "dangkilophocs", force: :cascade do |t|
+    t.integer "diemquatrinh"
+    t.integer "diemthi"
+    t.integer "hesohocphi"
+    t.string  "trangthaidangki"
+    t.integer "sinhvien_id"
+    t.integer "lophoc_id"
+    t.integer "hocki_id"
+    t.index ["hocki_id"], name: "index_dangkilophocs_on_hocki_id", using: :btree
+    t.index ["lophoc_id"], name: "index_dangkilophocs_on_lophoc_id", using: :btree
+    t.index ["sinhvien_id"], name: "index_dangkilophocs_on_sinhvien_id", using: :btree
   end
 
   create_table "giaoviens", force: :cascade do |t|
-    t.string   "magv"
-    t.string   "tengv"
-    t.string   "ngaysinh"
-    t.string   "email"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_giaoviens_on_user_id", using: :btree
+    t.string  "magiaovien"
+    t.string  "tengiaovien"
+    t.string  "ngaysinh"
+    t.string  "email"
+    t.integer "khoavien_id"
+    t.index ["khoavien_id"], name: "index_giaoviens_on_khoavien_id", using: :btree
+  end
+
+  create_table "hockis", force: :cascade do |t|
+    t.string  "mahocki"
+    t.integer "dinhmuchocphi"
   end
 
   create_table "hocphans", force: :cascade do |t|
-    t.string   "mahp"
-    t.string   "tenhp"
-    t.integer  "tc"
-    t.integer  "tchp"
-    t.integer  "heso"
-    t.boolean  "open"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string  "mahocphan"
+    t.string  "tenhocphan"
+    t.integer "tinchi"
+    t.integer "tinchihocphi"
+    t.integer "trongso"
+    t.boolean "modangki"
+    t.integer "khoavien_id"
+    t.index ["khoavien_id"], name: "index_hocphans_on_khoavien_id", using: :btree
+  end
+
+  create_table "khoaviens", force: :cascade do |t|
+    t.string "tenkhoavien"
+    t.string "sodienthoai"
+    t.string "diadiem"
   end
 
   create_table "lophocs", force: :cascade do |t|
-    t.string   "malp"
-    t.string   "phonghoc"
-    t.string   "thoigian"
-    t.integer  "hocphan_id"
-    t.integer  "giaovien_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string  "malophoc"
+    t.integer "maxdangki"
+    t.integer "thoigian"
+    t.string  "diadiem"
+    t.integer "giaovien_id"
+    t.integer "hocphan_id"
+    t.integer "hocki_id"
     t.index ["giaovien_id"], name: "index_lophocs_on_giaovien_id", using: :btree
+    t.index ["hocki_id"], name: "index_lophocs_on_hocki_id", using: :btree
     t.index ["hocphan_id"], name: "index_lophocs_on_hocphan_id", using: :btree
   end
 
+  create_table "lopsinhviens", force: :cascade do |t|
+    t.string  "tenlopsinhvien"
+    t.string  "khoahoc"
+    t.integer "giaovien_id"
+    t.integer "khoavien_id"
+    t.index ["giaovien_id"], name: "index_lopsinhviens_on_giaovien_id", using: :btree
+    t.index ["khoavien_id"], name: "index_lopsinhviens_on_khoavien_id", using: :btree
+  end
+
   create_table "sinhviens", force: :cascade do |t|
-    t.string   "masv"
-    t.string   "tensv"
-    t.string   "ngaysinh"
-    t.string   "email"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string  "masinhvien"
+    t.string  "tensinhvien"
+    t.string  "ngaysinh"
+    t.string  "email"
+    t.string  "trangthai"
+    t.integer "lopsinhvien_id"
+    t.integer "user_id"
+    t.index ["lopsinhvien_id"], name: "index_sinhviens_on_lopsinhvien_id", using: :btree
     t.index ["user_id"], name: "index_sinhviens_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "password_digest"
-    t.string   "remember_digest"
-    t.string   "loai"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string "name"
+    t.string "password_digest"
+    t.string "remember_digest"
+    t.string "loai"
   end
 
-  add_foreign_key "dklops", "lophocs"
-  add_foreign_key "dklops", "sinhviens"
-  add_foreign_key "giaoviens", "users"
+  add_foreign_key "chuongtrinhdaotaos", "hocphans"
+  add_foreign_key "chuongtrinhdaotaos", "lopsinhviens"
+  add_foreign_key "dangkihocphans", "hockis"
+  add_foreign_key "dangkihocphans", "hocphans"
+  add_foreign_key "dangkihocphans", "sinhviens"
+  add_foreign_key "dangkilophocs", "hockis"
+  add_foreign_key "dangkilophocs", "lophocs"
+  add_foreign_key "dangkilophocs", "sinhviens"
+  add_foreign_key "giaoviens", "khoaviens"
+  add_foreign_key "hocphans", "khoaviens"
   add_foreign_key "lophocs", "giaoviens"
+  add_foreign_key "lophocs", "hockis"
   add_foreign_key "lophocs", "hocphans"
+  add_foreign_key "lopsinhviens", "giaoviens"
+  add_foreign_key "lopsinhviens", "khoaviens"
+  add_foreign_key "sinhviens", "lopsinhviens"
   add_foreign_key "sinhviens", "users"
 end

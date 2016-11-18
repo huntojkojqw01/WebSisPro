@@ -1,3 +1,3 @@
 class Hocphan < ApplicationRecord
-  has_many :lophocs
+  belongs_to :khoavien
 end

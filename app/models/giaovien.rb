@@ -1,4 +1,3 @@
 class Giaovien < ApplicationRecord
-  belongs_to :user
-  has_one :lophoc
+  belongs_to :khoavien
 end

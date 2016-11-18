@@ -1,0 +1,2 @@
+class SinhviensController < ApplicationController
+end

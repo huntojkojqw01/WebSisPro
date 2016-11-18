@@ -1,15 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  masv: MyString
-  tensv: MyString
+  masinhvien: MyString
+  tensinhvien: MyString
   ngaysinh: MyString
   email: MyString
+  trangthai: MyString
+  lopsinhvien: 
   user: one
 
 two:
-  masv: MyString
-  tensv: MyString
+  masinhvien: MyString
+  tensinhvien: MyString
   ngaysinh: MyString
   email: MyString
+  trangthai: MyString
+  lopsinhvien: 
   user: two

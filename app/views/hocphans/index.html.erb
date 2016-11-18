@@ -1,0 +1,30 @@
+Danh muc hoc phan<br>
+<%= form_tag("/hocphans", method: "get") do %>
+  Tim theo khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien")%><br>
+  Tim theo ma hoc phan <%=text_field_tag 'mahocphan'%><br>
+  Tim theo ten hoc phan <%=text_field_tag 'tenhocphan'%><br>
+  <%= submit_tag("Search") %>
+<% end %>
+<table >
+	<head>
+		<tr>
+			<td>Ma hoc phan</td>
+			<td>Ten hoc phan</td>
+			<td>Tin chi</td>
+			<td>Tin chi hoc phi</td>
+			<td>Trong so</td>
+		</tr>
+	</head>
+	<body>
+		<%@hocphans.each do |hp| %>
+		<tr>
+			<td><%=hp.mahocphan%></td>
+			<td><%=hp.tenhocphan%></td>
+			<td><%=hp.tinchi%></td>
+			<td><%=hp.tinchihocphi%></td>
+			<td><%=hp.trongso%></td>
+			<td><%=hp.khoavien_id%></td>
+		</tr>
+		<% end %>
+	</body>
+</table>

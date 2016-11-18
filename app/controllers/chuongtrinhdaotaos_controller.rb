@@ -1,0 +1,2 @@
+class ChuongtrinhdaotaosController < ApplicationController
+end

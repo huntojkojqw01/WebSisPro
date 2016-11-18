@@ -1,0 +1,29 @@
+Ma sinh vien <%=@sinhvien.masinhvien%><br>
+Chuong trinh dao tao danh cho sinh vien <%=@sinhvien.tensinhvien%><br>
+<table>
+	<head>
+		<tr>
+			<td>Ma hoc phan</td>
+			<td>Ten hoc phan</td>
+			<td>Ki hoc</td>
+			<td>Tin chi</td>
+			<td>Diem chu</td>
+			<td>Diem so</td>
+			<td>Khoa vien</td>
+		</tr>
+	</head>
+	<body>
+		<%@chuongtrinhdaotaos.each do |ctdt| %>
+		<tr>
+			<td><%=ctdt.hocphan.mahocphan%></td>
+			<td><%=ctdt.hocphan.tenhocphan%></td>
+			<td><%=ctdt.hocki%></td>
+			<td><%=ctdt.hocphan.tinchi%></td>
+			<td></td>
+			<td></td>
+			<td><%=ctdt.hocphan.khoavien.tenkhoavien%></td>			
+		</tr>
+		<%end%>
+	</body>
+
+</table>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sinhvien: one
+  hocphan: one
+  hocki: one
+
+two:
+  sinhvien: two
+  hocphan: two
+  hocki: two
