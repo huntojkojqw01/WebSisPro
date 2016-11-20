@@ -1,14 +1,15 @@
 class HocphansController < ApplicationController
-	def index
+	def index		
+		@selected=params
 		@khoaviens=Khoavien.all
-		if params[:mahocphan]!=''
-			@hocphans=Hocphan.where("mahocphan like ?","%#{params[:mahocphan]}%")
-		elsif params[:tenhocphan]!=''
-			@hocphans=Hocphan.where("tenhocphan like ?","%#{params[:tenhocphan]}%")
-		elsif params[:khoavien_id]!=''
-			@hocphans=Khoavien.find_by(id:params[:khoavien_id]).hocphans
-		else
-			@hocphans=Hocphan.all
+		@hocphans=Hocphan.joins("inner join khoaviens on hocphans.khoavien_id=khoaviens.id").select("hocphans.id,mahocphan,tenhocphan,tinchi,tinchihocphi,trongso,modangki,tenkhoavien")
+		if @selected[:khoavien_id]&&@selected[:khoavien_id]!=""
+			@hocphans=@hocphans.where("khoavien_id=#{params[:khoavien_id]}")
+		else			
 		end
+		@hocphans=@hocphans.where("mahocphan like ? and tenhocphan like ?","%#{params[:mahocphan]}%","%#{params[:tenhocphan]}%")
+	end
+	def show
+		@hocphan=Hocphan.find_by_id(params[:id])		
 	end
 end

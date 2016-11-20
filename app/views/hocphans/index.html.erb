@@ -1,8 +1,8 @@
 Danh muc hoc phan<br>
 <%= form_tag("/hocphans", method: "get") do %>
-  Tim theo khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien")%><br>
-  Tim theo ma hoc phan <%=text_field_tag 'mahocphan'%><br>
-  Tim theo ten hoc phan <%=text_field_tag 'tenhocphan'%><br>
+  Tim theo khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),include_blank:"None"%><br>
+  Tim theo ma hoc phan <%=text_field_tag 'mahocphan',@selected[:mahocphan]%><br>
+  Tim theo ten hoc phan <%=text_field_tag 'tenhocphan',@selected[:tenhocphan]%><br>
   <%= submit_tag("Search") %>
 <% end %>
 <table >
@@ -13,6 +13,8 @@ Danh muc hoc phan<br>
 			<td>Tin chi</td>
 			<td>Tin chi hoc phi</td>
 			<td>Trong so</td>
+			<td>Trang thai mo dang ki</td>
+			<td>Khoa vien</td>
 		</tr>
 	</head>
 	<body>
@@ -23,7 +25,8 @@ Danh muc hoc phan<br>
 			<td><%=hp.tinchi%></td>
 			<td><%=hp.tinchihocphi%></td>
 			<td><%=hp.trongso%></td>
-			<td><%=hp.khoavien_id%></td>
+			<td><%=hp.modangki ? "Open" : "Close" %></td>
+			<td><%=hp.tenkhoavien%></td>
 		</tr>
 		<% end %>
 	</body>

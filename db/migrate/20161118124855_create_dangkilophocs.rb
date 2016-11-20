@@ -3,11 +3,12 @@ class CreateDangkilophocs < ActiveRecord::Migration[5.0]
     create_table :dangkilophocs do |t|
       t.integer :diemquatrinh
       t.integer :diemthi
+      t.integer :diemso
+      t.string :diemchu
       t.integer :hesohocphi
       t.string :trangthaidangki
       t.references :sinhvien, foreign_key: true
-      t.references :lophoc, foreign_key: true
-      t.references :hocki, foreign_key: true
+      t.references :lophoc, foreign_key: true      
     end
   end
 end

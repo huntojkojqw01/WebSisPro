@@ -13,15 +13,15 @@ Chuong trinh dao tao danh cho sinh vien <%=@sinhvien.tensinhvien%><br>
 		</tr>
 	</head>
 	<body>
-		<%@chuongtrinhdaotaos.each do |ctdt| %>
+		<%@results.each do |r| %>
 		<tr>
-			<td><%=ctdt.hocphan.mahocphan%></td>
-			<td><%=ctdt.hocphan.tenhocphan%></td>
-			<td><%=ctdt.hocki%></td>
-			<td><%=ctdt.hocphan.tinchi%></td>
-			<td></td>
-			<td></td>
-			<td><%=ctdt.hocphan.khoavien.tenkhoavien%></td>			
+			<td><%=r[:mahocphan]%></td>
+			<td><%=r[:tenhocphan]%></td>
+			<td><%=r[:hocki]%></td>
+			<td><%=r[:tinchi]%></td>
+			<td><%=r[:diemchu]%></td>
+			<td><%=r[:diemso]%></td>
+			<td><%=r[:khoavien]%></td>			
 		</tr>
 		<%end%>
 	</body>

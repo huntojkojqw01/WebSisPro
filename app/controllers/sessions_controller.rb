@@ -9,7 +9,9 @@ class SessionsController < ApplicationController
 			params[:session][:remember_me]==1 ? remember(user) : forget(user)
 			redirect_back_or root_url
 		else
-			render 'new'
+			flash[:danger]="dang nhap that bai"
+			redirect_to root_url
+			#render 'new'
 		end
 	end
 	def destroy

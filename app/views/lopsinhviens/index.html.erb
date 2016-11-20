@@ -1,1 +1,27 @@
-trang index ahihi
+<%= form_tag("/lopsinhviens", method: "get") do %>	
+  	Khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien")%><br>
+  	Lop sinh vien <%=select_tag "lopsinhvien_id", options_from_collection_for_select(@lopsinhviens, "id", "tenlopsinhvien")%><br>
+  	Ma sinh vien <%=text_field_tag 'masinhvien'%><br>
+  	Ten sinh vien<%=text_field_tag 'tensinhvien'%><br>
+  	<%= submit_tag("Search") %>
+<% end %>
+<table >
+	<head>
+		<tr>
+			<td>Ma sinh vien</td>
+			<td>Ten sinh vien</td>
+			<td>Ngay sinh</td>
+			<td>Ten lop sinh vien</td>			
+		</tr>
+	</head>
+	<body>
+		<%@results.each do |r| %>
+		<tr>
+			<td><%=r[:masinhvien]%></td>
+			<td><%=r[:tensinhvien]%></td>
+			<td><%=r[:ngaysinh]%></td>
+			<td><%=r[:tenlopsinhvien]%></td>			
+		</tr>
+		<% end %>
+	</body>
+</table>

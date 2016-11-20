@@ -1,0 +1,34 @@
+Danh sach lop hoc<br>
+<%= form_tag("/lophocs", method: "get") do %>
+	Hoc ki <%=select_tag "hocki_id", options_from_collection_for_select(@hockis, "id", "mahocki",@selected[:hocki_id])%>
+  	Khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id])%><br>
+  	Ma lop <%=text_field_tag 'malophoc',@selected[:malophoc]%><br>
+  	Ma hoc phan <%=text_field_tag 'mahocphan',@selected[:mahocphan]%><br>
+  	<%= submit_tag("Search") %>
+<% end %>
+<table >
+	<head>
+		<tr>
+			<td>Ma lop</td>
+			<td>Ma hoc phan</td>
+			<td>Ten hoc phan</td>
+			<td>Trang thai</td>
+			<td>Max dang ki</td>
+			<td>Da dang ki</td>
+			<td>Khoa vien</td>
+		</tr>
+	</head>
+	<body>
+		<%@results.each do |r| %>
+		<tr>
+			<td><%=link_to r[:malophoc], "/lophocs/#{r[:lophoc_id]}"%></td>
+			<td><%=r[:mahocphan]%></td>
+			<td><%=r[:tenhocphan]%></td>
+			<td><%=r[:trangthai]%></td>
+			<td><%=r[:maxdangki]%></td>
+			<td><%=r[:dadangki]%></td>
+			<td><%=r[:khoavien]%></td>
+		</tr>
+		<% end %>
+	</body>
+</table>

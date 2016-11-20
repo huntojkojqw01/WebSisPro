@@ -1,1 +1,31 @@
-trang index ahihi
+test Danh sach lop hoc<br>
+<%= form_tag("/dangkilophocs", method: "get") do %>
+	Hoc ki <%=select_tag "hocki_id", options_from_collection_for_select(@hockis, "id", "mahocki")%>
+  	Khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien")%><br>  	
+  	Ma hoc phan <%=text_field_tag 'mahocphan'%><br>
+  	<%= submit_tag("Search") %>
+<% end %>
+<table >
+	<head>
+		<tr>
+			<td>Ma lop</td>
+			<td>Ma hoc phan</td>
+			<td>Ten hoc phan</td>
+			<td>Trang thai</td>
+			<td>Max dang ki</td>
+			<td>Da dang ki</td>			
+		</tr>
+	</head>
+	<body>
+		<%@results.each do |r| %>
+		<tr>
+			<td><%=r[:malophoc]%></td>
+			<td><%=r[:mahocphan]%></td>
+			<td><%=r[:tenhocphan]%></td>
+			<td><%=r[:trangthai]%></td>
+			<td><%=r[:maxdangki]%></td>
+			<td><%=r[:dadangki]%></td>			
+		</tr>
+		<% end %>
+	</body>
+</table>

@@ -1,0 +1,21 @@
+Danh sach sinh vien lop <%=@lophoc.malophoc%>
+<table >
+	<head>
+		<tr>			
+			<td>Ma sinh vien</td>
+			<td>Ten sinh vien</td>
+			<td>Lop hoc</td>
+			<td>Trang thai</td>				
+		</tr>
+	</head>
+	<body>
+		<%@results.each do |r| %>
+		<tr>
+			<td><%=r[:masinhvien]%></td>
+			<td><%=r[:tensinhvien]%></td>
+			<td><%=r[:lopsinhvien]%></td>
+			<td><%=r[:trangthaidangki]%></td>			
+		</tr>
+		<% end %>
+	</body>
+</table>

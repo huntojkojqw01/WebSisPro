@@ -1,0 +1,27 @@
+<%= form_tag("/sinhviens", method: "get") do %>	
+  	Khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None"%><br>
+  	Lop sinh vien <%=select_tag "lopsinhvien_id", options_from_collection_for_select(@lopsinhviens, "id", "tenlopsinhvien",@selected[:lopsinhvien_id]),:include_blank=>"None" %><br>
+  	Ma sinh vien <%=text_field_tag 'masinhvien',@selected[:masinhvien]%><br>
+  	Ten sinh vien<%=text_field_tag 'tensinhvien',@selected[:tensinhvien]%><br>
+  	<%= submit_tag("Search") %>
+<% end %>
+<table >
+	<head>
+		<tr>
+			<td>Ma sinh vien</td>
+			<td>Ten sinh vien</td>
+			<td>Ngay sinh</td>
+			<td>Ten lop sinh vien</td>			
+		</tr>
+	</head>
+	<body>
+		<%@sinhviens.each do |sv| %>
+		<tr>
+			<td><%=link_to sv.masinhvien, "/sinhviens/#{sv.id}"%></td>
+			<td><%=sv.tensinhvien%></td>
+			<td><%=sv.ngaysinh%></td>
+			<td><%=link_to sv.tenlopsinhvien,"/lopsinhviens/#{sv.lopsinhvien_id}"%></td>			
+		</tr>
+		<% end %>
+	</body>
+</table>

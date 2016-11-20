@@ -5,6 +5,51 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+def diemso(diemquatrinh,diemthi,trongso)
+		return 0 if diemquatrinh<3||diemthi<3
+		diem=((10-trongso)*diemquatrinh+trongso*diemthi)/10.0
+		if diem>=9.45			
+			return 4.5
+		elsif diem>=8.45
+			return 4
+		elsif diem>=7.95
+			return 3.5
+		elsif diem>=6.95
+			return 3
+		elsif diem>=6.45
+			return 2.5
+		elsif diem>=5.45
+			return 2
+		elsif diem>=4.95
+			return 1.5
+		elsif diem>=3.95
+			return 1
+		else
+			return 0
+		end
+end
+def diemchu(diemso)
+		case diemso
+		when 4.5
+			return "A+"
+		when 4
+			return "A"
+		when 3.5
+			return "B+"
+		when 3
+			return "B"
+		when 2.5
+			return "C+"
+		when 2
+			return "C"
+		when 1.5
+			return "D+"
+		when 1
+			return "D"
+		else
+			return "F"	
+		end			
+end
 Chuongtrinhdaotao.destroy_all
 Dangkihocphan.destroy_all
 Dangkilophoc.destroy_all
@@ -69,13 +114,14 @@ end
 		Dangkihocphan.create(hocphan_id:tmp3,sinhvien_id:tmp,hocki_id:tmp2)
 end
 1.upto(30) do |i|
-		tmp=Sinhvien.count
-		tmp=rand(tmp)+Sinhvien.first.id
-		tmp2=Hocki.count
-		tmp2=rand(tmp2)+Hocki.first.id
-		tmp3=Lophoc.count
-		tmp3=rand(tmp3)+Lophoc.first.id	
-		Dangkilophoc.create(diemquatrinh:rand(10),diemthi:rand(10),hesohocphi:rand(3),trangthaidangki:"thanh cong",lophoc_id:tmp3,sinhvien_id:tmp,hocki_id:tmp2)
+		sinhvien=Sinhvien.offset(rand(Sinhvien.count)).first			
+		lophoc=Lophoc.offset(rand(Lophoc.count)).first		
+		diemquatrinh=rand(10)
+		diemthi=rand(10)
+		trongso=lophoc.hocphan.trongso
+		diemso=diemso(diemquatrinh,diemthi,trongso)
+		diemchu=diemchu(diemso)
+		Dangkilophoc.create(diemquatrinh:diemquatrinh,diemthi:diemthi,diemso:diemso,diemchu:diemchu,hesohocphi:rand(3),trangthaidangki:"thanh cong",lophoc_id:lophoc.id,sinhvien_id:sinhvien.id)
 end
 1.upto(20) do |i|
 		tmp=Hocphan.count

@@ -1,0 +1,32 @@
+Ma sinh vien <%=@sinhvien.masinhvien%><br>
+Bang hoc phi sinh vien <%=@sinhvien.tensinhvien%><br>
+<%= form_tag("/canhans/hocphi", method: "get") do %>	
+  	Chon hoc ki<%=select_tag "hocki_id",options_from_collection_for_select(@hockis, "id", "mahocki",@hocki.id)%>
+  	<%= submit_tag("Search") %>
+<% end %>
+<table>
+	<head>
+		<tr>			
+			<td>Ma hoc phan</td>
+			<td>Ten hoc phan</td>			
+			<td>Tin chi</td>
+			<td>Tin chi hoc phi</td>
+			<td>He so hoc phi</td>
+			<td>Ma lop hoc</td>					
+		</tr>
+	</head>
+	<body>
+		<%@results.each do |r| %>
+		<tr>			
+			<td><%=r[:mahocphan]%></td>
+			<td><%=r[:tenhocphan]%></td>			
+			<td><%=r[:tinchi]%></td>
+			<td><%=r[:tinchihocphi]%></td>
+			<td><%=r[:heso]%></td>
+			<td><%=r[:malophoc]%></td>				
+		</tr>
+		<%end%>
+	</body>
+</table>
+Dinh muc hoc phi <%=@hocki.dinhmuchocphi%><br>
+Tong tien phai dong <%=@tongtienphaidong%>

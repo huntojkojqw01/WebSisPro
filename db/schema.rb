@@ -35,12 +35,12 @@ ActiveRecord::Schema.define(version: 20161118124855) do
   create_table "dangkilophocs", force: :cascade do |t|
     t.integer "diemquatrinh"
     t.integer "diemthi"
+    t.integer "diemso"
+    t.string  "diemchu"
     t.integer "hesohocphi"
     t.string  "trangthaidangki"
     t.integer "sinhvien_id"
     t.integer "lophoc_id"
-    t.integer "hocki_id"
-    t.index ["hocki_id"], name: "index_dangkilophocs_on_hocki_id", using: :btree
     t.index ["lophoc_id"], name: "index_dangkilophocs_on_lophoc_id", using: :btree
     t.index ["sinhvien_id"], name: "index_dangkilophocs_on_sinhvien_id", using: :btree
   end
@@ -122,7 +122,6 @@ ActiveRecord::Schema.define(version: 20161118124855) do
   add_foreign_key "dangkihocphans", "hockis"
   add_foreign_key "dangkihocphans", "hocphans"
   add_foreign_key "dangkihocphans", "sinhviens"
-  add_foreign_key "dangkilophocs", "hockis"
   add_foreign_key "dangkilophocs", "lophocs"
   add_foreign_key "dangkilophocs", "sinhviens"
   add_foreign_key "giaoviens", "khoaviens"

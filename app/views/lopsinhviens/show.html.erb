@@ -1,0 +1,22 @@
+Danh sach sinh vien lop <%=@lopsinhvien.tenlopsinhvien%><br>
+Giao vien chu nhiem <%=@giaovien.tengiaovien%><br>
+Khoa hoc <%=@lopsinhvien.khoahoc%><br>
+Khoa vien <%=@khoavien.tenkhoavien%><br>
+<table >
+	<head>
+		<tr>
+			<td>Ma sinh vien</td>
+			<td>Ten sinh vien</td>
+			<td>Ngay sinh</td>					
+		</tr>
+	</head>
+	<body>
+		<%@sinhviens.each do |sv| %>
+		<tr>
+			<td><%=link_to sv.masinhvien, "/sinhviens/#{sv.id}"%></td>
+			<td><%=sv.tensinhvien%></td>
+			<td><%=sv.ngaysinh%></td>	
+		</tr>
+		<% end %>
+	</body>
+</table>

@@ -14,16 +14,16 @@ Bang diem sinh vien <%=@sinhvien.tensinhvien%><br>
 		</tr>
 	</head>
 	<body>
-		<%@dangkilophocs.each do |dklh| %>
+		<%@bangdiems.each do |bd| %>
 		<tr>			
-			<td><%=dklh.hocki.mahocki%></td>
-			<td><%=dklh.lophoc.hocphan.mahocphan%></td>
-			<td><%=dklh.lophoc.hocphan.tenhocphan%></td>			
-			<td><%=dklh.lophoc.hocphan.tinchi%></td>
-			<td><%=dklh.lophoc.malophoc%></td>
-			<td><%=dklh.diemquatrinh%></td>
-			<td><%=dklh.diemthi%></td>			
-			<td></td>			
+			<td><%=bd[:mahocki]%></td>
+			<td><%=bd[:mahocphan]%></td>
+			<td><%=bd[:tenhocphan]%></td>			
+			<td><%=bd[:tinchi]%></td>
+			<td><%=bd[:malophoc]%></td>
+			<td><%=bd[:diemquatrinh]%></td>
+			<td><%=bd[:diemthi]%></td>
+			<td><%=bd[:diemchu]%></td>					
 		</tr>
 		<%end%>
 	</body>
