@@ -1,22 +1,30 @@
 Danh muc hoc phan<br>
 <%= form_tag("/hocphans", method: "get") do %>
   Tim theo khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),include_blank:"None"%><br>
-  Tim theo ma hoc phan <%=text_field_tag 'mahocphan',@selected[:mahocphan]%><br>
-  Tim theo ten hoc phan <%=text_field_tag 'tenhocphan',@selected[:tenhocphan]%><br>
-  <%= submit_tag("Search") %>
+  <div class="form-inline">
+    <div class="col-sm-6">
+      Tim theo ma hoc phan <%=text_field_tag 'mahocphan',@selected[:mahocphan]%>
+    </div>
+    <div class="col-sm-3">
+    </div>
+    <div class="col-sm-6">
+      Tim theo ten hoc phan <%=text_field_tag 'tenhocphan',@selected[:tenhocphan]%>
+    </div>
+  </div>
+  <%= submit_tag "Search", class: 'btn btn-success' %>
 <% end %>
-<table >
-	<head>
+<table class="table table-striped">
+	<thead>
 		<tr>
-			<td>Ma hoc phan</td>
-			<td>Ten hoc phan</td>
-			<td>Tin chi</td>
-			<td>Tin chi hoc phi</td>
-			<td>Trong so</td>
-			<td>Trang thai mo dang ki</td>
-			<td>Khoa vien</td>
+			<th>Ma hoc phan</th>
+			<th>Ten hoc phan</th>
+			<th>Tin chi</th>
+			<th>Tin chi hoc phi</th>
+			<th>Trong so</th>
+			<th>Trang thai mo dang ki</th>
+			<th>Khoa vien</th>
 		</tr>
-	</head>
+	</thead>
 	<body>
 		<%@hocphans.each do |hp| %>
 		<tr>
