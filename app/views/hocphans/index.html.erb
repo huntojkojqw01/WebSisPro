@@ -1,17 +1,27 @@
-Danh muc hoc phan<br>
+<div class="xyz">
+  Danh muc hoc phan<br><br><br>
+</div>
 <%= form_tag("/hocphans", method: "get") do %>
-  Tim theo khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),include_blank:"None"%><br>
   <div class="form-inline">
-    <div class="col-sm-6">
+    <div class="col-md-2">
+      Tim theo khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),include_blank:"None"%>
+    </div>
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-2">
       Tim theo ma hoc phan <%=text_field_tag 'mahocphan',@selected[:mahocphan]%>
     </div>
-    <div class="col-sm-3">
+    <div class="col-md-1">
     </div>
-    <div class="col-sm-6">
+    <div class="col-md-2">
       Tim theo ten hoc phan <%=text_field_tag 'tenhocphan',@selected[:tenhocphan]%>
     </div>
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-1">
+      <%= submit_tag "Search", class: 'btn btn-success' %>
+    </div>
   </div>
-  <%= submit_tag "Search", class: 'btn btn-success' %>
 <% end %>
 <table class="table table-striped">
 	<thead>

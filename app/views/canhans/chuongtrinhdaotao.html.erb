@@ -1,17 +1,17 @@
-Ma sinh vien <%=@sinhvien.masinhvien%><br>
-Chuong trinh dao tao danh cho sinh vien <%=@sinhvien.tensinhvien%><br>
-<table>
-	<head>
+
+<b>Chuong trinh dao tao danh cho sinh vien</b> <%=@sinhvien.tensinhvien%> (<b>MSSV:</b> <%=@sinhvien.masinhvien%>)<br><br>
+<table class="table table-striped">
+	<thead>
 		<tr>
-			<td>Ma hoc phan</td>
-			<td>Ten hoc phan</td>
-			<td>Ki hoc</td>
-			<td>Tin chi</td>
-			<td>Diem chu</td>
-			<td>Diem so</td>
-			<td>Khoa vien</td>
+			<th>Ma hoc phan</th>
+			<th>Ten hoc phan</th>
+			<th>Ki hoc</th>
+			<th>Tin chi</th>
+			<th>Diem chu</th>
+			<th>Diem so</th>
+			<th>Khoa vien</th>
 		</tr>
-	</head>
+	</thead>
 	<body>
 		<%@results.each do |r| %>
 		<tr>
@@ -21,9 +21,8 @@ Chuong trinh dao tao danh cho sinh vien <%=@sinhvien.tensinhvien%><br>
 			<td><%=r[:tinchi]%></td>
 			<td><%=r[:diemchu]%></td>
 			<td><%=r[:diemso]%></td>
-			<td><%=r[:khoavien]%></td>			
+			<td><%=r[:khoavien]%></td>
 		</tr>
 		<%end%>
 	</body>
-
 </table>
