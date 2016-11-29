@@ -1,3 +1,46 @@
 // Place all the styles related to the bang_diem controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+#score_title{
+  text-align: left;
+  color: orange;
+  font-size: 20px;
+}
+
+#blue_line{
+  background: blue;
+  height: 5px;
+}
+
+#student_info{
+  margin-left: 0px;
+  margin-top: 40px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background: #D8F6CE;
+  height: 250px;
+  width:300px;
+}
+
+#student_info_label{
+  height: 30px;
+  width: 300px;
+}
+
+#student_info_title{
+  text-align: center;;
+  color: black;
+  font-size: 15px;
+}
+
+#green_line{
+  height: 3px;
+  width: 300px;
+  background: #BADA55;
+}
+
+#student_info_board{
+  position: absolute;
+  left: 50px;
+  margin-top: 30px;
+}
