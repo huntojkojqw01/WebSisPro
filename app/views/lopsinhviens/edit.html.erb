@@ -1,0 +1,18 @@
+<%=provide(:title,"Edit lop sinh vien ")%>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<h1>Thay đổi thông tin lop sinh vien </h1>
+		<%= form_for(@lopsinhvien) do |f| %>
+		    <%= render 'shared/error_messages', object: f.object %>
+		    <%= f.label :"Tên lop" %>
+		    <%= f.text_field :tenlopsinhvien ,class: 'form-control', placeholder: "Nhập tên lop sinh vien "%>		    		    
+		    <%= f.label :"Giao vien chu nhiem" %>
+		    <%= f.collection_select :giaovien_id, Giaovien.all, :id, :tengiaovien, prompt: true %>
+			<%= f.label :"Khoa hoc" %>
+		    <%= f.number_field :khoahoc ,class: 'form-control', placeholder: "Chon khoa hoc "%>
+		    <%= f.label :"Khoa vien" %>
+		    <%= f.collection_select :khoavien_id, Khoavien.all, :id, :tenkhoavien, prompt: true %>
+		    <%= f.submit "Thay đổi ",class: "btn btn-primary"%>
+		<% end %>
+	</div>
+</div>

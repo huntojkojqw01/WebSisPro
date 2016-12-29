@@ -7,8 +7,8 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   resources :users
-  resources :hocphans,only: [:index]
-  resources :lophocs, only: [:index,:show]
+  resources :hocphans
+  resources :lophocs
   get '/canhans/chuongtrinhdaotao'=>'canhans#chuongtrinhdaotao'
   get '/canhans/dangkihoctap'=>'canhans#dangkihoctap'
   get '/canhans/thoikhoabieu'=>'canhans#thoikhoabieu'
@@ -18,7 +18,12 @@ Rails.application.routes.draw do
   get 'canhans/bangdiem'=>'<canhans id="bangdiem"></canhans>'
   resources :dangkilophocs, only: [:index,:show]
   get '/dangkihocphans'=>'dangkihocphans#index'
-  resources :lopsinhviens,only: [:show]
-  resources :sinhviens,only: [:index,:show]
+  resources :khoaviens
+  resources :lopsinhviens
+  resources :sinhviens do
+      collection { post :import }
+    end
+  resources :giaoviens
+  resources :hockis
 
 end

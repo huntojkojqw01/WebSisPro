@@ -1,27 +1,30 @@
-<%= form_tag("/lopsinhviens", method: "get") do %>	
-  	Khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien")%><br>
-  	Lop sinh vien <%=select_tag "lopsinhvien_id", options_from_collection_for_select(@lopsinhviens, "id", "tenlopsinhvien")%><br>
-  	Ma sinh vien <%=text_field_tag 'masinhvien'%><br>
-  	Ten sinh vien<%=text_field_tag 'tensinhvien'%><br>
-  	<%= submit_tag("Search") %>
+<%= form_tag(lopsinhviens_path, method: "get") do %>	
+  	Khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>
+  	Ten lop sinh vien<%=text_field_tag "tenlopsinhvien",@selected[:tenlopsinhvien]%><br>
+  	<%= submit_tag("Search") %> 
 <% end %>
+<%= will_paginate @sinhviens , :outer_window=>1,:inner_window=>1%>
 <table >
 	<head>
 		<tr>
-			<td>Ma sinh vien</td>
-			<td>Ten sinh vien</td>
-			<td>Ngay sinh</td>
-			<td>Ten lop sinh vien</td>			
+			<td>Ten lop sinh vien</td>
+			<td>Giao vien chu nhiem</td>
+			<td>Khoa hoc</td>
+			<td>Khoa vien</td>			
 		</tr>
 	</head>
 	<body>
-		<%@results.each do |r| %>
+		<%@lopsinhviens.each do |lsv| %>
 		<tr>
-			<td><%=r[:masinhvien]%></td>
-			<td><%=r[:tensinhvien]%></td>
-			<td><%=r[:ngaysinh]%></td>
-			<td><%=r[:tenlopsinhvien]%></td>			
+			<td><%=link_to lsv.tenlopsinhvien,lsv%></td>
+			<td><%=lsv.giaovien.tengiaovien%></td>
+			<td><%=lsv.khoahoc%></td>
+			<td><%=lsv.khoavien.tenkhoavien%></td>			
 		</tr>
 		<% end %>
 	</body>
 </table>
+<%= will_paginate @sinhviens , :outer_window=>1,:inner_window=>1%>
+<%= page_entries_info @sinhviens %>
+
+<%= link_to ' Them lop sinh vien ', new_lopsinhvien_path %>

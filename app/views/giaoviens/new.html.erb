@@ -1,0 +1,23 @@
+<%=provide(:title,"Thêm giao vien ")%>
+<div class="row">
+	<div class="col-md-9">
+		<h1>Thêm giao vien mới </h1>
+		<%= form_for(@giaovien) do |f| %>
+		    <%= render 'shared/error_messages', object: f.object %>
+		    <%= f.label :"Ma giao vien" %>
+		    <%= f.text_field :magiaovien ,class: 'form-control', placeholder: "Nhập ma giao vien "%>
+		    <%= f.label :"Tên giao vien" %>
+		    <%= f.text_field :tengiaovien ,class: 'form-control', placeholder: "Nhập tên giao vien "%>
+		    <%= f.label :"Ngay sinh" %>
+		    <%= f.text_field :ngaysinh ,class: 'form-control', placeholder: "Nhập ngay sinh"%>    
+		    <%= f.label :"Email" %>
+		    <%= f.text_field :email ,class: 'form-control', placeholder: "Nhập email "%>
+		    <%= f.label :"Khoa vien" %>
+		    <%= f.collection_select :khoavien_id, Khoavien.all, :id, :tenkhoavien, prompt: true %>
+		    <%= f.submit "Thêm ",class: "btn btn-primary"%>
+		<% end %>
+	</div>
+	<div class="col-md-3">
+			  	
+	</div>
+</div>

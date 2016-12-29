@@ -6,6 +6,7 @@ Danh sach lop hoc<br>
   	Ma hoc phan <%=text_field_tag 'mahocphan',@selected[:mahocphan]%><br>
   	<%= submit_tag("Search") %>
 <% end %>
+<%= will_paginate @lophocs , :outer_window=>1,:inner_window=>1%>
 <table >
 	<head>
 		<tr>
@@ -32,3 +33,5 @@ Danh sach lop hoc<br>
 		<% end %>
 	</body>
 </table>
+<%= will_paginate @lophocs , :outer_window=>1,:inner_window=>1%>
+<%= page_entries_info @lophocs %>

@@ -5,11 +5,11 @@ module ApplicationHelper
 	def hello
 		case current_user.loai
 		when "ad"
-			return "Xin chao Admin"
+			return "Xin chao admin"
 		when "sv"
-			return "Xin chao Sinh vien"
+			return "Xin chao sinh vien"
 		when "gv"
-			return "Xin chao Giao vien"
+			return "Xin chao giao vien"
 		else
 		end
 	end

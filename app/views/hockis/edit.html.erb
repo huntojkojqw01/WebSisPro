@@ -1,0 +1,14 @@
+<%=provide(:title,"Edit hoc ki ")%>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<h1>Thay đổi thông tin hoc ki </h1>
+		<%= form_for(@hocki) do |f| %>
+		    <%= render 'shared/error_messages', object: f.object %>
+		    <%= f.label :"Ma hoc ki" %>
+		    <%= f.text_field :mahocki ,class: 'form-control', placeholder: "Nhập ma hoc ki "%>
+		    <%= f.label :"Dinh muc hoc phi" %>
+		    <%= f.number_field :dinhmuchocphi ,class: 'form-control', placeholder: "Nhập muc hoc phi "%>
+		    <%= f.submit "Thay đổi ",class: "btn btn-primary"%>
+		<% end %>
+	</div>
+</div>

@@ -1,0 +1,29 @@
+<%=provide(:title,"Danh muc hoc ki ")%>
+<div class="row">
+	<div class="col-md-9">
+		<table >
+			<head>
+				<tr><td>Ma hoc ki</td>
+					<td>Dinh muc hoc phi</td>
+					<td></td>											
+				</tr>
+			</head>
+			<body>
+				<%@hockis.each do |hk| %>
+				<tr>
+					<td><%=hk.mahocki%></td>
+					<td><%=hk.dinhmuchocphi%></td>
+					<td><%=link_to " Edit ",edit_hocki_path(hk)%></td>						
+				</tr>
+				<% end %>
+			</body>
+		</table>
+		<%= will_paginate @hockis , :outer_window=>1,:inner_window=>1%>
+		<%= page_entries_info @hockis %>
+
+		<%= link_to ' Them hoc ki ', new_hocki_path %>		
+	</div>
+	<div class="col-md-9">
+				  	
+	</div>
+</div>

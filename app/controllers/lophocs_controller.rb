@@ -15,11 +15,13 @@ class LophocsController < ApplicationController
 			@lophocs=Lophoc.all
 		end
 		@results=[]
+		@lophocs=@lophocs.paginate(page: params[:page],:per_page=>20)
 		@lophocs.each do |lh|
 			hocphan=lh.hocphan
 			khoavien=hocphan.khoavien
 			@results<<{lophoc_id:lh.id,malophoc:lh.malophoc,mahocphan:hocphan.mahocphan,tenhocphan:hocphan.tenhocphan,trangthai:hocphan.modangki,maxdangki:lh.maxdangki,dadangki:lh.dangkilophocs.count,khoavien:khoavien.tenkhoavien}
 		end
+
 	end
 	def show
 		@lophoc=Lophoc.find_by_id(params[:id])		

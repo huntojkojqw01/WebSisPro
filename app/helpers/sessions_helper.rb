@@ -19,6 +19,15 @@ module SessionsHelper
   def logged_in?
     !current_user.nil?
   end
+  def admin?
+    !current_user.nil? && current_user.loai=="ad"
+  end
+  def sinhvien?
+    !current_user.nil? && current_user.loai=="sv"
+  end
+  def giaovien?
+    !current_user.nil? && current_user.loai=="gv"
+  end
    # Remembers a user in a persistent session
   def remember(user)
   	user.remember
