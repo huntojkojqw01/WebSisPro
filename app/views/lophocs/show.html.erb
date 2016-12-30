@@ -1,21 +1,39 @@
-Danh sach sinh vien lop <%=@lophoc.malophoc%>
-<table >
-	<head>
-		<tr>			
-			<td>Ma sinh vien</td>
-			<td>Ten sinh vien</td>
-			<td>Lop hoc</td>
-			<td>Trang thai</td>				
-		</tr>
-	</head>
-	<body>
-		<%@results.each do |r| %>
-		<tr>
-			<td><%=r[:masinhvien]%></td>
-			<td><%=r[:tensinhvien]%></td>
-			<td><%=r[:lopsinhvien]%></td>
-			<td><%=r[:trangthaidangki]%></td>				
-		</tr>
-		<% end %>
-	</body>
-</table>
+<%=provide(:title,"Thong tin lop hoc ")%>
+<div class="row">
+	<div class="col-md-4">
+		Ma lop hoc <%=@lophoc.malophoc%><br>
+		Thoi gian <%=toTime(@lophoc.thoigian)%><br>
+		Dia diem <%=@lophoc.diadiem%><br>
+		Giao vien giang day <%=@lophoc.giaovien.tengiaovien%><br>		
+		Hoc phan <%=@lophoc.hocphan.tenhocphan%>-<%=@lophoc.hocphan.mahocphan%><br>
+		So luong dang ki <%=@lophoc.dangkilophocs.count%>/<%=@lophoc.maxdangki%><br>		
+		<%=link_to " Edit ",edit_lophoc_path(@lophoc)%>
+		<%= link_to ' Xóa ', @lophoc, method: :delete,
+				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %>
+		
+	</div>
+	<div class="col-md-6">
+		<%= will_paginate @sinhviens , :outer_window=>1,:inner_window=>1%>
+		<table >
+			<head>
+				<tr>
+					<td>Ma sinh vien</td>
+					<td>Ten sinh vien</td>					
+					<td>Ten lop sinh vien</td>			
+				</tr>
+			</head>
+			<body>
+				<%@sinhviens.each do |sv| %>
+				<tr>
+					<td><%=link_to sv.masinhvien, sv %></td>
+					<td><%=sv.tensinhvien%></td>					
+					<td><%=sv.lopsinhvien.tenlopsinhvien%></td>			
+				</tr>
+				<% end %>
+			</body>
+		</table>
+		<%= will_paginate @sinhviens , :outer_window=>1,:inner_window=>1%>
+		<%= page_entries_info @sinhviens %>		  	
+	</div>
+</div>
+

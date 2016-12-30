@@ -74,7 +74,7 @@ end
 1.upto(30) do |i|
 	tmp=Khoavien.count
 	tmp=rand(tmp)+Khoavien.first.id	
-	Hocphan.create!(mahocphan:"HocPhan #{i}",tenhocphan:Faker::Name.name,tinchi:(Faker::Number.between(1,3)+1)*10,tinchihocphi:(Faker::Number.between(1,5)+1)*10,trongso:Faker::Number.between(7,8),modangki:Faker::Boolean.boolean,khoavien_id:tmp)
+	Hocphan.create!(mahocphan:"HocPhan #{i}",tenhocphan:Faker::Name.name,tinchi:(Faker::Number.between(1,3)+1),tinchihocphi:(Faker::Number.between(1,5)+1),trongso:Faker::Number.between(7,8)*0.1,modangki:Faker::Boolean.boolean,khoavien_id:tmp)
 end
 1.upto(10) do |i|
 	tmp=Khoavien.count

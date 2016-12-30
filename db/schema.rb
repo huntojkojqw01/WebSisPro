@@ -33,11 +33,11 @@ ActiveRecord::Schema.define(version: 20161118124855) do
   end
 
   create_table "dangkilophocs", force: :cascade do |t|
-    t.integer "diemquatrinh"
-    t.integer "diemthi"
-    t.integer "diemso"
+    t.float   "diemquatrinh"
+    t.float   "diemthi"
+    t.float   "diemso"
     t.string  "diemchu"
-    t.integer "hesohocphi"
+    t.float   "hesohocphi"
     t.string  "trangthaidangki"
     t.integer "sinhvien_id"
     t.integer "lophoc_id"
@@ -62,9 +62,9 @@ ActiveRecord::Schema.define(version: 20161118124855) do
   create_table "hocphans", force: :cascade do |t|
     t.string  "mahocphan"
     t.string  "tenhocphan"
-    t.integer "tinchi"
-    t.integer "tinchihocphi"
-    t.integer "trongso"
+    t.float   "tinchi"
+    t.float   "tinchihocphi"
+    t.float   "trongso"
     t.boolean "modangki"
     t.integer "khoavien_id"
     t.index ["khoavien_id"], name: "index_hocphans_on_khoavien_id", using: :btree

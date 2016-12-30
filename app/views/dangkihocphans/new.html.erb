@@ -1,0 +1,19 @@
+<%=provide(:title,"Thêm dang ki hoc phan")%>
+<div class="row">
+	<div class="col-md-9">
+		<h1>Thêm dang ki hoc phan mới </h1>
+		<%= form_for(@dangkihocphan) do |f| %>
+		    <%= render 'shared/error_messages', object: f.object %>
+		    <%= f.label :"Sinh vien" %>
+		    <%= f.collection_select :sinhvien_id, Sinhvien.all, :id, :masinhvien, prompt: true %>
+		    <%= f.label :"Hoc phan" %>
+		    <%= f.collection_select :hocphan_id, Hocphan.all, :id, :mahocphan, prompt: true %>
+		    <%= f.label :"Hoc ki" %>
+		    <%= f.collection_select :hocki_id, Hocki.all, :id, :mahocki, prompt: true %>
+		    <%= f.submit "Thêm ",class: "btn btn-primary"%>
+		<% end %>
+	</div>
+	<div class="col-md-3">
+			  	
+	</div>
+</div>

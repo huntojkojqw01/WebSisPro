@@ -1,10 +1,10 @@
 <div class="xyz">
   Danh muc hoc phan<br><br><br>
 </div>
-<%= form_tag("/hocphans", method: "get") do %>
+<%= form_tag(hocphans_path, method: "get") do %>
   <div class="form-inline">
     <div class="col-md-2">
-      Tim theo khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),include_blank:"None"%>
+      Tim theo khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),include_blank:"None",:onchange=>"this.form.submit();"%>
     </div>
     <div class="col-md-1">
     </div>
@@ -23,6 +23,7 @@
     </div>
   </div>
 <% end %>
+<%= will_paginate @hocphans , :outer_window=>1,:inner_window=>1%>
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -37,15 +38,20 @@
 	</thead>
 	<body>
 		<%@hocphans.each do |hp| %>
+		
 		<tr>
-			<td><%=hp.mahocphan%></td>
+			<td><%=link_to hp.mahocphan,hp%></td>
 			<td><%=hp.tenhocphan%></td>
 			<td><%=hp.tinchi%></td>
 			<td><%=hp.tinchihocphi%></td>
-			<td><%=hp.trongso%></td>
+			<td><%=(1-hp.trongso).round(1)%>-<%=hp.trongso%></td>
 			<td><%=hp.modangki ? "Open" : "Close" %></td>
-			<td><%=hp.tenkhoavien%></td>
+			<td><%=hp.khoavien.tenkhoavien%></td>
 		</tr>
 		<% end %>
 	</body>
 </table>
+<%= will_paginate @hocphans , :outer_window=>1,:inner_window=>1%>
+<%= page_entries_info @hocphans %>
+<%= link_to " Tải xuống ", hocphans_path(format: :csv), class: "btn btn-primary glyphicon glyphicon-download-alt"%>
+<%= link_to ' Them hoc phan ', new_hocphan_path %>

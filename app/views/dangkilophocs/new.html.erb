@@ -1,0 +1,21 @@
+<%=provide(:title,"Thêm dang ki lop hoc")%>
+<div class="row">
+	<div class="col-md-9">
+		<h1>Thêm dang ki lop hoc moi </h1>
+		<%= form_for(@dangkilophoc) do |f| %>
+		    <%= render 'shared/error_messages', object: f.object %>
+		    <%= f.label :"Sinh vien" %>
+		    <%= f.collection_select :sinhvien_id, Sinhvien.all, :id, :masinhvien, prompt: true %>
+		    <%= f.label :"Lop hoc" %>
+		    <%= f.collection_select :lophoc_id, Lophoc.all, :id, :malophoc, prompt: true %>
+		    <%= f.label :"Trang thai dang ki" %>
+		    <%= f.collection_radio_buttons :trangthaidangki, [[true,"Chinh thuc"],[false,"Ket thuc"]], :first, :last %>
+		    <%= f.label :"He so hoc phi" %>
+		    <%= f.number_field :hesohocphi %>
+		    <%= f.submit "Thêm ",class: "btn btn-primary"%>
+		<% end %>
+	</div>
+	<div class="col-md-3">
+			  	
+	</div>
+</div>

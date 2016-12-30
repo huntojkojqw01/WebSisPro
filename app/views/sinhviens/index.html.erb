@@ -1,4 +1,4 @@
-<%= form_tag("/sinhviens", method: "get") do %>	
+<%= form_tag(sinhviens_path, method: "get") do %>	
   	Khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>
   	Lop sinh vien <%=select_tag "lopsinhvien_id", options_from_collection_for_select(@lopsinhviens, "id", "tenlopsinhvien",@selected[:lopsinhvien_id]),:include_blank=>"None",:onchange => "this.form.submit();" %><br>
   	Ma sinh vien <%=text_field_tag 'masinhvien',@selected[:masinhvien]%><br>
@@ -21,7 +21,7 @@
 			<td><%=link_to sv.masinhvien, sv %></td>
 			<td><%=sv.tensinhvien%></td>
 			<td><%=sv.ngaysinh%></td>
-			<td><%=link_to sv.tenlopsinhvien, sv.lopsinhvien%></td>			
+			<td><%=sv.tenlopsinhvien%></td>			
 		</tr>
 		<% end %>
 	</body>

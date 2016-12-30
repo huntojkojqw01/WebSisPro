@@ -1,1 +1,21 @@
-Ahihi
+<%=provide(:title,"Thong tin hoc phan ")%>
+<div class="row">
+	<div class="col-md-9">
+		Ma hoc phan <%=@hocphan.mahocphan%><br>
+		Ten hoc phan <%=@hocphan.tenhocphan%><br>
+		Tin chi <%=@hocphan.tinchi%><br>
+		Tin chi hoc phi <%=@hocphan.tinchihocphi%><br>
+		
+		Trong so <%=(1-@hocphan.trongso).round(1)%>-<%=@hocphan.trongso%><br>
+		Khoa vien <%=@hocphan.khoavien.tenkhoavien%><br>
+		
+		<%=link_to " Edit ",edit_hocphan_path(@hocphan)%>
+		<%= link_to ' Xóa ', @hocphan, method: :delete,
+				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %>
+		
+	</div>
+	<div class="col-md-3">
+				  	
+	</div>
+</div>
+

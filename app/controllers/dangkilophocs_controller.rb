@@ -1,30 +1,48 @@
 class DangkilophocsController < ApplicationController
-	def index
-		@hockis=Hocki.order(mahocki: :asc)
-		@khoaviens=Khoavien.all
-		if params[:mahocphan]!=''
-			@lophocs=Lophoc.left_outer_joins(:hocphan).where("mahocphan like ?","%#{params[:mahocphan]}%")
-		elsif params[:khoavien_id]!=''
-			@lophocs=Khoavien.find_by(id:params[:khoavien_id]).lophocs
-		elsif params[:hocki_id]!=''
-			@lophocs=Hocki.find_by(id:params[:hocki_id]).lophocs
+	before_action :set_x, only: [:edit,:update,:show,:destroy]
+	def index		
+	end	
+	def new
+		@dangkilophoc = Dangkilophoc.new
+	end
+	def show		
+								
+	end
+	def edit
+		
+	end
+	def destroy
+		@dangkilophoc.destroy
+		flash[:info]= 'Đã xóa .'
+		redirect_to dangkilophocs_path
+		end
+	def update
+	      if @dangkilophoc.update(x_params)
+	      	flash[:info]='Đã cập nhật .'
+	        redirect_to @dangkilophoc
+	      else
+	       	render 'edit'
+	      end
+  	end
+	def create
+		@dangkilophoc=Dangkilophoc.new(x_params)
+		if @dangkilophoc.save
+	      	flash[:success]= 'Tạo mới thành công .'
+	        redirect_to @dangkilophoc
+	    else
+	        render 'new'
+	    end
+    end	
+	private
+	def set_x
+		@dangkilophoc=Dangkilophoc.find_by_id(params[:id])
+		if @dangkilophoc			
 		else
-			@lophocs=Lophoc.all
-		end
-		@results=[]
-		@lophocs.each do |lh|
-			hocphan=lh.hocphan
-			khoavien=hocphan.khoavien
-			@results<<{malophoc:lh.malophoc,mahocphan:hocphan.mahocphan,tenhocphan:hocphan.tenhocphan,trangthai:hocphan.modangki,maxdangki:lh.maxdangki,dadangki:lh.dangkilophocs.count,khoavien:khoavien.tenkhoavien}
-		end
+			flash[:info]="Khong tim thay dang ki lop hoc nay."
+			redirect_to root_url
+		end	
 	end
-	def show
-		@lophoc=Lophoc.find_by(id:params[:id])
-		@sinhviens=@lophoc.sinhviens
-		@results=[]
-		@sinhviens.each do |sv|
-			trangthaidangki=sv.dangkilophocs.find_by(lophoc_id:@lophoc.id).trangthaidangki
-			@results<<{masinhvien:sv.masinhvien,tensinhvien:sv.tensinhvien,lopsinhvien:sv.lopsinhvien.tenlopsinhvien,trangthaidangki:trangthaidangki}
-		end
-	end
+	def x_params
+	    params.require(:dangkilophoc).permit(:sinhvien_id,:lophoc_id,:trangthaidangki,:hesohocphi)
+	end	
 end
