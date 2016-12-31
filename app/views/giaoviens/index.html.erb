@@ -1,6 +1,6 @@
 <%= form_tag(giaoviens_path, method: "get") do %>	
   	Khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>
-  	Ten lop sinh vien<%=text_field_tag "tengiaovien",@selected[:tengiaovien]%><br>
+  	Ten giao vien<%=text_field_tag "tengiaovien",@selected[:tengiaovien]%><br>
   	<%= submit_tag("Search") %> 
 <% end %>
 <%= will_paginate @giaoviens , :outer_window=>1,:inner_window=>1%>

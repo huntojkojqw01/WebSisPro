@@ -1,6 +1,12 @@
 <%=provide(:title,"Thong tin dang ki lop hoc ")%>
 <div class="row">
-	<div class="col-md-4">				
+	<div class="col-md-4">
+		Sinh vien <%=@dangkilophoc.sinhvien.tensinhvien%><br>
+		Dang ki vao lop <%=@dangkilophoc.lophoc.malophoc%><br>
+		Diem qua trinh <%=@dangkilophoc.diemquatrinh%><br>		
+		Diem thi <%=@dangkilophoc.diemthi%><br>
+		Diem so <%=@dangkilophoc.diemso%><br>
+		Diem chu <%=@dangkilophoc.diemchu%><br>		
 		<%=link_to " Edit ",edit_dangkilophoc_path(@dangkilophoc)%>
 		<%= link_to ' Xóa ', @dangkilophoc, method: :delete,
 				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %>

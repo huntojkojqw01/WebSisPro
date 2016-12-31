@@ -26,7 +26,7 @@
 				<%@lophocs.each do |lh| %>
 				<tr>
 					<td><%=link_to lh.malophoc, lh%></td>
-					<td><%=toTime(lh.thoigian)%></td>
+					<td><%=toStrTime(lh.thoigian)%></td>
 					<td><%=lh.diadiem%></td>
 					<td><%=lh.hocphan.mahocphan%></td>
 					<td><%=lh.hocphan.tenhocphan%></td>

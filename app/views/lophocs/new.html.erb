@@ -6,8 +6,8 @@
 		    <%= render 'shared/error_messages', object: f.object %>
 		    <%= f.label :"Ma lop hoc" %>
 		    <%= f.text_field :malophoc ,class: 'form-control', placeholder: "Nhập ma lop hoc "%>
-		    <%= f.label :"Thoi gian" %>
-		    <%= f.number_field :thoigian ,class: 'form-control', placeholder: "Nhập thoi gian "%>	   
+		    <%= f.label :"Thoi gian(thu,batdau,ketthuc)" %>
+		    <%= f.text_field :thoigian ,class: 'form-control', placeholder: "Nhập thoi gian "%>	   
 		    <%= f.label :"Dia diem" %>
 		    <%= f.text_field :diadiem ,class: 'form-control', placeholder: "Nhập phong hoc "%>
 		    <%= f.label :"Max dang ki" %>
@@ -22,6 +22,10 @@
 		<% end %>
 	</div>
 	<div class="col-md-3">
-			  	
+			<h3>Nhập từ file CSV </h3>
+	  	<%= form_tag import_lophocs_path, multipart: true do %>	  	
+	    <%= file_field_tag :file %>
+	    <%= submit_tag "Nạp",class: "btn btn-info" %>
+	  	<% end %>  	
 	</div>
 </div>

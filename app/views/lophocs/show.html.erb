@@ -2,10 +2,11 @@
 <div class="row">
 	<div class="col-md-4">
 		Ma lop hoc <%=@lophoc.malophoc%><br>
-		Thoi gian <%=toTime(@lophoc.thoigian)%><br>
+		Thoi gian <%=toStrTime(@lophoc.thoigian)%><br>
 		Dia diem <%=@lophoc.diadiem%><br>
 		Giao vien giang day <%=@lophoc.giaovien.tengiaovien%><br>		
 		Hoc phan <%=@lophoc.hocphan.tenhocphan%>-<%=@lophoc.hocphan.mahocphan%><br>
+		Hoc ki <%=@lophoc.hocki.mahocki%><br>
 		So luong dang ki <%=@lophoc.dangkilophocs.count%>/<%=@lophoc.maxdangki%><br>		
 		<%=link_to " Edit ",edit_lophoc_path(@lophoc)%>
 		<%= link_to ' Xóa ', @lophoc, method: :delete,

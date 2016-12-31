@@ -8,8 +8,11 @@
 		    <%= f.collection_select :sinhvien_id, Sinhvien.all, :id, :masinhvien, prompt: true %>
 		    <%= f.label :"Lop hoc" %>
 		    <%= f.collection_select :lophoc_id, Lophoc.all, :id, :malophoc, prompt: true %>
-		    <%= f.label :"Trang thai dang ki" %>
-		    <%= f.collection_radio_buttons :trangthaidangki, [[true,"Chinh thuc"],[false,"Ket thuc"]], :first, :last %>
+		    <%= f.label :"Diem qua trinh" %>
+		    <%= f.text_field :diemquatrinh %>
+		    <%= f.label :"Diem thi" %>
+		    <%= f.text_field :diemthi %>
+		    
 		    <%= f.label :"He so hoc phi" %>
 		    <%= f.number_field :hesohocphi %>
 		    <%= f.submit "Thay đổi ",class: "btn btn-primary"%>

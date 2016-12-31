@@ -79,7 +79,7 @@ ActiveRecord::Schema.define(version: 20161118124855) do
   create_table "lophocs", force: :cascade do |t|
     t.string  "malophoc"
     t.integer "maxdangki"
-    t.integer "thoigian"
+    t.bigint  "thoigian"
     t.string  "diadiem"
     t.integer "giaovien_id"
     t.integer "hocphan_id"

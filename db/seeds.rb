@@ -6,8 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 def diemso(diemquatrinh,diemthi,trongso)
-		return 0 if diemquatrinh<3||diemthi<3
-		diem=((10-trongso)*diemquatrinh+trongso*diemthi)/10.0
+		return 0 if diemquatrinh<3.0||diemthi<3.0
+		diem=((1-trongso)*diemquatrinh+trongso*diemthi)
 		if diem>=9.45			
 			return 4.5
 		elsif diem>=8.45
@@ -50,6 +50,28 @@ def diemchu(diemso)
 			return "F"	
 		end			
 end
+def randomTime
+	x=rand(12)+1
+	"#{rand(5)+2},#{x},#{ x+rand(13-x)}"
+end
+def toIntTime(strTime)
+		
+		x=strTime.split(",").collect {|k| k.to_i}
+		return 0 if x.count!=3||x[0]<2||x[0]>6||x[1]<1||x[1]>12||x[2]<1||x[2]>12
+		tmp=1
+		x[1].upto(x[2]-1) do |m|
+			tmp=(tmp<<1)+1			
+		end
+		return tmp<<(48-12*(x[0]-2)+12-x[2])
+	end
+	def convertTime(thoigian)
+		t=0
+		strTimes=thoigian.split('-')
+		strTimes.each do |time|
+			t|=toIntTime(time)
+		end
+		return t
+	end
 Chuongtrinhdaotao.destroy_all
 Dangkihocphan.destroy_all
 Dangkilophoc.destroy_all
@@ -101,7 +123,7 @@ hocphans.each.with_index do |hp,j|
 		tmp=rand(tmp)+Giaovien.first.id
 		tmp2=Hocki.count
 		tmp2=rand(tmp2)+Hocki.first.id
-		Lophoc.create(malophoc:"Lop hoc #{j*10+i}",thoigian:rand(60),diadiem:"D#{j*10+i}",maxdangki:40+rand(10),hocphan_id:hp.id,giaovien_id:tmp,hocki_id:tmp2)
+		Lophoc.create(malophoc:"Lop hoc #{j*10+i}",thoigian:convertTime(randomTime),diadiem:"D#{j*10+i}",maxdangki:40+rand(10),hocphan_id:hp.id,giaovien_id:tmp,hocki_id:tmp2)
 	end
 end
 1.upto(10) do |i|

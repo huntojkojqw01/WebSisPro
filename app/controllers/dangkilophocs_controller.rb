@@ -33,6 +33,15 @@ class DangkilophocsController < ApplicationController
 	        render 'new'
 	    end
     end	
+    def import
+	    begin
+	      count=Dangkilophoc.import(params[:file])
+	      flash[:success]= "File is imported(#{count} records)."	      
+	    rescue
+			flash[:danger]= "Invalid CSV file format."			
+	    end
+	    redirect_to dangkilophocs_path
+	end	
 	private
 	def set_x
 		@dangkilophoc=Dangkilophoc.find_by_id(params[:id])
@@ -43,6 +52,58 @@ class DangkilophocsController < ApplicationController
 		end	
 	end
 	def x_params
-	    params.require(:dangkilophoc).permit(:sinhvien_id,:lophoc_id,:trangthaidangki,:hesohocphi)
-	end	
+	    pars=params.require(:dangkilophoc).permit(:sinhvien_id,:lophoc_id,:diemquatrinh,:diemthi,:trangthaidangki,:hesohocphi)
+		lophoc=Lophoc.find_by_id(pars[:lophoc_id])
+		trongso=lophoc.hocphan.trongso if lophoc
+		pars[:diemquatrinh]=pars[:diemquatrinh].to_f
+		pars[:diemthi]=pars[:diemthi].to_f		
+		pars[:diemso]=diemso(pars[:diemquatrinh],pars[:diemthi],trongso)
+		pars[:diemchu]=diemchu(pars[:diemso])
+		pars
+	end
+	def diemso(diemquatrinh,diemthi,trongso)
+		return 0 if diemquatrinh<3.0 || diemthi<3.0
+		diem=((1-trongso)*diemquatrinh+trongso*diemthi)
+		if diem>=9.45			
+			return 4.5
+		elsif diem>=8.45
+			return 4
+		elsif diem>=7.95
+			return 3.5
+		elsif diem>=6.95
+			return 3
+		elsif diem>=6.45
+			return 2.5
+		elsif diem>=5.45
+			return 2
+		elsif diem>=4.95
+			return 1.5
+		elsif diem>=3.95
+			return 1
+		else
+			return 0
+		end
+end
+def diemchu(diemso)
+		case diemso
+		when 4.5
+			return "A+"
+		when 4
+			return "A"
+		when 3.5
+			return "B+"
+		when 3
+			return "B"
+		when 2.5
+			return "C+"
+		when 2
+			return "C"
+		when 1.5
+			return "D+"
+		when 1
+			return "D"
+		else
+			return "F"	
+		end			
+end	
 end

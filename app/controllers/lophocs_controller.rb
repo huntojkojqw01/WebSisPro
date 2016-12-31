@@ -39,7 +39,6 @@ class LophocsController < ApplicationController
 		redirect_to lophocs_path
 		end
 	def update
-
 	      if @lophoc.update(x_params)
 	      	flash[:info]='Đã cập nhật .'
 	        redirect_to @lophoc
@@ -55,7 +54,16 @@ class LophocsController < ApplicationController
 	    else
 	        render 'new'
 	    end
-    end	
+    end
+    def import
+	    begin
+	      count=Lophoc.import(params[:file])
+	      flash[:success]= "File is imported(#{count} records)."	      
+	    rescue
+			flash[:danger]= "Invalid CSV file format."			
+	    end
+	    redirect_to lophocs_path
+	end	
 	private
 	def set_x
 		@lophoc=Lophoc.find_by_id(params[:id])
@@ -66,7 +74,26 @@ class LophocsController < ApplicationController
 		end	
 	end
 	def x_params
-	    params.require(:lophoc).permit(:malophoc,:thoigian,:diadiem,:giaovien_id,:hocphan_id,:hocki_id,:maxdangki)
+	    pars=params.require(:lophoc).permit(:malophoc,:thoigian,:diadiem,:giaovien_id,:hocphan_id,:hocki_id,:maxdangki)
+		pars[:thoigian]=convertTime(pars[:thoigian])
+		pars
 	end	
-	
+	def toIntTime(strTime)
+		
+		x=strTime.split(",").collect {|k| k.to_i}
+		return 0 if x.count!=3||x[0]<2||x[0]>6||x[1]<1||x[1]>12||x[2]<1||x[2]>12
+		tmp=1
+		x[1].upto(x[2]-1) do |m|
+			tmp=(tmp<<1)+1			
+		end
+		return tmp<<(48-12*(x[0]-2)+12-x[2])
+	end
+	def convertTime(thoigian)
+		t=0
+		strTimes=thoigian.split('-')
+		strTimes.each do |time|
+			t|=toIntTime(time)
+		end
+		return t
+	end
 end

@@ -3,7 +3,7 @@ class CreateLophocs < ActiveRecord::Migration[5.0]
     create_table :lophocs do |t|
       t.string :malophoc
       t.integer :maxdangki
-      t.integer :thoigian
+      t.integer :thoigian, :limit => 8
       t.string :diadiem
       t.references :giaovien, foreign_key: true
       t.references :hocphan, foreign_key: true
