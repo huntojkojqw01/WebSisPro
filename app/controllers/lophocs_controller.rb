@@ -1,4 +1,5 @@
 class LophocsController < ApplicationController
+	include ApplicationHelper
 	before_action :set_x, only: [:edit,:update,:show,:destroy]
 	def index
 		@hockis=Hocki.order(mahocki: :asc)
@@ -28,7 +29,7 @@ class LophocsController < ApplicationController
 		@lophoc = Lophoc.new
 	end
 	def show		
-		@sinhviens=@lophoc.sinhviens.paginate(page: params[:page],:per_page=>20)						
+		@dangkilophocs=@lophoc.dangkilophocs.paginate(page: params[:page],:per_page=>20)						
 	end
 	def edit
 		
@@ -78,22 +79,5 @@ class LophocsController < ApplicationController
 		pars[:thoigian]=convertTime(pars[:thoigian])
 		pars
 	end	
-	def toIntTime(strTime)
-		
-		x=strTime.split(",").collect {|k| k.to_i}
-		return 0 if x.count!=3||x[0]<2||x[0]>6||x[1]<1||x[1]>12||x[2]<1||x[2]>12
-		tmp=1
-		x[1].upto(x[2]-1) do |m|
-			tmp=(tmp<<1)+1			
-		end
-		return tmp<<(48-12*(x[0]-2)+12-x[2])
-	end
-	def convertTime(thoigian)
-		t=0
-		strTimes=thoigian.split('-')
-		strTimes.each do |time|
-			t|=toIntTime(time)
-		end
-		return t
-	end
+	
 end

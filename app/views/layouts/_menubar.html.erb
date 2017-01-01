@@ -5,60 +5,44 @@
       <li class="active"><%= link_to 'Trang chủ',root_path%></li>
       <% if logged_in? %>
         <li class="dropdown">
-          <a class="dropdown-toggle " data-toggle="dropdown" href="#">Thông tin
+          <a class="dropdown-toggle " data-toggle="dropdown" href="#">User
             <span class="caret"></span>
           </a>
           <ul class="dropdown-menu" style="background:#e0e0eb">        
             <li><%= link_to 'Đổi mật khẩu',edit_user_path(current_user)%></li>
             <li><%= link_to 'Thông tin cá nhân',current_user%></li>
           </ul>
-        </li>
-      <% end %>
-      <% if admin? %>
+        </li>            
         <li><%= link_to 'Khoa vien',khoaviens_path%></li>
-        <li><%= link_to 'Sinh vien',sinhviens_path%></li>
+        <li><%= link_to 'Hoc ki',hockis_path%></li>
         <li><%= link_to 'Giao vien',giaoviens_path%></li>
-        <li><%= link_to 'Hoc phan',hocphans_path%></li>
-        <li><%= link_to 'Lop hoc',lophocs_path%></li>
-        <li><%= link_to 'Hoc ki',hockis_path%></li>        
-      <% end %>
-      <% if giaovien? %>
-        
-      <% end %>
-      <% if sinhvien? %>
         <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Chương trình đào tạo
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Sinh vien
         <span class="caret"></span></a>
         <ul class="dropdown-menu" style="background:#e0e0eb">
-          <li><%= link_to 'Danh mục học phần',hocphans_path%></li>
-          <li><%= link_to 'Chương trình đào tạo sinh viên','#'%></li>
+          <li><%= link_to 'Danh sach sinh vien',sinhviens_path %></li>
+          <li><%= link_to 'Them sinh vien',new_sinhvien_path %></li>                    
         </ul>
-      </li>
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Kết quả học tập
-        <span class="caret"></span></a>
-        <ul class="dropdown-menu" style="background:#e0e0eb"> 
-          <li><%= link_to 'Bảng điểm cá nhân','#'%></li>
-          <li><%= link_to 'Bảng điểm học phần','#'%></li>
-        </ul>
-      </li>
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Đăng kí học tập
+        </li>        
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Hoc phan
         <span class="caret"></span></a>
         <ul class="dropdown-menu" style="background:#e0e0eb">
-          <li><%= link_to 'Đăng kí học phần','#'%></li>
-          <li><%= link_to 'Đăng kí lớp học',lophocs_path %></li>
+          <li><%= link_to 'Danh sach hoc phan',hocphans_path %></li>          
+          <li><%= link_to 'Them hoc phan',new_hocphan_path %></li>
+          <li><%= link_to 'Đăng kí học phần','#'%></li>          
         </ul>
-      </li>
-       <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Tra cứu
+        </li>
+        <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Lop hoc
         <span class="caret"></span></a>
         <ul class="dropdown-menu" style="background:#e0e0eb">
-          <li><%= link_to 'Danh sách lớp sinh viên','#'%></li>
-          <li><%= link_to 'Sinh viên đăng kí học tập',canhans_dangkihoctap_path %></li>
+          <li><%= link_to 'Danh sach lop hoc',lophocs_path %></li>
+          <li><%= link_to 'Them lop hoc',new_lophoc_path %></li>          
+          <li><%= link_to 'Đăng kí lớp học','#' %></li>
         </ul>
-      </li>
-      <% end %>      
+        </li>                
+      <% end %>           
     </ul>
   </div>
 </nav>

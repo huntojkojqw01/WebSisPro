@@ -1,0 +1,97 @@
+<%=provide(:title,"Dang ki lop hoc")%>
+<div class="row">
+	<div class="col-md-6">		
+		<%= form_tag(dangkilophoc_sinhviens_path, method: "get") do %>
+			<%=hidden_field_tag "id", @sinhvien.id %>
+			<% if @hocki %> 
+			<%=hidden_field_tag "hocki_id", @hocki.id %>
+			<%else%>
+			Hoc ki <%=select_tag "hocki_id", options_from_collection_for_select(@hockis, "id", "mahocki",@selected[:hocki_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>
+			<%end%>			
+			Khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>
+		  	Ma lop <%=text_field_tag 'malophoc',@selected[:malophoc]%><br>
+		  	Ma hoc phan <%=text_field_tag 'mahocphan',@selected[:mahocphan]%><br>
+		  	<%= submit_tag("Search") %>		  	
+		<% end %>
+		<%= will_paginate @lophocs , :outer_window=>1,:inner_window=>1%>
+		<table >
+			<head>
+				<tr>
+					<td>Ma lop</td>
+					<td>Thoi gian</td>
+					<td>Dia diem</td>
+					<td>Ma hoc phan</td>
+					<td>Ten hoc phan</td>			
+					<td>Max dang ki</td>
+					<td>Da dang ki</td>			
+				</tr>
+			</head>
+			<body>
+				<%@lophocs.each do |lh| %>
+				<tr>
+					<td><%=link_to lh.malophoc, lh%></td>
+					<td><%=toStrTime(lh.thoigian)%></td>
+					<td><%=lh.diadiem%></td>
+					<td><%=lh.hocphan.mahocphan%></td>
+					<td><%=lh.hocphan.tenhocphan%></td>
+					<td><%=lh.maxdangki%></td>
+					<td><%=lh.dangkilophocs.count%></td>
+					<td><%=link_to 'Dang ki',dangkilophoc_sinhviens_path(:id=>@sinhvien.id,:lophoc_id=>lh.id,hocki_id:lh.hocki.id)%></td>
+				</tr>
+				<% end %>
+			</body>
+		</table>
+		<%= will_paginate @lophocs , :outer_window=>1,:inner_window=>1%><br>
+		<%= page_entries_info @lophocs %><br>
+		
+		<%=link_to 'Xem thoi khoa bieu',thoikhoabieu_sinhviens_path(id:@sinhvien.id)%><br>
+	</div>
+	<div class="col-md-6">
+		<% if @registeds && @registeds.count>0 %>
+		Danh sach lop hoc<br>
+		<table >
+			<head>
+				<tr>
+					<td>Ma lop</td>
+					<td>Thoi gian</td>
+					<td>Dia diem</td>
+					<td>Ma hoc phan</td>
+					<td>Ten hoc phan</td>
+					<td>Tin chi</td>			
+					<td>Tin chi hoc phi</td>
+					<td>He so hoc phi</td>			
+				</tr>
+			</head>
+			<body>
+				<%tongTinChi=0%>
+				<%tongTien=0%>
+				<%@registeds.each do |lh| %>
+				<tr>
+					<td><%=link_to lh.malophoc, lh%></td>
+					<td><%=toStrTime(lh.thoigian)%></td>
+					<td><%=lh.diadiem%></td>
+					<td><%=lh.hocphan.mahocphan%></td>
+					<td><%=lh.hocphan.tenhocphan%></td>
+					<td><%=lh.hocphan.tinchi%></td><%tongTinChi+=lh.hocphan.tinchi%>
+					<td><%=lh.hocphan.tinchihocphi%></td>
+					<%heso=lh.dangkilophocs.find_by(sinhvien_id: @sinhvien.id).hesohocphi%>
+					<td><%=heso%></td><%tongTien+=heso*lh.hocphan.tinchihocphi%>
+					<td><%=link_to 'Xoa',Dangkilophoc.where("lophoc_id=? and sinhvien_id=?",lh.id,@sinhvien.id).first, method: :delete,
+				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %></td>
+				</tr>
+				<% end %>
+				<tr>
+					<td></td><td></td><td></td><td></td><td></td>
+					<td><%=tongTinChi%></td>
+					<td><%=tongTien%></td>
+					<td></td>
+				</tr>
+			</body>
+		</table>
+		Dinh muc hoc phi: <%=@hocki.dinhmuchocphi%><br>
+		Tong so tien phai dong trong hoc ki: <%=tongTien*@hocki.dinhmuchocphi%><br>
+		<%else%>
+		Khong dang ki lop nao trong ki nay
+		<%end%>  
+	</div>
+</div>

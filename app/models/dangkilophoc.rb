@@ -1,4 +1,4 @@
-class Dangkilophoc < ApplicationRecord
+class Dangkilophoc < ApplicationRecord	
   belongs_to :sinhvien
   belongs_to :lophoc 
   def self.import(file)

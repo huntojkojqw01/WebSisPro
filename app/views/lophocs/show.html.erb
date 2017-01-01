@@ -7,14 +7,15 @@
 		Giao vien giang day <%=@lophoc.giaovien.tengiaovien%><br>		
 		Hoc phan <%=@lophoc.hocphan.tenhocphan%>-<%=@lophoc.hocphan.mahocphan%><br>
 		Hoc ki <%=@lophoc.hocki.mahocki%><br>
-		So luong dang ki <%=@lophoc.dangkilophocs.count%>/<%=@lophoc.maxdangki%><br>		
-		<%=link_to " Edit ",edit_lophoc_path(@lophoc)%>
+		So luong dang ki <%=@lophoc.dangkilophocs.count%>/<%=@lophoc.maxdangki%><br>
+		<%=link_to "Them dang ki lop hoc",new_dangkilophoc_path(:lophoc_id=>@lophoc.id)%><br>		
+		<%=link_to " Edit ", edit_lophoc_path(@lophoc)%>
 		<%= link_to ' Xóa ', @lophoc, method: :delete,
 				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %>
 		
 	</div>
 	<div class="col-md-6">
-		<%= will_paginate @sinhviens , :outer_window=>1,:inner_window=>1%>
+		<%= will_paginate @dangkilophocs , :outer_window=>1,:inner_window=>1%>
 		<table >
 			<head>
 				<tr>
@@ -24,17 +25,19 @@
 				</tr>
 			</head>
 			<body>
-				<%@sinhviens.each do |sv| %>
+				<%@dangkilophocs.each do |dk| %>				
 				<tr>
-					<td><%=link_to sv.masinhvien, sv %></td>
-					<td><%=sv.tensinhvien%></td>					
-					<td><%=sv.lopsinhvien.tenlopsinhvien%></td>			
+					<td><%=dk.sinhvien.masinhvien%></td>
+					<td><%=dk.sinhvien.tensinhvien%></td>					
+					<td><%=dk.sinhvien.lopsinhvien.tenlopsinhvien%></td>
+					<td><%=link_to 'Xoa', dk, method: :delete,
+				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %></td>		
 				</tr>
 				<% end %>
 			</body>
 		</table>
-		<%= will_paginate @sinhviens , :outer_window=>1,:inner_window=>1%>
-		<%= page_entries_info @sinhviens %>		  	
+		<%= will_paginate @dangkilophocs , :outer_window=>1,:inner_window=>1%>
+		<%= page_entries_info @dangkilophocs %>		  	
 	</div>
 </div>
 

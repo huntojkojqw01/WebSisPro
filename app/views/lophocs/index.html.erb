@@ -1,47 +1,17 @@
 <%=provide(:title,"Danh muc lop hoc")%>
 <div class="row">
-	<div class="col-md-9">
-		Danh sach lop hoc<blh>
+	<div class="col-md-4">
+		Danh sach lop hoc<br>
 		<%= form_tag(lophocs_path, method: "get") do %>
-			Hoc ki <%=select_tag "hocki_id", options_from_collection_for_select(@hockis, "id", "mahocki",@selected[:hocki_id]),:include_blank=>"None",:onchange => "this.form.submit();"%>
-		  	Khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><blh>
-		  	Ma lop <%=text_field_tag 'malophoc',@selected[:malophoc]%><blh>
-		  	Ma hoc phan <%=text_field_tag 'mahocphan',@selected[:mahocphan]%><blh>
+			Hoc ki <%=select_tag "hocki_id", options_from_collection_for_select(@hockis, "id", "mahocki",@selected[:hocki_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>
+		  	Khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>
+		  	Ma lop <%=text_field_tag 'malophoc',@selected[:malophoc]%><br>
+		  	Ma hoc phan <%=text_field_tag 'mahocphan',@selected[:mahocphan]%><br>
 		  	<%= submit_tag("Search") %>
-		<% end %>
-		<%= will_paginate @lophocs , :outer_window=>1,:inner_window=>1%>
-		<table >
-			<head>
-				<tr>
-					<td>Ma lop</td>
-					<td>Thoi gian</td>
-					<td>Dia diem</td>
-					<td>Ma hoc phan</td>
-					<td>Ten hoc phan</td>			
-					<td>Max dang ki</td>
-					<td>Da dang ki</td>			
-				</tr>
-			</head>
-			<body>
-				<%@lophocs.each do |lh| %>
-				<tr>
-					<td><%=link_to lh.malophoc, lh%></td>
-					<td><%=toStrTime(lh.thoigian)%></td>
-					<td><%=lh.diadiem%></td>
-					<td><%=lh.hocphan.mahocphan%></td>
-					<td><%=lh.hocphan.tenhocphan%></td>
-					<td><%=lh.maxdangki%></td>
-					<td><%=lh.dangkilophocs.count%></td>
-				</tr>
-				<% end %>
-			</body>
-		</table>
-		<%= will_paginate @lophocs , :outer_window=>1,:inner_window=>1%>
-		<%= page_entries_info @lophocs %>
-		<%= link_to " Tải xuống ", hocphans_path(format: :csv), class: "btn btn-primary glyphicon glyphicon-download-alt"%>
-		<%= link_to ' Them lop hoc ', new_lophoc_path %>		
+		<% end %>				
 	</div>
-	<div class="col-md-3">
-				  	
+	<div class="col-md-8">
+		<%= render 'list',object: @lophocs %>
+		<%= link_to " Tải xuống ", lophocs_path(format: :csv), class: "btn btn-primary glyphicon glyphicon-download-alt"%>	  	
 	</div>
 </div>

@@ -3,6 +3,8 @@ class CreateHockis < ActiveRecord::Migration[5.0]
     create_table :hockis do |t|
       t.string :mahocki
       t.integer :dinhmuchocphi
+      t.date :bd
+      t.date :kt
     end
   end
 end

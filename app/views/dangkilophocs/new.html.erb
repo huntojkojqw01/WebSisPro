@@ -4,13 +4,18 @@
 		<h1>Thêm dang ki lop hoc moi </h1>
 		<%= form_for(@dangkilophoc) do |f| %>
 		    <%= render 'shared/error_messages', object: f.object %>
-		    <%= f.label :"Sinh vien" %>
-		    <%= f.collection_select :sinhvien_id, Sinhvien.all, :id, :masinhvien, prompt: true %>
-		    <%= f.label :"Lop hoc" %>
-		    <%= f.collection_select :lophoc_id, Lophoc.all, :id, :malophoc, prompt: true %>
-		    
-		    <%= f.label :"He so hoc phi" %>
-		    <%= f.number_field :hesohocphi %>
+		    <% if @selected[:sinhvien_id] %>
+		    	<%= f.hidden_field :sinhvien_id, value: @selected[:sinhvien_id] %>
+		    <%else%>
+			    <%= f.label :"Sinh vien" %>
+			    <%= f.collection_select :sinhvien_id, Sinhvien.all, :id, :masinhvien, prompt: true %>
+		    <%end%>
+		    <% if @selected[:lophoc_id] %>
+		    	<%= f.hidden_field :lophoc_id, value: @selected[:lophoc_id] %>
+		    <%else%>
+			    <%= f.label :"Lop hoc" %>
+			    <%= f.collection_select :lophoc_id, Lophoc.all, :id, :malophoc, prompt: true %>
+		    <%end%>		    
 		    <%= f.submit "Thêm ",class: "btn btn-primary"%>
 		<% end %>
 	</div>

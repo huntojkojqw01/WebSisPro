@@ -23,35 +23,5 @@
     </div>
   </div>
 <% end %>
-<%= will_paginate @hocphans , :outer_window=>1,:inner_window=>1%>
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th>Ma hoc phan</th>
-			<th>Ten hoc phan</th>
-			<th>Tin chi</th>
-			<th>Tin chi hoc phi</th>
-			<th>Trong so</th>
-			<th>Trang thai mo dang ki</th>
-			<th>Khoa vien</th>
-		</tr>
-	</thead>
-	<body>
-		<%@hocphans.each do |hp| %>
-		
-		<tr>
-			<td><%=link_to hp.mahocphan,hp%></td>
-			<td><%=hp.tenhocphan%></td>
-			<td><%=hp.tinchi%></td>
-			<td><%=hp.tinchihocphi%></td>
-			<td><%=(1-hp.trongso).round(1)%>-<%=hp.trongso%></td>
-			<td><%=hp.modangki ? "Open" : "Close" %></td>
-			<td><%=hp.khoavien.tenkhoavien%></td>
-		</tr>
-		<% end %>
-	</body>
-</table>
-<%= will_paginate @hocphans , :outer_window=>1,:inner_window=>1%>
-<%= page_entries_info @hocphans %>
+<%= render 'list', object: @hocphans %>
 <%= link_to " Tải xuống ", hocphans_path(format: :csv), class: "btn btn-primary glyphicon glyphicon-download-alt"%>
-<%= link_to ' Them hoc phan ', new_hocphan_path %>

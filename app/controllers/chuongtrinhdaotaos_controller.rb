@@ -1,6 +1,7 @@
 class ChuongtrinhdaotaosController < ApplicationController
 	before_action :set_x, only: [:edit,:update,:show,:destroy]
-	def index		
+	def index
+		@ctdts=Chuongtrinhdaotao.all		
 	end	
 	def new
 		@chuongtrinhdaotao = Chuongtrinhdaotao.new

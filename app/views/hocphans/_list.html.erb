@@ -1,0 +1,30 @@
+<%= will_paginate object , :outer_window=>1,:inner_window=>1%>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Ma hoc phan</th>
+			<th>Ten hoc phan</th>
+			<th>Tin chi</th>
+			<th>Tin chi hoc phi</th>
+			<th>Trong so</th>
+			<th>Trang thai mo dang ki</th>
+			<th>Khoa vien</th>
+		</tr>
+	</thead>
+	<body>
+		<%object.each do |hp| %>
+		
+		<tr>
+			<td><%=link_to hp.mahocphan,hp%></td>
+			<td><%=hp.tenhocphan%></td>
+			<td><%=hp.tinchi%></td>
+			<td><%=hp.tinchihocphi%></td>
+			<td><%=(1-hp.trongso).round(1)%>-<%=hp.trongso%></td>
+			<td><%=hp.modangki ? "Open" : "Close" %></td>
+			<td><%=hp.khoavien.tenkhoavien%></td>
+		</tr>
+		<% end %>
+	</body>
+</table>
+<%= will_paginate object , :outer_window=>1,:inner_window=>1%>
+<%= page_entries_info object %>

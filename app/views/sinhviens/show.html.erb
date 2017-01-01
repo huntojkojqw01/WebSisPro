@@ -7,6 +7,9 @@
 		Lop <%=@lopsinhvien.tenlopsinhvien%><br>
 		Email <%=@sinhvien.email%><br>
 		Trang thai <%=@sinhvien.trangthai ? "Hoc" : "Thoi hoc"%><br>
+		<%=link_to "Bang diem ca nhan",bangdiem_sinhviens_path(id:@sinhvien.id)%><br>
+		<%=link_to "Thoi khoa bieu",thoikhoabieu_sinhviens_path(id:@sinhvien.id)%><br>
+		<%=link_to "Dang ki them lop hoc",new_dangkilophoc_path(sinhvien_id:@sinhvien.id)%><br>
 		<%=link_to " Edit ",edit_sinhvien_path(@sinhvien)%>
 		<%= link_to ' Xóa ', @sinhvien, method: :delete,
 				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %>

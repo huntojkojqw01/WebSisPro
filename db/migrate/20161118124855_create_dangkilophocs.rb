@@ -5,8 +5,7 @@ class CreateDangkilophocs < ActiveRecord::Migration[5.0]
       t.float :diemthi
       t.float :diemso
       t.string :diemchu
-      t.float :hesohocphi
-      t.string :trangthaidangki
+      t.float :hesohocphi      
       t.references :sinhvien, foreign_key: true
       t.references :lophoc, foreign_key: true      
     end

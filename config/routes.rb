@@ -23,7 +23,12 @@ Rails.application.routes.draw do
   resources :khoaviens
   resources :lopsinhviens
   resources :sinhviens do
-      collection { post :import }
+      collection do
+        post :import
+        get :thoikhoabieu
+        get :bangdiem
+        get :dangkilophoc
+      end
     end
     resources :dangkilophocs do
       collection {post :import}

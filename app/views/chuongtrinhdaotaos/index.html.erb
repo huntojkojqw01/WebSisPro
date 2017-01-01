@@ -1,7 +1,28 @@
-<%=provide(:title,"Danh sach dang ki hoc phan")%>
+<%=provide(:title,"Danh sach hoc phan trong chuongtrinhdaotao")%>
 <div class="row">
 	<div class="col-md-9">
+			<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Lop sinh vien</th>
+			<th>Ma hoc phan</th>
+			<th>Hoc ki</th>			
+		</tr>
+	</thead>
+	<body>
+		<%@ctdts.each do |ct| %>
+		
+		<tr>
+			<td><%=ct.lopsinhvien.tenlopsinhvien%></td>
+			<td><%=ct.hocphan.mahocphan%></td>
+			<td><%=ct.hocki%></td>
+			<td><%=link_to 'xoa',ct, method: :delete,
+				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %></td>
 			
+		</tr>
+		<% end %>
+	</body>
+</table>
 	</div>
 	<div class="col-md-3">
 				  	

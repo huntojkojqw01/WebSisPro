@@ -1,0 +1,91 @@
+<%=provide(:title,"Danh muc lop hoc")%>
+<div class="row">
+	<div class="col-md-7">
+		Danh sach lop hoc<br>
+		<%= will_paginate @lophocs , :outer_window=>1,:inner_window=>1%>
+		<table >
+			<head>
+				<tr>
+					<td>Ma hoc ki</td>
+					<td>Ma hoc phan</td>
+					<td>Ten hoc phan</td>
+					<td>Tin chi</td>
+					<td>Ma lop hoc</td>
+					<td>Diem qua trinh</td>			
+					<td>Diem thi</td>
+					<td>Diem chu</td>			
+				</tr>
+			</head>
+			<body>
+				<%@lophocs.each do |lh| %>
+				<tr>
+					<%dk=lh.dangkilophocs.find_by(sinhvien_id:@sinhvien.id)%>
+					
+					<td><%=lh.hocki.mahocki%></td>
+					<td><%=lh.hocphan.mahocphan%></td>
+					<td><%=lh.hocphan.tenhocphan%></td>
+					<td><%=lh.hocphan.tinchi%></td>
+					<td><%=lh.malophoc%></td>
+					<td><%=dk.diemquatrinh%></td>
+					<td><%=dk.diemthi%></td>					
+					<td><%=dk.diemchu%></td>
+					
+				</tr>
+				<% end %>
+			</body>
+		</table>
+		<%= will_paginate @lophocs , :outer_window=>1,:inner_window=>1%><br>
+		<%= page_entries_info @lophocs %><br>				
+	</div>
+	<div class="col-md-5">
+		<table >
+			<head>
+				<tr>
+					<td>Ma hoc ki</td>
+					<td>GPA</td>
+					<td>CPA</td>
+					<td>Tin chi dat</td>
+					<td>Tin chi dang ki</td>
+					<td>Tin chi tich luy</td>			
+					<td>Tin chi no</td>								
+				</tr>
+			</head>
+			<body>
+				<%tcdangki=tcdat=tctichluy=cpa=gpa=tongdiem=tongdiemkhoa=0%>
+				<%hk=@lophocs.first.hocki%>
+				<%@lophocs.each do |lh| %>
+				
+					<%hp=lh.hocphan%>
+					<%dk=lh.dangkilophocs.find_by(sinhvien_id:@sinhvien.id)%>
+					<% if hk!=lh.hocki%>
+						<tr>
+							<td><%=hk.mahocki%></td><%hk=lh.hocki%><%gpa=tcdat>0 ? (tongdiem/tcdat).round(2) : 0%><%tongdiemkhoa+=tongdiem%><%tongdiem=0%><%cpa=tcdangki>0 ? (tongdiemkhoa/tcdangki).round(2) : 0%>
+								<%tctichluy+=tcdat%>
+							<td><%=gpa%></td><%gpa=0%>
+							<td><%=cpa%></td>
+							<td><%=tcdat%></td><%tcdat=0%>
+							<td><%=tcdangki%></td>
+							<td><%=tctichluy%></td>
+							<td><%=tcdangki-tctichluy%></td>
+						</tr>
+					<%else%>
+
+					<%end%>	
+					<%tcdangki+=hp.tinchi%>
+					<%tcdat+=hp.tinchi if (dk.diemquatrinh || dk.diemthi)&&dk.diemso>=1.0%>
+					<%tongdiem+=hp.tinchi*dk.diemso if dk.diemso%>				
+				<% end %>
+				<tr>
+							<td><%=hk.mahocki%></td><%gpa=tcdat>0 ? (tongdiem/tcdat).round(2) : 0%><%tongdiemkhoa+=tongdiem%><%tongdiem=0%><%cpa=tcdangki>0 ? (tongdiemkhoa/tcdangki).round(2) : 0%>
+								<%tctichluy+=tcdat%>
+							<td><%=gpa%></td>
+							<td><%=cpa%></td>
+							<td><%=tcdat%></td>
+							<td><%=tcdangki%></td>
+							<td><%=tctichluy%></td>
+							<td><%=tcdangki-tctichluy%></td>
+				</tr>
+			</body>
+		</table>	  	
+	</div>
+</div>

@@ -4,6 +4,7 @@ class Sinhvien < ApplicationRecord
   	belongs_to :lopsinhvien  
   	has_many :chuongtrinhdaotaos, through: :lopsinhvien
   	has_many :dangkilophocs, dependent: :destroy
+  	has_many :lophocs, through: :dangkilophocs
   	has_many :dangkihocphans, dependent: :destroy
   	def self.import(file)
 	    CSV.foreach(file.path, headers: true) do |row|

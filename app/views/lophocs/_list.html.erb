@@ -1,0 +1,30 @@
+	<%= will_paginate object , :outer_window=>1,:inner_window=>1%>
+		<table >
+			<head>
+				<tr>
+					<td>Ma lop</td>
+					<td>Thoi gian</td>
+					<td>Dia diem</td>
+					<td>Ma hoc phan</td>
+					<td>Ten hoc phan</td>			
+					<td>Max dang ki</td>
+					<td>Da dang ki</td>			
+				</tr>
+			</head>
+			<body>
+				<%object.each do |lh| %>
+				<tr>
+					<td><%=link_to lh.malophoc, lh%></td>
+					<td><%=toStrTime(lh.thoigian)%></td>
+					<td><%=lh.diadiem%></td>
+					<td><%=lh.hocphan.mahocphan%></td>
+					<td><%=lh.hocphan.tenhocphan%></td>
+					<td><%=lh.maxdangki%></td>
+					<td><%=lh.dangkilophocs.count%></td>
+				</tr>
+				<% end %>
+			</body>
+		</table>
+	<%= will_paginate object , :outer_window=>1,:inner_window=>1%><br>
+	<%= page_entries_info object %><br>
+	

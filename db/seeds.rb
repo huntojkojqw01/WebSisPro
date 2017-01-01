@@ -143,7 +143,7 @@ end
 		trongso=lophoc.hocphan.trongso
 		diemso=diemso(diemquatrinh,diemthi,trongso)
 		diemchu=diemchu(diemso)
-		Dangkilophoc.create(diemquatrinh:diemquatrinh,diemthi:diemthi,diemso:diemso,diemchu:diemchu,hesohocphi:rand(3),trangthaidangki:"thanh cong",lophoc_id:lophoc.id,sinhvien_id:sinhvien.id)
+		Dangkilophoc.create(diemquatrinh:diemquatrinh,diemthi:diemthi,diemso:diemso,diemchu:diemchu,hesohocphi:rand(3)+1,lophoc_id:lophoc.id,sinhvien_id:sinhvien.id)
 end
 1.upto(20) do |i|
 		tmp=Hocphan.count
