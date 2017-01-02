@@ -40,26 +40,36 @@ class LophocsController < ApplicationController
 		redirect_to lophocs_path
 		end
 	def update
-	      if @lophoc.update(x_params)
-	      	flash[:info]='Đã cập nhật .'
-	        redirect_to @lophoc
-	      else
-	       	render 'edit'
-	      end
+		if diaDiemOk(@lophoc) && giaoVienOk(@lophoc)
+		    if @lophoc.update(x_params)
+		    	flash[:info]='Đã cập nhật .'
+		    	redirect_to @lophoc
+		    else
+		    	render 'edit'
+		    end
+	    else
+			flash[:danger]= 'Phong hoc da duoc su dung hoac Giao vien da ban .'
+		    redirect_to(:back)
+		end
   	end
 	def create
 		@lophoc=Lophoc.new(x_params)
-		if @lophoc.save
-	      	flash[:success]= 'Tạo mới thành công .'
-	        redirect_to @lophoc
-	    else
-	        render 'new'
-	    end
+		if diaDiemOk(@lophoc) && giaoVienOk(@lophoc)
+			if @lophoc.save
+		      	flash[:success]= 'Tạo mới thành công .'
+		        redirect_to @lophoc
+		    else
+		        render 'new'
+		    end
+		else
+			flash[:danger]= 'Phong hoc da duoc su dung hoac Giao vien da ban .'
+		    redirect_to(:back)
+		end
     end
     def import
 	    begin
-	      count=Lophoc.import(params[:file])
-	      flash[:success]= "File is imported(#{count} records)."	      
+	    	count=Lophoc.import(params[:file])
+	    	flash[:success]= "File is imported(#{count} records)."	      
 	    rescue
 			flash[:danger]= "Invalid CSV file format."			
 	    end
@@ -79,5 +89,28 @@ class LophocsController < ApplicationController
 		pars[:thoigian]=convertTime(pars[:thoigian])
 		pars
 	end	
-	
+	def diaDiemOk(lophoc)
+		lophocs=Lophoc.where("hocki_id=? and diadiem=?",lophoc.hocki_id,lophoc.diadiem)
+		if lophocs.count==0
+			return true
+		else
+			t=0
+			lophocs.each do |lh|
+				t|=lh.thoigian
+			end
+			return checkTkb(t,lophoc.thoigian)
+		end
+	end
+	def giaoVienOk(lophoc)
+		lophocs=Lophoc.where("hocki_id=? and giaovien_id=?",lophoc.hocki_id,lophoc.giaovien_id)
+		if lophocs.count==0
+			return true
+		else
+			t=0
+			lophocs.each do |lh|
+				t|=lh.thoigian
+			end
+			return checkTkb(t,lophoc.thoigian)
+		end
+	end
 end

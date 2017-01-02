@@ -1,5 +1,5 @@
 class CanhansController < ApplicationController
-	before_action :set_sinhvien
+	#before_action :set_sinhvien, unless: [:thoikhoabieu,:hocphi]
 	def chuongtrinhdaotao
 		@results=[]
 		@chuongtrinhdaotaos=@sinhvien.chuongtrinhdaotaos
@@ -31,6 +31,15 @@ class CanhansController < ApplicationController
 	end
 	def thoikhoabieu
 		
+  		# Respond with JSON. This would respond with something like '{"id": 1, "name": "FooBar"}'
+  		@users = Khoavien.all
+   		respond_to do |format|
+     	format.html     
+     	format.json { 
+        render json: {:users => @users}
+     } 
+   end
+  		#render 'thoikhoabieu'
 	end
 	def bangdiem
 		@bangdiems=[]
@@ -47,24 +56,7 @@ class CanhansController < ApplicationController
 		
 	end
 	def hocphi
-		if params[:hocki_id]
-			@hocki=Hocki.find_by_id(params[:hocki_id])			
-		else
-			@hocki=Hocki.first
-		end		
-		@hockis=Hocki.order(mahocki: :asc)
-		@results=[]
-		@tongtienphaidong=0
-		@dangkilophocs=Dangkilophoc.joins("inner join lophocs on dangkilophocs.lophoc_id=lophocs.id and lophocs.hocki_id=#{@hocki.id}").where("sinhvien_id=#{@id}")
-		@dangkilophocs.each do |dklh|					
-			lophoc=dklh.lophoc
-			hocphan=lophoc.hocphan
-			tinchihocphi=hocphan.tinchihocphi
-			heso=dklh.hesohocphi
-			@tongtienphaidong+=heso*tinchihocphi
-			@results<<{mahocphan:hocphan.mahocphan,tenhocphan:hocphan.tenhocphan,tinchi:hocphan.tinchi,tinchihocphi:tinchihocphi,heso:heso,malophoc:lophoc.malophoc}
-		end
-		@tongtienphaidong*=@hocki.dinhmuchocphi
+		
 	end
 	private
 	def set_sinhvien

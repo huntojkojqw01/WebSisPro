@@ -15,7 +15,7 @@ class DangkilophocsController < ApplicationController
 	end
 	def destroy
 		@dangkilophoc.destroy
-		flash[:info]= 'Đã xóa .'
+		flash.now[:info]= 'Đã xóa .'
 		redirect_to (:back)
 		end
 	def update
@@ -29,9 +29,10 @@ class DangkilophocsController < ApplicationController
 		pars[:diemso]=diemso(pars[:diemquatrinh],pars[:diemthi],trongso)
 		pars[:diemchu]=diemchu(pars[:diemso])
 		sinhvien=Sinhvien.find_by_id(pars[:sinhvien_id])
-		pars[:hesohocphi]=sinhvien.lophocs.where("hocphan_id=?",hocphan.id).count+1			
+		pars[:hesohocphi]=sinhvien.lophocs.where("hocphan_id=?",hocphan.id).count+1	
+
 	      if @dangkilophoc.update(pars)
-	      	flash[:info]='Đã cập nhật .'
+	      	flash.now[:info]='Đã cập nhật .'
 	        redirect_to @dangkilophoc
 	      else
 	       	render 'edit'
@@ -52,15 +53,21 @@ class DangkilophocsController < ApplicationController
 				lophoc=Lophoc.find_by_id(pars[:lophoc_id])
 				hocki=lophoc.hocki
 				tkb=getCurTkb(sinhvien,hocki)
-				if checkTkb(tkb,lophoc.thoigian)
+				if true #checkTkb(tkb,lophoc.thoigian)
 					#p "khong trung"
 					@dangkilophoc=Dangkilophoc.new(pars)
-					if @dangkilophoc.save
-				      	flash[:success]= 'Tạo mới thành công .'
-				        redirect_to root_url
-				    else
-				        redirect_to root_url
-				    end
+					r=sinhVienOk(@dangkilophoc)
+					if r.first
+						if @dangkilophoc.save
+					      	flash[:success]= 'Tạo mới thành công .'
+					        redirect_to root_url
+					    else
+					        redirect_to root_url
+					    end
+					else
+						flash[:danger]= r.last
+		    			redirect_to(:back)
+					end
 				else
 					#p "co trung"
 					flash[:info]="Trung thoi khoa bieu."
@@ -137,5 +144,15 @@ class DangkilophocsController < ApplicationController
 		else
 			return "F"	
 		end			
+	end
+	def sinhVienOk(dangkilophoc)
+		sinhvien=dangkilophoc.sinhvien
+		lophoc=dangkilophoc.lophoc
+		lophocs=sinhvien.lophocs.where("hocki_id=?",lophoc.hocki_id)
+		lophocs.each do |lh|
+			return [false,"Trung thoi khoa bieu voi lop hoc #{lh.malophoc}"] if lh.thoigian&lophoc.thoigian>0
+			return [false,"Trung hoc phan da dang ki voi lop hoc #{lh.malophoc}(#{lh.hocphan.mahocphan})"] if lh.hocphan==lophoc.hocphan
+		end
+		return [true,""]
 	end	
 end

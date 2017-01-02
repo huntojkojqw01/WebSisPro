@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'date'
 def diemso(diemquatrinh,diemthi,trongso)
 		return 0 if diemquatrinh<3.0||diemthi<3.0
 		diem=((1-trongso)*diemquatrinh+trongso*diemthi)
@@ -63,15 +64,15 @@ def toIntTime(strTime)
 			tmp=(tmp<<1)+1			
 		end
 		return tmp<<(48-12*(x[0]-2)+12-x[2])
-	end
-	def convertTime(thoigian)
+end
+def convertTime(thoigian)
 		t=0
 		strTimes=thoigian.split('-')
 		strTimes.each do |time|
 			t|=toIntTime(time)
 		end
 		return t
-	end
+end
 Chuongtrinhdaotao.destroy_all
 Dangkihocphan.destroy_all
 Dangkilophoc.destroy_all
@@ -85,23 +86,25 @@ Hocki.destroy_all
 User.destroy_all
 
 User.create!(name:"admin",password:"123456",password_confirmation:"123456",loai:"ad")
-nam=2010
-1.upto(10) do |i|	
-	Hocki.create!(mahocki:"#{nam}#{i%3+1}",dinhmuchocphi:i*20+100)
-	nam+=1 if i%3==0
+i=100
+2013.upto(2016) do |nam|	
+	Hocki.create!(mahocki:"#{nam}1",dinhmuchocphi:i+20,bd:Date.new(nam,8,1),kt:Date.new(nam,8,1)+5.months)
+	Hocki.create!(mahocki:"#{nam}2",dinhmuchocphi:i+40,bd:Date.new(nam+1,2,1),kt:Date.new(nam+1,2,1)+5.months)
+	Hocki.create!(mahocki:"#{nam}3",dinhmuchocphi:i+60,bd:Date.new(nam+1,7,1),kt:Date.new(nam+1,7,1)+1.months)
+	i+=100	
 end
-1.upto(5) do |i|
+1.upto(10) do |i|
 	khoa=Khoavien.create(tenkhoavien:"Khoa,Vien #{i}",sodienthoai:Faker::PhoneNumber.phone_number,diadiem:"toa nha D#{i}")
 end
 1.upto(30) do |i|
 	tmp=Khoavien.count
 	tmp=rand(tmp)+Khoavien.first.id	
-	Hocphan.create!(mahocphan:"HocPhan #{i}",tenhocphan:Faker::Name.name,tinchi:(Faker::Number.between(1,3)+1),tinchihocphi:(Faker::Number.between(1,5)+1),trongso:Faker::Number.between(7,8)*0.1,modangki:Faker::Boolean.boolean,khoavien_id:tmp)
+	Hocphan.create!(mahocphan:"HocPhan #{i}",tenhocphan:Faker::Name.name,tinchi:rand(3)+2,tinchihocphi:rand(5)+2,trongso:(rand(2)+7)*0.1,modangki:Faker::Boolean.boolean,khoavien_id:tmp)
 end
 1.upto(10) do |i|
 	tmp=Khoavien.count
 	tmp=rand(tmp)+Khoavien.first.id	
-	Giaovien.create!(magiaovien:"Giaovien #{i}",tengiaovien:Faker::Name.name,ngaysinh:Faker::Date.between_except(60.year.ago, 24.year.from_now, Date.today),email:(Faker::Internet.email),khoavien_id:tmp)
+	Giaovien.create!(magiaovien:"GiaoVien #{i}",tengiaovien:Faker::Name.name,ngaysinh:Faker::Date.between_except(60.year.ago, 24.year.from_now, Date.today),email:(Faker::Internet.email),khoavien_id:tmp)
 end
 1.upto(10) do |i|
 	tmp=Khoavien.count
@@ -114,7 +117,7 @@ end
 	tmp=Lopsinhvien.count
 	tmp=rand(tmp)+Lopsinhvien.first.id
 	user=User.create!(name:"sv#{i}",password:"123456",password_confirmation:"123456",loai:"sv")
-	Sinhvien.create!(masinhvien:"SinhVien #{i}",tensinhvien:Faker::Name.name,ngaysinh:Faker::Date.between(23.years.ago,18.years.ago),email:Faker::Internet.email,trangthai:Faker::Boolean.boolean,lopsinhvien_id:tmp,user_id:user.id)
+	Sinhvien.create!(masinhvien:"SinhVien#{i}",tensinhvien:Faker::Name.name,ngaysinh:Faker::Date.between(23.years.ago,18.years.ago),email:Faker::Internet.email,trangthai:Faker::Boolean.boolean,lopsinhvien_id:tmp,user_id:user.id)
 end
 hocphans=Hocphan.all
 hocphans.each.with_index do |hp,j|
@@ -123,7 +126,7 @@ hocphans.each.with_index do |hp,j|
 		tmp=rand(tmp)+Giaovien.first.id
 		tmp2=Hocki.count
 		tmp2=rand(tmp2)+Hocki.first.id
-		Lophoc.create(malophoc:"Lop hoc #{j*10+i}",thoigian:convertTime(randomTime),diadiem:"D#{j*10+i}",maxdangki:40+rand(10),hocphan_id:hp.id,giaovien_id:tmp,hocki_id:tmp2)
+		Lophoc.create(malophoc:"LopHoc#{j*10+i}",thoigian:convertTime(randomTime),diadiem:"D#{j*10+i}",maxdangki:40+rand(10),hocphan_id:hp.id,giaovien_id:tmp,hocki_id:tmp2)
 	end
 end
 1.upto(10) do |i|
@@ -145,12 +148,15 @@ end
 		diemchu=diemchu(diemso)
 		Dangkilophoc.create(diemquatrinh:diemquatrinh,diemthi:diemthi,diemso:diemso,diemchu:diemchu,hesohocphi:rand(3)+1,lophoc_id:lophoc.id,sinhvien_id:sinhvien.id)
 end
-1.upto(20) do |i|
+1.upto(50) do |i|		
 		tmp=Hocphan.count
 		tmp=rand(tmp)+Hocphan.first.id
 		tmp2=Lopsinhvien.count
-		tmp2=rand(tmp2)+Lopsinhvien.first.id		
-		Chuongtrinhdaotao.create(hocki:rand(10)+1,hocphan_id:tmp,lopsinhvien_id:tmp2)
+		tmp2=rand(tmp2)+Lopsinhvien.first.id
+		if Chuongtrinhdaotao.where("hocphan_id=? and lopsinhvien_id=?",tmp,tmp2).count==0		
+			Chuongtrinhdaotao.create(hocki:rand(10)+1,hocphan_id:tmp,lopsinhvien_id:tmp2)			
+		else
+		end
 end
 
 

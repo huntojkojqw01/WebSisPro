@@ -1,7 +1,7 @@
 class HockisController < ApplicationController
 	before_action :set_x, only: [:edit,:update,:show,:destroy]
 	def index
-		@hockis=Hocki.order(mahocki: :desc).paginate(page: params[:page],:per_page=>10)			
+		@hockis=Hocki.order(mahocki: :asc).paginate(page: params[:page],:per_page=>10)			
 	end	
 	def new
 		@hocki = Hocki.new
