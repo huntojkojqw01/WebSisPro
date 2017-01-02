@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get '/canhans/chuongtrinhdaotao'=>'canhans#chuongtrinhdaotao'
   get '/canhans/dangkihoctap'=>'canhans#dangkihoctap'
   get '/canhans/thoikhoabieu'=>'canhans#thoikhoabieu'
-  get '/canhans/thoikhoabieu'=>'canhans#bangdiem'
+  get '/canhans/bangdiem'=>'canhans#bangdiem'
   get '/canhans/thongtin'=>'canhans#thongtin'
   get '/canhans/hocphi'=>'canhans#hocphi'
   get 'canhans/bangdiem'=>'<canhans id="bangdiem"></canhans>'
