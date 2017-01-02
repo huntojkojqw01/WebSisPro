@@ -5,8 +5,7 @@
 			<th>Ten hoc phan</th>
 			<th style="text-align: center">Tin chi</th>
 			<th style="text-align: center">Tin chi hoc phi</th>
-			<th>Trong so</th>
-			<th style="text-align: center">Trang thai mo dang ki</th>
+			<th>Trong so</th>			
 			<th>Khoa vien</th>
 		</tr>
 	</thead>
@@ -19,7 +18,6 @@
 			<td style="text-align:center"><%=hp.tinchi%></td>
 			<td style="text-align:center"><%=hp.tinchihocphi%></td>
 			<td><%=(1-hp.trongso).round(1)%>-<%=hp.trongso%></td>
-			<td style="text-align:center"><%=hp.modangki ? "Open" : "Close" %></td>
 			<td><%=hp.khoavien.tenkhoavien%></td>
 		</tr>
 		<% end %>
