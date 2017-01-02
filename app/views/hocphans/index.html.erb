@@ -24,4 +24,6 @@
   </div>
 <% end %>
 <%= render 'list', object: @hocphans %>
-<%= link_to " Tải xuống ", hocphans_path(format: :csv), class: "btn btn-primary glyphicon glyphicon-download-alt"%>
+<div id="button_download_subjects_list">
+  <%= link_to " Tải xuống ", hocphans_path(format: :csv), class: "btn btn-primary glyphicon glyphicon-download-alt"%>
+</div>

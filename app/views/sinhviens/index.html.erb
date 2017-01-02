@@ -2,13 +2,13 @@
 <div class="row">
 	<div class="col-md-4">
 		Danh sach sinh vien<br>
-		<%= form_tag(sinhviens_path, method: "get") do %>	
+		<%= form_tag(sinhviens_path, method: "get") do %>
 		  	Khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>
 		  	Lop sinh vien <%=select_tag "lopsinhvien_id", options_from_collection_for_select(@lopsinhviens, "id", "tenlopsinhvien",@selected[:lopsinhvien_id]),:include_blank=>"None",:onchange => "this.form.submit();" %><br>
 		  	Ma sinh vien <%=text_field_tag 'masinhvien',@selected[:masinhvien]%><br>
 		  	Ten sinh vien<%=text_field_tag 'tensinhvien',@selected[:tensinhvien]%><br>
 		  	<%= submit_tag("Search") %>
-		<% end %>				
+		<% end %>
 	</div>
 	<div class="col-md-8">
 		<%= will_paginate @sinhviens , :outer_window=>1,:inner_window=>1%>
@@ -18,7 +18,7 @@
 					<td>Ma sinh vien</td>
 					<td>Ten sinh vien</td>
 					<td>Ngay sinh</td>
-					<td>Ten lop sinh vien</td>			
+					<td>Ten lop sinh vien</td>
 				</tr>
 			</head>
 			<body>
@@ -27,15 +27,13 @@
 					<td><%=link_to sv.masinhvien, sv %></td>
 					<td><%=sv.tensinhvien%></td>
 					<td><%=sv.ngaysinh%></td>
-					<td><%=sv.tenlopsinhvien%></td>			
+					<td><%=sv.tenlopsinhvien%></td>
 				</tr>
 				<% end %>
 			</body>
 		</table>
 		<%= will_paginate @sinhviens , :outer_window=>1,:inner_window=>1%><br>
 		<%= page_entries_info @sinhviens %><br>
-		<%= link_to " Tải xuống ", sinhviens_path(format: :csv), class: "btn btn-primary glyphicon glyphicon-download-alt"%>	  	
+		<%= link_to " Tải xuống ", sinhviens_path(format: :csv), class: "btn btn-primary glyphicon glyphicon-download-alt"%>
 			</div>
 </div>
-
-

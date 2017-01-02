@@ -1,17 +1,34 @@
 <%=provide(:title,"Danh muc lop hoc")%>
 <div class="row">
 	<div class="col-md-4">
-		Danh sach lop hoc<br>
 		<%= form_tag(lophocs_path, method: "get") do %>
-			Hoc ki <%=select_tag "hocki_id", options_from_collection_for_select(@hockis, "id", "mahocki",@selected[:hocki_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>
-		  	Khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>
-		  	Ma lop <%=text_field_tag 'malophoc',@selected[:malophoc]%><br>
-		  	Ma hoc phan <%=text_field_tag 'mahocphan',@selected[:mahocphan]%><br>
-		  	<%= submit_tag("Search") %>
-		<% end %>				
+			<table>
+				<tr>
+					<td>Hoc ki</td>
+					<td><%=select_tag "hocki_id", options_from_collection_for_select(@hockis, "id", "mahocki",@selected[:hocki_id]),:include_blank=>"None",:onchange => "this.form.submit();"%> </td>
+				</tr>
+				<tr>
+					<td>Khoa vien</td>
+					<td><%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();"%></td>
+				</tr>
+				<tr>
+					<td>Ma lop</td>
+					<td><%=text_field_tag 'malophoc',@selected[:malophoc]%></td>
+				</tr>
+				<tr>
+					<td>Ma hoc phan</td>
+					<td><%=text_field_tag 'mahocphan',@selected[:mahocphan]%></td>
+				</tr>
+			</table>
+			<div id="button_search">
+				<%= submit_tag("Search") %>
+			</div>
+		<% end %>
 	</div>
-	<div class="col-md-8">
+	<div class="col-md-8", style="background-color:#9FF781">
 		<%= render 'list',object: @lophocs %>
-		<%= link_to " Tải xuống ", lophocs_path(format: :csv), class: "btn btn-primary glyphicon glyphicon-download-alt"%>	  	
+		<div id="button_download_classes_list">
+			<%= link_to " Tải xuống ", lophocs_path(format: :csv), class: "btn btn-primary glyphicon glyphicon-download-alt"%>
+		</div>
 	</div>
 </div>
