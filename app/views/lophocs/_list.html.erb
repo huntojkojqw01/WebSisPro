@@ -1,16 +1,16 @@
-	<%= will_paginate object , :outer_window=>1,:inner_window=>1%>
-		<table >
-			<head>
+
+		<table class="table table-striped">
+			<thead>
 				<tr>
-					<td>Ma lop</td>
-					<td>Thoi gian</td>
-					<td>Dia diem</td>
-					<td>Ma hoc phan</td>
-					<td>Ten hoc phan</td>			
-					<td>Max dang ki</td>
-					<td>Da dang ki</td>			
+					<th>Ma lop</th>
+					<th>Thoi gian</th>
+					<th>Dia diem</th>
+					<th>Ma hoc phan</th>
+					<th>Ten hoc phan</th>
+					<th>Max dang ki</th>
+					<th>Da dang ki</th>
 				</tr>
-			</head>
+			</thead>
 			<body>
 				<%object.each do |lh| %>
 				<tr>
@@ -19,12 +19,10 @@
 					<td><%=lh.diadiem%></td>
 					<td><%=lh.hocphan.mahocphan%></td>
 					<td><%=lh.hocphan.tenhocphan%></td>
-					<td><%=lh.maxdangki%></td>
-					<td><%=lh.dangkilophocs.count%></td>
+					<td style="text-align: center"><%=lh.maxdangki%></td>
+					<td style="text-align: center"><%=lh.dangkilophocs.count%></td>
 				</tr>
 				<% end %>
 			</body>
 		</table>
-	<%= will_paginate object , :outer_window=>1,:inner_window=>1%><br>
-	<%= page_entries_info object %><br>
-	
+	<%= will_paginate object , :outer_window=>1,:inner_window=>1,class: "pager"%><br>
