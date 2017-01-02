@@ -97,7 +97,7 @@ class SinhviensController < ApplicationController
 				tkb=getCurTkb(@sinhvien,hocki)
 				if true #checkTkb(tkb,lophoc.thoigian)					
 					@dangkilophoc=Dangkilophoc.new(sinhvien_id:@sinhvien.id,lophoc_id:lophoc.id,hesohocphi:@selected[:hesohocphi])
-					r=sinhVienOk(@dangkilophoc)
+					r=dangkilophocOk(@dangkilophoc)
 					if r.first
 						if @dangkilophoc.save
 					      	flash.now[:success]= 'Tạo mới thành công .'				        

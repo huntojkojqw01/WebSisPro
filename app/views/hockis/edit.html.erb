@@ -6,6 +6,10 @@
 		    <%= render 'shared/error_messages', object: f.object %>
 		    <%= f.label :"Ma hoc ki" %>
 		    <%= f.text_field :mahocki ,class: 'form-control', placeholder: "Nhập ma hoc ki "%>
+		    <%= f.label :"Bat dau" %>
+		    <%= f.date_select :bd %><br>
+		    <%= f.label :"Ket thuc" %>
+		    <%= f.date_select :kt %><br>
 		    <%= f.label :"Dinh muc hoc phi" %>
 		    <%= f.number_field :dinhmuchocphi ,class: 'form-control', placeholder: "Nhập muc hoc phi "%>
 		    <%= f.submit "Thay đổi ",class: "btn btn-primary"%>

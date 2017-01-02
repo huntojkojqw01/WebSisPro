@@ -1,11 +1,13 @@
-class Lophoc < ApplicationRecord
-  
+class Lophoc < ApplicationRecord  
   belongs_to :giaovien
   belongs_to :hocphan
   belongs_to :hocki
   has_many :dangkilophocs, dependent: :destroy
   has_many :sinhviens ,through: :dangkilophocs
-  
+  validates :thoigian, presence: true, numericality: { only_integer: true ,:greater_than=>0,:message => " is empty " }
+  validates :diadiem, presence: true, length: { maximum: 50}
+  validates :malophoc, presence: true, length: { maximum: 10 }, uniqueness: true
+  validates :maxdangki, presence: true, numericality: { only_integer: true, :greater_than=>0, :less_than_or_equal_to=>200 }
   def self.import(file)
       dem=0
       CSV.foreach(file.path, { headers: true, :col_sep => ';' }) do |row|

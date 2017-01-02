@@ -36,7 +36,7 @@
 					<td><%=lh.hocphan.tenhocphan%></td>
 					<td><%=lh.maxdangki%></td>
 					<td><%=lh.dangkilophocs.count%></td>
-					<td><%=link_to 'Dang ki',dangkilophoc_sinhviens_path(:id=>@sinhvien.id,:lophoc_id=>lh.id,hocki_id:lh.hocki.id)%></td>
+					<td><%=link_to 'Dang ki',dangkilophoc_sinhviens_path(:id=>@sinhvien.id,:lophoc_id=>lh.id,hocki_id:lh.hocki.id) if sinhvien? %></td>
 				</tr>
 				<% end %>
 			</body>

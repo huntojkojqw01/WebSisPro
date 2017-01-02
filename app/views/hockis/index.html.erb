@@ -27,6 +27,9 @@
 		<%= link_to ' Them hoc ki ', new_hocki_path %>		
 	</div>
 	<div class="col-md-9">
-				  	
+		<%= form_tag(hockis_path, method: "get") do %>	
+  		Mo dang ki hoc phan trong hoc ki <%=select_tag "hocki_id_hp", options_from_collection_for_select(@hockis, "id", "mahocki",@selected[:hocki_id_hp]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>
+  		Mo dang ki lop hoc trong hoc ki <%=select_tag "hocki_id_lh", options_from_collection_for_select(@hockis, "id", "mahocki",@selected[:hocki_id_lh]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>  	
+<% end %>	  	
 	</div>
 </div>

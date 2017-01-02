@@ -56,7 +56,7 @@ class DangkilophocsController < ApplicationController
 				if true #checkTkb(tkb,lophoc.thoigian)
 					#p "khong trung"
 					@dangkilophoc=Dangkilophoc.new(pars)
-					r=sinhVienOk(@dangkilophoc)
+					r=dangkilophocOk(@dangkilophoc)
 					if r.first
 						if @dangkilophoc.save
 					      	flash[:success]= 'Tạo mới thành công .'
@@ -144,15 +144,5 @@ class DangkilophocsController < ApplicationController
 		else
 			return "F"	
 		end			
-	end
-	def sinhVienOk(dangkilophoc)
-		sinhvien=dangkilophoc.sinhvien
-		lophoc=dangkilophoc.lophoc
-		lophocs=sinhvien.lophocs.where("hocki_id=?",lophoc.hocki_id)
-		lophocs.each do |lh|
-			return [false,"Trung thoi khoa bieu voi lop hoc #{lh.malophoc}"] if lh.thoigian&lophoc.thoigian>0
-			return [false,"Trung hoc phan da dang ki voi lop hoc #{lh.malophoc}(#{lh.hocphan.mahocphan})"] if lh.hocphan==lophoc.hocphan
-		end
-		return [true,""]
 	end	
 end

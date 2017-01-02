@@ -9,7 +9,7 @@
 		    <%= f.label :"Tên giao vien" %>
 		    <%= f.text_field :tengiaovien ,class: 'form-control', placeholder: "Nhập tên giao vien "%>
 		    <%= f.label :"Ngay sinh" %>
-		    <%= f.text_field :ngaysinh ,class: 'form-control', placeholder: "Nhập ngay sinh"%>    
+		    <%= f.date_select :ngaysinh ,:start_year=>1900,:end_year=>2000%><br>    
 		    <%= f.label :"Email" %>
 		    <%= f.text_field :email ,class: 'form-control', placeholder: "Nhập email "%>
 		    <%= f.label :"Khoa vien" %>

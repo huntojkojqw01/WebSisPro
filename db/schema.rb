@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20161118124855) do
   create_table "giaoviens", force: :cascade do |t|
     t.string  "magiaovien"
     t.string  "tengiaovien"
-    t.string  "ngaysinh"
+    t.date    "ngaysinh"
     t.string  "email"
     t.integer "khoavien_id"
     t.index ["khoavien_id"], name: "index_giaoviens_on_khoavien_id", using: :btree
@@ -59,6 +59,8 @@ ActiveRecord::Schema.define(version: 20161118124855) do
     t.integer "dinhmuchocphi"
     t.date    "bd"
     t.date    "kt"
+    t.boolean "modangkihocphan"
+    t.boolean "modangkilophoc"
   end
 
   create_table "hocphans", force: :cascade do |t|
@@ -67,7 +69,6 @@ ActiveRecord::Schema.define(version: 20161118124855) do
     t.float   "tinchi"
     t.float   "tinchihocphi"
     t.float   "trongso"
-    t.boolean "modangki"
     t.integer "khoavien_id"
     t.index ["khoavien_id"], name: "index_hocphans_on_khoavien_id", using: :btree
   end
@@ -103,9 +104,9 @@ ActiveRecord::Schema.define(version: 20161118124855) do
   create_table "sinhviens", force: :cascade do |t|
     t.string  "masinhvien"
     t.string  "tensinhvien"
-    t.string  "ngaysinh"
+    t.date    "ngaysinh"
     t.string  "email"
-    t.string  "trangthai"
+    t.boolean "trangthai"
     t.integer "lopsinhvien_id"
     t.integer "user_id"
     t.index ["lopsinhvien_id"], name: "index_sinhviens_on_lopsinhvien_id", using: :btree

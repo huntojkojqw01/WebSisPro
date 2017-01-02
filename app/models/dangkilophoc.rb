@@ -1,6 +1,9 @@
 class Dangkilophoc < ApplicationRecord	
   belongs_to :sinhvien
   belongs_to :lophoc 
+  validates :diemquatrinh,:diemthi, numericality: { :greater_than_or_equal_to=>0,:less_than_or_equal_to=>10 }, allow_nil: true
+  validates :diemso, numericality: { :greater_than_or_equal_to=>0,:less_than_or_equal_to=>4.5 }, allow_nil: true
+  validates :diemchu, format: { with: /\A[A-D]+\z/ }, allow_nil: true
   def self.import(file)
       dem=0
       CSV.foreach(file.path, headers: true) do |row|

@@ -6,6 +6,9 @@ class Sinhvien < ApplicationRecord
   	has_many :dangkilophocs, dependent: :destroy
   	has_many :lophocs, through: :dangkilophocs
   	has_many :dangkihocphans, dependent: :destroy
+  	validates :tensinhvien, presence: true, length: { maximum: 50 }
+  	validates :masinhvien, presence: true, length: { maximum: 10 }, uniqueness: true  	
+  	validates :email,:format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/ }
   	def self.import(file)
 	    CSV.foreach(file.path, headers: true) do |row|
 

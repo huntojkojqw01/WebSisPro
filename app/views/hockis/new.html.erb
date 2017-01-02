@@ -1,17 +1,21 @@
 <%=provide(:title,"Thêm hoc ki ")%>
 <div class="row">
-	<div class="col-md-9">
+	<div class="col-md-10">
 		<h1>Thêm hoc ki mới </h1>
 		<%= form_for(@hocki) do |f| %>
 		    <%= render 'shared/error_messages', object: f.object %>
 		    <%= f.label :"Ma hoc ki" %>
 		    <%= f.text_field :mahocki ,class: 'form-control', placeholder: "Nhập ma hoc ki "%>
+		    <%= f.label :"Bat dau" %>
+		    <%= f.date_select :bd %><br>
+		    <%= f.label :"Ket thuc" %>
+		    <%= f.date_select :kt %><br>
 		    <%= f.label :"Dinh muc hoc phi" %>
 		    <%= f.number_field :dinhmuchocphi ,class: 'form-control', placeholder: "Nhập muc hoc phi "%>
 		    <%= f.submit "Thêm ",class: "btn btn-primary"%>
 		<% end %>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-2">
 			  	
 	</div>
 </div>

@@ -40,29 +40,35 @@ class LophocsController < ApplicationController
 		redirect_to lophocs_path
 		end
 	def update
-		if diaDiemOk(@lophoc) && giaoVienOk(@lophoc)
-		    if @lophoc.update(x_params)
+		par=x_params
+		lophoc=Lophoc.new(par)
+		r=lophocOk(lophoc)
+		if r.first			
+		    if @lophoc.update(par)
 		    	flash[:info]='Đã cập nhật .'
 		    	redirect_to @lophoc
 		    else
+		    	
 		    	render 'edit'
 		    end
 	    else
-			flash[:danger]= 'Phong hoc da duoc su dung hoac Giao vien da ban .'
+			flash[:danger]=r.last
 		    redirect_to(:back)
 		end
   	end
 	def create
 		@lophoc=Lophoc.new(x_params)
-		if diaDiemOk(@lophoc) && giaoVienOk(@lophoc)
+		r=lophocOk(@lophoc)
+		if r.first
 			if @lophoc.save
 		      	flash[:success]= 'Tạo mới thành công .'
 		        redirect_to @lophoc
 		    else
+		        
 		        render 'new'
 		    end
 		else
-			flash[:danger]= 'Phong hoc da duoc su dung hoac Giao vien da ban .'
+			flash[:danger]=r.last
 		    redirect_to(:back)
 		end
     end
@@ -89,28 +95,5 @@ class LophocsController < ApplicationController
 		pars[:thoigian]=convertTime(pars[:thoigian])
 		pars
 	end	
-	def diaDiemOk(lophoc)
-		lophocs=Lophoc.where("hocki_id=? and diadiem=?",lophoc.hocki_id,lophoc.diadiem)
-		if lophocs.count==0
-			return true
-		else
-			t=0
-			lophocs.each do |lh|
-				t|=lh.thoigian
-			end
-			return checkTkb(t,lophoc.thoigian)
-		end
-	end
-	def giaoVienOk(lophoc)
-		lophocs=Lophoc.where("hocki_id=? and giaovien_id=?",lophoc.hocki_id,lophoc.giaovien_id)
-		if lophocs.count==0
-			return true
-		else
-			t=0
-			lophocs.each do |lh|
-				t|=lh.thoigian
-			end
-			return checkTkb(t,lophoc.thoigian)
-		end
-	end
+	
 end

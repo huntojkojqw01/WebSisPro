@@ -5,8 +5,7 @@ class CreateHocphans < ActiveRecord::Migration[5.0]
       t.string :tenhocphan
       t.float :tinchi
       t.float :tinchihocphi
-      t.float :trongso
-      t.boolean :modangki
+      t.float :trongso      
       t.references :khoavien, foreign_key: true      
     end
   end

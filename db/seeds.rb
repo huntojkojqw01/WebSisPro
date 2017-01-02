@@ -5,7 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-require 'date'
+
 def diemso(diemquatrinh,diemthi,trongso)
 		return 0 if diemquatrinh<3.0||diemthi<3.0
 		diem=((1-trongso)*diemquatrinh+trongso*diemthi)
@@ -99,12 +99,12 @@ end
 1.upto(30) do |i|
 	tmp=Khoavien.count
 	tmp=rand(tmp)+Khoavien.first.id	
-	Hocphan.create!(mahocphan:"HocPhan #{i}",tenhocphan:Faker::Name.name,tinchi:rand(3)+2,tinchihocphi:rand(5)+2,trongso:(rand(2)+7)*0.1,modangki:Faker::Boolean.boolean,khoavien_id:tmp)
+	Hocphan.create!(mahocphan:"HP#{i}",tenhocphan:Faker::Name.name,tinchi:rand(3)+2,tinchihocphi:rand(5)+2,trongso:(rand(2)+7)*0.1,khoavien_id:tmp)
 end
 1.upto(10) do |i|
 	tmp=Khoavien.count
 	tmp=rand(tmp)+Khoavien.first.id	
-	Giaovien.create!(magiaovien:"GiaoVien #{i}",tengiaovien:Faker::Name.name,ngaysinh:Faker::Date.between_except(60.year.ago, 24.year.from_now, Date.today),email:(Faker::Internet.email),khoavien_id:tmp)
+	Giaovien.create!(magiaovien:"GV#{i}",tengiaovien:Faker::Name.name,ngaysinh:Faker::Date.between_except(60.year.ago, 24.year.from_now, Date.today),email:(Faker::Internet.email),khoavien_id:tmp)
 end
 1.upto(10) do |i|
 	tmp=Khoavien.count
@@ -117,7 +117,7 @@ end
 	tmp=Lopsinhvien.count
 	tmp=rand(tmp)+Lopsinhvien.first.id
 	user=User.create!(name:"sv#{i}",password:"123456",password_confirmation:"123456",loai:"sv")
-	Sinhvien.create!(masinhvien:"SinhVien#{i}",tensinhvien:Faker::Name.name,ngaysinh:Faker::Date.between(23.years.ago,18.years.ago),email:Faker::Internet.email,trangthai:Faker::Boolean.boolean,lopsinhvien_id:tmp,user_id:user.id)
+	Sinhvien.create!(masinhvien:"SV#{i}",tensinhvien:Faker::Name.name,ngaysinh:Faker::Date.between(23.years.ago,18.years.ago),email:Faker::Internet.email,trangthai:Faker::Boolean.boolean,lopsinhvien_id:tmp,user_id:user.id)
 end
 hocphans=Hocphan.all
 hocphans.each.with_index do |hp,j|
@@ -126,7 +126,7 @@ hocphans.each.with_index do |hp,j|
 		tmp=rand(tmp)+Giaovien.first.id
 		tmp2=Hocki.count
 		tmp2=rand(tmp2)+Hocki.first.id
-		Lophoc.create(malophoc:"LopHoc#{j*10+i}",thoigian:convertTime(randomTime),diadiem:"D#{j*10+i}",maxdangki:40+rand(10),hocphan_id:hp.id,giaovien_id:tmp,hocki_id:tmp2)
+		Lophoc.create(malophoc:"LH#{j*10+i}",thoigian:convertTime(randomTime),diadiem:"D#{j*10+i}",maxdangki:40+rand(10),hocphan_id:hp.id,giaovien_id:tmp,hocki_id:tmp2)
 	end
 end
 1.upto(10) do |i|
