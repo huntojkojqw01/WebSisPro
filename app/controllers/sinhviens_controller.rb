@@ -83,39 +83,10 @@ class SinhviensController < ApplicationController
 	end
 	def dangkilophoc
 		@selected=params
-		if(@selected[:lophoc_id]&&@selected[:id])
-			dklh=Dangkilophoc.where("sinhvien_id=? and lophoc_id=?",@selected[:id],@selected[:lophoc_id])
-			if dklh.count>0
-				flash.now[:info]="Dang ki da ton tai."
-				#redirect_to dangkilophoc_sinhviens_path(id:@selected[:id],hocki_id:@selected[:hocki_id])				
-			else
-				lophoc=Lophoc.find_by_id(@selected[:lophoc_id])				
-				hocphan=lophoc.hocphan if lophoc				
-				@selected[:hesohocphi]=@sinhvien.lophocs.where("hocphan_id=?",hocphan.id).count+1
-				lophoc=Lophoc.find_by_id(@selected[:lophoc_id])
-				hocki=lophoc.hocki
-				tkb=getCurTkb(@sinhvien,hocki)
-				if true #checkTkb(tkb,lophoc.thoigian)					
-					@dangkilophoc=Dangkilophoc.new(sinhvien_id:@sinhvien.id,lophoc_id:lophoc.id,hesohocphi:@selected[:hesohocphi])
-					r=dangkilophocOk(@dangkilophoc)
-					if r.first
-						if @dangkilophoc.save
-					      	flash.now[:success]= 'Tạo mới thành công .'				        
-					    else				        
-					    end
-					else
-						flash.now[:danger]= r.last
-		    			#redirect_to dangkilophoc_sinhviens_path(id:@selected[:id],hocki_id:@selected[:hocki_id])
-					end
-				else					
-					flash.now[:info]="Trung thoi khoa bieu."					
-				end				
-			end
-		end	
 		if @selected[:hocki_id]			
-		@hocki=Hocki.find_by_id(@selected[:hocki_id]) 	
+			@hocki=Hocki.find_by_id(@selected[:hocki_id]) 	
 		else
-		@hockis=Hocki.all
+			@hockis=Hocki.all
 		end	
 		@khoaviens=Khoavien.all		
 		if @selected[:khoavien_id]&&@selected[:khoavien_id]!=""

@@ -1,2 +1,7 @@
 <h1>Hien tai em chua co gi ca cac anh a !</h1>
 <h2>Them 1 nhanh nua</h2>
+<div>CHim To</div>
+<%= form_tag({:controller => 'static_pages', :action => 'my_data'},:id => 'filter_form', :remote => true) do %>
+ cha co gi de code
+<%= submit_tag 'save', :name => 'commit'%>
+<%end%>

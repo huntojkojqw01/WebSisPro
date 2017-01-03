@@ -13,7 +13,13 @@ module SessionsHelper
     			log_in user
     			@current_user=user
     		end
-    	end
+    end
+  end
+  def current_hocki_modklophoc
+    @hocki=Hocki.find_by(modangkilophoc: true)
+  end
+  def current_hocki_modkhocphan
+    @hocki=Hocki.find_by(modangkihocphan: true)
   end
   # Returns true if the user is logged in, false otherwise.
   def logged_in?

@@ -43,8 +43,7 @@ class DangkilophocsController < ApplicationController
 		if pars
 			dklh=Dangkilophoc.where("sinhvien_id=? and lophoc_id=?",pars[:sinhvien_id],pars[:lophoc_id])
 			if dklh.count>0
-				flash[:info]="Dang ki da ton tai."
-				redirect_to root_url
+				flash[:info]="Dang ki da ton tai."				
 			else
 				sinhvien=Sinhvien.find_by_id(pars[:sinhvien_id])
 				lophoc=Lophoc.find_by_id(pars[:lophoc_id])				
@@ -52,28 +51,20 @@ class DangkilophocsController < ApplicationController
 				pars[:hesohocphi]=sinhvien.lophocs.where("hocphan_id=?",hocphan.id).count+1
 				lophoc=Lophoc.find_by_id(pars[:lophoc_id])
 				hocki=lophoc.hocki
-				tkb=getCurTkb(sinhvien,hocki)
-				if true #checkTkb(tkb,lophoc.thoigian)
-					#p "khong trung"
+				
 					@dangkilophoc=Dangkilophoc.new(pars)
 					r=dangkilophocOk(@dangkilophoc)
 					if r.first
 						if @dangkilophoc.save
-					      	flash[:success]= 'Tạo mới thành công .'
-					        redirect_to root_url
+					      	flash[:success]= 'Tạo mới thành công .'					        
 					    else
-					        redirect_to root_url
+					        flash[:warning]= 'Tạo mới that bai .'
 					    end
 					else
-						flash[:danger]= r.last
-		    			redirect_to(:back)
-					end
-				else
-					#p "co trung"
-					flash[:info]="Trung thoi khoa bieu."
-					redirect_to root_url
-				end				
+						flash[:danger]= r.last		    			
+					end							
 			end
+			redirect_to(:back)
 		else
 			redirect_to root_url
 		end

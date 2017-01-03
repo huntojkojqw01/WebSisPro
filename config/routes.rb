@@ -4,12 +4,18 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   root 'test_page#home'    
+  get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   resources :users
   resources :hocphans
   resources :lophocs do
       collection { post :import }
+    end
+    resources :static_pages do
+          collection do
+        get :my_data
+      end
     end
   get '/canhans/chuongtrinhdaotao'=>'canhans#chuongtrinhdaotao'
   get '/canhans/dangkihoctap'=>'canhans#dangkihoctap'

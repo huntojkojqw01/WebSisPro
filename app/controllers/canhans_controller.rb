@@ -33,11 +33,7 @@ class CanhansController < ApplicationController
 		
   		# Respond with JSON. This would respond with something like '{"id": 1, "name": "FooBar"}'
   		@users = Khoavien.all
-   		respond_to do |format|
-     	format.html     
-     	format.json { 
-        render json: {:users => @users}
-     } 
+   		
    end
   		#render 'thoikhoabieu'
 	end

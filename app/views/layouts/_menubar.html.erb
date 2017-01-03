@@ -1,14 +1,14 @@
-<nav class="navbar" style="background:#BCDA59">
+<nav class="navbar" style="background:#FFFF00">
   <div class="col-sm-1"></div>
   <div class="container-fluid">
-    <ul class="nav navbar-nav">
+    <ul class="nav navbar-nav menu navbar-left">
       <li class="active"><%= link_to 'Trang chủ',root_path%></li>
       <% if logged_in? %>
-        <li class="dropdown">
-          <a class="dropdown-toggle " data-toggle="dropdown" href="#">User
+        <li>
+          <a href="#s1">User
             <span class="caret"></span>
           </a>
-          <ul class="dropdown-menu" style="background:#e0e0eb">        
+          <ul class="submenu" >        
             <li><%= link_to 'Đổi mật khẩu',edit_user_path(current_user)%></li>
             <li><%= link_to 'Thông tin cá nhân',current_user%></li>
           </ul>
@@ -16,10 +16,10 @@
         <li><%= link_to 'Khoa vien',khoaviens_path%></li>
         <li><%= link_to 'Hoc ki',hockis_path%></li>
         <li><%= link_to 'Giao vien',giaoviens_path%></li>
-        <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Sinh vien
+        <li>
+        <a href="#s1">Sinh vien
         <span class="caret"></span></a>
-        <ul class="dropdown-menu" style="background:#e0e0eb">
+        <ul class="submenu" >
           <li><%= link_to 'Danh sach sinh vien',sinhviens_path %></li>
           <li><%= link_to 'Them sinh vien',new_sinhvien_path %></li>
           <% if sinhvien? %>
@@ -28,10 +28,10 @@
           <%end%>                  
         </ul>
         </li>        
-        <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Hoc phan
+        <li>
+        <a href="#s1">Hoc phan
         <span class="caret"></span></a>
-        <ul class="dropdown-menu" style="background:#e0e0eb">
+        <ul class="submenu" >
           <li><%= link_to 'Danh sach hoc phan',hocphans_path %></li>          
           <li><%= link_to 'Them hoc phan',new_hocphan_path %></li>
           <% if sinhvien? %>
@@ -40,10 +40,10 @@
           <%end%>        
         </ul>
         </li>
-        <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Lop hoc
+        <li>
+        <a href="#s1">Lop hoc
         <span class="caret"></span></a>
-        <ul class="dropdown-menu" style="background:#e0e0eb">
+        <ul class="submenu" >
           <li><%= link_to 'Danh sach lop hoc',lophocs_path %></li>
           <li><%= link_to 'Them lop hoc',new_lophoc_path %></li>
           <% if sinhvien? %>
@@ -52,6 +52,8 @@
           <%end%>
         </ul>
         </li>                
+      <%else%>
+        <li class="active"><%= link_to 'Log in',login_path%></li>
       <% end %>           
     </ul>
   </div>
