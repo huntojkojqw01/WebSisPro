@@ -1,27 +1,44 @@
 <%=provide(:title,"Thêm sinhvien ")%>
 <div class="row">
-	<div class="col-md-9">
-		<h1>Thêm sinhvien mới </h1>
+	<div class="col-md-6">
+		<h1>Thêm sinh viên mới </h1>
 		<%= form_for(@sinhvien) do |f| %>
 		    <%= render 'shared/error_messages', object: f.object %>
-		    <%= f.label :"Tên" %>
-		    <%= f.text_field :tensinhvien ,class: 'form-control', placeholder: "Nhập tên sinhvien "%>
-		    <%= f.label :"ma sinh vien " %>
-		    <%= f.text_field :masinhvien ,class: 'form-control', placeholder: "Nhập ma sinh vien "%>
-		    <%= f.label :"Ngày sinh " %>
-		    <%= f.date_select :ngaysinh ,:start_year=>1980,:end_year=>2000%><br>
-		    <%= f.label :"Địa chỉ" %>
-		    <%= f.text_field :email ,class: 'form-control', placeholder: "Email "%>		    
-		    <%= f.label :"Lop sinhvien" %>
-		    <%= f.collection_select :lopsinhvien_id, Lopsinhvien.all, :id, :tenlopsinhvien, prompt: true %>
-		    <%= f.submit "Thêm ",class: "btn btn-primary"%>
+				<table>
+					<tr>
+						<td><%= f.label :"Tên" %></td>
+						<td><%= f.text_field :tensinhvien ,class: 'form-control', placeholder: "Nhập tên sinh viên "%></td>
+					</tr>
+					<tr>
+						<td><%= f.label :"Mã sinh viên" %></td>
+						<td><%= f.text_field :masinhvien ,class: 'form-control', placeholder: "Nhập mã sinh viên "%></td>
+					</tr>
+					<tr>
+						<td><%= f.label :"Ngày sinh " %></td>
+						<td><%= f.date_select :ngaysinh ,:start_year=>1980,:end_year=>2000%><br></td>
+					</tr>
+					<tr>
+						<td><%= f.label :"Địa chỉ" %></td>
+						<td><%= f.text_field :email ,class: 'form-control', placeholder: "Email "%></td>
+					</tr>
+					<tr>
+						<td><%= f.label :"Lớp sinh viên" %></td>
+						<td><%= f.collection_select :lopsinhvien_id, Lopsinhvien.all, :id, :tenlopsinhvien, prompt: true %></td>
+					</tr>
+				</table>
+				<div style="width: 70%; margin:auto; margin-top: 20px;">
+					<%= f.submit "Thêm sinh viên mới",class: "btn btn-primary"%>
+				</div>
 		<% end %>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-2">
+
+	</div>
+	<div class="col-md-4">
 		<h3>Nhập từ file CSV </h3>
-	  	<%= form_tag import_sinhviens_path, multipart: true do %>	  	
+	  	<%= form_tag import_sinhviens_path, multipart: true do %>
 	    <%= file_field_tag :file %>
 	    <%= submit_tag "Nạp",class: "btn btn-info" %>
-	  	<% end %>	  	
+	  	<% end %>
 	</div>
 </div>
