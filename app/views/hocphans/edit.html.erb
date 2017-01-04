@@ -1,0 +1,26 @@
+<%=provide(:title,"Edit lop sinh vien ")%>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<h1>Thay đổi thông tin hoc phan </h1>
+		<%= form_for(@hocphan) do |f| %>
+		    <%= render 'shared/error_messages', object: f.object %>
+		    <%= f.label :"Ma hoc phan" %>
+		    <%= f.text_field :mahocphan ,class: 'form-control', placeholder: "Nhập ma hoc phan "%>
+		    <%= f.label :"Tên hoc phan" %>
+		    <%= f.text_field :tenhocphan ,class: 'form-control', placeholder: "Nhập tên hoc phan "%>
+		    <%= f.label :"Tin chi" %>
+		    <%= f.select :tinchi ,options_for_select((1..12).step(0.5))%>
+		    <%= f.label :"Tin chi hoc phi" %>
+		    <%= f.select :tinchihocphi ,options_for_select((1.5..25).step(0.5))%>
+		    <%= f.label :"Trong so" %>
+<<<<<<< HEAD
+		    <%= f.select :trongso ,options_for_select((0.5..1).step(0.1))%>
+=======
+		    <%= f.select :trongso ,options_for_select((0.5..1).step(0.1))%>		    
+>>>>>>> c3d512ff297afdc71c84941be58e1c0dfb380414
+		    <%= f.label :"Khoa vien" %>
+		    <%= f.collection_select :khoavien_id, Khoavien.all, :id, :tenkhoavien, prompt: true %>
+		    <%= f.submit "Thay đổi ",class: "btn btn-primary"%>
+		<% end %>
+	</div>
+</div>
