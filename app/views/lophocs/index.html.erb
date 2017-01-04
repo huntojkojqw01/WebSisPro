@@ -26,6 +26,7 @@
 		<% end %>
 	</div>
 	<div class="col-md-8", style="background-color:#9FF781">
+		Danh sách lớp học
 		<%= render 'list',object: @lophocs %>
 		<div id="button_download_classes_list">
 			<%= link_to " Tải xuống ", lophocs_path(format: :csv), class: "btn btn-primary glyphicon glyphicon-download-alt"%>

@@ -2,7 +2,7 @@ class SinhviensController < ApplicationController
 	include ApplicationHelper
 	before_action :logged_in_user, except: [:index]
 	before_action :is_admin, only: [:edit,:update,:new,:create,:destroy]	
-	before_action :is_sinhvien, only: [:dangkilophoc,:thoikhoabieu,:bangdiem]
+	before_action :is_sinhvien, only: [:dangkilophoc,:thoikhoabieu,:bangdiem,:chuongtrinhdaotao]
 	before_action :set_x, only: [:edit,:update,:show,:destroy]
 	def index
 		@selected=params
@@ -109,7 +109,17 @@ class SinhviensController < ApplicationController
 		@lophocs=current_sinhvien.lophocs.order(hocki_id: :asc).paginate(page: params[:page],:per_page=>10)
 	end
 	def chuongtrinhdaotao
-		
+		@selected=params		
+		case @selected[:sort_by]
+		when "mahocphan"
+			@hocphans=Hocphan.joins("inner join chuongtrinhdaotaos on hocphans.id=chuongtrinhdaotaos.hocphan_id").where("lopsinhvien_id=?",current_sinhvien.lopsinhvien_id).select("hocphans.*","hocki").order(:mahocphan).paginate(page: params[:page],:per_page=>20)
+		when "tenhocphan"					
+			@hocphans=Hocphan.joins("inner join chuongtrinhdaotaos on hocphans.id=chuongtrinhdaotaos.hocphan_id").where("lopsinhvien_id=?",current_sinhvien.lopsinhvien_id).select("hocphans.*","hocki").order(:tenhocphan).paginate(page: params[:page],:per_page=>20)
+		when "tinchi"
+			@hocphans=Hocphan.joins("inner join chuongtrinhdaotaos on hocphans.id=chuongtrinhdaotaos.hocphan_id").where("lopsinhvien_id=?",current_sinhvien.lopsinhvien_id).select("hocphans.*","hocki").order(:tinchi).paginate(page: params[:page],:per_page=>20)
+		else
+			@hocphans=Hocphan.joins("inner join chuongtrinhdaotaos on hocphans.id=chuongtrinhdaotaos.hocphan_id").where("lopsinhvien_id=?",current_sinhvien.lopsinhvien_id).select("hocphans.*","hocki").order("chuongtrinhdaotaos.hocki").paginate(page: params[:page],:per_page=>20)
+		end
 	end
 	def dangkilophoc
 		@selected=params
