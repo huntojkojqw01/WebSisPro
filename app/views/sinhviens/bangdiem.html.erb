@@ -1,4 +1,4 @@
-<%=provide(:title,"Danh muc lop hoc")%>
+<%=provide(:title,"Bang diem ca nhan")%>
 <div class="row">
 	<div class="col-md-7">
 		<div class="container" id="student_info">
@@ -11,12 +11,16 @@
 			</div>
 			<div class="container" id="student_info_board">
 				<ul>
-					<li>Ma sinh vien: <b><%=@sinhvien.masinhvien%></b></li>
-					<li>Ten sinh vien: <b><%=@sinhvien.tensinhvien%></b></li>
+					<li>Ma sinh vien: <b><%=current_sinhvien.masinhvien%></b></li>
+					<li>Ten sinh vien: <b><%=current_sinhvien.tensinhvien%></b></li>
+					Ngay sinh <%=current_sinhvien.ngaysinh%><br>
+					Lop <%=current_sinhvien.lopsinhvien.tenlopsinhvien%><br>
+					Email <%=current_sinhvien.email%><br>
+					Trang thai <%= current_sinhvien.trangthai ? "Hoc" : "Thoi hoc"%><br>
 				</ul>
 			</div>
 		</div>
-		<%= will_paginate @lophocs , :outer_window=>1,:inner_window=>1%>
+		
 		<table class="table table-striped">
 			<thead>
 				<tr>
@@ -47,7 +51,7 @@
 				<% end %>
 			</body>
 		</table>
-		<%= will_paginate @lophocs , :outer_window=>1,:inner_window=>1%><br>
+		<%= will_paginate @lophocs ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1%><br>
 		<%= page_entries_info @lophocs %><br>
 	</div>
 	<div class="col-md-5">
