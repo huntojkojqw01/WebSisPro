@@ -1,25 +1,29 @@
 <%=provide(:title,"Xem thoi khoa bieu")%>
 <div class="row">
 	<div class="col-md-6">
+
 		
 		<%= form_tag(thoikhoabieu_sinhviens_path, method: "get") do %>			
 			Hoc ki <%=select_tag "hocki_id", options_from_collection_for_select(Hocki.all, "id", "mahocki",@selected[:hocki_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>		  	
+
 		<% end %>
 		<% if @lophocs && @lophocs.count>0 %>
-		Danh sach lop hoc<br>
-		<table >
-			<head>
+		<div style="text-align: center; font-size: 30px">
+			Danh sach lop hoc
+		</div>
+		<table class="table table-striped" style="margin-top: 20px;">
+			<thead>
 				<tr>
-					<td>Ma lop</td>
-					<td>Thoi gian</td>
-					<td>Dia diem</td>
-					<td>Ma hoc phan</td>
-					<td>Ten hoc phan</td>
-					<td>Tin chi</td>			
-					<td>Tin chi hoc phi</td>
-					<td>He so hoc phi</td>			
+					<th>Ma lop</th>
+					<th>Thoi gian</th>
+					<th>Dia diem</th>
+					<th>Ma hoc phan</th>
+					<th>Ten hoc phan</th>
+					<th>Tin chi</th>
+					<th>Tin chi hoc phi</th>
+					<th>He so hoc phi</th>
 				</tr>
-			</head>
+			</thead>
 			<body>
 				<%tongTinChi=0%>
 				<%tongTien=0%>
@@ -44,13 +48,15 @@
 				</tr>
 			</body>
 		</table>
-		Dinh muc hoc phi: <%=@hocki.dinhmuchocphi%><br>
-		Tong so tien phai dong trong hoc ki: <%=tongTien*@hocki.dinhmuchocphi%><br>
+		<ul>
+			<li style="margin-bottom: 5px;">Dinh muc hoc phi: <%=@hocki.dinhmuchocphi%></li>
+			<li>Tong so tien phai dong trong hoc ki: <%=tongTien*@hocki.dinhmuchocphi%></li>
+		</ul>
 		<%else%>
 		Khong dang ki lop nao trong ki nay
 		<%end%>		
 	</div>
 	<div class="col-md-6">
-		<%=render 'tkb',object: to_tkb(@lophocs) if @lophocs && @lophocs.count>0 && @selected[:hocki_id]%>  
+		<%=render 'tkb',object: to_tkb(@lophocs) if @lophocs && @lophocs.count>0 && @selected[:hocki_id]%>
 	</div>
 </div>

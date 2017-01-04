@@ -1,26 +1,47 @@
 <%=provide(:title,"Danh sach sinh vien")%>
 <div class="row">
-	<div class="col-md-4">		
+
+	<div class="container" style="text-align:center; font-size: 30px; margin-bottom: 50px;">
+		Danh sách sinh viên
+	</div>
+	<div class="col-md-4">
 		<%= form_tag(sinhviens_path, method: "get") do %>
-			Khoa hoc <%=select_tag "khoahoc", options_from_collection_for_select(@khoahocs,"khoahoc","khoahoc", @selected[:khoahoc]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>
-		  	Khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>
-		  	Lop sinh vien <%=select_tag "lopsinhvien_id", options_from_collection_for_select(@lopsinhviens, "id", "tenlopsinhvien",@selected[:lopsinhvien_id]),:include_blank=>"None",:onchange => "this.form.submit();" %><br>
-		  	Ma sinh vien <%=text_field_tag 'masinhvien',@selected[:masinhvien]%><br>
-		  	Ten sinh vien<%=text_field_tag 'tensinhvien',@selected[:tensinhvien]%><br>
-		  	<%= submit_tag("Search") %>
+				Khoa hoc <%=select_tag "khoahoc", options_from_collection_for_select(@khoahocs,"khoahoc","khoahoc", @selected[:khoahoc]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Khoa viện</label>
+					<%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();",class: "col-sm-8"%>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Lớp SV</label>
+					<%=select_tag "lopsinhvien_id", options_from_collection_for_select(@lopsinhviens, "id", "tenlopsinhvien",@selected[:lopsinhvien_id]),:include_blank=>"None",:onchange => "this.form.submit();",class: "col-sm-8" %>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Mã SV</label>
+					<%=text_field_tag 'masinhvien',@selected[:masinhvien],class: "col-sm-8"%>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Tên SV</label>
+					<%=text_field_tag 'tensinhvien',@selected[:tensinhvien], class: "col-sm-8"%>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-4 col-sm-8">
+						<%= submit_tag("Tìm kiếm sinh viên") %>
+					</div>
+				</div>
 		<% end %>
 	</div>
 	<div class="col-md-8">
-		Danh sach sinh vien<br>		
-		<table >
-			<head>
+		Danh sach sinh vien<br>
+		<table class="table striped-table">
+			<thead>
+
 				<tr>
-					<td>Ma sinh vien</td>
-					<td>Ten sinh vien</td>
-					<td>Ngay sinh</td>
-					<td>Ten lop sinh vien</td>
+					<th>Mã sinh viên</th>
+					<th>Tên sinh viên</th>
+					<th>Ngày sinh</th>
+					<th>Tên lớp SV</th>
 				</tr>
-			</head>
+			</thead>
 			<body>
 				<%@sinhviens.each do |sv| %>
 				<tr>
@@ -32,8 +53,12 @@
 				<% end %>
 			</body>
 		</table>
-		<%= will_paginate @sinhviens ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1%><br>
+
+		<%= will_paginate @sinhviens ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1, class: "pager"%>
 		<%= page_entries_info @sinhviens %><br>
-		<%= link_to " Tải xuống ", sinhviens_path(format: :csv), class: "btn btn-primary glyphicon glyphicon-download-alt"%>
-			</div>
+		<div style="margin: auto; width: 20%; margin-top: 10px;">
+			<%= link_to " Tải xuống ", sinhviens_path(format: :csv), class: "btn btn-primary glyphicon glyphicon-download-alt"%>
+		</div>
+	</div>
+
 </div>

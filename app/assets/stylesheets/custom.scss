@@ -13,9 +13,6 @@
 #logo{
     padding-left: 90px;
 }
-label{
-    color: #E6E6E6;
-}
  .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
             background-image:none !important;
         }
@@ -93,7 +90,7 @@ label{
     position: absolute;
     top: 100%;
     z-index: 0;
-    
+
 
     -webkit-perspective: 400px;
     -moz-perspective: 400px;
@@ -127,7 +124,7 @@ label{
     border-radius: 0;
     color: white;
     background-color: green;
-    
+
 }
 .menu > li:hover .submenu, .menu > li:focus .submenu {
     max-height: 2000px;
