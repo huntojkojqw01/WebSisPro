@@ -5,26 +5,26 @@
 	</div>
 	<div class="col-md-4">
 		<%= form_tag(sinhviens_path, method: "get") do %>
-				<table>
-					<tr>
-						<td>Khoa viện</td>
-						<td><%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();"%></td>
-					</tr>
-					<tr>
-						<td>Lớp sinh viên</td>
-						<td><%=select_tag "lopsinhvien_id", options_from_collection_for_select(@lopsinhviens, "id", "tenlopsinhvien",@selected[:lopsinhvien_id]),:include_blank=>"None",:onchange => "this.form.submit();" %></td>
-					</tr>
-					<tr>
-						<td>Mã sinh viên</td>
-						<td><%=text_field_tag 'masinhvien',@selected[:masinhvien]%></td>
-					</tr>
-					<tr>
-						<td>Tên sinh viên</td>
-						<td><%=text_field_tag 'tensinhvien',@selected[:tensinhvien]%></td>
-					</tr>
-				</table>
-				<div style="width: 70%; margin:auto; margin-top: 20px;">
-					<%= submit_tag("Tìm kiếm sinh viên") %>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Khoa viện</label>
+					<%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();",class: "col-sm-8"%>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Lớp SV</label>
+					<%=select_tag "lopsinhvien_id", options_from_collection_for_select(@lopsinhviens, "id", "tenlopsinhvien",@selected[:lopsinhvien_id]),:include_blank=>"None",:onchange => "this.form.submit();",class: "col-sm-8" %>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Mã SV</label>
+					<%=text_field_tag 'masinhvien',@selected[:masinhvien],class: "col-sm-8"%>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Tên SV</label>
+					<%=text_field_tag 'tensinhvien',@selected[:tensinhvien], class: "col-sm-8"%>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-4 col-sm-8">
+						<%= submit_tag("Tìm kiếm sinh viên") %>
+					</div>
 				</div>
 		<% end %>
 	</div>

@@ -1,21 +1,35 @@
 <%=provide(:title,"Danh muc lop hoc")%>
 <div class="row">
 	<div class="col-md-7">
-		Danh sach lop hoc<br>
+		<div class="container" id="student_info">
+			<div id="student_info_label">
+				<p id="student_info_title">
+					Thong tin sinh vien
+				</p>
+			</div>
+			<div class="row" id="green_line">
+			</div>
+			<div class="container" id="student_info_board">
+				<ul>
+					<li>Ma sinh vien: <b><%=@sinhvien.masinhvien%></b></li>
+					<li>Ten sinh vien: <b><%=@sinhvien.tensinhvien%></b></li>
+				</ul>
+			</div>
+		</div>
 		<%= will_paginate @lophocs , :outer_window=>1,:inner_window=>1%>
-		<table >
-			<head>
+		<table class="table table-striped">
+			<thead>
 				<tr>
-					<td>Ma hoc ki</td>
-					<td>Ma hoc phan</td>
-					<td>Ten hoc phan</td>
-					<td>Tin chi</td>
-					<td>Ma lop hoc</td>
-					<td>Diem qua trinh</td>
-					<td>Diem thi</td>
-					<td>Diem chu</td>
+					<th>Ma HK</th>
+					<th>Ma HP</th>
+					<th>Ten HP</th>
+					<th>TC</th>
+					<th>Ma LH</th>
+					<th>Diem QT</th>
+					<th>Diem thi</th>
+					<th>Diem chu</th>
 				</tr>
-			</head>
+			</thead>
 			<body>
 				<%@lophocs.each do |lh| %>
 				<tr>
@@ -38,19 +52,19 @@
 		<%= page_entries_info @lophocs %><br>
 	</div>
 	<div class="col-md-5">
-		<table >
-			<head>
+		<table class="table table-bordered">
+			<thead>
 				<tr>
-					<td>Ma hoc ki</td>
-					<td>GPA</td>
-					<td>CPA</td>
-					<td>Tin chi dat</td>
-					<td>Tin chi dang ki</td>
-					<td>Tin chi tich luy</td>
-					<td>Tin chi no</td>
+					<th>Ma HK</th>
+					<th>GPA</th>
+					<th>CPA</th>
+					<th>TC dat</th>
+					<th>TCDK</th>
+					<th>TCTL</th>
+					<th>TC no</th>
 				</tr>
-			</head>
-			<body>
+			</thead>
+			<tbody>
 				<%tcdangki=tcdat=tctichluy=cpa=gpa=tongdiem=tongdiemkhoa=0%>
 				<%if @lophocs.count > 0%>
 					<%hk=@lophocs.first.hocki%>
@@ -87,7 +101,7 @@
 								<td><%=tcdangki-tctichluy%></td>
 					</tr>
 				<%end%>
-			</body>
+			</tbody>
 		</table>
 	</div>
 </div>

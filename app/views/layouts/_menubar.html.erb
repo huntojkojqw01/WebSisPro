@@ -1,4 +1,4 @@
-<nav class="navbar" style="background:#FFFF00">
+<nav class="navbar" style="background:#0B2161">
   <div class="col-sm-1"></div>
   <div class="container-fluid">
     <ul class="nav navbar-nav menu navbar-left">
@@ -8,11 +8,11 @@
           <a href="#s1">User
             <span class="caret"></span>
           </a>
-          <ul class="submenu" >        
+          <ul class="submenu" >
             <li><%= link_to 'Đổi mật khẩu',edit_user_path(current_user)%></li>
             <li><%= link_to 'Thông tin cá nhân',current_user%></li>
           </ul>
-        </li>            
+        </li>
         <li><%= link_to 'Khoa vien',khoaviens_path%></li>
         <li><%= link_to 'Hoc ki',hockis_path%></li>
         <li><%= link_to 'Giao vien',giaoviens_path%></li>
@@ -24,20 +24,20 @@
           <li><%= link_to 'Them sinh vien',new_sinhvien_path %></li>
           <% if sinhvien? %>
           <li><%= link_to 'Bang diem sinh vien',bangdiem_sinhviens_path(id:current_user.sinhvien.id) %></li>
-          <li><%=link_to "Thoi khoa bieu sinh vien",thoikhoabieu_sinhviens_path(id:current_user.sinhvien.id)%></li> 
-          <%end%>                  
+          <li><%=link_to "Thoi khoa bieu sinh vien",thoikhoabieu_sinhviens_path(id:current_user.sinhvien.id)%></li>
+          <%end%>
         </ul>
-        </li>        
+        </li>
         <li>
         <a href="#s1">Hoc phan
         <span class="caret"></span></a>
         <ul class="submenu" >
-          <li><%= link_to 'Danh sach hoc phan',hocphans_path %></li>          
+          <li><%= link_to 'Danh sach hoc phan',hocphans_path %></li>
           <li><%= link_to 'Them hoc phan',new_hocphan_path %></li>
           <% if sinhvien? %>
           <% hocki=Hocki.find_by(modangkihocphan: true) %>
-          <li><%= link_to 'Đăng kí học phần','#'%></li>  
-          <%end%>        
+          <li><%= link_to 'Đăng kí học phần','#'%></li>
+          <%end%>
         </ul>
         </li>
         <li>
@@ -47,14 +47,14 @@
           <li><%= link_to 'Danh sach lop hoc',lophocs_path %></li>
           <li><%= link_to 'Them lop hoc',new_lophoc_path %></li>
           <% if sinhvien? %>
-          <% hocki=Hocki.find_by(modangkilophoc: true) %>    
+          <% hocki=Hocki.find_by(modangkilophoc: true) %>
           <li><%= link_to 'Đăng kí lớp học',dangkilophoc_sinhviens_path(id:current_user.sinhvien.id,hocki_id:hocki.id) if hocki %></li>
           <%end%>
         </ul>
-        </li>                
+        </li>
       <%else%>
         <li class="active"><%= link_to 'Log in',login_path%></li>
-      <% end %>           
+      <% end %>
     </ul>
   </div>
 </nav>
