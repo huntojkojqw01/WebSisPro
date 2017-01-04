@@ -5,7 +5,7 @@
       <li class="active"><%= link_to 'Trang chủ',root_path%></li>
       <% if admin? %>
         <li>
-          <a href="#s1"><%=current_user.name%>
+          <a ><%=current_user.name%>
             <span class="caret"></span>
           </a>
           <ul class="submenu" >
@@ -14,7 +14,7 @@
           </ul>
         </li>
         <li>
-        <a href="#s1">Sinh viên
+        <a >Sinh viên
         <span class="caret"></span></a>
         <ul class="submenu" >
           <li><%= link_to 'Tìm kiếm sinh viên',sinhviens_path %></li>
@@ -23,7 +23,7 @@
         </ul>
         </li>
         <li>
-        <a href="#s1">Học phần
+        <a >Học phần
         <span class="caret"></span></a>
         <ul class="submenu" >
           <li><%= link_to 'Tìm kiếm học phần',hocphans_path %></li>
@@ -32,7 +32,7 @@
         </ul>
         </li>
         <li>
-        <a href="#s1">Lớp học
+        <a >Lớp học
         <span class="caret"></span></a>
         <ul class="submenu" >
           <li><%= link_to 'Tìm kiếm lớp học',lophocs_path %></li>         
@@ -49,7 +49,7 @@
         
       <%elsif sinhvien? %>
         <li>
-          <a href="#s1"><%=current_user.name%>
+          <a ><%=current_user.name%>
             <span class="caret"></span>
           </a>
           <ul class="submenu" >
@@ -58,7 +58,7 @@
           </ul>
         </li>
         <li>
-        <a href="#s1">Thông tin cá nhân
+        <a>Thông tin cá nhân
         <span class="caret"></span></a>
         <ul class="submenu" >
           <li><%= link_to 'Chương trình đào tạo',chuongtrinhdaotao_sinhviens_path %></li>
@@ -67,14 +67,15 @@
         </ul>
         </li>        
         <li>
-        <a href="#s1">Đăng kí học tập
+        <a>Đăng kí học tập
         <span class="caret"></span></a>
         <ul class="submenu" >
           <li><%= link_to 'Đăng kí lớp học',dangkilophoc_sinhviens_path if current_hocki_modklophoc %></li>
           <li><%= link_to 'Đăng kí học phần',dangkihocphan_sinhviens_path if current_hocki_modkhocphan %></li>
         </ul>
         </li>
-        <a href="#s1">Tra cứu
+        <li>
+        <a >Tra cứu
         <span class="caret"></span></a>
         <ul class="submenu" >
           <li><%= link_to 'Sinh viên',sinhviens_path %></li>          
@@ -85,7 +86,7 @@
       <%else%>
         <li class="active"><%= link_to 'Đăng nhập',login_path%></li>        
         <li>
-        <a href="#s1">Tra cứu
+        <a >Tra cứu
         <span class="caret"></span></a>
         <ul class="submenu" >
           <li><%= link_to 'Sinh viên',sinhviens_path %></li>          

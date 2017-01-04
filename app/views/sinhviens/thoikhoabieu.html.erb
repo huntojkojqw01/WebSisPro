@@ -4,12 +4,12 @@
 
 		
 		<%= form_tag(thoikhoabieu_sinhviens_path, method: "get") do %>			
-			Hoc ki <%=select_tag "hocki_id", options_from_collection_for_select(Hocki.all, "id", "mahocki",@selected[:hocki_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>		  	
+			Học kì <%=select_tag "hocki_id", options_from_collection_for_select(Hocki.all, "id", "mahocki",@selected[:hocki_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>		  	
 
 		<% end %>
 		<% if @lophocs && @lophocs.count>0 %>
 		<div style="text-align: center; font-size: 30px">
-			Danh sach lop hoc
+			Danh sách lớp học
 		</div>
 		<table class="table table-striped" style="margin-top: 20px;">
 			<thead>

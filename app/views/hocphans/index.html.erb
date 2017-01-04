@@ -1,3 +1,5 @@
+<%=provide(:title,"Danh sach hoc phan ")%>
+<div class="row">
 <div class="xyz">
   Danh muc hoc phan<br><br><br>
 </div>
@@ -28,7 +30,9 @@
     </div>
   </div>
 <% end %>
+
 <%= render 'list', object: @hocphans %>
 <div id="button_download_subjects_list">
   <%= link_to " Tải xuống ", hocphans_path(format: :csv), class: "btn btn-primary glyphicon glyphicon-download-alt"%>
+</div>
 </div>
