@@ -20,6 +20,7 @@ gem 'bcrypt'
 # Use jquery as the JavaScript library
 gem 'bootstrap-sass', '3.3.6'
 gem 'will_paginate'
+gem 'will_paginate-bootstrap'
 gem 'jquery-rails'
 gem 'composite_primary_keys'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks

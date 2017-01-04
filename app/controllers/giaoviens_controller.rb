@@ -1,5 +1,7 @@
 class GiaoviensController < ApplicationController
-	before_action :set_x, only: [:edit,:update,:show,:destroy]
+	before_action :logged_in_user
+	before_action :is_admin
+	before_action :set_x, only: [:edit,:update,:show]
 	def index
 		@selected=params		
 		@khoaviens=Khoavien.all		
@@ -26,10 +28,8 @@ class GiaoviensController < ApplicationController
 		
 	end
 	def destroy
-		@giaovien.destroy
-		flash[:info]= 'Đã xóa .'
-		redirect_to giaoviens_path
-		end
+		
+	end
 	def update
 
 	      if @giaovien.update(x_params)

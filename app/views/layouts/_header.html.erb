@@ -3,11 +3,7 @@
   <div class="row">
       <div class="col-sm-7">
       </div>
-      <div class="col-sm-5">
-          <% if logged_in? %>
-            <h2><%= hello %> <%= current_user.name %><br>
-            <%=link_to "thoat",logout_path,method: "delete" %></h2>
-            <% end %>
+      <div class="col-sm-5">          
       </div>
   </div>
 
@@ -24,7 +20,8 @@
   <div class="col-sm-7">
   </div>
   <div class="col-sm-4">
-      <h5 class="text" style="color:white;text-align: right">Học kì 20161, ngày 26 tháng 10 năm 2016</h5>
+      <% time=DateTime.now.to_date %>
+      <h5 class="text" style="color:white;text-align: right"><% if current_hocki %>Học kì <%=current_hocki.mahocki%>,<%end%> ngày <%=time.day%> tháng <%=time.month%> năm <%=time.year%></h5>
   </div>
   </div>
 </div>

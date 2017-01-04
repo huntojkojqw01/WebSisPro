@@ -6,10 +6,7 @@
 		Khoa hoc <%=@lopsinhvien.khoahoc%><br>
 		Khoa vien <%=@khoavien.tenkhoavien%><br>
 		
-		<%=link_to " Edit ",edit_lopsinhvien_path(@lopsinhvien)%>
-		<%= link_to ' Xóa ', @lopsinhvien, method: :delete,
-				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %>
-		
+		<%=link_to " Edit ",edit_lopsinhvien_path(@lopsinhvien)%>		
 	</div>
 	<div class="col-md-9">
 		<table >

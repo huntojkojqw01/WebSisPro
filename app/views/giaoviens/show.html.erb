@@ -5,12 +5,8 @@
 		Giao vien <%=@giaovien.tengiaovien%><br>
 		Ngay sinh <%=@giaovien.ngaysinh%><br>
 		Email <%=@giaovien.email%><br>
-		Khoa vien <%=@khoavien.tenkhoavien%><br>
-		
-		<%=link_to " Edit ",edit_giaovien_path(@giaovien)%>
-		<%= link_to ' Xóa ', @giaovien, method: :delete,
-				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %>
-		
+		Khoa vien <%=@khoavien.tenkhoavien%><br>		
+		<%=link_to " Edit ",edit_giaovien_path(@giaovien)%>		
 	</div>
 	<div class="col-md-9">
 				  	

@@ -1,0 +1,75 @@
+<%=provide(:title,"Dang ki hoc phan")%>
+<div class="row">
+	<div class="col-md-6">		
+		<%= form_tag(dangkihocphan_sinhviens_path, method: "get") do %>							
+			Khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>
+		  	Ten hoc phan <%=text_field_tag 'tenhocphan',@selected[:tenhocphan]%><br>
+		  	Ma hoc phan <%=text_field_tag 'mahocphan',@selected[:mahocphan]%><br>
+		  	<%= submit_tag("Search") %>		  	
+		<% end %>		
+		<table >
+			<head>
+				<tr>
+					<td>Ma hoc phan</td>
+					<td>Ten hoc phan</td>
+					<td>Tin chi</td>
+					<td>Tin chi hoc phi</td>
+					<td>Trong so</td>			
+					<td>Khoa vien</td>							
+				</tr>
+			</head>
+			<body>
+				<%@hocphans.each do |hp| %>
+				<tr>
+					<td><%=link_to hp.mahocphan, hp%></td>
+					<td><%=hp.tenhocphan%></td>
+					<td><%=hp.tinchi%></td>
+					<td><%=hp.tinchihocphi%></td>
+					<td><%=(1-hp.trongso).round(1)%>-<%=hp.trongso%></td>
+					<td><%=hp.khoavien.tenkhoavien%></td>
+					<% if sinhvien? %>
+					<td><%=link_to 'Dang ki',dangkihocphans_path(dangkihocphan: {:sinhvien_id=>current_sinhvien.id,:hocphan_id=>hp.id,:hocki_id=>current_hocki_modkhocphan.id}),method: :post %></td>
+					<%end%>
+				</tr>
+				<% end %>
+			</body>
+		</table>
+		<%= will_paginate @hocphans ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1%><br>
+		<%= page_entries_info @hocphans %><br>		
+	</div>
+	<div class="col-md-6">
+		<% if @registeds && @registeds.count>0 %>
+		Danh sach hoc phan da dang ki<br>
+		<table >
+			<head>
+				<tr>
+					<td>Ma hoc phan</td>
+					<td>Ten hoc phan</td>
+					<td>Tin chi</td>					
+					<td>Trong so</td>							
+				</tr>
+			</head>
+			<body>
+				<%tongTinChi=0%>				
+				<%@registeds.each do |hp| %>
+				<tr>									
+					<td><%=hp.mahocphan%></td>
+					<td><%=hp.tenhocphan%></td>
+					<td><%=hp.tinchi%></td><%tongTinChi+=hp.tinchi%>					
+					<td><%=(1-hp.trongso).round(1)%>-<%=hp.trongso%></td>
+					<td><%=link_to 'Xoa',Dangkihocphan.where("hocphan_id=? and sinhvien_id=? and hocki_id=?",hp.id,current_sinhvien.id,current_hocki_modkhocphan.id).first, method: :delete,
+				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %></td>
+				</tr>
+				<% end %>
+				<tr>
+					<td></td><td></td>
+					<td><%=tongTinChi%></td>					
+					<td></td>
+				</tr>
+			</body>
+		</table>		
+		<%else%>
+		Khong dang ki hoc phan nao trong ki nay
+		<%end%>  
+	</div>
+</div>

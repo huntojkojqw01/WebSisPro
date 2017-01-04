@@ -1,25 +1,27 @@
 class LophocsController < ApplicationController
 	include ApplicationHelper
+	before_action :logged_in_user, except: [:index]
+	before_action :is_admin, except: [:index]
 	before_action :set_x, only: [:edit,:update,:show,:destroy]
 	def index
-		@hockis=Hocki.order(mahocki: :asc)
-		@khoaviens=Khoavien.all
 		@selected=params
+		@hockis=Hocki.order(:mahocki)
+		@khoaviens=Khoavien.order(:tenkhoavien)		
 		if @selected[:khoavien_id]&&@selected[:khoavien_id]!=""
 			if @selected[:hocki_id]&&@selected[:hocki_id]!=""
-				@lophocs=Khoavien.find_by(id:@selected[:khoavien_id]).lophocs.where("hocki_id = ? and malophoc like ? and mahocphan like ?",@selected[:hocki_id],"%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%")
+				@lophocs=Khoavien.find_by_id(@selected[:khoavien_id]).lophocs.where("hocki_id = ? and malophoc like ? and mahocphan like ?",@selected[:hocki_id],"%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%").paginate(page: params[:page],:per_page=>20)
 			else
-				@lophocs=Khoavien.find_by(id:@selected[:khoavien_id]).lophocs.left_outer_joins(:hocphan).where("malophoc like ? and mahocphan like ?","%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%")
+				@lophocs=Khoavien.find_by_id(@selected[:khoavien_id]).lophocs.where("malophoc like ? and mahocphan like ?","%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%").paginate(page: params[:page],:per_page=>20)
 			end
 		else
 			if @selected[:hocki_id]&&@selected[:hocki_id]!=""
-				@lophocs=Hocki.find_by(id:@selected[:hocki_id]).lophocs.left_outer_joins(:hocphan).where("malophoc like ? and mahocphan like ?","%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%")
+				@lophocs=Lophoc.joins(:hocphan).where("hocki_id = ? and malophoc like ? and mahocphan like ?",@selected[:hocki_id],"%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%").paginate(page: params[:page],:per_page=>20)
 			else
-				@lophocs=Lophoc.left_outer_joins(:hocphan).where("malophoc like ? and mahocphan like ?","%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%")
+				@lophocs=Lophoc.joins(:hocphan).where("malophoc like ? and mahocphan like ?","%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%").paginate(page: params[:page],:per_page=>20)
 			end		
 		end		
-		@lophocs=@lophocs.paginate(page: params[:page],:per_page=>20)		
-		@lhs = @lophocs.order :malophoc
+			
+		@lhs = Lophoc.order :malophoc
         respond_to do |format|
           format.html
           format.csv { send_data @lhs.as_csv }

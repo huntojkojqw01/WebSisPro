@@ -1,15 +1,24 @@
 class HocphansController < ApplicationController
+	before_action :logged_in_user, except: [:index]
+	before_action :is_admin, except: [:index]
 	before_action :set_x, only: [:edit,:update,:show,:destroy]
 	def index
 		@selected=params		
-		@khoaviens=Khoavien.all		
+		@khoaviens=Khoavien.order(:tenkhoavien)
 		if @selected[:khoavien_id]&&@selected[:khoavien_id]!=""
-			@hocphans=Hocphan.where("khoavien_id = ? and tenhocphan like ? and mahocphan like ?",@selected[:khoavien_id],"%#{@selected[:tenhocphan]}%","%#{@selected[:mahocphan]}%")
+			if @selected[:tinchi]&&@selected[:tinchi]!=""
+				@hocphans=Hocphan.where("khoavien_id=? and tinchi = ? and tenhocphan like ? and mahocphan like ?",@selected[:khoavien_id],@selected[:tinchi],"%#{@selected[:tenhocphan]}%","%#{@selected[:mahocphan]}%").order(:mahocphan).paginate(page: params[:page],:per_page=>10)
+			else
+				@hocphans=Hocphan.where("khoavien_id=? and tenhocphan like ? and mahocphan like ?",@selected[:khoavien_id],"%#{@selected[:tenhocphan]}%","%#{@selected[:mahocphan]}%").order(:mahocphan).paginate(page: params[:page],:per_page=>10)
+			end				
 		else
-			@hocphans=Hocphan.where("tenhocphan like ? and mahocphan like ?","%#{@selected[:tenhocphan]}%","%#{@selected[:mahocphan]}%")
-		end
-		@hocphans=@hocphans.order(mahocphan: :desc).paginate(page: params[:page],:per_page=>10)		
-		@hps = Hocphan.order :mahocphan
+			if @selected[:tinchi]&&@selected[:tinchi]!=""
+				@hocphans=Hocphan.where("tinchi = ? and tenhocphan like ? and mahocphan like ?",@selected[:tinchi],"%#{@selected[:tenhocphan]}%","%#{@selected[:mahocphan]}%").order(:mahocphan).paginate(page: params[:page],:per_page=>10)
+			else
+				@hocphans=Hocphan.where("tenhocphan like ? and mahocphan like ?","%#{@selected[:tenhocphan]}%","%#{@selected[:mahocphan]}%").order(:mahocphan).paginate(page: params[:page],:per_page=>10)
+			end
+		end				
+		@hps =Hocphan.order :mahocphan
         respond_to do |format|
           format.html
           format.csv { send_data @hps.as_csv }

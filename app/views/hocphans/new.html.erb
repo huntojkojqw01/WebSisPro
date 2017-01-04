@@ -14,8 +14,7 @@
 		    <%= f.select :tinchihocphi ,options_for_select((1.5..25).step(0.5))%>
 		    <%= f.label :"Trong so" %>
 		    <%= f.select :trongso ,options_for_select((0.5..1).step(0.1))%>
-		    <%= f.label :"Trang thai mo dang ki" %>
-		    <%= f.collection_radio_buttons :modangki, [[true,"Open"],[false,"Close"]], :first, :last %>
+		    
 		    <%= f.label :"Khoa vien" %>
 		    <%= f.collection_select :khoavien_id, Khoavien.all, :id, :tenkhoavien, prompt: true %>
 		    <%= f.submit "Thêm ",class: "btn btn-primary"%>

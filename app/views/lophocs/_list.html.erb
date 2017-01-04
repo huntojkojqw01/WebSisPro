@@ -1,7 +1,6 @@
-
-		<table class="table table-striped">
-			<thead>
-				<tr>
+	<table class="table table-striped">
+		<thead>
+			<tr>
 					<th>Ma lop</th>
 					<th>Thoi gian</th>
 					<th>Dia diem</th>
@@ -9,11 +8,11 @@
 					<th>Ten hoc phan</th>
 					<th>Max dang ki</th>
 					<th>Da dang ki</th>
-				</tr>
-			</thead>
-			<body>
-				<%object.each do |lh| %>
-				<tr>
+			</tr>
+		</thead>
+		<body>
+				<% object.each do |lh| %>
+			<tr>
 					<td><%=link_to lh.malophoc, lh%></td>
 					<td><%=toStrTime(lh.thoigian)%></td>
 					<td><%=lh.diadiem%></td>
@@ -21,8 +20,9 @@
 					<td><%=lh.hocphan.tenhocphan%></td>
 					<td style="text-align: center"><%=lh.maxdangki%></td>
 					<td style="text-align: center"><%=lh.dangkilophocs.count%></td>
-				</tr>
+			</tr>
 				<% end %>
-			</body>
-		</table>
-	<%= will_paginate object , :outer_window=>1,:inner_window=>1,class: "pager"%><br>
+		</body>
+	</table>
+<%= will_paginate object ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1,class: "pager"%><br>
+<%= page_entries_info object %><br>

@@ -1,5 +1,7 @@
 class ChuongtrinhdaotaosController < ApplicationController
-	before_action :set_x, only: [:edit,:update,:show,:destroy]
+	before_action :logged_in_user
+	before_action :is_admin, only: [:new,:create,:destroy]
+	before_action :set_x, only: [:show,:destroy]
 	def index
 		@ctdts=Chuongtrinhdaotao.all		
 	end	
@@ -15,22 +17,16 @@ class ChuongtrinhdaotaosController < ApplicationController
 	def destroy
 		@chuongtrinhdaotao.destroy
 		flash[:info]= 'Đã xóa .'
-		redirect_to chuongtrinhdaotaos_path
+		redirect_to :back
 		end
 	def update
-
-	      if @chuongtrinhdaotao.update(x_params)
-	      	flash[:info]='Đã cập nhật .'
-	        redirect_to @chuongtrinhdaotao
-	      else
-	       	render 'edit'
-	      end
+	    
   	end
 	def create
 		@chuongtrinhdaotao=Chuongtrinhdaotao.new(x_params)
 		if @chuongtrinhdaotao.save
 	      	flash[:success]= 'Tạo mới thành công .'
-	        redirect_to @chuongtrinhdaotao
+	        redirect_to chuongtrinhdaotaos_path
 	    else
 	        render 'new'
 	    end
@@ -40,7 +36,7 @@ class ChuongtrinhdaotaosController < ApplicationController
 		@chuongtrinhdaotao=Chuongtrinhdaotao.find_by_id(params[:id])
 		if @chuongtrinhdaotao			
 		else
-			flash[:info]="Khong tim thay dang ki hoc phan nay."
+			flash[:info]="Không tìm thấy dữ liệu này."
 			redirect_to root_url
 		end	
 	end

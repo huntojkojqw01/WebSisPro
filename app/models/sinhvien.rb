@@ -6,6 +6,7 @@ class Sinhvien < ApplicationRecord
   	has_many :dangkilophocs, dependent: :destroy
   	has_many :lophocs, through: :dangkilophocs
   	has_many :dangkihocphans, dependent: :destroy
+  	has_many :hocphans, through: :dangkihocphans
   	validates :tensinhvien, presence: true, length: { maximum: 50 }
   	validates :masinhvien, presence: true, length: { maximum: 10 }, uniqueness: true  	
   	validates :email,:format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/ }
@@ -31,7 +32,7 @@ class Sinhvien < ApplicationRecord
 	    end # end CSV.foreach
 	end # end self.im
 	def self.as_csv
-  	CSV.generate do |csv|
+  		CSV.generate do |csv|
 	      csv << column_names
 	      all.each do |item|
 	        csv << item.attributes.values_at(*column_names)

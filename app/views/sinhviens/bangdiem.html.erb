@@ -19,7 +19,7 @@
 			<body>
 				<%@lophocs.each do |lh| %>
 				<tr>
-					<%dk=lh.dangkilophocs.find_by(sinhvien_id:@sinhvien.id)%>
+					<%dk=lh.dangkilophocs.find_by(sinhvien_id:current_sinhvien.id)%>
 					
 					<td><%=lh.hocki.mahocki%></td>
 					<td><%=lh.hocphan.mahocphan%></td>
@@ -52,11 +52,12 @@
 			</head>
 			<body>
 				<%tcdangki=tcdat=tctichluy=cpa=gpa=tongdiem=tongdiemkhoa=0%>
+				<% if @lophocs.count>0 %>
 				<%hk=@lophocs.first.hocki%>
 				<%@lophocs.each do |lh| %>
 				
 					<%hp=lh.hocphan%>
-					<%dk=lh.dangkilophocs.find_by(sinhvien_id:@sinhvien.id)%>
+					<%dk=lh.dangkilophocs.find_by(sinhvien_id:current_sinhvien.id)%>
 					<% if hk!=lh.hocki%>
 						<tr>
 							<td><%=hk.mahocki%></td><%hk=lh.hocki%><%gpa=tcdat>0 ? (tongdiem/tcdat).round(2) : 0%><%tongdiemkhoa+=tongdiem%><%tongdiem=0%><%cpa=tcdangki>0 ? (tongdiemkhoa/tcdangki).round(2) : 0%>
@@ -85,6 +86,7 @@
 							<td><%=tctichluy%></td>
 							<td><%=tcdangki-tctichluy%></td>
 				</tr>
+				<% end %>
 			</body>
 		</table>	  	
 	</div>

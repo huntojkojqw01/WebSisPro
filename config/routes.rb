@@ -34,6 +34,9 @@ Rails.application.routes.draw do
         get :thoikhoabieu
         get :bangdiem
         get :dangkilophoc
+        get :dangkihocphan
+        get :chuongtrinhdaotao
+        get :sinhviendangkihoc
       end
     end
     resources :dangkilophocs do

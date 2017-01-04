@@ -1,19 +1,13 @@
 <%=provide(:title,"Dang ki lop hoc")%>
 <div class="row">
 	<div class="col-md-6">		
-		<%= form_tag(dangkilophoc_sinhviens_path, method: "get") do %>
-			<%=hidden_field_tag "id", @sinhvien.id %>
-			<% if @hocki %> 
-			<%=hidden_field_tag "hocki_id", @hocki.id %>
-			<%else%>
-			Hoc ki <%=select_tag "hocki_id", options_from_collection_for_select(@hockis, "id", "mahocki",@selected[:hocki_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>
-			<%end%>			
+		<%= form_tag(dangkilophoc_sinhviens_path, method: "get") do %>							
 			Khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>
-		  	Ma lop <%=text_field_tag 'malophoc',@selected[:malophoc]%><br>
+		  	Ma lop hoc <%=text_field_tag 'malophoc',@selected[:malophoc]%><br>
 		  	Ma hoc phan <%=text_field_tag 'mahocphan',@selected[:mahocphan]%><br>
 		  	<%= submit_tag("Search") %>		  	
 		<% end %>
-		<%= will_paginate @lophocs , :outer_window=>1,:inner_window=>1%>
+		
 		<table >
 			<head>
 				<tr>
@@ -37,16 +31,14 @@
 					<td><%=lh.maxdangki%></td>
 					<td><%=lh.dangkilophocs.count%></td>
 					<% if sinhvien? %>
-					<td><%=link_to 'Dang ki',dangkilophocs_path(dangkilophoc: {:sinhvien_id=>@sinhvien.id,:lophoc_id=>lh.id}),method: :post %></td>
+					<td><%=link_to 'Dang ki',dangkilophocs_path(dangkilophoc: {:sinhvien_id=>current_sinhvien.id,:lophoc_id=>lh.id}),method: :post %></td>
 					<%end%>
 				</tr>
 				<% end %>
 			</body>
 		</table>
-		<%= will_paginate @lophocs , :outer_window=>1,:inner_window=>1%><br>
-		<%= page_entries_info @lophocs %><br>
-		
-		<%=link_to 'Xem thoi khoa bieu',thoikhoabieu_sinhviens_path(id:@sinhvien.id)%><br>
+		<%= will_paginate @lophocs ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1%><br>
+		<%= page_entries_info @lophocs %><br>		
 	</div>
 	<div class="col-md-6">
 		<% if @registeds && @registeds.count>0 %>
@@ -76,9 +68,9 @@
 					<td><%=lh.hocphan.tenhocphan%></td>
 					<td><%=lh.hocphan.tinchi%></td><%tongTinChi+=lh.hocphan.tinchi%>
 					<td><%=lh.hocphan.tinchihocphi%></td>
-					<%heso=lh.dangkilophocs.find_by(sinhvien_id: @sinhvien.id).hesohocphi%>
+					<%heso=lh.dangkilophocs.find_by(sinhvien_id: current_sinhvien.id).hesohocphi%>
 					<td><%=heso%></td><%tongTien+=heso*lh.hocphan.tinchihocphi%>
-					<td><%=link_to 'Xoa',Dangkilophoc.where("lophoc_id=? and sinhvien_id=?",lh.id,@sinhvien.id).first, method: :delete,
+					<td><%=link_to 'Xoa',Dangkilophoc.where("lophoc_id=? and sinhvien_id=?",lh.id,current_sinhvien.id).first, method: :delete,
 				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %></td>
 				</tr>
 				<% end %>

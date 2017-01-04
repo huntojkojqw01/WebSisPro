@@ -122,8 +122,10 @@ module ApplicationHelper
 	end
     def dangkilophocOk(dangkilophoc)
 		sinhvien=dangkilophoc.sinhvien
-		return [false , "Sinh vien da thoi hoc nen khong the dang ki"] unless sinhvien.trangthai
+		return [false , "Sinh vien da thoi hoc nen khong the dang ki"] unless sinhvien.trangthai		
 		lophoc=dangkilophoc.lophoc
+		hocphan=lophoc.hocphan
+		return [false , "Sinh vien chua dang ki hoc phan #{hocphan.mahocphan}"] unless sinhvien.dangkihocphans.find_by(hocphan_id:hocphan.id)
 		return [false , "Khong phai thoi diem dang ki lop cho hoc ki nay"] unless lophoc.hocki.modangkilophoc
 		return [false , "Lop hoc da day nen khong the dang ki"] unless lophoc.maxdangki>lophoc.dangkilophocs.count
 		lophocs=sinhvien.lophocs.where("hocki_id=?",lophoc.hocki_id)
@@ -132,7 +134,15 @@ module ApplicationHelper
 			return [false,"Trung hoc phan da dang ki voi lop hoc #{lh.malophoc}(#{lh.hocphan.mahocphan})"] if lh.hocphan==lophoc.hocphan
 		end
 		return [true,""]
-	end	
+	end
+	def dangkihocphanOk(dangkihocphan)
+		sinhvien=dangkihocphan.sinhvien
+		return [false , "Sinh vien da thoi hoc nen khong the dang ki"] unless sinhvien.trangthai		
+		hocphan=dangkihocphan.hocphan		
+		hocki=dangkihocphan.hocki
+		return [false , "Khong phai thoi diem dang ki hoc phan cho hoc ki nay"] unless hocki.modangkihocphan
+		return [true,""]
+	end		
 	def hockiOk(hocki)
 		return [false,"Thoi gian bat dau(#{hocki.bd}) >= thoi gian ket thuc(#{hocki.kt}), khong hop le"] if hocki.bd>=hocki.kt
 		hockis=Hocki.where("mahocki!=?",hocki.mahocki)

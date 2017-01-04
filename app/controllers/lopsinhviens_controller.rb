@@ -1,5 +1,7 @@
 class LopsinhviensController < ApplicationController
-	before_action :set_x, only: [:edit,:update,:show,:destroy]
+	before_action :logged_in_user, except: [:index]
+	before_action :is_admin, except: [:index]
+	before_action :set_x, only: [:edit,:update,:show]
 	def index
 		@selected=params		
 		@khoaviens=Khoavien.all		
@@ -27,10 +29,8 @@ class LopsinhviensController < ApplicationController
 		
 	end
 	def destroy
-		@lopsinhvien.destroy
-		flash[:info]= 'Đã xóa .'
-		redirect_to lopsinhviens_path
-		end
+		
+	end
 	def update
 
 	      if @lopsinhvien.update(x_params)

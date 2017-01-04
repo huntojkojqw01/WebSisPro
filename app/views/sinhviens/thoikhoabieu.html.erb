@@ -2,8 +2,7 @@
 <div class="row">
 	<div class="col-md-6">
 		
-		<%= form_tag(thoikhoabieu_sinhviens_path, method: "get") do %>
-			<%=hidden_field_tag "id", @sinhvien.id %>
+		<%= form_tag(thoikhoabieu_sinhviens_path, method: "get") do %>			
 			Hoc ki <%=select_tag "hocki_id", options_from_collection_for_select(Hocki.all, "id", "mahocki",@selected[:hocki_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>		  	
 		<% end %>
 		<% if @lophocs && @lophocs.count>0 %>
@@ -33,7 +32,7 @@
 					<td><%=lh.hocphan.tenhocphan%></td>
 					<td><%=lh.hocphan.tinchi%></td><%tongTinChi+=lh.hocphan.tinchi%>
 					<td><%=lh.hocphan.tinchihocphi%></td>
-					<%heso=lh.dangkilophocs.find_by(sinhvien_id: @sinhvien.id).hesohocphi%>
+					<%heso=lh.dangkilophocs.find_by(sinhvien_id: current_sinhvien.id).hesohocphi%>
 					<td><%=heso%></td><%tongTien+=heso*lh.hocphan.tinchihocphi%>
 				</tr>
 				<% end %>
@@ -49,8 +48,7 @@
 		Tong so tien phai dong trong hoc ki: <%=tongTien*@hocki.dinhmuchocphi%><br>
 		<%else%>
 		Khong dang ki lop nao trong ki nay
-		<%end%>
-		<%=link_to 'Dang ki them lop hoc moi',dangkilophoc_sinhviens_path(id:@sinhvien.id,hocki_id:@hocki.id) if @hocki %><br>
+		<%end%>		
 	</div>
 	<div class="col-md-6">
 		<%=render 'tkb',object: to_tkb(@lophocs) if @lophocs && @lophocs.count>0 && @selected[:hocki_id]%>  

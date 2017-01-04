@@ -1,5 +1,7 @@
 class HockisController < ApplicationController
 	include ApplicationHelper
+	before_action :logged_in_user
+	before_action :is_admin
 	before_action :set_x, only: [:edit,:update,:show,:destroy]
 	def index
 		@selected=params
@@ -33,10 +35,8 @@ class HockisController < ApplicationController
 		
 	end
 	def destroy
-		@hocki.destroy
-		flash[:info]= 'Đã xóa .'
-		redirect_to hockis_path
-		end
+		
+	end
 	def update
 		par=x_params
 		hocki=Hocki.new(par)

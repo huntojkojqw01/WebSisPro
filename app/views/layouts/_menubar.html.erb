@@ -3,58 +3,101 @@
   <div class="container-fluid">
     <ul class="nav navbar-nav menu navbar-left">
       <li class="active"><%= link_to 'Trang chủ',root_path%></li>
-      <% if logged_in? %>
+      <% if admin? %>
         <li>
-          <a href="#s1">User
+          <a href="#s1"><%=current_user.name%>
             <span class="caret"></span>
           </a>
-          <ul class="submenu" >        
+          <ul class="submenu" >         
+            
             <li><%= link_to 'Đổi mật khẩu',edit_user_path(current_user)%></li>
-            <li><%= link_to 'Thông tin cá nhân',current_user%></li>
+            <li><%= link_to 'Thoát',logout_path,method: "delete"%></li>    
           </ul>
-        </li>            
-        <li><%= link_to 'Khoa vien',khoaviens_path%></li>
-        <li><%= link_to 'Hoc ki',hockis_path%></li>
-        <li><%= link_to 'Giao vien',giaoviens_path%></li>
+        </li>
         <li>
-        <a href="#s1">Sinh vien
+        <a href="#s1">Sinh viên
         <span class="caret"></span></a>
         <ul class="submenu" >
-          <li><%= link_to 'Danh sach sinh vien',sinhviens_path %></li>
-          <li><%= link_to 'Them sinh vien',new_sinhvien_path %></li>
-          <% if sinhvien? %>
-          <li><%= link_to 'Bang diem sinh vien',bangdiem_sinhviens_path(id:current_user.sinhvien.id) %></li>
-          <li><%=link_to "Thoi khoa bieu sinh vien",thoikhoabieu_sinhviens_path(id:current_user.sinhvien.id)%></li> 
-          <%end%>                  
+          <li><%= link_to 'Tìm kiếm sinh viên',sinhviens_path %></li>
+          <li><%= link_to 'Sinh viên đăng kí học',sinhviendangkihoc_sinhviens_path %></li>
+          <li><%= link_to 'Thêm sinh viên',new_sinhvien_path %></li>
+
         </ul>
         </li>        
         <li>
-        <a href="#s1">Hoc phan
+        <a href="#s1">Học phần
         <span class="caret"></span></a>
         <ul class="submenu" >
-          <li><%= link_to 'Danh sach hoc phan',hocphans_path %></li>          
-          <li><%= link_to 'Them hoc phan',new_hocphan_path %></li>
-          <% if sinhvien? %>
-          <% hocki=Hocki.find_by(modangkihocphan: true) %>
-          <li><%= link_to 'Đăng kí học phần','#'%></li>  
-          <%end%>        
+          <li><%= link_to 'Tìm kiếm học phần',hocphans_path %></li>
+          <li><%= link_to 'Thêm học phần',new_hocphan_path %></li>
+          <li><%= link_to 'Thêm đăng kí học phần',new_dangkihocphan_path if current_hocki_modkhocphan %></li>          
+                          
         </ul>
         </li>
         <li>
-        <a href="#s1">Lop hoc
+        <a href="#s1">Lớp học
         <span class="caret"></span></a>
         <ul class="submenu" >
-          <li><%= link_to 'Danh sach lop hoc',lophocs_path %></li>
-          <li><%= link_to 'Them lop hoc',new_lophoc_path %></li>
-          <% if sinhvien? %>
-          <% hocki=Hocki.find_by(modangkilophoc: true) %>    
-          <li><%= link_to 'Đăng kí lớp học',dangkilophoc_sinhviens_path(id:current_user.sinhvien.id,hocki_id:hocki.id) if hocki %></li>
-          <%end%>
+          <li><%= link_to 'Tìm kiếm lớp học',lophocs_path %></li>         
+            <li><%= link_to 'Thêm lớp học',new_lophoc_path %>
+            <li><%= link_to 'Thêm đăng kí lớp học',new_dangkilophoc_path if current_hocki_modklophoc%></li>
+            <li><%= link_to 'Cập nhật bảng điểm',import_dangkilophocs_path %></li>
+                   
         </ul>
-        </li>                
+        </li>
+                    
+        <li><%= link_to 'Khoa viện',khoaviens_path%></li>
+        <li><%= link_to 'Học kì',hockis_path%></li>
+        <li><%= link_to 'Giáo viên',giaoviens_path%></li>        
+        
+      <%elsif sinhvien? %>
+        <li>
+          <a href="#s1"><%=current_user.name%>
+            <span class="caret"></span>
+          </a>
+          <ul class="submenu" >
+            <li><%= link_to 'Đổi mật khẩu',edit_user_path(current_user) %></li>
+            <li><%= link_to 'Thoát',logout_path,method: "delete"%></li>    
+          </ul>
+        </li>
+        <li>
+        <a href="#s1">Thông tin cá nhân
+        <span class="caret"></span></a>
+        <ul class="submenu" >
+          <li><%= link_to 'Chương trình đào tạo',chuongtrinhdaotao_sinhviens_path %></li>
+          <li><%= link_to 'Bảng điểm cá nhân',bangdiem_sinhviens_path %></li>
+          <li><%=link_to "Thời khóa biểu",thoikhoabieu_sinhviens_path %></li>
+        </ul>
+        </li>        
+        <li>
+        <a href="#s1">Đăng kí học tập
+        <span class="caret"></span></a>
+        <ul class="submenu" >
+          <li><%= link_to 'Đăng kí lớp học',dangkilophoc_sinhviens_path if current_hocki_modklophoc %></li>
+          <li><%= link_to 'Đăng kí học phần',dangkihocphan_sinhviens_path if current_hocki_modkhocphan %></li>
+        </ul>
+        </li>
+        <a href="#s1">Tra cứu
+        <span class="caret"></span></a>
+        <ul class="submenu" >
+          <li><%= link_to 'Sinh viên',sinhviens_path %></li>          
+          <li><%= link_to 'Học phần',hocphans_path %></li>
+          <li><%= link_to 'Lớp học',lophocs_path %></li>
+        </ul>
+        </li> 
       <%else%>
-        <li class="active"><%= link_to 'Log in',login_path%></li>
-      <% end %>           
+        <li class="active"><%= link_to 'Đăng nhập',login_path%></li>        
+        <li>
+        <a href="#s1">Tra cứu
+        <span class="caret"></span></a>
+        <ul class="submenu" >
+          <li><%= link_to 'Sinh viên',sinhviens_path %></li>          
+          <li><%= link_to 'Học phần',hocphans_path %></li>
+          <li><%= link_to 'Lớp học',lophocs_path %></li>
+        </ul>
+        </li>        
+      <% end %>                       
+                 
     </ul>
   </div>
 </nav>

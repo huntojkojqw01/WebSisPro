@@ -1,5 +1,8 @@
 class DangkilophocsController < ApplicationController
 	include ApplicationHelper
+	before_action :logged_in_user
+	before_action :is_admin, only: [:edit,:update]
+	before_action :chinh_chu, only: [:new,:create,:destroy]
 	before_action :set_x, only: [:edit,:update,:show,:destroy]
 	def index		
 	end	
@@ -84,7 +87,7 @@ class DangkilophocsController < ApplicationController
 		@dangkilophoc=Dangkilophoc.find_by_id(params[:id])
 		if @dangkilophoc			
 		else
-			flash[:info]="Khong tim thay dang ki lop hoc nay."
+			flash[:info]="Không tìm thấy dữ liệu."
 			redirect_to root_url
 		end	
 	end
@@ -135,5 +138,13 @@ class DangkilophocsController < ApplicationController
 		else
 			return "F"	
 		end			
-	end	
+	end
+	def chinh_chu
+    	if sinhvien? && params[:dangkilophoc]  
+        	unless current_sinhvien.id==params[:dangkilophoc][:sinhvien_id].to_i
+          	flash[:danger]="Bạn không phải chính chủ !"
+          	redirect_to(root_url) 
+        	end
+        end
+    end	
 end

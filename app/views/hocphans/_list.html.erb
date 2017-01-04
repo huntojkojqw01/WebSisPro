@@ -23,4 +23,5 @@
 		<% end %>
 	</body>
 </table>
-<%= will_paginate object , :outer_window=>1,:inner_window=>1, class: "pager"%>
+<%= will_paginate object ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1, class: "pager"%>
+<%= page_entries_info object %><br>

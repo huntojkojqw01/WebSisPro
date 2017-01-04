@@ -15,6 +15,22 @@ module SessionsHelper
     		end
     end
   end
+  def current_sinhvien
+    if sinhvien?
+      current_user.sinhvien
+    else
+      return nil
+    end
+  end
+  def current_hocki
+    date=DateTime.now.to_date
+    hockis=Hocki.where("bd<=? and kt>=?",date,date)
+    if hockis.count>0
+      @hocki=hockis.first
+    else
+      @hocki=nil
+    end
+  end
   def current_hocki_modklophoc
     @hocki=Hocki.find_by(modangkilophoc: true)
   end
