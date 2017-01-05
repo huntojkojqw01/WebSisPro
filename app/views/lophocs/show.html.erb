@@ -1,43 +1,48 @@
 <%=provide(:title,"Thong tin lop hoc ")%>
 <div class="row">
-	<div class="col-md-4">
-		Ma lop hoc <%=@lophoc.malophoc%><br>
-		Thoi gian <%=toStrTime(@lophoc.thoigian)%><br>
-		Dia diem <%=@lophoc.diadiem%><br>
-		Giao vien giang day <%=@lophoc.giaovien.tengiaovien%><br>		
-		Hoc phan <%=@lophoc.hocphan.tenhocphan%>-<%=@lophoc.hocphan.mahocphan%><br>
-		Hoc ki <%=@lophoc.hocki.mahocki%><br>
-		So luong dang ki <%=@lophoc.dangkilophocs.count%>/<%=@lophoc.maxdangki%><br>
-		<%=link_to "Them dang ki lop hoc",new_dangkilophoc_path(:lophoc_id=>@lophoc.id)%><br>		
-		<%=link_to " Edit ", edit_lophoc_path(@lophoc)%>
-		<%= link_to ' Xóa ', @lophoc, method: :delete,
+	<div class="col-md-4" style="background-color:#F6D8CE; font-size:15px;">
+		<div class="container">
+			<ul class="list-group">
+				<li><b>Mã lớp học: </b><%=@lophoc.malophoc%></li>
+				<li><b>Thời gian: </b><%=toStrTime(@lophoc.thoigian)%></li>
+				<li><b>Địa điểm: </b><%=@lophoc.diadiem%></li>
+				<li><b>Giao viên giang dạy: </b><%=@lophoc.giaovien.tengiaovien%></li>
+				<li><b>Học phần: </b><%=@lophoc.hocphan.tenhocphan%>-<%=@lophoc.hocphan.mahocphan%></li>
+				<li><b>Học kì: </b><%=@lophoc.hocki.mahocki%></li>
+				<li><b>Số lượng đăng kí: </b><%=@lophoc.dangkilophocs.count%>/<%=@lophoc.maxdangki%></li>
+			</ul>
+		</div>
+		<%=link_to "Thêm đăng kí lớp học",new_dangkilophoc_path(:lophoc_id=>@lophoc.id)%><br>
+		<%=link_to " Edit ", edit_lophoc_path(@lophoc)%><br>
+		<%= link_to ' ', @lophoc, method: :delete,
 				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %>
-		
+
+	</div>
+	<div class="col-md-2">
+
 	</div>
 	<div class="col-md-6">
-		<%= will_paginate @dangkilophocs , :outer_window=>1,:inner_window=>1%>
-		<table >
-			<head>
+		<table class="table table-striped">
+			<thead>
 				<tr>
-					<td>Ma sinh vien</td>
-					<td>Ten sinh vien</td>					
-					<td>Ten lop sinh vien</td>			
+					<th>Mã sinh viên</th>
+					<th>Tên sinh viên</th>
+					<th>Tên lớp sinh viên</th>
 				</tr>
-			</head>
+			</thead>
 			<body>
-				<%@dangkilophocs.each do |dk| %>				
+				<%@dangkilophocs.each do |dk| %>
 				<tr>
 					<td><%=dk.sinhvien.masinhvien%></td>
-					<td><%=dk.sinhvien.tensinhvien%></td>					
+					<td><%=dk.sinhvien.tensinhvien%></td>
 					<td><%=dk.sinhvien.lopsinhvien.tenlopsinhvien%></td>
-					<td><%=link_to 'Xoa', dk, method: :delete,
-				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %></td>		
+					<td><%=link_to ' ', dk, method: :delete,
+				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %></td>
 				</tr>
 				<% end %>
 			</body>
 		</table>
-		<%= will_paginate @dangkilophocs , :outer_window=>1,:inner_window=>1%>
-		<%= page_entries_info @dangkilophocs %>		  	
+		<%= will_paginate @dangkilophocs , :outer_window=>1,:inner_window=>1,class:"pager"%>
+		<%= page_entries_info @dangkilophocs %>
 	</div>
 </div>
-

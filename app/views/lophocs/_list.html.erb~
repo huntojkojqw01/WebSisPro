@@ -1,13 +1,13 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
-					<th>Mã lớp</th>
-					<th>Thời gian</th>
-					<th>Địa điểm</th>
-					<th>Mã HP</th>
-					<th>Tên HP</th>
-					<th>Max ĐK</th>
-					<th>Đã ĐK</th>
+					<th>Ma lop</th>
+					<th>Thoi gian</th>
+					<th>Dia diem</th>
+					<th>Ma hoc phan</th>
+					<th>Ten hoc phan</th>
+					<th>Max dang ki</th>
+					<th>Da dang ki</th>
 			</tr>
 		</thead>
 		<body>
@@ -26,4 +26,3 @@
 	</table>
 <%= will_paginate object ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1,class: "pager"%><br>
 <%= page_entries_info object %><br>
-

@@ -1,12 +1,12 @@
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th>Mã HP</th>
-			<th>Tên HP</th>
+			<th>Ma hoc phan</th>
+			<th>Ten hoc phan</th>
 			<th style="text-align: center">Tin chi</th>
 			<th style="text-align: center">Tin chi hoc phi</th>
-			<th>Trọng số</th>
-			<th>Khoa viện</th>
+			<th>Trong so</th>			
+			<th>Khoa vien</th>
 		</tr>
 	</thead>
 	<body>

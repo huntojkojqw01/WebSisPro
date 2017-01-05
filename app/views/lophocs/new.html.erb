@@ -1,31 +1,68 @@
 <%=provide(:title,"Thêm lop hoc")%>
 <div class="row">
-	<div class="col-md-9">
-		<h1>Thêm lop hoc mới </h1>
-		<%= form_for(@lophoc) do |f| %>
-		    <%= render 'shared/error_messages', object: f.object %>
-		    <%= f.label :"Ma lop hoc" %>
-		    <%= f.text_field :malophoc ,class: 'form-control', placeholder: "Nhập ma lop hoc "%>
-		    <%= f.label :"Thoi gian(thu,batdau,ketthuc)" %>
-		    <%= f.text_field :thoigian ,class: 'form-control', placeholder: "Nhập thoi gian "%>	   
-		    <%= f.label :"Dia diem" %>
-		    <%= f.text_field :diadiem ,class: 'form-control', placeholder: "Nhập phong hoc "%>
-		    <%= f.label :"Max dang ki" %>
-		    <%= f.number_field :maxdangki ,class: 'form-control', placeholder: "Nhập so luong toi da "%>
-		    <%= f.label :"Giao vien" %>
-		    <%= f.collection_select :giaovien_id, Giaovien.all, :id, :tengiaovien, prompt: true %>
-		    <%= f.label :"Hoc phan" %>
-		    <%= f.collection_select :hocphan_id, Hocphan.all, :id, :mahocphan, prompt: true %>
-		    <%= f.label :"Hoc ki" %>
-		    <%= f.collection_select :hocki_id, Hocki.all, :id, :mahocki, prompt: true %>
-		    <%= f.submit "Thêm ",class: "btn btn-primary"%>
-		<% end %>
+	<div class="col-md-6" style="background-color:#F2F5A9">
+		<h1 style="text-align: center; font-size: 40px;">Thêm lớp học mới </h1>
+		<div class="form-horizontal" style="margin-top: 20px;">
+			<%= form_for(@lophoc) do |f| %>
+			    <%= render 'shared/error_messages', object: f.object %>
+					<div class="form-group">
+						<%= f.label :"Mã lớp học" ,class:"control-label col-sm-4"%>
+						<div class="col-sm-8">
+							<%= f.text_field :malophoc ,class: 'form-control', placeholder: "Nhập mã lớp học"%>
+						</div>
+					</div>
+					<div class="form-group">
+						<%= f.label :"Thời gian",class:"control-label col-sm-4" %>
+						<div class="col-sm-8">
+							<%= f.text_field :thoigian ,class: 'form-control', placeholder: "Nhập thời gian (thu,batdau,ketthuc) "%>
+						</div>
+					</div>
+					<div class="form-group">
+			    	<%= f.label :"Địa điểm" ,class:"control-label col-sm-4"%>
+						<div class="col-sm-8">
+							<%= f.text_field :diadiem ,class: 'form-control', placeholder: "Nhập phòng học"%>
+						</div>
+					</div>
+					<div class="form-group">
+						<%= f.label :"Max đăng kí",class:"control-label col-sm-4"%>
+						<div class="col-sm-8">
+							<%= f.number_field :maxdangki ,class: 'form-control', placeholder: "Nhập số lượng tối đa"%>
+						</div>
+					</div>
+					<div class="form-group">
+						<%= f.label :"Giáo viên" ,class:"control-label col-sm-4"%>
+						<div class="col-sm-8">
+				    	<%= f.collection_select :giaovien_id, Giaovien.all, :id, :tengiaovien, prompt: true %>
+						</div>
+					</div>
+					<div class="form-group">
+						<%= f.label :"Học phần",class:"control-label col-sm-4" %>
+						<div class="col-sm-8">
+							<%= f.collection_select :hocphan_id, Hocphan.all, :id, :mahocphan, prompt: true %>
+						</div>
+					</div>
+					<div class="form-group">
+						<%= f.label :"Học kì",class:"control-label col-sm-4"%>
+						<div class="col-sm-8">
+							<%= f.collection_select :hocki_id, Hocki.all, :id, :mahocki, prompt: true %>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-4 col-sm-8">
+							<%= f.submit "Thêm lớp học",class: "btn btn-primary"%>
+						</div>
+					</div>
+			<% end %>
+		</div>
+	</div>
+	<div class="col-md-3">
+
 	</div>
 	<div class="col-md-3">
 			<h3>Nhập từ file CSV </h3>
-	  	<%= form_tag import_lophocs_path, multipart: true do %>	  	
+	  	<%= form_tag import_lophocs_path, multipart: true do %>
 	    <%= file_field_tag :file %>
 	    <%= submit_tag "Nạp",class: "btn btn-info" %>
-	  	<% end %>  	
+	  	<% end %>
 	</div>
 </div>

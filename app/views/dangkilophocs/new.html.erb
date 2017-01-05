@@ -1,14 +1,32 @@
 <%=provide(:title,"Thêm đăng kí lớp học")%>
 <div class="row">
-	<div class="col-md-9">
+	<div class="col-md-3">
+
+	</div>
+	<div class="col-md-6">
 		<h1>Thêm đăng kí lớp học mới </h1>
 		<%= form_for(@dangkilophoc) do |f| %>
-		    <%= render 'shared/error_messages', object: f.object %>		    
-			    <%= f.label :"Sinh vien" %>
-			    <%= f.collection_select :sinhvien_id, @sinhviens, :id, :masinhvien, prompt: true %>
-			    <%= f.label :"Lop hoc" %>
-			    <%= f.collection_select :lophoc_id, @lophocs, :id, :malophoc, prompt: true %>       
-		    <%= f.submit "Thêm ",class: "btn btn-primary"%>
+		    <%= render 'shared/error_messages', object: f.object %>
+					<div class="form-group">
+						<%= f.label :"Sinh viên",class:"control-label col-sm-3"%>
+						<div class="col-sm-9">
+							<%= f.collection_select :sinhvien_id, @sinhviens, :id, :masinhvien, prompt: true %>
+						</div>
+					</div>
+					<div class="form-group">
+						<%= f.label :"Lớp học" ,class:"control-label col-sm-3"%>
+						<div class="col-sm-9">
+							<%= f.collection_select :lophoc_id, @lophocs, :id, :malophoc, prompt: true %>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-3 col-sm-9">
+							<%= f.submit "Thêm ",class: "btn btn-primary"%>
+						</div>
+					</div>
 		<% end %>
-	</div>	
+	</div>
+	<div class="col-md-3">
+
+	</div>
 </div>

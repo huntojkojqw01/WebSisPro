@@ -1,21 +1,26 @@
-<%=provide(:title,"Thong tin hoc phan ")%>
+<%=provide(:title,"Thông tin học phần")%>
 <div class="row">
-	<div class="col-md-9">
-		Ma hoc phan <%=@hocphan.mahocphan%><br>
-		Ten hoc phan <%=@hocphan.tenhocphan%><br>
-		Tin chi <%=@hocphan.tinchi%><br>
-		Tin chi hoc phi <%=@hocphan.tinchihocphi%><br>
-		
-		Trong so <%=(1-@hocphan.trongso).round(1)%>-<%=@hocphan.trongso%><br>
-		Khoa vien <%=@hocphan.khoavien.tenkhoavien%><br>
-		
-		<%=link_to " Edit ",edit_hocphan_path(@hocphan)%>
-		<%= link_to ' Xóa ', @hocphan, method: :delete,
-				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %>
-		
+	<div class="col-md-4">
+
 	</div>
-	<div class="col-md-3">
-				  	
+	<div class="col-md-4" style="background-color:#F6D8CE; font-size:20px;">
+		<div class="container">
+			<ul class="list-group">
+				<li><b>Mã học phần: </b><%=@hocphan.mahocphan%></li>
+				<li><b>Tên học phần: </b><%=@hocphan.tenhocphan%></li>
+				<li><b>Tín chỉ: </b><%=@hocphan.tinchi%></li>
+				<li><b>Tín chỉ học phí: </b><%=@hocphan.tinchihocphi%></li>
+				<li><b>Trọng số: </b><%=(1-@hocphan.trongso).round(1)%>-<%=@hocphan.trongso%></li>
+				<li><b>Khoa viện: </b><%=@hocphan.khoavien.tenkhoavien%></li>
+			</ul>
+		</div>
+
+		<%=link_to "Chỉnh sửa thông tin học phần",edit_hocphan_path(@hocphan)%><br>
+		<%= link_to ' ', @hocphan, method: :delete,
+				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %>
+
+	</div>
+	<div class="col-md-4">
+
 	</div>
 </div>
-
