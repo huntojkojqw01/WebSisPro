@@ -1,31 +1,36 @@
-<%= form_tag(giaoviens_path, method: "get") do %>	
-  	Khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>
-  	Ten giao vien<%=text_field_tag "tengiaovien",@selected[:tengiaovien]%><br>
-  	<%= submit_tag("Search") %> 
-<% end %>
-<%= will_paginate @giaoviens , :outer_window=>1,:inner_window=>1%>
-<table >
-	<head>
-		<tr><td>Ma giao vien</td>
-			<td>Ten giao vien</td>
-			<td>Ngay sinh</td>
-			<td>Email</td>
-			<td>Khoa vien</td>			
-		</tr>
-	</head>
-	<body>
-		<%@giaoviens.each do |gv| %>
-		<tr>
-			<td><%=gv.magiaovien%></td>
-			<td><%=link_to gv.tengiaovien,gv%></td>
-			<td><%=gv.ngaysinh%></td>
-			<td><%=gv.email%></td>
-			<td><%=gv.khoavien.tenkhoavien%></td>			
-		</tr>
+<%=provide(:title,"Danh sach giao vien")%>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<%= form_tag(giaoviens_path, method: "get") do %>	
+		  	Khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>
+		  	Ten giao vien<%=text_field_tag "tengiaovien",@selected[:tengiaovien]%><br>
+		  	<%= submit_tag("Search") %> 
 		<% end %>
-	</body>
-</table>
-<%= will_paginate @giaoviens , :outer_window=>1,:inner_window=>1%>
-<%= page_entries_info @giaoviens %>
+		<%= will_paginate @giaoviens , :outer_window=>1,:inner_window=>1%>
+		<table >
+			<head>
+				<tr><td>Ma giao vien</td>
+					<td>Ten giao vien</td>
+					<td>Ngay sinh</td>
+					<td>Email</td>
+					<td>Khoa vien</td>			
+				</tr>
+			</head>
+			<body>
+				<%@giaoviens.each do |gv| %>
+				<tr>
+					<td><%=gv.magiaovien%></td>
+					<td><%=link_to gv.tengiaovien,gv%></td>
+					<td><%=gv.ngaysinh%></td>
+					<td><%=gv.email%></td>
+					<td><%=gv.khoavien.tenkhoavien%></td>			
+				</tr>
+				<% end %>
+			</body>
+		</table>
+		<%= will_paginate @giaoviens , :outer_window=>1,:inner_window=>1%>
+		<%= page_entries_info @giaoviens %>
 
-<%= link_to ' Them giao vien ', new_giaovien_path %>
+		<%= link_to ' Thêm giáo viên ', new_giaovien_path %>
+	</div>
+</div>

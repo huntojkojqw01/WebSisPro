@@ -6,7 +6,7 @@
 				<tr><td>Ma hoc ki</td>
 					<td>Dinh muc hoc phi</td>
 					<td>Thoi gian bat dau</td>
-					<td>Thoi gian ket thuc</td>											
+					<td>Thoi gian ket thuc</td>
 				</tr>
 			</head>
 			<body>
@@ -16,17 +16,17 @@
 					<td><%=hk.dinhmuchocphi%></td>
 					<td><%=hk.bd%></td>
 					<td><%=hk.kt%></td>
-					<td><%=link_to " Edit ",edit_hocki_path(hk)%></td>						
+					<td><%=link_to " Sửa ",edit_hocki_path(hk)%></td>
 				</tr>
 				<% end %>
 			</body>
 		</table>
-		<%= link_to ' Them hoc ki ', new_hocki_path %>		
+		<%= link_to ' Thêm học kì mới ', new_hocki_path %>		
 	</div>
 	<div class="col-md-9">
 		<%= form_tag(hockis_path, method: "get") do %>	
   		Mo dang ki hoc phan trong hoc ki <%=select_tag "hocki_id_hp", options_from_collection_for_select(@hockis, "id", "mahocki",@selected[:hocki_id_hp]),:include_blank=>"Close all",:onchange => "this.form.submit();"%><br>
   		Mo dang ki lop hoc trong hoc ki <%=select_tag "hocki_id_lh", options_from_collection_for_select(@hockis, "id", "mahocki",@selected[:hocki_id_lh]),:include_blank=>"Close all",:onchange => "this.form.submit();"%><br>  	
-<% end %>	  	
+		<% end %>
 	</div>
 </div>

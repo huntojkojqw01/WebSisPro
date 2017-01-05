@@ -1,18 +1,25 @@
 <%=provide(:title,"Thong tin sinh vien ")%>
 <div class="row">
-	<div class="col-md-9">
-		Ma so sinh vien <%=@sinhvien.masinhvien%><br>
-		Ten sinh vien <%=@sinhvien.tensinhvien%><br>
-		Ngay sinh <%=@sinhvien.ngaysinh%><br>
-		Lop <%=@lopsinhvien.tenlopsinhvien%><br>
-		Email <%=@sinhvien.email%><br>
-		Trang thai <%= @sinhvien.trangthai ? "Hoc" : "Thoi hoc"%><br>
+	<div class="col-md-4">
+
+	</div>
+	<div class="col-md-4" style="background-color:#F6D8CE">
+		<div class="container">
+			<ul class="list-group">
+				<li><b>MSSV: </b><%=@sinhvien.masinhvien%></li>
+				<li><b>Tên SV: </b><%=@sinhvien.tensinhvien%></li>
+				<li><b>Ngày sinh: </b><%=@sinhvien.ngaysinh%></li>
+				<li><b>Lớp: </b><%=@lopsinhvien.tenlopsinhvien%></li>
+				<li><b>Email: </b><%=@sinhvien.email%></li>
+				<li><b>Trạng thái: </b><%= @sinhvien.trangthai ? "Học" : "Thôi học"%></li>
+			</ul>
+		</div>
 		<% if admin? %>
-			<%=link_to " Sua ",edit_sinhvien_path(@sinhvien)%>
-			<%= link_to ' Xóa ', @sinhvien, method: :delete,data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %>
+			<%=link_to "Sửa thông tin SV",edit_sinhvien_path(@sinhvien)%><br>
+			<%= link_to ' ', @sinhvien, method: :delete,data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %>
 		<%end%>
 	</div>
-	<div class="col-md-3">
-					  	
+	<div class="col-md-4">
+
 	</div>
 </div>

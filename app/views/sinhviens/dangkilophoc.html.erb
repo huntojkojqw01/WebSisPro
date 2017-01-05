@@ -1,25 +1,40 @@
 <%=provide(:title,"Dang ki lop hoc")%>
 <div class="row">
-	<div class="col-md-6">		
-		<%= form_tag(dangkilophoc_sinhviens_path, method: "get") do %>							
-			Khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>
-		  	Ma lop hoc <%=text_field_tag 'malophoc',@selected[:malophoc]%><br>
-		  	Ma hoc phan <%=text_field_tag 'mahocphan',@selected[:mahocphan]%><br>
-		  	<%= submit_tag("Search") %>		  	
-		<% end %>
-		
-		<table >
-			<head>
+	<div class="col-md-6">
+		<div class="col-md-9" style="margin-bottom: 30px;">
+			<%= form_tag(dangkilophoc_sinhviens_path, method: "get") do %>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Khoa viện</label>
+					<%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();",class:"col-sm-8"%>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Mã lớp học</label>
+					<%=text_field_tag 'malophoc',@selected[:malophoc],class:"col-sm-8"%>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Mã học phần</label>
+					<%=text_field_tag 'mahocphan',@selected[:mahocphan],class:"col-sm-8"%>
+				</div>
+				<div class="form-group" style="margin-top: 10px;">
+					<div class="col-sm-offset-4 col-sm-8">
+						<%= submit_tag("Tìm kiếm lớp học") %>
+					</div>
+				</div>
+			<% end %>
+		</div>
+
+		<table class="table table-striped">
+			<thead>
 				<tr>
-					<td>Ma lop</td>
-					<td>Thoi gian</td>
-					<td>Dia diem</td>
-					<td>Ma hoc phan</td>
-					<td>Ten hoc phan</td>			
-					<td>Max dang ki</td>
-					<td>Da dang ki</td>			
+					<th>Mã lớp</th>
+					<th>Thời gian</th>
+					<th>Địa điểm</th>
+					<th>Mã HP</th>
+					<th>Tên HP</th>
+					<th>Max DK</th>
+					<th>Đã DK</th>
 				</tr>
-			</head>
+			</thead>
 			<body>
 				<%@lophocs.each do |lh| %>
 				<tr>
@@ -31,31 +46,33 @@
 					<td><%=lh.maxdangki%></td>
 					<td><%=lh.dangkilophocs.count%></td>
 					<% if sinhvien? %>
-					<td><%=link_to 'Dang ki',dangkilophocs_path(dangkilophoc: {:sinhvien_id=>current_sinhvien.id,:lophoc_id=>lh.id}),method: :post %></td>
+					<td><%=link_to 'Đăng kí',dangkilophocs_path(dangkilophoc: {:sinhvien_id=>current_sinhvien.id,:lophoc_id=>lh.id}),method: :post %></td>
 					<%end%>
 				</tr>
 				<% end %>
 			</body>
 		</table>
 		<%= will_paginate @lophocs ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1%><br>
-		<%= page_entries_info @lophocs %><br>		
+		<%= page_entries_info @lophocs %><br>
 	</div>
 	<div class="col-md-6">
 		<% if @registeds && @registeds.count>0 %>
-		Dang ki lop hoc trong hoc ki <%=current_hocki_modklophoc.mahocki%><br>
-		<table >
-			<head>
+		<div class="col-md-12" style="text-align: center; font-size: 30px; margin-bottom: 20px;">
+			Đăng kí lớp trong học kì <%=current_hocki_modklophoc.mahocki%>
+		</div>
+		<table class="table table-bordered">
+			<thead>
 				<tr>
-					<td>Ma lop</td>
-					<td>Thoi gian</td>
-					<td>Dia diem</td>
-					<td>Ma hoc phan</td>
-					<td>Ten hoc phan</td>
-					<td>Tin chi</td>			
-					<td>Tin chi hoc phi</td>
-					<td>He so hoc phi</td>			
+					<th>Mã lớp</th>
+					<th>Thời gian</th>
+					<th>Địa điểm</th>
+					<th>Mã HP</th>
+					<th>Tên HP</th>
+					<th>TC</th>
+					<th>TCHP</th>
+					<th>HSHP</th>
 				</tr>
-			</head>
+			</thead>
 			<body>
 				<%tongTinChi=0%>
 				<%tongTien=0%>
@@ -70,7 +87,7 @@
 					<td><%=lh.hocphan.tinchihocphi%></td>
 					<%heso=lh.dangkilophocs.find_by(sinhvien_id: current_sinhvien.id).hesohocphi%>
 					<td><%=heso%></td><%tongTien+=heso*lh.hocphan.tinchihocphi%>
-					<td><%=link_to 'Xoa',Dangkilophoc.where("lophoc_id=? and sinhvien_id=?",lh.id,current_sinhvien.id).first, method: :delete,
+					<td><%=link_to ' ',Dangkilophoc.where("lophoc_id=? and sinhvien_id=?",lh.id,current_sinhvien.id).first, method: :delete,
 				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %></td>
 				</tr>
 				<% end %>
@@ -82,10 +99,10 @@
 				</tr>
 			</body>
 		</table>
-		Dinh muc hoc phi: <%=@hocki.dinhmuchocphi%><br>
-		Tong so tien phai dong trong hoc ki: <%=tongTien*@hocki.dinhmuchocphi%><br>
+		Định mức học phí: <b><%=@hocki.dinhmuchocphi%></b> <br>
+		Học phí trong học kì: <b><%=tongTien*@hocki.dinhmuchocphi%></b><br>
 		<%else%>
-		Khong dang ki lop nao trong ki nay
-		<%end%>  
+		Chưa đăng kí lớp nào trong HK này
+		<%end%>
 	</div>
 </div>
