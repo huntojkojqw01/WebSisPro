@@ -5,51 +5,31 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
-def diemso(diemquatrinh,diemthi,trongso)
-		return 0 if diemquatrinh<3.0||diemthi<3.0
+def tinhDiem(diemquatrinh,diemthi,trongso)
+  		diemquatrinh=diemquatrinh.to_f
+  		diemthi=diemthi.to_f
+  		trongso=trongso.to_f
+		return [0,"F"] if diemquatrinh<3.0 || diemthi<3.0
 		diem=((1-trongso)*diemquatrinh+trongso*diemthi)
 		if diem>=9.45			
-			return 4.5
+			return [4,"A+"]
 		elsif diem>=8.45
-			return 4
+			return [4,"A"]
 		elsif diem>=7.95
-			return 3.5
+			return [3.5,"B+"]
 		elsif diem>=6.95
-			return 3
+			return [3,"B"]
 		elsif diem>=6.45
-			return 2.5
+			return [2.5,"C+"]
 		elsif diem>=5.45
-			return 2
+			return [2,"C"]
 		elsif diem>=4.95
-			return 1.5
+			return [1.5,"D+"]
 		elsif diem>=3.95
-			return 1
+			return [1,"D"]
 		else
-			return 0
+			return [0,"F"]
 		end
-end
-def diemchu(diemso)
-		case diemso
-		when 4.5
-			return "A+"
-		when 4
-			return "A"
-		when 3.5
-			return "B+"
-		when 3
-			return "B"
-		when 2.5
-			return "C+"
-		when 2
-			return "C"
-		when 1.5
-			return "D+"
-		when 1
-			return "D"
-		else
-			return "F"	
-		end			
 end
 def randomTime
 	x=rand(12)+1
@@ -88,9 +68,9 @@ User.destroy_all
 User.create!(name:"admin",password:"123456",password_confirmation:"123456",loai:"ad")
 i=100
 2013.upto(2016) do |nam|	
-	Hocki.create!(mahocki:"#{nam}1",dinhmuchocphi:i+20,bd:Date.new(nam,8,1),kt:Date.new(nam,8,1)+5.months)
+	Hocki.create!(mahocki:"#{nam}1",dinhmuchocphi:i+20,bd:Date.new(nam,8,15),kt:Date.new(nam,8,15)+5.months)
 	Hocki.create!(mahocki:"#{nam}2",dinhmuchocphi:i+40,bd:Date.new(nam+1,2,1),kt:Date.new(nam+1,2,1)+5.months)
-	Hocki.create!(mahocki:"#{nam}3",dinhmuchocphi:i+60,bd:Date.new(nam+1,7,1),kt:Date.new(nam+1,7,1)+1.months)
+	Hocki.create!(mahocki:"#{nam}3",dinhmuchocphi:i+60,bd:Date.new(nam+1,7,10),kt:Date.new(nam+1,7,10)+1.months)
 	i+=100	
 end
 1.upto(10) do |i|
@@ -144,9 +124,8 @@ end
 		diemquatrinh=rand(10)
 		diemthi=rand(10)
 		trongso=lophoc.hocphan.trongso
-		diemso=diemso(diemquatrinh,diemthi,trongso)
-		diemchu=diemchu(diemso)
-		Dangkilophoc.create(diemquatrinh:diemquatrinh,diemthi:diemthi,diemso:diemso,diemchu:diemchu,hesohocphi:rand(3)+1,lophoc_id:lophoc.id,sinhvien_id:sinhvien.id)
+		x=tinhDiem(diemquatrinh,diemthi,trongso)		
+		Dangkilophoc.create(diemquatrinh:diemquatrinh,diemthi:diemthi,diemso:x[0],diemchu:x[1],hesohocphi:rand(3)+1,lophoc_id:lophoc.id,sinhvien_id:sinhvien.id)
 end
 1.upto(50) do |i|		
 		tmp=Hocphan.count

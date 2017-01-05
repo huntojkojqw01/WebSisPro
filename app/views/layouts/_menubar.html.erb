@@ -17,8 +17,7 @@
         <a >Sinh viên
         <span class="caret"></span></a>
         <ul class="submenu" >
-          <li><%= link_to 'Tìm kiếm sinh viên',sinhviens_path %></li>
-          <li><%= link_to 'Sinh viên đăng kí học',svdkh_sinhviens_path %></li>
+          <li><%= link_to 'Tìm kiếm sinh viên',sinhviens_path %></li>          
           <li><%= link_to 'Thêm sinh viên',new_sinhvien_path %></li>
         </ul>
         </li>
@@ -72,13 +71,17 @@
         <ul class="submenu" >
           <li><%= link_to 'Đăng kí lớp học',dangkilophoc_sinhviens_path if current_hocki_modklophoc %></li>
           <li><%= link_to 'Đăng kí học phần',dangkihocphan_sinhviens_path if current_hocki_modkhocphan %></li>
+          <% if current_hocki %>
+          <li><%=link_to 'Tìm thời khóa biểu',duyet_sinhviens_path%></li>
+          <%end%>
         </ul>
         </li>
         <li>
         <a >Tra cứu
         <span class="caret"></span></a>
         <ul class="submenu" >
-          <li><%= link_to 'Sinh viên',sinhviens_path %></li>          
+          <li><%= link_to 'Sinh viên',sinhviens_path %></li>
+          <li><%= link_to 'Sinh viên đăng kí học',svdkh_sinhviens_path %></li>          
           <li><%= link_to 'Học phần',hocphans_path %></li>
           <li><%= link_to 'Lớp học',lophocs_path %></li>
         </ul>
@@ -89,7 +92,8 @@
         <a >Tra cứu
         <span class="caret"></span></a>
         <ul class="submenu" >
-          <li><%= link_to 'Sinh viên',sinhviens_path %></li>          
+          <li><%= link_to 'Sinh viên',sinhviens_path %></li>
+          <li><%= link_to 'Sinh viên đăng kí học',svdkh_sinhviens_path %></li>          
           <li><%= link_to 'Học phần',hocphans_path %></li>
           <li><%= link_to 'Lớp học',lophocs_path %></li>
         </ul>
