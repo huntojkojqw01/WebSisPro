@@ -1,32 +1,49 @@
 <%=provide(:title,"Danh muc hoc ki ")%>
 <div class="row">
-	<div class="col-md-9">
-		<table >
-			<head>
-				<tr><td>Ma hoc ki</td>
-					<td>Dinh muc hoc phi</td>
-					<td>Thoi gian bat dau</td>
-					<td>Thoi gian ket thuc</td>
+	<div class="col-md-3">
+
+	</div>
+	<div class="col-md-6">
+		<div class="form-horizontal">
+			<%= form_tag(hockis_path, method: "get") do %>
+				<div class="form-group">
+					<label class="control-label col-sm-6">Mở đăng kí học phần trong HK</label>
+					<div class="col-sm-6">
+						<%=select_tag "hocki_id_hp", options_from_collection_for_select(@hockis, "id", "mahocki",@selected[:hocki_id_hp]),:include_blank=>"Close all",:onchange => "this.form.submit();"%>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-6">Mở đăng kí lớp trong HK</label>
+					<div class="col-sm-6">
+						<%=select_tag "hocki_id_lh", options_from_collection_for_select(@hockis, "id", "mahocki",@selected[:hocki_id_lh]),:include_blank=>"Close all",:onchange => "this.form.submit();"%>
+					</div>
+				</div>
+			<% end %>
+		</div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Ma hoc ki</th>
+					<th>Dinh muc hoc phi</th>
+					<th>Thoi gian bat dau</th>
+					<th>Thoi gian ket thuc</th>
 				</tr>
-			</head>
+			</thead>
 			<body>
 				<%@hockis.each do |hk| %>
 				<tr>
 					<td><%=hk.mahocki%></td>
-					<td><%=hk.dinhmuchocphi%></td>
-					<td><%=hk.bd%></td>
-					<td><%=hk.kt%></td>
-					<td><%=link_to " Sửa ",edit_hocki_path(hk)%></td>
+					<td style="text-align: center;"><%=hk.dinhmuchocphi%></td>
+					<td style="text-align: center;"><%=hk.bd%></td>
+					<td style="text-align: center;"><%=hk.kt%></td>
+					<td style="text-align: center;"><%=link_to " Sửa ",edit_hocki_path(hk)%></td>
 				</tr>
 				<% end %>
 			</body>
 		</table>
-		<%= link_to ' Thêm học kì mới ', new_hocki_path %>		
+		<%= link_to ' Thêm học kì mới ', new_hocki_path %>
 	</div>
-	<div class="col-md-9">
-		<%= form_tag(hockis_path, method: "get") do %>	
-  		Mo dang ki hoc phan trong hoc ki <%=select_tag "hocki_id_hp", options_from_collection_for_select(@hockis, "id", "mahocki",@selected[:hocki_id_hp]),:include_blank=>"Close all",:onchange => "this.form.submit();"%><br>
-  		Mo dang ki lop hoc trong hoc ki <%=select_tag "hocki_id_lh", options_from_collection_for_select(@hockis, "id", "mahocki",@selected[:hocki_id_lh]),:include_blank=>"Close all",:onchange => "this.form.submit();"%><br>  	
-		<% end %>
+	<div class="col-md-3">
+
 	</div>
 </div>

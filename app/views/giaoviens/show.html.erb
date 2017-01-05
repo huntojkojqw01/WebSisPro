@@ -1,15 +1,21 @@
 <%=provide(:title,"Thong tin giao vien ")%>
 <div class="row">
-	<div class="col-md-3">
-		Ma giao vien <%=@giaovien.magiaovien%><br>		
-		Giao vien <%=@giaovien.tengiaovien%><br>
-		Ngay sinh <%=@giaovien.ngaysinh%><br>
-		Email <%=@giaovien.email%><br>
-		Khoa vien <%=@khoavien.tenkhoavien%><br>		
-		<%=link_to " Edit ",edit_giaovien_path(@giaovien)%>		
+	<div class="col-md-4">
+
 	</div>
-	<div class="col-md-9">
-				  	
+	<div class="col-md-4" style="background-color:#F6D8CE; font-size:20px;">
+		<div class="container">
+			<ul class="list-group">
+				<li><b>Mã giáo viên: </b><%=@giaovien.magiaovien%></li>
+				<li><b>Giáo viên: </b><%=@giaovien.tengiaovien%></li>
+				<li><b>Ngày sinh: </b><%=@giaovien.ngaysinh%></li>
+				<li><b>Email: </b><%=@giaovien.email%></li>
+				<li><b>Khoa viện: </b><%=@khoavien.tenkhoavien%></li>
+			</ul>
+		</div>
+		<%=link_to " Edit ",edit_giaovien_path(@giaovien)%>
+	</div>
+	<div class="col-md-4">
+
 	</div>
 </div>
-

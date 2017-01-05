@@ -1,23 +1,52 @@
 <%=provide(:title,"Thêm giao vien ")%>
 <div class="row">
-	<div class="col-md-9">
-		<h1>Thêm giao vien mới </h1>
-		<%= form_for(@giaovien) do |f| %>
-		    <%= render 'shared/error_messages', object: f.object %>
-		    <%= f.label :"Ma giao vien" %>
-		    <%= f.text_field :magiaovien ,class: 'form-control', placeholder: "Nhập ma giao vien "%>
-		    <%= f.label :"Tên giao vien" %>
-		    <%= f.text_field :tengiaovien ,class: 'form-control', placeholder: "Nhập tên giao vien "%>
-		    <%= f.label :"Ngay sinh" %>
-		    <%= f.date_select :ngaysinh ,:start_year=>1900,:end_year=>2000%><br>    
-		    <%= f.label :"Email" %>
-		    <%= f.text_field :email ,class: 'form-control', placeholder: "Nhập email "%>
-		    <%= f.label :"Khoa vien" %>
-		    <%= f.collection_select :khoavien_id, Khoavien.all, :id, :tenkhoavien, prompt: true %>
-		    <%= f.submit "Thêm ",class: "btn btn-primary"%>
-		<% end %>
+	<div class="col-md-3">
+
+	</div>
+	<div class="col-md-6" style="background-color:#F2F5A9">
+		<h1 style="text-align: center; font-size: 40px;">Thêm giáo viên mới</h1>
+		<div class="form-horizontal" style="margin-top:20px;">
+			<%= form_for(@giaovien) do |f| %>
+			    <%= render 'shared/error_messages', object: f.object %>
+					<div class="form-group">
+						<%= f.label :"Mã giáo viên" ,class:"control-label col-sm-4"%>
+						<div class="col-sm-8">
+					    <%= f.text_field :magiaovien ,class: 'form-control', placeholder: "Nhập mã giáo viên "%>
+						</div>
+					</div>
+					<div class="form-group">
+						<%= f.label :"Tên giáo viên" ,class:"control-label col-sm-4"%>
+						<div class="col-sm-8">
+					    <%= f.text_field :tengiaovien ,class: 'form-control', placeholder: "Nhập tên giáo viên"%>
+						</div>
+					</div>
+					<div class="form-group">
+						<%= f.label :"Ngày sinh" ,class:"control-label col-sm-4"%>
+						<div class="col-sm-8">
+					    <%= f.date_select :ngaysinh ,:start_year=>1900,:end_year=>2000%>
+						</div>
+					</div>
+					<div class="form-group">
+						<%= f.label :"Email" ,class:"control-label col-sm-4"%>
+						<div class="col-sm-8">
+					    <%= f.text_field :email ,class: 'form-control', placeholder: "Nhập email "%>
+						</div>
+					</div>
+					<div class="form-group">
+						<%= f.label :"Khoa viện" ,class:"control-label col-sm-4"%>
+						<div class="col-sm-8">
+					    <%= f.collection_select :khoavien_id, Khoavien.all, :id, :tenkhoavien, prompt: true %>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-4 col-sm-8">
+							<%= f.submit "Thêm ",class: "btn btn-primary"%>
+						</div>
+					</div>  
+			<% end %>
+		</div>
 	</div>
 	<div class="col-md-3">
-			  	
+
 	</div>
 </div>

@@ -1,21 +1,37 @@
 <%=provide(:title,"Danh sach giao vien")%>
 <div class="row">
-	<div class="col-md-6 col-md-offset-3">
-		<%= form_tag(giaoviens_path, method: "get") do %>	
-		  	Khoa vien <%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>
-		  	Ten giao vien<%=text_field_tag "tengiaovien",@selected[:tengiaovien]%><br>
-		  	<%= submit_tag("Search") %> 
-		<% end %>
-		<%= will_paginate @giaoviens , :outer_window=>1,:inner_window=>1%>
-		<table >
-			<head>
-				<tr><td>Ma giao vien</td>
-					<td>Ten giao vien</td>
-					<td>Ngay sinh</td>
-					<td>Email</td>
-					<td>Khoa vien</td>			
+	<div class="col-md-8 col-md-offset-2">
+		<div class="form-horizontal">
+			<%= form_tag(giaoviens_path, method: "get") do %>
+				<div class="form-group">
+					<label class="control-label col-sm-4">Khoa viện</label>
+					<div class="col-sm-8">
+						<%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();"%>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-4">Tên giáo viên</label>
+					<div class="col-sm-8">
+						<%=text_field_tag "tengiaovien",@selected[:tengiaovien]%>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-4 col-sm-8">
+						<%= submit_tag("Tìm kiếm giao viên") %>
+					</div>
+				</div>
+			<% end %>
+		</div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Mã GV</th>
+					<th>Tên GV</th>
+					<th>Ngày sinh</th>
+					<th>Email</th>
+					<th>Khoa viện</th>
 				</tr>
-			</head>
+			</thead>
 			<body>
 				<%@giaoviens.each do |gv| %>
 				<tr>
@@ -23,14 +39,13 @@
 					<td><%=link_to gv.tengiaovien,gv%></td>
 					<td><%=gv.ngaysinh%></td>
 					<td><%=gv.email%></td>
-					<td><%=gv.khoavien.tenkhoavien%></td>			
+					<td><%=gv.khoavien.tenkhoavien%></td>
 				</tr>
 				<% end %>
 			</body>
 		</table>
 		<%= will_paginate @giaoviens , :outer_window=>1,:inner_window=>1%>
-		<%= page_entries_info @giaoviens %>
-
+		<%= page_entries_info @giaoviens %><br>
 		<%= link_to ' Thêm giáo viên ', new_giaovien_path %>
 	</div>
 </div>
