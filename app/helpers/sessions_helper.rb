@@ -22,6 +22,20 @@ module SessionsHelper
       return nil
     end
   end
+  def last_hocki
+    date=DateTime.now.to_date
+    hockis=Hocki.where("bd<=? and kt>=?",date,date)
+    if hockis.count>0
+      @hocki=hockis.first
+    else
+      hockis=Hocki.where("kt<=?",date).order(:kt)
+      if hockis.count>0
+        @hocki=hockis.last
+      else
+        @hocki=Hocki.order(:kt).last
+      end
+    end    
+  end
   def current_hocki
     date=DateTime.now.to_date
     hockis=Hocki.where("bd<=? and kt>=?",date,date)
