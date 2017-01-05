@@ -1,18 +1,36 @@
 <%=provide(:title,"Danh sach dang ki lop hoc")%>
 <div class="row">
-	<div class="col-md-9">
-		Danh sách đăng kí lớp học
-		<%=form_tag(dangkilophocs_path,method: "GET") do %>
-			Mã lớp <%=text_field_tag :malophoc,@selected[:malophoc], placeholder: "Nhập mã lớp học"%><br>
-			Mã sinh viên <%=text_field_tag :masinhvien,@selected[:masinhvien], placeholder: "Nhập mã sinhvien"%><br>
-			<%=submit_tag "Tìm kiếm",class: "btn btn-info glyphicon glyphicon-search"%>
-		<%end%>
+	<div class="col-md-6">
+		<h1 style="text-align: center; font-size: 30px;">Danh sách đăng kí lớp học</h1>
+		<div class="form-horizontal" style="margin-top: 20px;">
+			<%=form_tag(dangkilophocs_path,method: "GET") do %>
+				<div class="form-group">
+					<label class="control-label col-sm-4"> Ma lop</label>
+					<div class="col-sm-8">
+						<%=text_field_tag :malophoc,@selected[:malophoc], placeholder: "Nhập mã lớp học"%>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-4">Mã sinh viên</label>
+					<div class="col-sm-8">
+						<%=text_field_tag :masinhvien,@selected[:masinhvien], placeholder: "Nhập mã sinhvien"%>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-4 col-sm-8">
+						<%=submit_tag "Tìm kiếm",class: "btn btn-info glyphicon glyphicon-search"%>
+					</div>
+				</div>
+			<%end%>
+
+		</div>
+
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>Mã lớp học</th>					
+					<th>Mã lớp học</th>
 					<th>Mã sinh viên</th>
-					<th>Trọng số</th>					
+					<th>Trọng số</th>
 					<th>Điểm quá trình</th>
 					<th>Điểm thi</th>
 					<th>Điểm chữ</th>
@@ -23,9 +41,9 @@
 				<% lh=dklh.lophoc %>
 				<% sv=dklh.sinhvien %>
 				<tr>
-					
+
 					<td><%=lh.malophoc%></td>
-					<td><%=sv.masinhvien%></td>					
+					<td><%=sv.masinhvien%></td>
 					<td><%=lh.hocphan.trongso%></td>
 					<td><%=dklh.diemquatrinh%></td>
 					<td><%=dklh.diemthi%></td>
@@ -36,15 +54,18 @@
 			</body>
 		</table>
 		<%= will_paginate @dklhs ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1%><br>
-		<%= page_entries_info @dklhs %><br>	
+		<%= page_entries_info @dklhs %><br>
 	</div>
-	<div class="col-md-3">
-			
+	<div class="col-md-2">
+
+	</div>
+	<div class="col-md-4">
+
 			<h3>Cập nhật điểm từ file CSV </h3>
-	  	<%= form_tag import_dangkilophocs_path, multipart: true do %>	  	
+	  	<%= form_tag import_dangkilophocs_path, multipart: true do %>
 	    <%= file_field_tag :file %>
 	    <%= submit_tag "Nạp",class: "btn btn-info" %>
-	  	<% end %>   	
-		  	
+	  	<% end %>
+
 	</div>
 </div>

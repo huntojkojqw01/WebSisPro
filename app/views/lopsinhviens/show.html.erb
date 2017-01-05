@@ -1,32 +1,37 @@
 <%=provide(:title,"Thong tin lop sinh vien ")%>
 <div class="row">
-	<div class="col-md-3">
-		Ten lop sinh vien <%=@lopsinhvien.tenlopsinhvien%><br>
-		Giao vien chu nhiem <%=@giaovien.tengiaovien%><br>
-		Khoa hoc <%=@lopsinhvien.khoahoc%><br>
-		Khoa vien <%=@khoavien.tenkhoavien%><br>
-		
-		<%=link_to " Edit ",edit_lopsinhvien_path(@lopsinhvien)%>		
+	<div class="col-md-4" style="background-color:#F6D8CE; font-size:20px;">
+		<div class="container">
+			<ul class="list-group">
+				<li><b>Tên lớp sinh viên: </b><%=@lopsinhvien.tenlopsinhvien%></li>
+				<li><b>Giáo viên: </b><%=@giaovien.tengiaovien%></li>
+				<li><b>Khóa học: </b><%=@lopsinhvien.khoahoc%></li>
+				<li><b>Khoa viện: </b><%=@khoavien.tenkhoavien%></li>
+			</ul>
+		</div>
+		<%=link_to " Edit ",edit_lopsinhvien_path(@lopsinhvien)%>
 	</div>
-	<div class="col-md-9">
-		<table >
-			<head>
+	<div class="col-md-2">
+
+	</div>
+	<div class="col-md-6">
+		<table class="table table-striped">
+			<thead>
 				<tr>
-					<td>Ma sinh vien</td>
-					<td>Ten sinh vien</td>
-					<td>Ngay sinh</td>					
+					<th>Ma sinh vien</th>
+					<th>Ten sinh vien</th>
+					<th>Ngay sinh</th>
 				</tr>
-			</head>
+			</thead>
 			<body>
 				<%@sinhviens.each do |sv| %>
 				<tr>
 					<td><%=link_to sv.masinhvien, sv%></td>
 					<td><%=sv.tensinhvien%></td>
-					<td><%=sv.ngaysinh%></td>	
+					<td><%=sv.ngaysinh%></td>
 				</tr>
 				<% end %>
 			</body>
-		</table>			  	
+		</table>
 	</div>
 </div>
-

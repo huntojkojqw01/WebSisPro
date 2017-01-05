@@ -1,19 +1,17 @@
 <%=provide(:title,"Thong tin khoa vien ")%>
 <div class="row">
-	<div class="col-md-3">
-		Ten khoa vien <%=@khoavien.tenkhoavien%><br>
-		Dia diem <%=@khoavien.diadiem%><br>
-		So dien thoai <%=@khoavien.sodienthoai%><br>
-		<ul>
-			<li><%=link_to 'Danh sach lop sinh vien',lopsinhviens_path(:khoavien_id=>@khoavien.id)%></li>
-			<li><%=link_to 'Danh sach hoc phan',hocphans_path(:khoavien_id=>@khoavien.id)%></li>
-			<li><%=link_to 'Danh sach giao vien',giaoviens_path(:khoavien_id=>@khoavien.id)%></li>
+	<div class="col-md-4" >
+	</div>
+	<div class="col-md-4" style="background-color:#F6D8CE; font-size:20px;">
+		<b>Tên khoa viện: </b> <%=@khoavien.tenkhoavien%><br>
+		<b>Địa điểm: </b> <%=@khoavien.diadiem%><br>
+		<b>Số điện thoại: </b> <%=@khoavien.sodienthoai%><br>
+		<ul style="margin-top:20px">
+			<li><%=link_to 'Danh sách lớp sinh viên',lopsinhviens_path(:khoavien_id=>@khoavien.id)%></li>
+			<li><%=link_to 'Danh sách học phần',hocphans_path(:khoavien_id=>@khoavien.id)%></li>
+			<li><%=link_to 'Danh sách giáo viên',giaoviens_path(:khoavien_id=>@khoavien.id)%></li>
 		</ul>
 	</div>
-	<div class="col-md-9">			  	
+	<div class="col-md-4">
 	</div>
 </div>
-
-
-
-
