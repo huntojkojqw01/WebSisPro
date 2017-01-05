@@ -89,14 +89,13 @@ class SinhviensController < ApplicationController
     	end
 	
 	def import
-	    begin
-	      Sinhvien.import(params[:file])
-	      flash[:success]= "File is imported."
-	      redirect_to sinhviens_path
-	    rescue
-			flash[:danger]= "Invalid CSV file format."
-			redirect_to sinhviens_path
+	    r=Sinhvien.import(params[:file])
+	    if r[0]
+	      	flash[:success]= "File is imported(#{r[1]-1} record)."	      
+	    else
+			flash[:danger]= "Lỗi tại dòng thứ #{r[1]}: #{r[2]}."			
 	    end
+	    redirect_to sinhviens_path
 	end
 	def thoikhoabieu
 		@selected=params
@@ -151,8 +150,17 @@ class SinhviensController < ApplicationController
 			redirect_to root_url
 		end
 	end
-	def sinhviendangkihoc
-		
+	def svdkh
+		@selected=params
+		@hocki=Hocki.find_by_id(current_hocki.id)
+		if @selected[:masinhvien]
+			@sinhvien=Sinhvien.find_by(masinhvien: @selected[:masinhvien])
+			if @sinhvien
+				@lophocs=@sinhvien.lophocs.where("hocki_id=?",@hocki.id)
+			else
+				flash[:info]="Không tìm thấy sinh viên nào phù hợp"
+			end						
+		end	
 	end
 	private
 	def set_x

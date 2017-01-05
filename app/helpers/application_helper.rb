@@ -46,10 +46,6 @@ module ApplicationHelper
 		return t
 	end
 	def checkTkb(oldTkb,newTkb)
-		#p "TKB cu: #{toStrTime(oldTkb)}"
-		#p toStrBitTime(oldTkb)
-		#p "TKB them #{toStrTime(newTkb)}"
-		#p toStrBitTime(newTkb)
 		return (oldTkb&newTkb)==0 ? true : false 
 	end
 	def toStrBitTime(intTime)		
@@ -107,7 +103,7 @@ module ApplicationHelper
 		giaovien=lophoc.giaovien
 		lop=Lophoc.find_by(malophoc:lophoc.malophoc)
 		if lop
-			return [false,"Lop hoc da co sinh vien dang ki, khong the thay doi dia diem , thoi gian"] if (lop.diadiem!=lophoc.diadiem||lop.thoigian!=lophoc.thoigian)&&lop.dangkilophocs.count>0		
+			return [false,"Lop hoc da co sinh vien dang ki, khong the thay doi dia diem , thoi gian, hoc phan, hoc ki"] if (lop.diadiem!=lophoc.diadiem||lop.thoigian!=lophoc.thoigian||lop.hocphan_id!=lophoc.hocphan_id||lop.hocki_id!=lophoc.hocki_id)&&lop.dangkilophocs.count>0		
 			return [false,"So sinh vien dang ki da max, khong the thu hep"] if lop.maxdangki>lophoc.maxdangki&&lop.dangkilophocs.count>lophoc.maxdangki
 		end
 		lophocs=Lophoc.where("hocki_id=? and diadiem=? and malophoc!=?",lophoc.hocki_id,diadiem,lophoc.malophoc)
@@ -124,11 +120,12 @@ module ApplicationHelper
 		sinhvien=dangkilophoc.sinhvien
 		return [false , "Sinh vien da thoi hoc nen khong the dang ki"] unless sinhvien.trangthai		
 		lophoc=dangkilophoc.lophoc
+		hocki=lophoc.hocki
 		hocphan=lophoc.hocphan
-		return [false , "Sinh vien chua dang ki hoc phan #{hocphan.mahocphan}"] unless sinhvien.dangkihocphans.find_by(hocphan_id:hocphan.id)
+		return [false , "Sinh vien chua dang ki hoc phan #{hocphan.mahocphan}"] unless sinhvien.dangkihocphans.where("hocphan_id=? and hocki_id=?",hocphan.id,hocki.id).count>0
 		return [false , "Khong phai thoi diem dang ki lop cho hoc ki nay"] unless lophoc.hocki.modangkilophoc
 		return [false , "Lop hoc da day nen khong the dang ki"] unless lophoc.maxdangki>lophoc.dangkilophocs.count
-		lophocs=sinhvien.lophocs.where("hocki_id=?",lophoc.hocki_id)
+		lophocs=sinhvien.lophocs.where("hocki_id=? and malophoc!=?",lophoc.hocki_id,lophoc.malophoc)
 		lophocs.each do |lh|
 			return [false,"Trung thoi khoa bieu voi lop hoc #{lh.malophoc}"] if lh.thoigian&lophoc.thoigian>0
 			return [false,"Trung hoc phan da dang ki voi lop hoc #{lh.malophoc}(#{lh.hocphan.mahocphan})"] if lh.hocphan==lophoc.hocphan

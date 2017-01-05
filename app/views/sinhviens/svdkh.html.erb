@@ -1,0 +1,60 @@
+<%=provide(:title,"Sinh vien dang ki hoc")%>
+<div class="row">
+	<div class="col-md-6">
+		<%= form_tag(svdkh_sinhviens_path, method: "get") do %>			
+			Mã số sinh viên <%= text_field_tag :masinhvien, @selected[:masinhvien] %><br>
+			<%=submit_tag "Tìm kiếm" %>
+		<% end %>
+		<% if @lophocs && @lophocs.count>0 %>
+		<div style="text-align: center; font-size: 30px">
+			Danh sách lớp học kì này của sinh viên <%=@sinhvien.tensinhvien%>
+		</div>		
+		<table class="table table-striped" style="margin-top: 20px;">
+			<thead>
+				<tr>
+					<th>Ma lop</th>
+					<th>Thoi gian</th>
+					<th>Dia diem</th>
+					<th>Ma hoc phan</th>
+					<th>Ten hoc phan</th>
+					<th>Tin chi</th>
+					<th>Tin chi hoc phi</th>
+					<th>He so hoc phi</th>
+				</tr>
+			</thead>
+			<body>
+				<%tongTinChi=0%>
+				<%tongTien=0%>
+				<%@lophocs.each do |lh| %>
+				<tr>
+					<td><%=link_to lh.malophoc, lh%></td>
+					<td><%=toStrTime(lh.thoigian)%></td>
+					<td><%=lh.diadiem%></td>
+					<td><%=lh.hocphan.mahocphan%></td>
+					<td><%=lh.hocphan.tenhocphan%></td>
+					<td><%=lh.hocphan.tinchi%></td><%tongTinChi+=lh.hocphan.tinchi%>
+					<td><%=lh.hocphan.tinchihocphi%></td>
+					<%heso=lh.dangkilophocs.find_by(sinhvien_id: @sinhvien.id).hesohocphi%>
+					<td><%=heso%></td><%tongTien+=heso*lh.hocphan.tinchihocphi%>
+				</tr>
+				<% end %>
+				<tr>
+					<td></td><td></td><td></td><td></td><td></td>
+					<td><%=tongTinChi%></td>
+					<td><%=tongTien%></td>
+					<td></td>
+				</tr>
+			</body>
+		</table>
+		<ul>
+			<li style="margin-bottom: 5px;">Dinh muc hoc phi: <%=@hocki.dinhmuchocphi%></li>
+			<li>Tong so tien phai dong trong hoc ki: <%=tongTien*@hocki.dinhmuchocphi%></li>
+		</ul>
+		<%else%>
+		Khong dang ki lop nao trong ki nay
+		<%end%>		
+	</div>
+	<div class="col-md-6">
+		<%=render 'tkb',object: to_tkb(@lophocs) if @lophocs && @lophocs.count>0%>
+	</div>
+</div>

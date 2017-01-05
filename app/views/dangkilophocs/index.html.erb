@@ -1,9 +1,50 @@
-<%=provide(:title,"Danh sach dang ki hoc phan")%>
+<%=provide(:title,"Danh sach dang ki lop hoc")%>
 <div class="row">
 	<div class="col-md-9">
-			
+		Danh sách đăng kí lớp học
+		<%=form_tag(dangkilophocs_path,method: "GET") do %>
+			Mã lớp <%=text_field_tag :malophoc,@selected[:malophoc], placeholder: "Nhập mã lớp học"%><br>
+			Mã sinh viên <%=text_field_tag :masinhvien,@selected[:masinhvien], placeholder: "Nhập mã sinhvien"%><br>
+			<%=submit_tag "Tìm kiếm",class: "btn btn-info glyphicon glyphicon-search"%>
+		<%end%>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Mã lớp học</th>					
+					<th>Mã sinh viên</th>
+					<th>Trọng số</th>					
+					<th>Điểm quá trình</th>
+					<th>Điểm thi</th>
+					<th>Điểm chữ</th>
+				</tr>
+			</thead>
+			<body>
+				<%@dklhs.each do |dklh| %>
+				<% lh=dklh.lophoc %>
+				<% sv=dklh.sinhvien %>
+				<tr>
+					
+					<td><%=lh.malophoc%></td>
+					<td><%=sv.masinhvien%></td>					
+					<td><%=lh.hocphan.trongso%></td>
+					<td><%=dklh.diemquatrinh%></td>
+					<td><%=dklh.diemthi%></td>
+					<td><%=dklh.diemchu%></td>
+					<td><%=link_to 'Sửa điểm',edit_dangkilophoc_path(dklh)%></td>
+				</tr>
+				<% end %>
+			</body>
+		</table>
+		<%= will_paginate @dklhs ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1%><br>
+		<%= page_entries_info @dklhs %><br>	
 	</div>
 	<div class="col-md-3">
-				  	
+			
+			<h3>Cập nhật điểm từ file CSV </h3>
+	  	<%= form_tag import_dangkilophocs_path, multipart: true do %>	  	
+	    <%= file_field_tag :file %>
+	    <%= submit_tag "Nạp",class: "btn btn-info" %>
+	  	<% end %>   	
+		  	
 	</div>
 </div>

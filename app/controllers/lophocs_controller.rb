@@ -75,11 +75,11 @@ class LophocsController < ApplicationController
 		end
     end
     def import
-	    begin
-	    	count=Lophoc.import(params[:file])
-	    	flash[:success]= "File is imported(#{count} records)."	      
-	    rescue
-			flash[:danger]= "Invalid CSV file format."			
+	    r=Lophoc.import(params[:file])
+	    if r[0]
+	      	flash[:success]= "File is imported(#{r[1]-1} record)."	      
+	    else
+			flash[:danger]= "Lỗi tại dòng thứ #{r[1]}: #{r[2]}."			
 	    end
 	    redirect_to lophocs_path
 	end	

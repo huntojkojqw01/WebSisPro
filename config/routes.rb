@@ -12,19 +12,6 @@ Rails.application.routes.draw do
   resources :lophocs do
       collection { post :import }
     end
-    resources :static_pages do
-          collection do
-        get :my_data
-      end
-    end
-  get '/canhans/chuongtrinhdaotao'=>'canhans#chuongtrinhdaotao'
-  get '/canhans/dangkihoctap'=>'canhans#dangkihoctap'
-  get '/canhans/thoikhoabieu'=>'canhans#thoikhoabieu'
-  get '/canhans/bangdiem'=>'canhans#bangdiem'
-  get '/canhans/thongtin'=>'canhans#thongtin'
-  get '/canhans/hocphi'=>'canhans#hocphi'
-  get 'canhans/bangdiem'=>'<canhans id="bangdiem"></canhans>'
-  
   resources :dangkihocphans,:chuongtrinhdaotaos
   resources :khoaviens
   resources :lopsinhviens
@@ -36,13 +23,14 @@ Rails.application.routes.draw do
         get :dangkilophoc
         get :dangkihocphan
         get :chuongtrinhdaotao
-        get :sinhviendangkihoc
+        get :svdkh
       end
     end
-    resources :dangkilophocs do
-      collection {post :import}
+  resources :dangkilophocs do
+      collection do
+        post :import        
+      end
     end
   resources :giaoviens
   resources :hockis
-
 end

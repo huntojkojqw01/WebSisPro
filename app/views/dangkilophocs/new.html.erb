@@ -1,29 +1,14 @@
-<%=provide(:title,"Thêm dang ki lop hoc")%>
+<%=provide(:title,"Thêm đăng kí lớp học")%>
 <div class="row">
 	<div class="col-md-9">
-		<h1>Thêm dang ki lop hoc moi </h1>
+		<h1>Thêm đăng kí lớp học mới </h1>
 		<%= form_for(@dangkilophoc) do |f| %>
-		    <%= render 'shared/error_messages', object: f.object %>
-		    <% if @selected[:sinhvien_id] %>
-		    	<%= f.hidden_field :sinhvien_id, value: @selected[:sinhvien_id] %>
-		    <%else%>
+		    <%= render 'shared/error_messages', object: f.object %>		    
 			    <%= f.label :"Sinh vien" %>
-			    <%= f.collection_select :sinhvien_id, Sinhvien.all, :id, :masinhvien, prompt: true %>
-		    <%end%>
-		    <% if @selected[:lophoc_id] %>
-		    	<%= f.hidden_field :lophoc_id, value: @selected[:lophoc_id] %>
-		    <%else%>
+			    <%= f.collection_select :sinhvien_id, @sinhviens, :id, :masinhvien, prompt: true %>
 			    <%= f.label :"Lop hoc" %>
-			    <%= f.collection_select :lophoc_id, Lophoc.all, :id, :malophoc, prompt: true %>
-		    <%end%>		    
+			    <%= f.collection_select :lophoc_id, @lophocs, :id, :malophoc, prompt: true %>       
 		    <%= f.submit "Thêm ",class: "btn btn-primary"%>
 		<% end %>
-	</div>
-	<div class="col-md-3">
-			<h3>Nhập từ file CSV </h3>
-	  	<%= form_tag import_dangkilophocs_path, multipart: true do %>	  	
-	    <%= file_field_tag :file %>
-	    <%= submit_tag "Nạp",class: "btn btn-info" %>
-	  	<% end %>   	
-	</div>
+	</div>	
 </div>

@@ -1,22 +1,27 @@
-<%=form_tag(khoaviens_path,method: "GET") do %>
-		<%=text_field_tag :tenkhoavien,@selected[:tenkhoavien], placeholder: "Nhap ten khoa vien"%>
-		<%=submit_tag "Tìm kiếm",class: "btn btn-info glyphicon glyphicon-search"%>
-<%end%>
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th>Ten khoa</th>
-			<th>Dia diem</th>
-			<th>So dien thoai</th>
-		</tr>
-	</thead>
-	<body>
-		<%@khoaviens.each do |kv| %>
-		<tr>
-			<td><%=link_to kv.tenkhoavien, kv %></td>
-			<td><%=kv.diadiem%></td>
-			<td><%=kv.sodienthoai%></td>
-		</tr>
-		<% end %>
-	</body>
-</table>
+<%=provide(:title,"Danh sach dang ki lop hoc")%>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3">
+		<%=form_tag(khoaviens_path,method: "GET") do %>
+			<%=text_field_tag :tenkhoavien,@selected[:tenkhoavien], placeholder: "Nhập tên khoa viện"%>
+			<%=submit_tag "Tìm kiếm",class: "btn btn-info glyphicon glyphicon-search"%>
+		<%end%>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Ten khoa</th>
+					<th>Dia diem</th>
+					<th>So dien thoai</th>
+				</tr>
+			</thead>
+			<body>
+				<%@khoaviens.each do |kv| %>
+				<tr>
+					<td><%=link_to kv.tenkhoavien, kv %></td>
+					<td><%=kv.diadiem%></td>
+					<td><%=kv.sodienthoai%></td>
+				</tr>
+				<% end %>
+			</body>
+		</table>
+	</div>
+</div>

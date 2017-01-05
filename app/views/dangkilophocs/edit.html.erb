@@ -1,14 +1,17 @@
-<%=provide(:title,"Edit dang ki lop hoc ")%>
+<%=provide(:title,"Cập nhật điểm ")%>
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
-		<h1>Thay đổi thông tin dang ki lop hoc </h1>
+		<h1>Cập nhật điểm cho sinh viên <br>
+		<%=@dangkilophoc.sinhvien.masinhvien%>-lớp học <%=@dangkilophoc.lophoc.malophoc%></h1>
 		<%= form_for(@dangkilophoc) do |f| %>
-		    <%= render 'shared/error_messages', object: f.object %>		    
+		    <%= render 'shared/error_messages', object: f.object %>
+		    <%= f.hidden_field :sinhvien_id %>
+		    <%= f.hidden_field :lophoc_id %>		   		    
 		    <%= f.label :"Diem qua trinh" %>
-		    <%= f.text_field :diemquatrinh %>
+		    <%= f.number_field :diemquatrinh,class: "form-control",:step => 0.1 %>
 		    <%= f.label :"Diem thi" %>
-		    <%= f.text_field :diemthi %>		    
-		    <%= f.submit "Thay đổi ",class: "btn btn-primary"%>
+		    <%= f.number_field :diemthi ,class: "form-control",:step => 0.1 %>		    
+		    <%= f.submit "Cập nhật ",class: "btn btn-primary"%>
 		<% end %>
-	</div>
+	</div>	
 </div>

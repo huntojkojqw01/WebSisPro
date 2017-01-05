@@ -18,7 +18,7 @@
         <span class="caret"></span></a>
         <ul class="submenu" >
           <li><%= link_to 'Tìm kiếm sinh viên',sinhviens_path %></li>
-          <li><%= link_to 'Sinh viên đăng kí học',sinhviendangkihoc_sinhviens_path %></li>
+          <li><%= link_to 'Sinh viên đăng kí học',svdkh_sinhviens_path %></li>
           <li><%= link_to 'Thêm sinh viên',new_sinhvien_path %></li>
         </ul>
         </li>
@@ -38,7 +38,7 @@
           <li><%= link_to 'Tìm kiếm lớp học',lophocs_path %></li>         
             <li><%= link_to 'Thêm lớp học',new_lophoc_path %>
             <li><%= link_to 'Thêm đăng kí lớp học',new_dangkilophoc_path if current_hocki_modklophoc%></li>
-            <li><%= link_to 'Cập nhật bảng điểm',import_dangkilophocs_path %></li>
+            <li><%= link_to 'Cập nhật bảng điểm',dangkilophocs_path %></li>
                    
         </ul>
         </li>

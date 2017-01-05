@@ -5,25 +5,23 @@ class HockisController < ApplicationController
 	before_action :set_x, only: [:edit,:update,:show,:destroy]
 	def index
 		@selected=params
+		x=Hocki.find_by(modangkihocphan: true)		
 		if @selected[:hocki_id_hp]
-			Hocki.all.each do |hk|				
-				if hk.id==@selected[:hocki_id_hp].to_i					
-					hk.update(modangkihocphan: true)
-				else
-					hk.update(modangkihocphan: false)
-				end
-			end
+			x.update(modangkihocphan: false) if x
+			x=Hocki.find_by_id(@selected[:hocki_id_hp])
+			x.update(modangkihocphan: true) if x			
+		else
+			@selected[:hocki_id_hp]=x.id if x
 		end
+		x=Hocki.find_by(modangkilophoc: true)		
 		if @selected[:hocki_id_lh]
-			Hocki.all.each do |hk|
-				if hk.id==@selected[:hocki_id_lh].to_i
-					hk.update(modangkilophoc: true)
-				else
-					hk.update(modangkilophoc: false)
-				end
-			end
+			x.update(modangkilophoc: false) if x
+			x=Hocki.find_by_id(@selected[:hocki_id_lh])
+			x.update(modangkilophoc: true) if x			
+		else
+			@selected[:hocki_id_lh]=x.id if x
 		end
-		@hockis=Hocki.order(mahocki: :asc).paginate(page: params[:page],:per_page=>10)			
+		@hockis=Hocki.order(:mahocki)			
 	end	
 	def new
 		@hocki = Hocki.new
