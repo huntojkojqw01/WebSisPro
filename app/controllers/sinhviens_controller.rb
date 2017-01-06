@@ -1,8 +1,9 @@
 class SinhviensController < ApplicationController
 	include ApplicationHelper
-	before_action :logged_in_user, except: [:index]
+	before_action :logged_in_user, except: [:index,:svdkh]
 	before_action :is_admin, only: [:edit,:update,:new,:create,:destroy]	
 	before_action :is_sinhvien, only: [:dangkilophoc,:thoikhoabieu,:bangdiem,:chuongtrinhdaotao]
+	before_action :chinh_chu , only: [:show]
 	before_action :set_x, only: [:edit,:update,:show,:destroy]
 	before_action :xx_params ,only: :duyet
 	def index
@@ -244,4 +245,12 @@ class SinhviensController < ApplicationController
                   end
                 end# lhs.each do |lop|                  
     end#end tim_thoi_khoa_bieu
+    def chinh_chu
+    	if sinhvien?  
+        unless current_sinhvien.id==params[:id].to_i
+          flash[:danger]="Bạn không phải chính chủ !"
+          redirect_to(root_url) 
+        end
+        end
+    end
 end

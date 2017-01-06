@@ -233,6 +233,7 @@ module ApplicationHelper
 				return [true,soTietToTiet(sotiet),soTietToThu(sotiet),wait]
 			else
 				i=(i>>1)
+				sotiet+=1
 			end
 		end		
 		goc=i
@@ -268,10 +269,10 @@ module ApplicationHelper
 			lophocs.each do |lh|
 				r=tinhGoc(x[0],x[2],x[3],lh.thoigian)
 				if r[0]
-					return "Hiện đang học tiết học #{r[1]}, môn #{lh.hocphan.mahocphan}, của ngày #{r[2]}, còn #{r[3]} phút."
+					return "Hiện đang học tiết học #{r[1]}, môn #{lh.hocphan.mahocphan}, của ngày #{r[2]}, còn #{r[3]/60} giờ #{r[3]%60} phút."
 				else
 					if r[3]< wait
-						mess="Chờ #{r[3]} phút nữa đến tiết học kế tiếp (tiết #{r[1]}, môn #{lh.hocphan.mahocphan}, của ngày #{r[2]})."
+						mess="Chờ #{r[3]/60} giờ #{r[3]%60} phút nữa đến tiết học kế tiếp (tiết #{r[1]}, môn #{lh.hocphan.mahocphan}, của ngày #{r[2]})."
 						wait=r[3]
 					end
 				end

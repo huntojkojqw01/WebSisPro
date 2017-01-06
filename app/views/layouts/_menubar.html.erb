@@ -19,6 +19,7 @@
         <ul class="submenu" >
           <li><%= link_to 'Tìm kiếm sinh viên',sinhviens_path %></li>          
           <li><%= link_to 'Thêm sinh viên',new_sinhvien_path %></li>
+          <li><%= link_to 'Sinh viên đăng kí học',svdkh_sinhviens_path %></li>
         </ul>
         </li>
         <li>
@@ -52,6 +53,7 @@
             <span class="caret"></span>
           </a>
           <ul class="submenu" >
+          <li><%= link_to 'Thông tin sinh viên',current_sinhvien%></li>
             <li><%= link_to 'Đổi mật khẩu',edit_user_path(current_user) %></li>
             <li><%= link_to 'Thoát',logout_path,method: "delete"%></li>    
           </ul>

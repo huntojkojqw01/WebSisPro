@@ -1,10 +1,8 @@
 <%=provide(:title,"Xem thoi khoa bieu")%>
 <div class="row">
-	<div class="col-md-6">
-
-		
+	<div class="col-md-6">		
 		<%= form_tag(thoikhoabieu_sinhviens_path, method: "get") do %>			
-			Học kì <%=select_tag "hocki_id", options_from_collection_for_select(Hocki.all, "id", "mahocki",@selected[:hocki_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>		  	
+			Học kì <%=select_tag "hocki_id", options_from_collection_for_select(Hocki.order(:mahocki), "id", "mahocki",@selected[:hocki_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>	  	
 
 		<% end %>
 		<% if @lophocs && @lophocs.count>0 %>
