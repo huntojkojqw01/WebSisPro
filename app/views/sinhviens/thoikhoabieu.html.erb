@@ -11,50 +11,53 @@
 		<div style="text-align: center; font-size: 30px">
 			Danh sách lớp học
 		</div>
-		<table class="table table-striped" style="margin-top: 20px;">
-			<thead>
-				<tr>
-					<th>Mã lớp</th>
-					<th>Thời gian</th>
-					<th>Địa điểm</th>
-					<th>Mã học phần</th>
-					<th>Tên học phần</th>
-					<th>Tín chỉ</th>
-					<th>Tín chỉ học phí</th>
-					<th>Hệ số học phí</th>
-				</tr>
-			</thead>
-			<body>
-				<%tongTinChi=0%>
-				<%tongTien=0%>
-				<%@lophocs.each do |lh| %>
-				<tr>
-					<td><%=link_to lh.malophoc, lh%></td>
-					<td><%=toStrTime(lh.thoigian)%></td>
-					<td><%=lh.diadiem%></td>
-					<td><%=lh.hocphan.mahocphan%></td>
-					<td><%=lh.hocphan.tenhocphan%></td>
-					<td><%=lh.hocphan.tinchi%></td><%tongTinChi+=lh.hocphan.tinchi%>
-					<td><%=lh.hocphan.tinchihocphi%></td>
-					<%heso=lh.dangkilophocs.find_by(sinhvien_id: current_sinhvien.id).hesohocphi%>
-					<td><%=heso%></td><%tongTien+=heso*lh.hocphan.tinchihocphi%>
-				</tr>
-				<% end %>
-				<tr>
-					<td></td><td></td><td></td><td></td><td></td>
-					<td><%=tongTinChi%></td>
-					<td><%=tongTien%></td>
-					<td></td>
-				</tr>
-			</body>
-		</table>
-		<ul>
-			<li style="margin-bottom: 5px;">Dinh muc hoc phi: <%=@hocki.dinhmuchocphi%></li>
-			<li>Tong so tien phai dong trong hoc ki: <%=tongTien*@hocki.dinhmuchocphi%></li>
-		</ul>
-		<%else%>
-		Khong dang ki lop nao trong ki nay
-		<%end%>
+	<table class="table table-striped" style="margin-top: 20px;">
+		<thead>
+			<tr>
+				<th>Mã lớp</th>
+				<th>Thời gian</th>
+				<th>Địa điểm</th>
+				<th>Mã HP</th>
+				<th>Tên HP</th>
+				<th>Tín chỉ</th>
+				<th>Tín chỉ HP</th>
+				<th>Hệ số HP</th>
+			</tr>
+		</thead>
+		<body>
+			<%tongTinChi=0%>
+			<%tongTien=0%>
+			<%@lophocs.each do |lh| %>
+			<tr>
+				<td><%=link_to lh.malophoc, lh%></td>
+				<td><%=toStrTime(lh.thoigian)%></td>
+				<td><%=lh.diadiem%></td>
+				<td><%=lh.hocphan.mahocphan%></td>
+				<td><%=lh.hocphan.tenhocphan%></td>
+				<td><%=lh.hocphan.tinchi%></td><%tongTinChi+=lh.hocphan.tinchi%>
+				<td><%=lh.hocphan.tinchihocphi%></td>
+				<%heso=lh.dangkilophocs.find_by(sinhvien_id: current_sinhvien.id).hesohocphi%>
+				<td><%=heso%></td><%tongTien+=heso*lh.hocphan.tinchihocphi%>
+			</tr>
+			<% end %>
+			<tr>
+				<td></td><td></td><td></td><td></td><td></td>
+				<td><%=tongTinChi%></td>
+				<td><%=tongTien%></td>
+				<td></td>
+			</tr>
+		</body>
+	</table>
+	<ul>
+		<li style="margin-bottom: 5px;">Định mức học phí: <%=@hocki.dinhmuchocphi%></li>
+		<li>Tổng số tiền phải đóng trong HK: <%=tongTien*@hocki.dinhmuchocphi%></li>
+	</ul>
+	<% if current_hocki==@hocki %>
+		<h3 style="color: red"><%= testTiet @lophocs %></h3>
+	<%end%>
+	<%else%>
+	<h3>Không đăng kí lớp nào trong học kì này</h3>
+	<%end%>
 	</div>
 	<div class="col-md-6">
 		<%=render 'tkb',object: to_tkb(@lophocs) if @lophocs && @lophocs.count>0 && @selected[:hocki_id]%>

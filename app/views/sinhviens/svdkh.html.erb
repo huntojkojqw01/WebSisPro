@@ -1,4 +1,4 @@
-<%=provide(:title,"Sinh vien dang ki hoc")%>
+<%=provide(:title,"Sinh viên đăng kí học")%>
 <div class="row">
 	<div class="col-md-6">
 		<%= form_tag(svdkh_sinhviens_path, method: "get") do %>			
@@ -12,14 +12,14 @@
 		<table class="table table-striped" style="margin-top: 20px;">
 			<thead>
 				<tr>
-					<th>Ma lop</th>
-					<th>Thoi gian</th>
-					<th>Dia diem</th>
-					<th>Ma hoc phan</th>
-					<th>Ten hoc phan</th>
-					<th>Tin chi</th>
-					<th>Tin chi hoc phi</th>
-					<th>He so hoc phi</th>
+					<th>Mã lớp</th>
+					<th>Thời gian</th>
+					<th>Địa điểm</th>
+					<th>Mã học phần</th>
+					<th>Tên học phần</th>
+					<th>Tín chỉ</th>
+					<th>Tín chỉ học phí</th>
+					<th>Hệ số học phí</th>
 				</tr>
 			</thead>
 			<body>
@@ -47,11 +47,14 @@
 			</body>
 		</table>
 		<ul>
-			<li style="margin-bottom: 5px;">Dinh muc hoc phi: <%=@hocki.dinhmuchocphi%></li>
-			<li>Tong so tien phai dong trong hoc ki: <%=tongTien*@hocki.dinhmuchocphi%></li>
+			<li style="margin-bottom: 5px;">Định mức học phí: <%=@hocki.dinhmuchocphi%></li>
+			<li>Tổng số tiền phải đóng trong kì: <%=tongTien*@hocki.dinhmuchocphi%></li>
+			<% if current_hocki==@hocki %>
+			<h3 style="color: red"><%= testTiet @lophocs %></h3>
+			<%end%>
 		</ul>
 		<%else%>
-		Khong dang ki lop nao trong ki nay
+			<h3>Không đăng kí lớp nào trong kì này.<h3>
 		<%end%>		
 	</div>
 	<div class="col-md-6">

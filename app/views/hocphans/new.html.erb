@@ -41,7 +41,7 @@
 					<div class="form-group">
 						<%= f.label :"Khoa vien",class:"control-label col-sm-4"%>
 						<div class="col-sm-8">
-							<%= f.collection_select :khoavien_id, Khoavien.all, :id, :tenkhoavien, prompt: true %>
+							<%= f.collection_select :khoavien_id, Khoavien.order(:tenkhoavien), :id, :tenkhoavien, prompt: true %>
 						</div>
 					</div>
 					<div class="form-group">

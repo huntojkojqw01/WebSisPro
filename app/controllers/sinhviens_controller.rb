@@ -4,6 +4,7 @@ class SinhviensController < ApplicationController
 	before_action :is_admin, only: [:edit,:update,:new,:create,:destroy]	
 	before_action :is_sinhvien, only: [:dangkilophoc,:thoikhoabieu,:bangdiem,:chuongtrinhdaotao]
 	before_action :set_x, only: [:edit,:update,:show,:destroy]
+	before_action :xx_params ,only: :duyet
 	def index
 		@selected=params
 		@khoaviens=Khoavien.order(:tenkhoavien)
@@ -77,17 +78,17 @@ class SinhviensController < ApplicationController
 	      end
   	end
 	def create
-		user=User.create!(name:x_params["masinhvien"],password:"123456",password_confirmation:"123456",loai:"sv")	      	
-	    @sinhvien=Sinhvien.new(x_params)
-		@sinhvien[:user_id]=user.id
-	      	if @sinhvien.save
-	      	flash[:success]= 'Tạo mới thành công .'
-	        	redirect_to @sinhvien
-	      	else
-	        	render 'new'
-	      	end
-    	end
-	
+		 @sinhvien=Sinhvien.new(x_params)
+		    
+			      	if @sinhvien.save
+			      		user=User.create!(name:@sinhvien[:masinhvien],password:"123456",password_confirmation:"123456",loai:"sv")
+			      		flash[:success]= 'Tạo mới thành công .'
+			        	redirect_to @sinhvien
+			      	else
+			        	render 'new'
+			      	end
+		    
+	end
 	def import
 	    r=Sinhvien.import(params[:file])
 	    if r[0]
@@ -170,6 +171,17 @@ class SinhviensController < ApplicationController
 			flash[:info]="Không có học kì nào phù hợp"					
 		end	
 	end
+	def duyet
+                  	@mons=[]
+                    if @hocphan_ids
+                          @hocphan_ids.each do |x|                            
+                    	     @mons<<Hocphan.find_by_id(x)
+                    	end                     	
+                    	@mang_ket_qua=[]
+                    	@danh_sach_lop=[]
+                    	tim_thoi_khoa_bieu(0)                                            
+                    end
+                end
 	private
 	def set_x
 		@sinhvien=Sinhvien.find_by_id(params[:id])
@@ -193,4 +205,43 @@ class SinhviensController < ApplicationController
 		end
 		return {mahocki: hocki.mahocki,tcdangki: tcdangki,tcdat: tcdat,gpa: tcdat>0 ? tongdiem/tcdangki : 0.0}
 	end
+	def xx_params
+            	@hocphan_ids=params[:list] ? params[:list].collect {|x| x.to_i} : nil
+                  @tkb=0
+                  if params[:so_tiets]!=nil
+                    params[:so_tiets].each do |i|
+                        @tkb|=(1<<i.to_i)
+                    end
+                  end
+
+
+            end
+	def check_tkb(ds_lop,tkb)
+                ds_lop.each do |lop|
+                  if tkb&lop.thoigian==0
+                    tkb|=lop.thoigian
+                  else
+                    return false
+                  end                           
+                end
+                return true
+    end
+    def  tim_thoi_khoa_bieu(mon_hien_tai)
+                lhs=@mons[mon_hien_tai].lophocs.where("hocki_id=?",current_hocki.id)
+                lhs.each do |lop|
+                  @danh_sach_lop<<lop
+                  if check_tkb(@danh_sach_lop,@tkb)  
+                        if @danh_sach_lop.count==@mons.count
+                                              @mang_ket_qua<<Array.new(@danh_sach_lop)
+                                              @danh_sach_lop.pop
+                        else    
+                                  tim_thoi_khoa_bieu(mon_hien_tai+1)
+                                  @danh_sach_lop.pop
+                         end
+                                
+                    else
+                          @danh_sach_lop.pop        
+                  end
+                end# lhs.each do |lop|                  
+    end#end tim_thoi_khoa_bieu
 end

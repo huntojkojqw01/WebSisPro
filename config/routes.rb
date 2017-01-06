@@ -24,6 +24,8 @@ Rails.application.routes.draw do
         get :dangkihocphan
         get :chuongtrinhdaotao
         get :svdkh
+        get :duyet
+        post :duyet
       end
     end
   resources :dangkilophocs do
