@@ -78,17 +78,17 @@ class SinhviensController < ApplicationController
 	      end
   	end
 	def create
-		user=User.create!(name:x_params["masinhvien"],password:"123456",password_confirmation:"123456",loai:"sv")	      	
-	    @sinhvien=Sinhvien.new(x_params)
-		@sinhvien[:user_id]=user.id
-	      	if @sinhvien.save
-	      	flash[:success]= 'Tạo mới thành công .'
-	        	redirect_to @sinhvien
-	      	else
-	        	render 'new'
-	      	end
-    	end
-	
+		 @sinhvien=Sinhvien.new(x_params)
+		    
+			      	if @sinhvien.save
+			      		user=User.create!(name:@sinhvien[:masinhvien],password:"123456",password_confirmation:"123456",loai:"sv")
+			      		flash[:success]= 'Tạo mới thành công .'
+			        	redirect_to @sinhvien
+			      	else
+			        	render 'new'
+			      	end
+		    
+	end
 	def import
 	    r=Sinhvien.import(params[:file])
 	    if r[0]

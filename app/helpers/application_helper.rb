@@ -101,6 +101,8 @@ module ApplicationHelper
     def lophocOk(lophoc)
 		diadiem=lophoc.diadiem
 		giaovien=lophoc.giaovien
+		return [false , "Lớp không có địa điểm"] unless diadiem
+		return [false , "Lớp học không có giáo viên"] unless giaovien
 		lop=Lophoc.find_by(malophoc:lophoc.malophoc)
 		if lop
 			return [false,"Lớp đã có sinh viên đăng kí, không thể thay đổi một số thông tin"] if (lop.diadiem!=lophoc.diadiem||lop.thoigian!=lophoc.thoigian||lop.hocphan_id!=lophoc.hocphan_id||lop.hocki_id!=lophoc.hocki_id)&&lop.dangkilophocs.count>0		
@@ -109,19 +111,24 @@ module ApplicationHelper
 		lophocs=Lophoc.where("hocki_id=? and diadiem=? and malophoc!=?",lophoc.hocki_id,diadiem,lophoc.malophoc)
 		lophocs.each do |lh|
 			return [false,"Phòng học #{diadiem} đã được sử dụng cho lớp #{lh.malophoc}."]	if lh.thoigian&lophoc.thoigian>0
-		end		
-		lophocs=giaovien.lophocs.where("hocki_id=? and malophoc!=?",lophoc.hocki_id,lophoc.malophoc)
-		lophocs.each do |lh|
-			return [false,"Giáo viên #{giaovien.tengiaovien} bị trùng lịch dạy với lớp (#{lh.malophoc})."]	if lh.thoigian&lophoc.thoigian>0
-		end	
+		end
+		if giaovien		
+			lophocs=giaovien.lophocs.where("hocki_id=? and malophoc!=?",lophoc.hocki_id,lophoc.malophoc)
+			lophocs.each do |lh|
+				return [false,"Giáo viên #{giaovien.tengiaovien} bị trùng lịch dạy với lớp (#{lh.malophoc})."]	if lh.thoigian&lophoc.thoigian>0
+			end
+		end
 		return [true,""]	
 	end
     def dangkilophocOk(dangkilophoc)
 		sinhvien=dangkilophoc.sinhvien
-		return [false , "Sinh viên đã thôi học"] unless sinhvien.trangthai		
+		return [false , "Sinh viên không tồn tại hoặc đã thôi học"] unless sinhvien && sinhvien.trangthai		
 		lophoc=dangkilophoc.lophoc
+		return [false , "Lớp học không tồn tại"] unless lophoc
 		hocki=lophoc.hocki
 		hocphan=lophoc.hocphan
+		return [false , "Lớp không có học kì"] unless hocki
+		return [false , "Lớp học không có học phần tồn tại"] unless hocphan
 		return [false , "Sinh viên chưa đăng kí học phần #{hocphan.mahocphan}"] unless sinhvien.dangkihocphans.where("hocphan_id=? and hocki_id=?",hocphan.id,hocki.id).count>0
 		return [false , "Không phải thời điểm đăng kí lóp học cho học kì này"] unless lophoc.hocki.modangkilophoc
 		return [false , "Lớp học đã đầy"] unless lophoc.maxdangki>lophoc.dangkilophocs.count
@@ -134,9 +141,11 @@ module ApplicationHelper
 	end
 	def dangkihocphanOk(dangkihocphan)
 		sinhvien=dangkihocphan.sinhvien
-		return [false , "Sinh viên đã thôi học"] unless sinhvien.trangthai		
+		return [false , "Sinh viên không tồn tại hoặc đã thôi học"] unless sinhvien && sinhvien.trangthai		
 		hocphan=dangkihocphan.hocphan		
 		hocki=dangkihocphan.hocki
+		return [false , "Đăng kí không có học kì"] unless hocki
+		return [false , "Đăng kí không có học phần tồn tại"] unless hocphan
 		return [false , "Không phải thời điểm đăng kí học phần cho học kì này"] unless hocki.modangkihocphan
 		return [true,""]
 	end		

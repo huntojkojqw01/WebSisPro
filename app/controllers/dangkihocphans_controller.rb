@@ -25,7 +25,7 @@ class DangkihocphansController < ApplicationController
 	def create
 		pars=x_params		
 		if pars
-			dkhp=Dangkihocphan.where("sinhvien_id=? and hocphan_id=? and hocki_id=?",pars[:sinhvien_id],pars[:hocphan_id],pars[:hocki_id])
+			dkhp=Dangkihocphan.where("sinhvien_id=? and hocphan_id=? and hocki_id=?",pars[:sinhvien_id].to_i,pars[:hocphan_id].to_i,pars[:hocki_id].to_i)
 			if dkhp.count>0
 				flash[:info]="Dang ki da ton tai."				
 			else				

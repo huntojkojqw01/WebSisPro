@@ -23,7 +23,7 @@
 					</tr>
 					<tr>
 						<td><%= f.label :"Lớp sinh viên" %></td>
-						<td><%= f.collection_select :lopsinhvien_id, Lopsinhvien.all, :id, :tenlopsinhvien, prompt: true %></td>
+						<td><%= f.collection_select :lopsinhvien_id, Lopsinhvien.order(:tenlopsinhvien), :id, :tenlopsinhvien, prompt: true %></td>
 					</tr>
 				</table>
 				<div style="width: 70%; margin:auto; margin-top: 20px;">
