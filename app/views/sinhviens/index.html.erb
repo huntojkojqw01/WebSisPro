@@ -5,33 +5,35 @@
 		Danh sách sinh viên
 	</div>
 	<div class="col-md-4" style="background-color:#F2F5A9">
-		<%= form_tag(sinhviens_path, method: "get") do %>
-				<div class="form-group">
-					<label class="col-sm-4 control-label">Khóa học</label>
-					<%=select_tag "khoahoc", options_from_collection_for_select(@khoahocs,"khoahoc","khoahoc", @selected[:khoahoc]),:include_blank=>"None",:onchange => "this.form.submit();",class:"col-sm-8"%>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-4 control-label">Khoa viện</label>
-					<%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();",class: "col-sm-8"%>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-4 control-label">Lớp SV</label>
-					<%=select_tag "lopsinhvien_id", options_from_collection_for_select(@lopsinhviens, "id", "tenlopsinhvien",@selected[:lopsinhvien_id]),:include_blank=>"None",:onchange => "this.form.submit();",class: "col-sm-8" %>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-4 control-label">Mã SV</label>
-					<%=text_field_tag 'masinhvien',@selected[:masinhvien],class: "col-sm-8"%>
-				</div>
-				<div class="form-group">
-					<label class="col-sm-4 control-label">Tên SV</label>
-					<%=text_field_tag 'tensinhvien',@selected[:tensinhvien], class: "col-sm-8"%>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-4 col-sm-8">
-						<%= submit_tag("Tìm kiếm sinh viên") %>
+		<div class="form-horizontal" style="margin: 20px;">
+			<%= form_tag(sinhviens_path, method: "get") do %>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">Khóa học</label>
+						<%=select_tag "khoahoc", options_from_collection_for_select(@khoahocs,"khoahoc","khoahoc", @selected[:khoahoc]),:include_blank=>"None",:onchange => "this.form.submit();",class:"col-sm-8"%>
 					</div>
-				</div>
-		<% end %>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">Khoa viện</label>
+						<%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();",class: "col-sm-8"%>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">Lớp SV</label>
+						<%=select_tag "lopsinhvien_id", options_from_collection_for_select(@lopsinhviens, "id", "tenlopsinhvien",@selected[:lopsinhvien_id]),:include_blank=>"None",:onchange => "this.form.submit();",class: "col-sm-8" %>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">Mã SV</label>
+						<%=text_field_tag 'masinhvien',@selected[:masinhvien],class: "col-sm-8"%>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">Tên SV</label>
+						<%=text_field_tag 'tensinhvien',@selected[:tensinhvien], class: "col-sm-8"%>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-4 col-sm-8">
+							<%= submit_tag("Tìm kiếm sinh viên") %>
+						</div>
+					</div>
+			<% end %>
+		</div>
 	</div>
 	<div class="col-md-8">
 		<table class="table striped-table">

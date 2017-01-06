@@ -2,9 +2,9 @@
 <div class="row">
 	<div class="col-md-6">
 
-		
-		<%= form_tag(thoikhoabieu_sinhviens_path, method: "get") do %>			
-			Học kì <%=select_tag "hocki_id", options_from_collection_for_select(Hocki.all, "id", "mahocki",@selected[:hocki_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>		  	
+
+		<%= form_tag(thoikhoabieu_sinhviens_path, method: "get") do %>
+			Học kì <%=select_tag "hocki_id", options_from_collection_for_select(Hocki.all, "id", "mahocki",@selected[:hocki_id]),:include_blank=>"None",:onchange => "this.form.submit();"%><br>
 
 		<% end %>
 		<% if @lophocs && @lophocs.count>0 %>
@@ -14,14 +14,14 @@
 		<table class="table table-striped" style="margin-top: 20px;">
 			<thead>
 				<tr>
-					<th>Ma lop</th>
-					<th>Thoi gian</th>
-					<th>Dia diem</th>
-					<th>Ma hoc phan</th>
-					<th>Ten hoc phan</th>
-					<th>Tin chi</th>
-					<th>Tin chi hoc phi</th>
-					<th>He so hoc phi</th>
+					<th>Mã lớp</th>
+					<th>Thời gian</th>
+					<th>Địa điểm</th>
+					<th>Mã học phần</th>
+					<th>Tên học phần</th>
+					<th>Tín chỉ</th>
+					<th>Tín chỉ học phí</th>
+					<th>Hệ số học phí</th>
 				</tr>
 			</thead>
 			<body>
@@ -54,7 +54,7 @@
 		</ul>
 		<%else%>
 		Khong dang ki lop nao trong ki nay
-		<%end%>		
+		<%end%>
 	</div>
 	<div class="col-md-6">
 		<%=render 'tkb',object: to_tkb(@lophocs) if @lophocs && @lophocs.count>0 && @selected[:hocki_id]%>

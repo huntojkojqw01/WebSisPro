@@ -1,29 +1,31 @@
 <%=provide(:title,"Danh muc lop hoc")%>
 <div class="row">
 	<div class="col-md-4" style="background-color:#F2F5A9">
-		<%= form_tag(lophocs_path, method: "get") do %>
-			<div class="form-group">
-				<label class="col-sm-4 control-label">Học kì</label>
-				<%=select_tag "hocki_id", options_from_collection_for_select(@hockis, "id", "mahocki",@selected[:hocki_id]),:include_blank=>"None",:onchange => "this.form.submit();",class:"col-sm-8"%>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-4 control-label">Khoa viện</label>
-				<%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();",class:"col-sm-8"%>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-4 control-label">Mã lớp</label>
-				<%=text_field_tag 'malophoc',@selected[:malophoc],class:"col-sm-8"%>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-4 control-label">Mã HP</label>
-				<%=text_field_tag 'mahocphan',@selected[:mahocphan],class:"col-sm-8"%>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-offset-4 col-sm-8">
-					<%= submit_tag("Tìm kiếm lớp học") %>
+		<div class="form-horizontal" style="margin:20px">
+			<%= form_tag(lophocs_path, method: "get") do %>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Học kì</label>
+					<%=select_tag "hocki_id", options_from_collection_for_select(@hockis, "id", "mahocki",@selected[:hocki_id]),:include_blank=>"None",:onchange => "this.form.submit();",class:"col-sm-8"%>
 				</div>
-			</div>
-		<% end %>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Khoa viện</label>
+					<%=select_tag "khoavien_id", options_from_collection_for_select(@khoaviens, "id", "tenkhoavien",@selected[:khoavien_id]),:include_blank=>"None",:onchange => "this.form.submit();",class:"col-sm-8"%>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Mã lớp</label>
+					<%=text_field_tag 'malophoc',@selected[:malophoc],class:"col-sm-8"%>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-4 control-label">Mã HP</label>
+					<%=text_field_tag 'mahocphan',@selected[:mahocphan],class:"col-sm-8"%>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-4 col-sm-8">
+						<%= submit_tag("Tìm kiếm lớp học") %>
+					</div>
+				</div>
+			<% end %>
+		</div>
 	</div>
 	<div class="col-md-8", style="background-color:#9FF781">
 		Danh sách lớp học
@@ -33,4 +35,3 @@
 		</div>
 	</div>
 </div>
-

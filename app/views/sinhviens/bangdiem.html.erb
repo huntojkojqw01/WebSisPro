@@ -4,34 +4,34 @@
 		<div class="container" id="student_info">
 			<div id="student_info_label">
 				<p id="student_info_title">
-					Thong tin sinh vien
+					Thông tin sinh viên
 				</p>
 			</div>
 			<div class="row" id="green_line">
 			</div>
 			<div class="container" id="student_info_board">
-				<ul>
-					<li>Ma sinh vien: <b><%=current_sinhvien.masinhvien%></b></li>
-					<li>Ten sinh vien: <b><%=current_sinhvien.tensinhvien%></b></li>
-					Ngay sinh <%=current_sinhvien.ngaysinh%><br>
-					Lop <%=current_sinhvien.lopsinhvien.tenlopsinhvien%><br>
-					Email <%=current_sinhvien.email%><br>
-					Trang thai <%= current_sinhvien.trangthai ? "Hoc" : "Thoi hoc"%><br>
+				<ul class="list-group">
+					<li>Mã sinh viên: <b><%=current_sinhvien.masinhvien%></b></li>
+					<li>Tên sinh viên: <b><%=current_sinhvien.tensinhvien%></b></li>
+					<li>Ngày sinh: <b><%=current_sinhvien.ngaysinh%></b></li>
+					<li>Lớp: <b><%=current_sinhvien.lopsinhvien.tenlopsinhvien%></b></li>
+					<li>Email: <b><%=current_sinhvien.email%></b></li>
+					<li>Trạng thái: <b><%= current_sinhvien.trangthai ? "Hoc" : "Thoi hoc"%></b></li>
 				</ul>
 			</div>
 		</div>
-		
+
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>Ma HK</th>
-					<th>Ma HP</th>
-					<th>Ten HP</th>
+					<th>Mã HK</th>
+					<th>Mã HP</th>
+					<th>Tên HP</th>
 					<th>TC</th>
-					<th>Ma LH</th>
-					<th>Diem QT</th>
-					<th>Diem thi</th>
-					<th>Diem chu</th>
+					<th>Mã LH</th>
+					<th>Điểm QT</th>
+					<th>Điểm thi</th>
+					<th>Điểm chữ</th>
 				</tr>
 			</thead>
 			<body>
@@ -58,13 +58,13 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>Ma HK</th>
+					<th>Mã HK</th>
 					<th>GPA</th>
 					<th>CPA</th>
-					<th>TC dat</th>
+					<th>TC đạt</th>
 					<th>TCDK</th>
 					<th>TCTL</th>
-					<th>TC no</th>
+					<th>TC nợ</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -73,7 +73,7 @@
 				<% if @lophocs.count>0 %>
 				<%hk=@lophocs.first.hocki%>
 				<%@lophocs.each do |lh| %>
-				
+
 					<%hp=lh.hocphan%>
 					<%dk=lh.dangkilophocs.find_by(sinhvien_id:current_sinhvien.id)%>
 					<% if hk!=lh.hocki%>
@@ -89,10 +89,10 @@
 						</tr>
 					<%else%>
 
-					<%end%>	
+					<%end%>
 					<%tcdangki+=hp.tinchi%>
 					<%tcdat+=hp.tinchi if (dk.diemquatrinh || dk.diemthi)&&dk.diemso>=1.0%>
-					<%tongdiem+=hp.tinchi*dk.diemso if dk.diemso%>				
+					<%tongdiem+=hp.tinchi*dk.diemso if dk.diemso%>
 				<% end %>
 				<tr>
 							<td><%=hk.mahocki%></td><%gpa=tcdat>0 ? (tongdiem/tcdat).round(2) : 0%><%tongdiemkhoa+=tongdiem%><%tongdiem=0%><%cpa=tcdangki>0 ? (tongdiemkhoa/tcdangki).round(2) : 0%>
@@ -106,7 +106,7 @@
 				</tr>
 				<% end %>
 			</body>
-		</table>	  	
+		</table>
 
 	</div>
 </div>
