@@ -11,7 +11,7 @@
   <div class="row">  
     <div class="col-sm-4 col-sm-offset-6">
         <% time=DateTime.now.to_date %>
-        <h5 class="text" style="color:white;text-align: right"><% if current_hocki %>Học kì <%=current_hocki.mahocki%>,<%end%> ngày <%=time.day%> tháng <%=time.month%> năm <%=time.year%></h5>
+        <h5 class="text" style="color:white;text-align: right"><% if current_hocki %>Học kì <%=@current_hocki.mahocki%>,<%end%> ngày <%=time.day%> tháng <%=time.month%> năm <%=time.year%></h5>
     </div>
   </div>
 </div>

@@ -2,22 +2,38 @@ class LophocsController < ApplicationController
 	include ApplicationHelper
 	before_action :logged_in_user, except: [:index]
 	before_action :is_admin, except: [:index]
-	before_action :set_x, only: [:edit,:update,:show,:destroy]
+	before_action :set_x, only: [:edit,:update,:destroy]
 	def index
-		@selected=params
-		@hockis=Hocki.order(:mahocki)
-		@khoaviens=Khoavien.order(:tenkhoavien)		
+		@selected=params.permit(:khoavien_id,:hocki_id,:mahocphan,:malophoc)
+		@hockis=Hocki.all
+		@khoaviens=Khoavien.all
 		if @selected[:khoavien_id]&&@selected[:khoavien_id]!=""
 			if @selected[:hocki_id]&&@selected[:hocki_id]!=""
-				@lophocs=Khoavien.find_by_id(@selected[:khoavien_id]).lophocs.where("hocki_id = ? and malophoc like ? and mahocphan like ?",@selected[:hocki_id],"%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%").paginate(page: params[:page],:per_page=>20)
+				@lophocs=Lophoc.joins({hocphan: :khoavien},:dangkilophocs)
+				.where("khoavien_id=? and hocki_id = ? and malophoc like ? and mahocphan like ?",@selected[:khoavien_id],@selected[:hocki_id],"%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%")
+				.group(:id,:malophoc,:mahocphan,:tenhocphan)
+				.select("lophocs.*","mahocphan","tenhocphan","count(dangkilophocs.id) as dadangki")
+				.paginate(page: params[:page],:per_page=>20)
 			else
-				@lophocs=Khoavien.find_by_id(@selected[:khoavien_id]).lophocs.where("malophoc like ? and mahocphan like ?","%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%").paginate(page: params[:page],:per_page=>20)
+				@lophocs=Lophoc.joins({hocphan: :khoavien},:dangkilophocs)
+				.where("khoavien_id=? and malophoc like ? and mahocphan like ?",@selected[:khoavien_id],"%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%")
+				.group(:id,:malophoc,:mahocphan,:tenhocphan)
+				.select("lophocs.*","mahocphan","tenhocphan","count(dangkilophocs.id) as dadangki")
+				.paginate(page: params[:page],:per_page=>20)
 			end
 		else
 			if @selected[:hocki_id]&&@selected[:hocki_id]!=""
-				@lophocs=Lophoc.joins(:hocphan).where("hocki_id = ? and malophoc like ? and mahocphan like ?",@selected[:hocki_id],"%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%").paginate(page: params[:page],:per_page=>20)
+				@lophocs=Lophoc.joins(:hocphan,:dangkilophocs)
+				.where("hocki_id = ? and malophoc like ? and mahocphan like ?",@selected[:hocki_id],"%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%")
+				.group(:id,:malophoc,:mahocphan,:tenhocphan)
+				.select("lophocs.*","mahocphan","tenhocphan","count(dangkilophocs.id) as dadangki")
+				.paginate(page: params[:page],:per_page=>20)
 			else
-				@lophocs=Lophoc.joins(:hocphan).where("malophoc like ? and mahocphan like ?","%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%").paginate(page: params[:page],:per_page=>20)
+				@lophocs=Lophoc.joins(:hocphan,:dangkilophocs)
+				.where("malophoc like ? and mahocphan like ?","%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%")
+				.group(:id,:malophoc,:mahocphan,:tenhocphan)
+				.select("lophocs.*","mahocphan","tenhocphan","count(dangkilophocs.id) as dadangki")
+				.paginate(page: params[:page],:per_page=>20)
 			end		
 		end		
 			
@@ -30,8 +46,14 @@ class LophocsController < ApplicationController
 	def new
 		@lophoc = Lophoc.new
 	end
-	def show		
-		@dangkilophocs=@lophoc.dangkilophocs.paginate(page: params[:page],:per_page=>20)						
+	def show
+		@lophoc=Lophoc.joins(:hocphan,:giaovien,:hocki,:dangkilophocs)				
+				.group(:id,:malophoc,:mahocphan,:tenhocphan,:tengiaovien,:mahocki)
+				.select("lophocs.*","mahocphan","tenhocphan","tengiaovien","mahocki","count(dangkilophocs.id) as dadangki")
+				.find_by_id(params[:id])		
+		@sinhviens=@lophoc.sinhviens.joins(:lopsinhvien)
+			.select("sinhviens.*","tenlopsinhvien")
+			.paginate(page: params[:page],:per_page=>20)						
 	end
 	def edit
 		
@@ -85,12 +107,7 @@ class LophocsController < ApplicationController
 	end	
 	private
 	def set_x
-		@lophoc=Lophoc.find_by_id(params[:id])
-		if @lophoc			
-		else
-			flash[:info]="Khong tim thay lop hoc nay."
-			redirect_to root_url
-		end	
+		@lophoc=Lophoc.find_by_id(params[:id])		
 	end
 	def x_params
 	    pars=params.require(:lophoc).permit(:malophoc,:thoigian,:diadiem,:giaovien_id,:hocphan_id,:hocki_id,:maxdangki)

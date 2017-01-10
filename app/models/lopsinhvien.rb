@@ -6,7 +6,8 @@ class Lopsinhvien < ApplicationRecord
   	has_many :chuongtrinhdaotaos, dependent: :destroy
     validates :tenlopsinhvien, presence: true, length: { maximum: 50 }, uniqueness: true
     validates :khoahoc, presence: true, numericality: { only_integer: true, :greater_than_or_equal_to=>50, :less_than_or_equal_to=>70 }
-  	def self.as_csv
+  	default_scope {order(:tenlopsinhvien)}
+    def self.as_csv
   		CSV.generate do |csv|
 	      csv << column_names
 	      all.each do |item|

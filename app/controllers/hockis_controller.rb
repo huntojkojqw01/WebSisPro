@@ -4,7 +4,7 @@ class HockisController < ApplicationController
 	before_action :is_admin
 	before_action :set_x, only: [:edit,:update,:show,:destroy]
 	def index
-		@selected=params
+		@selected=params.permit(:hocki_id_hp,:hocki_id_lh)
 		x=Hocki.find_by(modangkihocphan: true)		
 		if @selected[:hocki_id_hp]
 			x.update(modangkihocphan: false) if x
@@ -21,13 +21,20 @@ class HockisController < ApplicationController
 		else
 			@selected[:hocki_id_lh]=x.id if x
 		end
-		@hockis=Hocki.order(:mahocki)			
+		@hockis=Hocki.all			
 	end	
 	def new
 		@hocki = Hocki.new
 	end
-	def show		
-						
+	def show
+		#respond_to do |format|
+		    #format.html
+		    #format.json render @hocki
+		    #format.json{
+		    #  render :json => @hocki.to_json
+		    #}
+		#end		
+		render json: {status: "success", data: {hocki: @hocki}}, status: :ok		
 	end
 	def edit
 		
@@ -42,7 +49,7 @@ class HockisController < ApplicationController
 		if r.first
 	      if @hocki.update(par)
 	      	flash[:info]='Đã cập nhật .'
-	        redirect_to @hocki
+	        redirect_to(:back)
 	      else
 	       	render 'edit'
 	      end
@@ -68,12 +75,7 @@ class HockisController < ApplicationController
     end	
 	private
 	def set_x
-		@hocki=Hocki.find_by_id(params[:id])
-		if @hocki			
-		else
-			flash[:info]="Khong tim thay hoc ki."
-			redirect_to root_url
-		end	
+		@hocki=Hocki.find_by_id(params[:id])		
 	end
 	def x_params
 	      params.require(:hocki).permit(:mahocki,:dinhmuchocphi,:bd,:kt,:modangkihocphan,:modangkilophoc)

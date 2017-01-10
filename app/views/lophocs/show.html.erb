@@ -6,10 +6,10 @@
 				<li><b>Mã lớp học: </b><%=@lophoc.malophoc%></li>
 				<li><b>Thời gian: </b><%=toStrTime(@lophoc.thoigian)%></li>
 				<li><b>Địa điểm: </b><%=@lophoc.diadiem%></li>
-				<li><b>Giáo viên giảng dạy: </b><%=@lophoc.giaovien.tengiaovien%></li>
-				<li><b>Học phần: </b><%=@lophoc.hocphan.tenhocphan%>-<%=@lophoc.hocphan.mahocphan%></li>
-				<li><b>Học kì: </b><%=@lophoc.hocki.mahocki%></li>
-				<li><b>Số lượng đăng kí: </b><%=@lophoc.dangkilophocs.count%>/<%=@lophoc.maxdangki%></li>
+				<li><b>Giáo viên giảng dạy: </b><%=@lophoc.tengiaovien%></li>
+				<li><b>Học phần: </b><%=@lophoc.tenhocphan%>-<%=@lophoc.mahocphan%></li>
+				<li><b>Học kì: </b><%=@lophoc.mahocki%></li>
+				<li><b>Số lượng đăng kí: </b><%=@lophoc.dadangki%>/<%=@lophoc.maxdangki%></li>
 			</ul>
 		</div>
 		
@@ -31,18 +31,18 @@
 				</tr>
 			</thead>
 			<body>
-				<%@dangkilophocs.each do |dk| %>
+				<%@sinhviens.each do |dk| %>
 				<tr>
-					<td><%=dk.sinhvien.masinhvien%></td>
-					<td><%=dk.sinhvien.tensinhvien%></td>
-					<td><%=dk.sinhvien.lopsinhvien.tenlopsinhvien%></td>
+					<td><%=dk.masinhvien%></td>
+					<td><%=dk.tensinhvien%></td>
+					<td><%=dk.tenlopsinhvien%></td>
 					<td><%=link_to 'Xóa', dk, method: :delete,
 				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %></td>
 				</tr>
 				<% end %>
 			</body>
 		</table>
-		<%= will_paginate @dangkilophocs , :outer_window=>1,:inner_window=>1,class:"pager"%>
-		<%= page_entries_info @dangkilophocs %>
+		<%= will_paginate @sinhviens , :outer_window=>1,:inner_window=>1,class:"pager"%>
+		<%= page_entries_info @sinhviens %>
 	</div>
 </div>

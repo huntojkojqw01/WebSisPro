@@ -1,17 +1,18 @@
 class GiaoviensController < ApplicationController
 	before_action :logged_in_user
 	before_action :is_admin
-	before_action :set_x, only: [:edit,:update,:show]
+	before_action :set_x, only: [:edit,:update]
 	def index
-		@selected=params		
+		@selected=params.permit(:tengiaovien,:khoavien_id)		
 		@khoaviens=Khoavien.all		
 		if @selected[:khoavien_id]&&@selected[:khoavien_id]!=""
-			@giaoviens=Giaovien.where("khoavien_id = ? and tengiaovien like ?",@selected[:khoavien_id],"%#{@selected[:tengiaovien]}%")
+			@giaoviens=Giaovien.joins(:khoavien)
+			.where("khoavien_id = ? and tengiaovien like ?",@selected[:khoavien_id],"%#{@selected[:tengiaovien]}%").select("giaoviens.*","khoaviens.tenkhoavien").paginate(page: params[:page],:per_page=>10)
 		else
-			@giaoviens=Giaovien.where("tengiaovien like ?","%#{@selected[:tengiaovien]}%")
-		end
-		@giaoviens=@giaoviens.order(tengiaovien: :desc).paginate(page: params[:page],:per_page=>10)		
-		@gvs = Giaovien.order :tengiaovien
+			@giaoviens=Giaovien.joins(:khoavien)
+			.where("tengiaovien like ?","%#{@selected[:tengiaovien]}%").select("giaoviens.*","khoaviens.tenkhoavien").paginate(page: params[:page],:per_page=>10)
+		end		
+		@gvs = Giaovien.all
         respond_to do |format|
           format.html
           format.csv { send_data @gvs.as_csv }
@@ -21,8 +22,7 @@ class GiaoviensController < ApplicationController
 		@giaovien = Giaovien.new
 	end
 	def show		
-		@khoavien=@giaovien.khoavien
-		@lopsinhviens=@giaovien.lopsinhviens				
+		@giaovien=Giaovien.joins(:khoavien).where("giaoviens.id=?",params[:id]).select("giaoviens.*","tenkhoavien").first			
 	end
 	def edit
 		
@@ -50,15 +50,10 @@ class GiaoviensController < ApplicationController
     end	
 	private
 	def set_x
-		@giaovien=Giaovien.find_by_id(params[:id])
-		if @giaovien			
-		else
-			flash[:info]="Khong tim thay giao vien."
-			redirect_to root_url
-		end	
+		@giaovien=Giaovien.find_by_id(params[:id])		
 	end
 	def x_params
-	      params.require(:giaovien).permit(:magiaovien,:tengiaovien,:ngaysinh,:email,:khoavien_id)
+	    params.require(:giaovien).permit(:magiaovien,:tengiaovien,:ngaysinh,:email,:khoavien_id)
 	end
 	
 end

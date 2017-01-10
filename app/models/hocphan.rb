@@ -7,6 +7,7 @@ class Hocphan < ApplicationRecord
   validates :mahocphan, presence: true, length: { maximum: 10 }, uniqueness: true
   validates :tinchihocphi, :tinchi, presence: true, numericality: { :greater_than_or_equal_to=>1, :less_than_or_equal_to=>6 }
   validates :trongso, presence: true, numericality: { :greater_than_or_equal_to=>0.1, :less_than_or_equal_to=>1.0 }
+  default_scope {order(:mahocphan)}
   def self.as_csv
   		CSV.generate do |csv|
 	      csv << column_names

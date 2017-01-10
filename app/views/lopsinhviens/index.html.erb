@@ -22,7 +22,7 @@
       </div>
     <% end %>
   </div>
-  <%= will_paginate @sinhviens , :outer_window=>1,:inner_window=>1%>
+  <%= will_paginate @lopsinhviens , :outer_window=>1,:inner_window=>1%>
   <table class="table table-striped">
   	<thead>
   		<tr>
@@ -36,15 +36,15 @@
   		<%@lopsinhviens.each do |lsv| %>
   		<tr>
   			<td><%=link_to lsv.tenlopsinhvien,lsv%></td>
-  			<td><%=lsv.giaovien.tengiaovien%></td>
+  			<td><%=lsv.tengiaovien%></td>
   			<td><%=lsv.khoahoc%></td>
-  			<td><%=lsv.khoavien.tenkhoavien%></td>
+  			<td><%=lsv.tenkhoavien%></td>
   		</tr>
   		<% end %>
   	</body>
   </table>
-  <%= will_paginate @sinhviens , :outer_window=>1,:inner_window=>1%>
-  <%= page_entries_info @sinhviens %><br>
+  <%= will_paginate @lopsinhviens , :outer_window=>1,:inner_window=>1%>
+  <%= page_entries_info @lopsinhviens %><br>
   <%= link_to ' Them lop sinh vien ', new_lopsinhvien_path %>
 </div>
 <div class="col-md-3">

@@ -4,4 +4,5 @@ class Khoavien < ApplicationRecord
 	has_many :lopsinhviens, dependent: :destroy
 	has_many :sinhviens, through: :lopsinhviens
 	validates :tenkhoavien, :diadiem , presence: true, length: { maximum: 50 } , uniqueness: true
+	default_scope {order(:tenkhoavien)}
 end

@@ -38,12 +38,7 @@ module SessionsHelper
   end
   def current_hocki
     date=DateTime.now.to_date
-    hockis=Hocki.where("bd<=? and kt>=?",date,date)
-    if hockis.count>0
-      @hocki=hockis.first
-    else
-      @hocki=nil
-    end
+    @current_hocki=Hocki.where("bd<=? and kt>=?",date,date).first    
   end
   def current_hocki_modklophoc
     @hocki=Hocki.find_by(modangkilophoc: true)

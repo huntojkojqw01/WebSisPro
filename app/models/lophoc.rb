@@ -9,6 +9,7 @@ class Lophoc < ApplicationRecord
   validates :diadiem, presence: true, length: { maximum: 50}
   validates :malophoc, presence: true, length: { maximum: 10 }, uniqueness: true
   validates :maxdangki, presence: true, numericality: { only_integer: true, :greater_than=>0, :less_than_or_equal_to=>200 }
+  default_scope {order(:malophoc)}
   def self.import(file)
       dem=1
       CSV.foreach(file.path, { headers: true, :col_sep => ';' }) do |row|
