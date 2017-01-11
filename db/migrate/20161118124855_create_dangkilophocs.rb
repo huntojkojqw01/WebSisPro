@@ -9,5 +9,6 @@ class CreateDangkilophocs < ActiveRecord::Migration[5.0]
       t.references :sinhvien, foreign_key: true
       t.references :lophoc, foreign_key: true      
     end
+    add_index "dangkilophocs", ["sinhvien_id", "lophoc_id"], :unique => true
   end
 end

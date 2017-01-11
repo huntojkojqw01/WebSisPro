@@ -10,6 +10,7 @@ class Sinhvien < ApplicationRecord
   	validates :tensinhvien, presence: true, length: { maximum: 50 }
   	validates :masinhvien, presence: true, length: { maximum: 10 }, uniqueness: true  	
   	validates :email,:format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/ }
+  	default_scope {order(:tensinhvien)}
   	def self.import(file)
   		dem=1
 	    CSV.foreach(file.path, headers: true) do |row|

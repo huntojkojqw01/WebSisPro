@@ -13,8 +13,8 @@
 		<%@ctdts.each do |ct| %>
 		
 		<tr>
-			<td><%=ct.lopsinhvien.tenlopsinhvien%></td>
-			<td><%=ct.hocphan.mahocphan%></td>
+			<td><%=ct.tenlopsinhvien%></td>
+			<td><%=ct.mahocphan%></td>
 			<td><%=ct.hocki%></td>
 			<td><%=link_to '',ct, method: :delete,
 				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %></td>

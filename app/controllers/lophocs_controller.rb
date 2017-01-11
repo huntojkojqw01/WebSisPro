@@ -107,7 +107,10 @@ class LophocsController < ApplicationController
 	end	
 	private
 	def set_x
-		@lophoc=Lophoc.find_by_id(params[:id])		
+		unless @lophoc=Lophoc.find_by_id(params[:id])
+			flash[:info]="Không tìm thấy dữ liệu"	
+			redirect_to root_url	
+		end		
 	end
 	def x_params
 	    pars=params.require(:lophoc).permit(:malophoc,:thoigian,:diadiem,:giaovien_id,:hocphan_id,:hocki_id,:maxdangki)

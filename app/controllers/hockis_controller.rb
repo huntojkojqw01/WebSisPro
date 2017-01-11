@@ -75,7 +75,10 @@ class HockisController < ApplicationController
     end	
 	private
 	def set_x
-		@hocki=Hocki.find_by_id(params[:id])		
+		unless @hocki=Hocki.find_by_id(params[:id])	
+			flash[:info]="Không tìm thấy dữ liệu"	
+			redirect_to root_url	
+		end	
 	end
 	def x_params
 	      params.require(:hocki).permit(:mahocki,:dinhmuchocphi,:bd,:kt,:modangkihocphan,:modangkilophoc)

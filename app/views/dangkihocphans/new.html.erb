@@ -5,10 +5,10 @@
 		<%= form_for(@dangkihocphan) do |f| %>
 		    <%= render 'shared/error_messages', object: f.object %>
 		    <%= f.label :"Sinh vien" %>
-		    <%= f.collection_select :sinhvien_id, Sinhvien.where(trangthai: true).order(:masinhvien), :id, :masinhvien, prompt: true %>
+		    <%= f.collection_select :sinhvien_id, Sinhvien.where(trangthai: true), :id, :masinhvien, prompt: true %>
 		    <%= f.label :"Hoc phan" %>
-		    <%= f.collection_select :hocphan_id, Hocphan.order(:mahocphan), :id, :mahocphan, prompt: true %>		    
-		    <%= f.hidden_field :hocki_id, :value=> current_hocki_modkhocphan.id %>
+		    <%= f.collection_select :hocphan_id, Hocphan.all, :id, :mahocphan, prompt: true %>		    
+		    <%= f.hidden_field :hocki_id, :value=> @hocki_modangkihocphan.id %>
 		    <%= f.submit "Thêm ",class: "btn btn-primary"%>
 		<% end %>
 	</div>

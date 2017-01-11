@@ -3,7 +3,8 @@ class ChuongtrinhdaotaosController < ApplicationController
 	before_action :is_admin, only: [:new,:create,:destroy]
 	before_action :set_x, only: [:show,:destroy]
 	def index
-		@ctdts=Chuongtrinhdaotao.all		
+		@ctdts=Chuongtrinhdaotao.left_outer_joins(:hocphan,:lopsinhvien)
+		.select("chuongtrinhdaotaos.*","tenlopsinhvien","mahocphan")		
 	end	
 	def new
 		@chuongtrinhdaotao = Chuongtrinhdaotao.new
@@ -33,12 +34,10 @@ class ChuongtrinhdaotaosController < ApplicationController
     end	
 	private
 	def set_x
-		@chuongtrinhdaotao=Chuongtrinhdaotao.find_by_id(params[:id])
-		if @chuongtrinhdaotao			
-		else
-			flash[:info]="Không tìm thấy dữ liệu này."
-			redirect_to root_url
-		end	
+		unless @chuongtrinhdaotao=Chuongtrinhdaotao.find_by_id(params[:id])	
+			flash[:info]="Không tìm thấy dữ liệu"	
+			redirect_to root_url	
+		end
 	end
 	def x_params
 	    params.require(:chuongtrinhdaotao).permit(:lopsinhvien_id,:hocphan_id,:hocki)

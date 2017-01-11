@@ -5,7 +5,7 @@
 			Mã số sinh viên <%= text_field_tag :masinhvien, @selected[:masinhvien] %><br>
 			<%=submit_tag "Tìm kiếm" %>
 		<% end %>
-		<% if @lophocs && @lophocs.count>0 %>
+		<% if @lophocs %>
 		<div style="text-align: center; font-size: 30px">
 			Danh sách lớp học kì này của sinh viên <%=@sinhvien.tensinhvien%>
 		</div>		
@@ -30,12 +30,11 @@
 					<td><%=link_to lh.malophoc, lh%></td>
 					<td><%=toStrTime(lh.thoigian)%></td>
 					<td><%=lh.diadiem%></td>
-					<td><%=lh.hocphan.mahocphan%></td>
-					<td><%=lh.hocphan.tenhocphan%></td>
-					<td><%=lh.hocphan.tinchi%></td><%tongTinChi+=lh.hocphan.tinchi%>
-					<td><%=lh.hocphan.tinchihocphi%></td>
-					<%heso=lh.dangkilophocs.find_by(sinhvien_id: @sinhvien.id).hesohocphi%>
-					<td><%=heso%></td><%tongTien+=heso*lh.hocphan.tinchihocphi%>
+					<td><%=lh.mahocphan%></td>
+					<td><%=lh.tenhocphan%></td>
+					<td><%=lh.tinchi%></td><%tongTinChi+=lh.tinchi%>
+					<td><%=lh.tinchihocphi%></td>				
+					<td><%=lh.hesohocphi%></td><%tongTien+=lh.hesohocphi*lh.tinchihocphi%>
 				</tr>
 				<% end %>
 				<tr>
@@ -58,6 +57,6 @@
 		<%end%>		
 	</div>
 	<div class="col-md-6">
-		<%=render 'tkb',object: to_tkb(@lophocs) if @lophocs && @lophocs.count>0%>
+		<%=render 'tkb',object: to_tkb(@lophocs) if @lophocs %>
 	</div>
 </div>

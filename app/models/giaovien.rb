@@ -5,7 +5,7 @@ class Giaovien < ApplicationRecord
   validates :tengiaovien, presence: true, length: { maximum: 50 }
   validates :magiaovien, presence: true, length: { maximum: 10 }, uniqueness: true 
   validates :email,:format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/ }
-  default_scope {order(:tenkhoavien)}
+  default_scope {order(:tengiaovien)}
   def self.as_csv
   		CSV.generate do |csv|
 	      csv << column_names

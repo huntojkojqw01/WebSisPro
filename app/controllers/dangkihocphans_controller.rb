@@ -3,6 +3,7 @@ class DangkihocphansController < ApplicationController
 	before_action :logged_in_user
 	before_action :chinh_chu
 	before_action :set_x, only: [:show,:destroy]
+	before_action :not_permit ,only: [:new,:create]
 	def index		
 	end	
 	def new
@@ -48,9 +49,7 @@ class DangkihocphansController < ApplicationController
     end	
 	private
 	def set_x
-		@dangkihocphan=Dangkihocphan.find_by_id(params[:id])
-		if @dangkihocphan			
-		else
+		unless @dangkihocphan=Dangkihocphan.find_by_id(params[:id])		
 			flash[:info]="Không tìm thấy dữ liệu ."
 			redirect_to root_url
 		end	
@@ -65,5 +64,11 @@ class DangkihocphansController < ApplicationController
           redirect_to(root_url) 
         end
         end
+    end
+    def not_permit
+    	unless @hocki_modangkihocphan=Hocki.find_by_modangkihocphan(true)
+    		flash[:danger]="Hiện không có học kì nào mở đăng kí học phần"
+    		redirect_to root_url 
+    	end
     end
 end

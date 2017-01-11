@@ -50,7 +50,10 @@ class GiaoviensController < ApplicationController
     end	
 	private
 	def set_x
-		@giaovien=Giaovien.find_by_id(params[:id])		
+		unless @giaovien=Giaovien.find_by_id(params[:id])	
+			flash[:info]="Không tìm thấy dữ liệu"	
+			redirect_to root_url
+		end
 	end
 	def x_params
 	    params.require(:giaovien).permit(:magiaovien,:tengiaovien,:ngaysinh,:email,:khoavien_id)

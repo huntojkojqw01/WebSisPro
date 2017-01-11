@@ -37,15 +37,14 @@
 			<body>
 				<%@lophocs.each do |lh| %>
 				<tr>
-					<%dk=lh.dangkilophocs.find_by(sinhvien_id:current_sinhvien.id)%>
-					<td><%=lh.hocki.mahocki%></td>
-					<td><%=lh.hocphan.mahocphan%></td>
-					<td><%=lh.hocphan.tenhocphan%></td>
-					<td><%=lh.hocphan.tinchi%></td>
+					<td><%=lh.mahocki%></td>
+					<td><%=lh.mahocphan%></td>
+					<td><%=lh.tenhocphan%></td>
+					<td><%=lh.tinchi%></td>
 					<td><%=lh.malophoc%></td>
-					<td><%=dk.diemquatrinh%></td>
-					<td><%=dk.diemthi%></td>
-					<td><%=dk.diemchu%></td>
+					<td><%=lh.diemquatrinh%></td>
+					<td><%=lh.diemthi%></td>
+					<td><%=lh.diemchu%></td>
 
 				</tr>
 				<% end %>
@@ -69,16 +68,12 @@
 			</thead>
 			<tbody>
 				<%tcdangki=tcdat=tctichluy=cpa=gpa=tongdiem=tongdiemkhoa=0%>
-
 				<% if @lophocs.count>0 %>
-				<%hk=@lophocs.first.hocki%>
-				<%@lophocs.each do |lh| %>
-
-					<%hp=lh.hocphan%>
-					<%dk=lh.dangkilophocs.find_by(sinhvien_id:current_sinhvien.id)%>
-					<% if hk!=lh.hocki%>
+				<%mahockidangxet=@lophocs.first.mahocki%>
+				<%@lophocs.each do |lh| %>					
+					<% if mahockidangxet!=lh.mahocki%>
 						<tr>
-							<td><%=hk.mahocki%></td><%hk=lh.hocki%><%gpa=tcdat>0 ? (tongdiem/tcdat).round(2) : 0%><%tongdiemkhoa+=tongdiem%><%tongdiem=0%><%cpa=tcdangki>0 ? (tongdiemkhoa/tcdangki).round(2) : 0%>
+							<td><%=mahockidangxet%></td><%mahockidangxet=lh.mahocki%><%gpa=tcdat>0 ? (tongdiem/tcdat).round(2) : 0%><%tongdiemkhoa+=tongdiem%><%tongdiem=0%><%cpa=tcdangki>0 ? (tongdiemkhoa/tcdangki).round(2) : 0%>
 								<%tctichluy+=tcdat%>
 							<td><%=gpa%></td><%gpa=0%>
 							<td><%=cpa%></td>
@@ -88,21 +83,20 @@
 							<td><%=tcdangki-tctichluy%></td>
 						</tr>
 					<%else%>
-
 					<%end%>
-					<%tcdangki+=hp.tinchi%>
-					<%tcdat+=hp.tinchi if (dk.diemquatrinh || dk.diemthi)&&dk.diemso>=1.0%>
-					<%tongdiem+=hp.tinchi*dk.diemso if dk.diemso%>
+					<%tcdangki+=lh.tinchi%>
+					<%tcdat+=lh.tinchi if (lh.diemquatrinh || lh.diemthi)&&lh.diemso>=1.0%>
+					<%tongdiem+=lh.tinchi*lh.diemso if lh.diemso%>
 				<% end %>
 				<tr>
-							<td><%=hk.mahocki%></td><%gpa=tcdat>0 ? (tongdiem/tcdat).round(2) : 0%><%tongdiemkhoa+=tongdiem%><%tongdiem=0%><%cpa=tcdangki>0 ? (tongdiemkhoa/tcdangki).round(2) : 0%>
+					<td><%=mahockidangxet%></td><%gpa=tcdat>0 ? (tongdiem/tcdat).round(2) : 0%><%tongdiemkhoa+=tongdiem%><%tongdiem=0%><%cpa=tcdangki>0 ? (tongdiemkhoa/tcdangki).round(2) : 0%>
 								<%tctichluy+=tcdat%>
-							<td><%=gpa%></td>
-							<td><%=cpa%></td>
-							<td><%=tcdat%></td>
-							<td><%=tcdangki%></td>
-							<td><%=tctichluy%></td>
-							<td><%=tcdangki-tctichluy%></td>
+					<td><%=gpa%></td>
+					<td><%=cpa%></td>
+					<td><%=tcdat%></td>
+					<td><%=tcdangki%></td>
+					<td><%=tctichluy%></td>
+					<td><%=tcdangki-tctichluy%></td>
 				</tr>
 				<% end %>
 			</body>

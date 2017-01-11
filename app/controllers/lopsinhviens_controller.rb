@@ -51,7 +51,10 @@ class LopsinhviensController < ApplicationController
     end	
 	private
 	def set_x
-		@lopsinhvien=Lopsinhvien.find_by_id(params[:id])		
+		unless @lopsinhvien=Lopsinhvien.find_by_id(params[:id])	
+			flash[:info]="Không tìm thấy dữ liệu"	
+			redirect_to root_url	
+		end	
 	end
 	def x_params
 	      params.require(:lopsinhvien).permit(:tenlopsinhvien,:giaovien_id,:khoahoc,:khoavien_id)

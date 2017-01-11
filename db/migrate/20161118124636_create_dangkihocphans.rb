@@ -5,5 +5,6 @@ class CreateDangkihocphans < ActiveRecord::Migration[5.0]
       t.references :hocphan, foreign_key: true
       t.references :hocki, foreign_key: true
     end
+    add_index "dangkihocphans", ["sinhvien_id", "hocphan_id","hocki_id"], :unique => true
   end
 end

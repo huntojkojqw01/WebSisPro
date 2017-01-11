@@ -37,14 +37,12 @@
 				</tr>
 			</thead>
 			<body>
-				<%@dklhs.each do |dklh| %>
-				<% lh=dklh.lophoc %>
-				<% sv=dklh.sinhvien %>
+				<%@dklhs.each do |dklh| %>				
 				<tr>
 
-					<td><%=lh.malophoc%></td>
-					<td><%=sv.masinhvien%></td>
-					<td><%=lh.hocphan.trongso%></td>
+					<td><%=dklh.malophoc%></td>
+					<td><%=dklh.masinhvien%></td>
+					<td><%=dklh.trongso%></td>
 					<td><%=dklh.diemquatrinh%></td>
 					<td><%=dklh.diemthi%></td>
 					<td><%=dklh.diemchu%></td>

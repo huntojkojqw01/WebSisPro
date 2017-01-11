@@ -62,7 +62,10 @@ class HocphansController < ApplicationController
     end	
 	private
 	def set_x
-		@hocphan=Hocphan.find_by_id(params[:id])		
+		unless @hocphan=Hocphan.find_by_id(params[:id])
+			flash[:info]="Không tìm thấy dữ liệu"	
+			redirect_to root_url	
+		end		
 	end
 	def x_params
 	    params.require(:hocphan).permit(:mahocphan,:tenhocphan,:tinchi,:tinchihocphi,:trongso,:modangki,:khoavien_id)

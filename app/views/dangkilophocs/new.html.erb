@@ -10,13 +10,13 @@
 					<div class="form-group">
 						<%= f.label :"Sinh viên",class:"control-label col-sm-3"%>
 						<div class="col-sm-9">
-							<%= f.collection_select :sinhvien_id, @sinhviens, :id, :masinhvien, prompt: true %>
+							<%= f.collection_select :sinhvien_id, Sinhvien.where(trangthai: true), :id, :masinhvien, prompt: true %>
 						</div>
 					</div>
 					<div class="form-group">
 						<%= f.label :"Lớp học" ,class:"control-label col-sm-3"%>
 						<div class="col-sm-9">
-							<%= f.collection_select :lophoc_id, @lophocs, :id, :malophoc, prompt: true %>
+							<%= f.collection_select :lophoc_id, @hocki_modangkilophoc.lophocs, :id, :malophoc, prompt: true %>
 						</div>
 					</div>
 					<div class="form-group">
