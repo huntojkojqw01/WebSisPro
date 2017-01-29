@@ -1,4 +1,5 @@
 class Hocphan < ApplicationRecord
+  require 'csv'
   belongs_to :khoavien
   has_many :chuongtrinhdaotaos, dependent: :destroy
   has_many :lophocs, dependent: :destroy

@@ -2,31 +2,24 @@ class HocphansController < ApplicationController
 	before_action :logged_in_user, except: [:index]
 	before_action :is_admin, except: [:index]
 	before_action :set_x, only: [:edit,:update,:destroy]
-	def index
-		@selected=params.permit(:khoavien_id,:mahocphan,:tenhocphan,:tinchi)	
-		@khoaviens=Khoavien.all
-		if @selected[:khoavien_id]&&@selected[:khoavien_id]!=""
-			if @selected[:tinchi]&&@selected[:tinchi]!=""
+	def index		
+		if params[:khoavien_id]&&params[:khoavien_id]!=""
+			if params[:tinchi]&&params[:tinchi]!=""
 				@hocphans=Hocphan.joins(:khoavien)
-				.where("khoavien_id=? and tinchi = ? and tenhocphan like ? and mahocphan like ?",@selected[:khoavien_id],@selected[:tinchi],"%#{@selected[:tenhocphan]}%","%#{@selected[:mahocphan]}%").select("hocphans.*","tenkhoavien").paginate(page: params[:page],:per_page=>10)
+				.where("khoavien_id=? and tinchi = ? and tenhocphan like ? and mahocphan like ?",params[:khoavien_id],params[:tinchi],"%#{params[:tenhocphan]}%","%#{params[:mahocphan]}%").select("hocphans.*","tenkhoavien").paginate(page: params[:page],:per_page=>10)
 			else
 				@hocphans=Hocphan.joins(:khoavien)
-				.where("khoavien_id=? and tenhocphan like ? and mahocphan like ?",@selected[:khoavien_id],"%#{@selected[:tenhocphan]}%","%#{@selected[:mahocphan]}%").select("hocphans.*","tenkhoavien").paginate(page: params[:page],:per_page=>10)
+				.where("khoavien_id=? and tenhocphan like ? and mahocphan like ?",params[:khoavien_id],"%#{params[:tenhocphan]}%","%#{params[:mahocphan]}%").select("hocphans.*","tenkhoavien").paginate(page: params[:page],:per_page=>10)
 			end				
 		else
-			if @selected[:tinchi]&&@selected[:tinchi]!=""
+			if params[:tinchi]&&params[:tinchi]!=""
 				@hocphans=Hocphan.joins(:khoavien)
-				.where("tinchi = ? and tenhocphan like ? and mahocphan like ?",@selected[:tinchi],"%#{@selected[:tenhocphan]}%","%#{@selected[:mahocphan]}%").select("hocphans.*","tenkhoavien").paginate(page: params[:page],:per_page=>10)
+				.where("tinchi = ? and tenhocphan like ? and mahocphan like ?",params[:tinchi],"%#{params[:tenhocphan]}%","%#{params[:mahocphan]}%").select("hocphans.*","tenkhoavien").paginate(page: params[:page],:per_page=>10)
 			else
 				@hocphans=Hocphan.joins(:khoavien)
-				.where("tenhocphan like ? and mahocphan like ?","%#{@selected[:tenhocphan]}%","%#{@selected[:mahocphan]}%").select("hocphans.*","tenkhoavien").paginate(page: params[:page],:per_page=>10)
+				.where("tenhocphan like ? and mahocphan like ?","%#{params[:tenhocphan]}%","%#{params[:mahocphan]}%").select("hocphans.*","tenkhoavien").paginate(page: params[:page],:per_page=>10)
 			end
-		end				
-		@hps =Hocphan.all
-        respond_to do |format|
-          format.html
-          format.csv { send_data @hps.as_csv }
-      end
+		end	
 	end	
 	def new
 		@hocphan = Hocphan.new
@@ -47,7 +40,6 @@ class HocphansController < ApplicationController
 	      if @hocphan.update(x_params)
 	      	flash[:info]='Đã cập nhật .'
 	        redirect_to @hocphan
-	      else
 	       	render 'edit'
 	      end
   	end
@@ -59,6 +51,8 @@ class HocphansController < ApplicationController
 	    else
 	        render 'new'
 	    end
+    end
+    def search    		
     end	
 	private
 	def set_x

@@ -14,8 +14,8 @@ class GiaoviensController < ApplicationController
 		end		
 		@gvs = Giaovien.all
         respond_to do |format|
-          format.html
-          format.csv { send_data @gvs.as_csv }
+            format.html
+            format.csv { send_data @gvs.as_csv }
       end
 	end	
 	def new

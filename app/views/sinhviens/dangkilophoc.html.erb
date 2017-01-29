@@ -1,4 +1,4 @@
-<%=provide(:title,"Dang ki lop hoc")%>
+<%=provide(:title,"Đăng kí lớp học")%>
 <div class="row">
 	<div class="col-md-6">
 		<div class="col-md-9" style="margin-bottom: 30px;">
@@ -31,10 +31,10 @@
 					<th>Mã lớp</th>
 					<th>Thời gian</th>
 					<th>Địa điểm</th>
-					<th>Mã HP</th>
-					<th>Tên HP</th>
-					<th>Max DK</th>
-					<th>Đã DK</th>
+					<th>Mã học phần </th>
+					<th>Tên học phần</th>
+					<th>Max đăng kí</th>
+					<th>Đã đăng kí</th>
 				</tr>
 			</thead>
 			<body>
@@ -48,7 +48,7 @@
 					<td><%=lh.maxdangki%></td>
 					<td><%=lh.dangkilophocs.count%></td>
 					<% if sinhvien? %>
-					<td><%=link_to 'Đăng kí',dangkilophocs_path(dangkilophoc: {:sinhvien_id=>current_sinhvien.id,:lophoc_id=>lh.id}),method: :post %></td>
+					<td><%=link_to 'Đăng kí',dangkilophocs_path(dangkilophoc: {:sinhvien_id=>@current_sinhvien.id,:lophoc_id=>lh.id}),method: :post %></td>
 					<%end%>
 				</tr>
 				<% end %>
@@ -60,7 +60,7 @@
 	<div class="col-md-6">
 		<% if @registeds && @registeds.count>0 %>
 		<div class="col-md-12" style="text-align: center; font-size: 30px; margin-bottom: 20px;">
-			Đăng kí lớp trong học kì <%=current_hocki_modklophoc.mahocki%>
+			Đăng kí lớp trong học kì <%=@hocki_modangkilophoc.mahocki%>
 		</div>
 		<table class="table table-bordered">
 			<thead>
@@ -68,11 +68,11 @@
 					<th>Mã lớp</th>
 					<th>Thời gian</th>
 					<th>Địa điểm</th>
-					<th>Mã HP</th>
-					<th>Tên HP</th>
-					<th>TC</th>
-					<th>TCHP</th>
-					<th>HSHP</th>
+					<th>Mã học phần</th>
+					<th>Tên học phần</th>
+					<th>Tín chỉ</th>
+					<th>Tín chỉ học phí</th>
+					<th>Hệ số học phí</th>
 				</tr>
 			</thead>
 			<body>
@@ -87,9 +87,9 @@
 					<td><%=lh.hocphan.tenhocphan%></td>
 					<td><%=lh.hocphan.tinchi%></td><%tongTinChi+=lh.hocphan.tinchi%>
 					<td><%=lh.hocphan.tinchihocphi%></td>
-					<%heso=lh.dangkilophocs.find_by(sinhvien_id: current_sinhvien.id).hesohocphi%>
+					<%heso=lh.dangkilophocs.find_by(sinhvien_id: @current_sinhvien.id).hesohocphi%>
 					<td><%=heso%></td><%tongTien+=heso*lh.hocphan.tinchihocphi%>
-					<td><%=link_to ' ',Dangkilophoc.where("lophoc_id=? and sinhvien_id=?",lh.id,current_sinhvien.id).first, method: :delete,
+					<td><%=link_to ' ',Dangkilophoc.where("lophoc_id=? and sinhvien_id=?",lh.id,@current_sinhvien.id).first, method: :delete,
 				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %></td>
 				</tr>
 				<% end %>
@@ -101,10 +101,10 @@
 				</tr>
 			</body>
 		</table>
-		Định mức học phí: <b><%=@hocki.dinhmuchocphi%></b> <br>
-		Học phí trong học kì: <b><%=tongTien*@hocki.dinhmuchocphi%></b><br>
+		Định mức học phí: <b><%=@hocki_modangkilophoc.dinhmuchocphi%></b> <br>
+		Học phí trong học kì: <b><%=tongTien*@hocki_modangkilophoc.dinhmuchocphi%></b><br>
 		<%else%>
-		Chưa đăng kí lớp nào trong HK này
+		Chưa đăng kí lớp học nào trong học kì này.
 		<%end%>
 	</div>
 </div>

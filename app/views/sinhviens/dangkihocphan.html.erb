@@ -1,4 +1,4 @@
-<%=provide(:title,"Dang ki hoc phan")%>
+<%=provide(:title,"Đăng kí học phần")%>
 <div class="row">
 	<div class="col-md-6">
 		<div class="col-md-9" style="margin-bottom: 30px;">
@@ -27,10 +27,10 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>Mã HP</th>
-					<th>Tên HP</th>
-					<th>TC</th>
-					<th>TCHP</th>
+					<th>Mã học phần</th>
+					<th>Tên học phần </th>
+					<th>Tín chỉ</th>
+					<th>Tín chỉ học phí</th>
 					<th>Trọng số</th>
 					<th>Khoa viện</th>
 				</tr>
@@ -45,7 +45,7 @@
 					<td><%=(1-hp.trongso).round(1)%>-<%=hp.trongso%></td>
 					<td><%=hp.khoavien.tenkhoavien%></td>
 					<% if sinhvien? %>
-					<td><%=link_to 'Đăng kí',dangkihocphans_path(dangkihocphan: {:sinhvien_id=>current_sinhvien.id,:hocphan_id=>hp.id,:hocki_id=>current_hocki_modkhocphan.id}),method: :post %></td>
+					<td><%=link_to 'Đăng kí',dangkihocphans_path(dangkihocphan: {:sinhvien_id=>@current_sinhvien.id,:hocphan_id=>hp.id,:hocki_id=>@hocki_modangkihocphan.id}),method: :post %></td>
 					<%end%>
 				</tr>
 				<% end %>
@@ -57,7 +57,7 @@
 	<div class="col-md-6">
 		<% if @registeds && @registeds.count>0 %>
 		<div class="col-md-12" style="text-align: center; font-size: 30px; margin-bottom: 20px;">
-			Đăng kí học phần trong học kì <%=current_hocki_modkhocphan.mahocki%>
+			Đăng kí học phần trong học kì <%=@hocki_modangkihocphan.mahocki%>
 		</div>
 		<table class="table table-bordered">
 			<thead>
@@ -76,7 +76,7 @@
 					<td><%=hp.tenhocphan%></td>
 					<td style="text-align:center"><%=hp.tinchi%></td><%tongTinChi+=hp.tinchi%>
 					<td style="text-align:center"><%=(1-hp.trongso).round(1)%>-<%=hp.trongso%></td>
-					<td style="text-align:center"><%=link_to ' ',Dangkihocphan.where("hocphan_id=? and sinhvien_id=? and hocki_id=?",hp.id,current_sinhvien.id,current_hocki_modkhocphan.id).first, method: :delete,
+					<td style="text-align:center"><%=link_to ' ',Dangkihocphan.where("hocphan_id=? and sinhvien_id=? and hocki_id=?",hp.id,@current_sinhvien.id,@hocki_modangkihocphan.id).first, method: :delete,
 				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %></td>
 				</tr>
 				<% end %>
@@ -88,7 +88,7 @@
 			</body>
 		</table>
 		<%else%>
-		Khong dang ki hoc phan nao trong ki nay
+		Chưa đăng kí học phần nào trong kì này.
 		<%end%>
 	</div>
 </div>

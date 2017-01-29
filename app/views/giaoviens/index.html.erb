@@ -1,7 +1,8 @@
-<%=provide(:title,"Danh sach giao vien")%>
+<%=provide(:title,"Danh sách giáo viên")%>
 <div class="row">
 	<div class="col-md-8 col-md-offset-2">
-		<div class="form-horizontal">
+		<<h1>Danh sách giáo viên</h1>
+		<div class="form-horizontal">			
 			<%= form_tag(giaoviens_path, method: "get") do %>
 				<div class="form-group">
 					<label class="control-label col-sm-4">Khoa viện</label>
@@ -17,35 +18,12 @@
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-4 col-sm-8">
-						<%= submit_tag("Tìm kiếm giao viên") %>
+						<%= submit_tag("Tìm kiếm giáo viên") %>
 					</div>
 				</div>
 			<% end %>
 		</div>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Mã GV</th>
-					<th>Tên GV</th>
-					<th>Ngày sinh</th>
-					<th>Email</th>
-					<th>Khoa viện</th>
-				</tr>
-			</thead>
-			<body>
-				<%@giaoviens.each do |gv| %>
-				<tr>
-					<td><%=gv.magiaovien%></td>
-					<td><%=link_to gv.tengiaovien,gv%></td>
-					<td><%=gv.ngaysinh%></td>
-					<td><%=gv.email%></td>
-					<td><%=gv.tenkhoavien%></td>
-				</tr>
-				<% end %>
-			</body>
-		</table>
-		<%= will_paginate @giaoviens , :outer_window=>1,:inner_window=>1%>
-		<%= page_entries_info @giaoviens %><br>
+		<%= render 'list', object: @giaoviens %>
 		<%= link_to ' Thêm giáo viên ', new_giaovien_path %>
 	</div>
 </div>

@@ -27,14 +27,13 @@ class HockisController < ApplicationController
 		@hocki = Hocki.new
 	end
 	def show
-		#respond_to do |format|
-		    #format.html
-		    #format.json render @hocki
-		    #format.json{
-		    #  render :json => @hocki.to_json
-		    #}
-		#end		
-		render json: {status: "success", data: {hocki: @hocki}}, status: :ok		
+		respond_to do |format|
+		    format.html		    
+		    format.json{
+		      render json: {status: "success", data: {hocki: @hocki}}, status: :ok
+		    }
+		end		
+		#render json: {status: "success", data: {hocki: @hocki}}, status: :ok		
 	end
 	def edit
 		

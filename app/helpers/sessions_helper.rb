@@ -1,4 +1,31 @@
 module SessionsHelper
+    # Confirms a logged-in user.
+    def logged_in_user
+      unless logged_in?
+        store_location
+        flash[:danger] = "Hãy đăng nhập trước đã."
+        redirect_to login_url
+      end
+    end
+    # Confirms the correct user.
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_url) unless @user == current_user
+    end
+    # Confirms an admin user.
+  def is_admin
+    unless admin?
+      flash[:danger]="Chỉ admin mới có quyền đó !"
+      redirect_to(root_url)
+    end
+  end
+  def is_sinhvien
+    unless sinhvien?
+      flash[:danger]="Bạn không phải là sinh viên !"
+      redirect_to(root_url) 
+    end
+  end
+  
 	# Logs in the given user.
   def log_in(user)
     session[:user_id] = user.id
@@ -15,50 +42,12 @@ module SessionsHelper
     		end
     end
   end
-  def current_sinhvien
-    if sinhvien?
-      current_user.sinhvien
-    else
-      return nil
-    end
-  end
-  def last_hocki
-    date=DateTime.now.to_date
-    hockis=Hocki.where("bd<=? and kt>=?",date,date)
-    if hockis.count>0
-      @hocki=hockis.first
-    else
-      hockis=Hocki.where("kt<=?",date).order(:kt)
-      if hockis.count>0
-        @hocki=hockis.last
-      else
-        @hocki=Hocki.order(:kt).last
-      end
-    end    
-  end
-  def current_hocki
-    date=DateTime.now.to_date
-    @current_hocki=Hocki.where("bd<=? and kt>=?",date,date).first    
-  end
-  def current_hocki_modklophoc
-    @hocki=Hocki.find_by(modangkilophoc: true)
-  end
-  def current_hocki_modkhocphan
-    @hocki=Hocki.find_by(modangkihocphan: true)
-  end
+  
   # Returns true if the user is logged in, false otherwise.
   def logged_in?
     !current_user.nil?
   end
-  def admin?
-    !current_user.nil? && current_user.loai=="ad"
-  end
-  def sinhvien?
-    !current_user.nil? && current_user.loai=="sv"
-  end
-  def giaovien?
-    !current_user.nil? && current_user.loai=="gv"
-  end
+  
    # Remembers a user in a persistent session
   def remember(user)
   	user.remember
@@ -91,5 +80,38 @@ module SessionsHelper
   # Stores the URL trying to be accessed.
   def store_location
     session[:forwarding_url] = request.original_url if request.get?
+  end
+  def admin?    
+    !current_user.nil? && current_user.loai=="ad"
+  end
+  def sinhvien?
+    if current_user && current_user.loai=="sv"
+        @current_sinhvien=Sinhvien.find_by_user_id(@current_user.id) 
+    end    
+  end  
+  
+  def last_hocki
+    date=DateTime.now.to_date
+    hockis=Hocki.where("bd<=? and kt>=?",date,date)
+    if hockis.count>0
+      @hocki=hockis.first
+    else
+      hockis=Hocki.where("kt<=?",date).order(:kt)
+      if hockis.count>0
+        @hocki=hockis.last
+      else
+        @hocki=Hocki.order(:kt).last
+      end
+    end    
+  end
+  def current_hocki
+    date=DateTime.now.to_date
+    @current_hocki=Hocki.where("bd<=? and kt>=?",date,date).first    
+  end
+  def mo_dangki_lophoc?
+    @hocki_modangkilophoc=Hocki.find_by_modangkilophoc(true)
+  end
+  def mo_dangki_hocphan?
+    @hocki_modangkihocphan=Hocki.find_by_modangkihocphan(true)
   end
 end

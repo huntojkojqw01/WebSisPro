@@ -1,4 +1,4 @@
-<%=provide(:title,"Edit sinh vien ")%>
+<%=provide(:title,"Sửa thông tin sinh viên ")%>
 <div class="row">
 	<div class="col-md-6 col-md-offset-3" style="background-color:#F2F5A9">
 		<h1 style="text-align: center; font-size: 40px;">Thay đổi thông tin sinh viên </h1>
@@ -6,7 +6,7 @@
 			<%= form_for(@sinhvien) do |f| %>
 			    <%= render 'shared/error_messages', object: f.object %>
 					<div class="form-group">
-						<%= f.label :"Tên" ,class:"control-label col-sm-4"%>
+						<%= f.label :"Tên sinh viên" ,class:"control-label col-sm-4"%>
 						<div class="col-sm-8">
 							<%= f.text_field :tensinhvien ,class: 'form-control', placeholder: "Nhập tên sinhvien "%>
 						</div>

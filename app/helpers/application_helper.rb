@@ -280,6 +280,5 @@ module ApplicationHelper
 			return mess
 		else
 		end		
-	end
-
+	end	
 end

@@ -5,11 +5,11 @@
       <li class="active"><%= link_to 'Trang chủ',root_path%></li>
       <% if admin? %>
         <li>
-          <a ><%=current_user.name%>
+          <a ><%=@current_user.name%>
             <span class="caret"></span>
           </a>
           <ul class="submenu" >
-            <li><%= link_to 'Đổi mật khẩu',edit_user_path(current_user)%></li>
+            <li><%= link_to 'Đổi mật khẩu',edit_user_path(@current_user)%></li>
             <li><%= link_to 'Thoát',logout_path,method: "delete"%></li>    
           </ul>
         </li>
@@ -28,7 +28,7 @@
         <ul class="submenu" >
           <li><%= link_to 'Tìm kiếm học phần',hocphans_path %></li>
           <li><%= link_to 'Thêm học phần',new_hocphan_path %></li>
-          <li><%= link_to 'Thêm đăng kí học phần',new_dangkihocphan_path if @current_hocki.modangkihocphan %></li>
+          <li><%= link_to 'Thêm đăng kí học phần',new_dangkihocphan_path if mo_dangki_hocphan? %></li>
         </ul>
         </li>
         <li>
@@ -37,7 +37,7 @@
         <ul class="submenu" >
           <li><%= link_to 'Tìm kiếm lớp học',lophocs_path %></li>         
             <li><%= link_to 'Thêm lớp học',new_lophoc_path %>
-            <li><%= link_to 'Thêm đăng kí lớp học',new_dangkilophoc_path if @current_hocki.modangkilophoc%></li>
+            <li><%= link_to 'Thêm đăng kí lớp học',new_dangkilophoc_path if mo_dangki_lophoc? %></li>
             <li><%= link_to 'Cập nhật bảng điểm',dangkilophocs_path %></li>
                    
         </ul>
@@ -49,12 +49,12 @@
         
       <%elsif sinhvien? %>
         <li>
-          <a ><%=current_user.name%>
+          <a ><%=@current_user.name%>
             <span class="caret"></span>
           </a>
           <ul class="submenu" >
-          <li><%= link_to 'Thông tin sinh viên',current_sinhvien%></li>
-            <li><%= link_to 'Đổi mật khẩu',edit_user_path(current_user) %></li>
+          <li><%= link_to 'Thông tin sinh viên',@current_sinhvien%></li>
+            <li><%= link_to 'Đổi mật khẩu',edit_user_path(@current_user) %></li>
             <li><%= link_to 'Thoát',logout_path,method: "delete"%></li>    
           </ul>
         </li>
@@ -71,8 +71,8 @@
         <a>Đăng kí học tập
         <span class="caret"></span></a>
         <ul class="submenu" >
-          <li><%= link_to 'Đăng kí lớp học',dangkilophoc_sinhviens_path if @current_hocki.modangkilophoc %></li>
-          <li><%= link_to 'Đăng kí học phần',dangkihocphan_sinhviens_path if @current_hocki.modangkihocphan %></li>
+          <li><%= link_to 'Đăng kí lớp học',dangkilophoc_sinhviens_path if mo_dangki_lophoc? %></li>
+          <li><%= link_to 'Đăng kí học phần',dangkihocphan_sinhviens_path if mo_dangki_hocphan? %></li>
           <% if current_hocki %>
           <li><%=link_to 'Tìm thời khóa biểu',duyet_sinhviens_path%></li>
           <%end%>

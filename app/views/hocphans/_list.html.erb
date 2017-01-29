@@ -1,27 +1,19 @@
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th>Mã HP</th>
-			<th>Tên HP</th>
-			<th style="text-align: center">Tin chi</th>
-			<th style="text-align: center">Tin chi hoc phi</th>
-			<th>Trọng số</th>
-			<th>Khoa viện</th>
-		</tr>
-	</thead>
-	<body>
-		<%object.each do |hp| %>
-
-		<tr>
-			<td><%=link_to hp.mahocphan,hp%></td>
-			<td><%=hp.tenhocphan%></td>
-			<td style="text-align:center"><%=hp.tinchi%></td>
-			<td style="text-align:center"><%=hp.tinchihocphi%></td>
-			<td><%=(1-hp.trongso).round(1)%>-<%=hp.trongso%></td>
-			<td><%=hp.tenkhoavien%></td>
-		</tr>
-		<% end %>
-	</body>
-</table>
-<%= will_paginate object ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1, class: "pager"%>
-<%= page_entries_info object %><br>
+<div id="hocphan_list">
+	<table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th>Mã học phần</th>
+				<th>Tên học phần</th>
+				<th>TC</th>
+				<th>TCHP</th>
+				<th>Trọng số</th>
+				<th>Khoa viện</th>
+			</tr>
+		</thead>
+		<body>
+			<%= render @hocphans %>
+		</body>
+	</table>	
+	<%= will_paginate object ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1 %>
+	<%= page_entries_info object %><br>
+</div>

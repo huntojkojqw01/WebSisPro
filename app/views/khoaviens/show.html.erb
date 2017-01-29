@@ -1,17 +1,15 @@
 <%=provide(:title,"Thong tin khoa vien ")%>
-<div class="row">
-	<div class="col-md-4" >
-	</div>
-	<div class="col-md-4" style="background-color:#F6D8CE; font-size:20px;">
+<div class="row">	
+	<div class="col-md-4 col-md-offset-2" >
 		<b>Tên khoa viện: </b> <%=@khoavien.tenkhoavien%><br>
 		<b>Địa điểm: </b> <%=@khoavien.diadiem%><br>
 		<b>Số điện thoại: </b> <%=@khoavien.sodienthoai%><br>
-		<ul style="margin-top:20px">
-			<li><%=link_to 'Danh sách lớp sinh viên',lopsinhviens_path(:khoavien_id=>@khoavien.id)%></li>
-			<li><%=link_to 'Danh sách học phần',hocphans_path(:khoavien_id=>@khoavien.id)%></li>
-			<li><%=link_to 'Danh sách giáo viên',giaoviens_path(:khoavien_id=>@khoavien.id)%></li>
+		<ul >
+			<li><button id="sinhviens" class="btn btn-lg btn-primary" khoavien_id= "<%=@khoavien.id%>">Danh sách sinh viên</button></li>
+			<li><button id="hocphans" class="btn btn-lg btn-success" khoavien_id= "<%=@khoavien.id%>">Danh sách học phần</button></li>
+			<li><button id="giaoviens" class="btn btn-lg btn-info" khoavien_id= "<%=@khoavien.id%>">Danh sách giáo viên</button></li>
 		</ul>
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-4" id="show">
 	</div>
 </div>

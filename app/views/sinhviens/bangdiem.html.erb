@@ -1,4 +1,4 @@
-<%=provide(:title,"Bang diem ca nhan")%>
+<%=provide(:title,"Bảng điểm cá nhân")%>
 <div class="row">
 	<div class="col-md-7">
 		<div class="container" id="student_info">
@@ -11,12 +11,12 @@
 			</div>
 			<div class="container" id="student_info_board">
 				<ul class="list-group">
-					<li>Mã sinh viên: <b><%=current_sinhvien.masinhvien%></b></li>
-					<li>Tên sinh viên: <b><%=current_sinhvien.tensinhvien%></b></li>
-					<li>Ngày sinh: <b><%=current_sinhvien.ngaysinh%></b></li>
-					<li>Lớp: <b><%=current_sinhvien.lopsinhvien.tenlopsinhvien%></b></li>
-					<li>Email: <b><%=current_sinhvien.email%></b></li>
-					<li>Trạng thái: <b><%= current_sinhvien.trangthai ? "Hoc" : "Thoi hoc"%></b></li>
+					<li>Mã sinh viên: <b><%=@current_sinhvien.masinhvien%></b></li>
+					<li>Tên sinh viên: <b><%=@current_sinhvien.tensinhvien%></b></li>
+					<li>Ngày sinh: <b><%=@current_sinhvien.ngaysinh%></b></li>
+					<li>Lớp: <b><%=@current_sinhvien.lopsinhvien.tenlopsinhvien%></b></li>
+					<li>Email: <b><%=@current_sinhvien.email%></b></li>
+					<li>Trạng thái: <b><%= @current_sinhvien.trangthai ? "Học" : "Thôi học"%></b></li>
 				</ul>
 			</div>
 		</div>
@@ -24,12 +24,12 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th>Mã HK</th>
-					<th>Mã HP</th>
-					<th>Tên HP</th>
-					<th>TC</th>
-					<th>Mã LH</th>
-					<th>Điểm QT</th>
+					<th>Mã học kì</th>
+					<th>Mã học phần</th>
+					<th>Tên học phần</th>
+					<th>Tín chỉ</th>
+					<th>Mã lớp học</th>
+					<th>Điểm quá trình</th>
 					<th>Điểm thi</th>
 					<th>Điểm chữ</th>
 				</tr>
@@ -57,13 +57,13 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th>Mã HK</th>
+					<th>Mã học kì</th>
 					<th>GPA</th>
 					<th>CPA</th>
-					<th>TC đạt</th>
-					<th>TCDK</th>
-					<th>TCTL</th>
-					<th>TC nợ</th>
+					<th>Tín chỉ đạt</th>
+					<th>Tín chỉ đăng kí</th>
+					<th>Tín chỉ tích lũy</th>
+					<th>Tín chỉ nợ</th>
 				</tr>
 			</thead>
 			<tbody>

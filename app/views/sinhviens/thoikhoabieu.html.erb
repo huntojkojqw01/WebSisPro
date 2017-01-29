@@ -1,4 +1,4 @@
-<%=provide(:title,"Xem thoi khoa bieu")%>
+<%=provide(:title,"Xem thời khóa biểu")%>
 <div class="row">
 	<div class="col-md-6">		
 		<%= form_tag(thoikhoabieu_sinhviens_path, method: "get") do %>			
@@ -16,11 +16,11 @@
 				<th>Mã lớp</th>
 				<th>Thời gian</th>
 				<th>Địa điểm</th>
-				<th>Mã HP</th>
-				<th>Tên HP</th>
+				<th>Mã học phần</th>
+				<th>Tên học phần</th>
 				<th>Tín chỉ</th>
-				<th>Tín chỉ HP</th>
-				<th>Hệ số HP</th>
+				<th>Tín chỉ học phần</th>
+				<th>Hệ số học phần</th>
 			</tr>
 		</thead>
 		<body>
@@ -48,7 +48,7 @@
 	</table>
 	<ul>
 		<li style="margin-bottom: 5px;">Định mức học phí: <%=@hocki.dinhmuchocphi%></li>
-		<li>Tổng số tiền phải đóng trong HK: <%=tongTien*@hocki.dinhmuchocphi%></li>
+		<li>Tổng số tiền phải đóng trong học kì: <%=tongTien*@hocki.dinhmuchocphi%></li>
 	</ul>
 	<% if current_hocki==@hocki %>
 		<h3 style="color: red"><%= testTiet @lophocs %></h3>

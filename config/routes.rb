@@ -1,14 +1,20 @@
 Rails.application.routes.draw do
   
 
+  resources :hungs
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  root 'test_page#home'    
+  root 'test_page#home'
+  get '/sieu', to: 'test_page#sieu'    
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   resources :users
-  resources :hocphans
+  resources :hocphans do
+    collection do
+      get :search
+    end
+  end
   resources :lophocs do
       collection { post :import }
     end

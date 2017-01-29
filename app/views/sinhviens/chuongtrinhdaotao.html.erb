@@ -1,4 +1,4 @@
-<%=provide(:title,"Chuong trinh dao tao sinh vien")%>
+<%=provide(:title,"Chương trình đào tạo sinh viên")%>
 <div class="row">
 <div class="xyz">
   Chương trình đào tạo cho sinh viên <%=current_sinhvien.tensinhvien%>, lớp <%=current_sinhvien.lopsinhvien.tenlopsinhvien%><br>
@@ -10,7 +10,7 @@
     </div>    
   </div>
 <% end %>
-  <%= render 'list', object: @hocphans %>
+  <%= render 'listctdt', object: @hocphans %>
 <div id="button_download_subjects_list">
   <%= link_to " Tải xuống ", hocphans_path(format: :csv), class: "btn btn-primary glyphicon glyphicon-download-alt"%>
 </div>

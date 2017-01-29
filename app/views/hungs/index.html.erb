@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Hungs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @hungs.each do |hung| %>
+      <tr>
+        <td><%= link_to 'Show', hung %></td>
+        <td><%= link_to 'Edit', edit_hung_path(hung) %></td>
+        <td><%= link_to 'Destroy', hung, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<%= form_for(@hung, remote: true) do |f| %>
+  <%= f.label :name %><br>
+  <%= f.text_field :created_at %>
+  <%= f.submit %>
+<% end %>
+<%= link_to 'New Hung', new_hung_path %>

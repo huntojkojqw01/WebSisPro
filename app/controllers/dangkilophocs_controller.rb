@@ -71,11 +71,11 @@ class DangkilophocsController < ApplicationController
 						r=dangkilophocOk(@dangkilophoc)
 						if r.first
 							if @dangkilophoc.save
-						      	flash[:success]= 'Tạo mới thành công .'	
-						      	redirect_to(:back)				        
-						    else	
-						    	render 'new'					        
+						      	flash[:success]= 'Tạo mới thành công.'							      				        
+						    else
+						    	flash[:danger]= @dangkilophoc.errors.full_messages						    					        
 						    end
+						    redirect_to(:back)	
 						else
 							flash[:danger]= r.last
 							redirect_to(:back)		    			

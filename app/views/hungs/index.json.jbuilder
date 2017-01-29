@@ -1,0 +1,1 @@
+json.array! @hungs, partial: 'hungs/hung', as: :hung

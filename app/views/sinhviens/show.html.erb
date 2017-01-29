@@ -1,4 +1,4 @@
-<%=provide(:title,"Thong tin sinh vien ")%>
+<%=provide(:title,"Thông tin sinh viên")%>
 <div class="row">
 	<div class="col-md-4">
 
@@ -6,8 +6,8 @@
 	<div class="col-md-4" style="background-color:#F6D8CE; font-size:20px;">
 		<div class="container">
 			<ul class="list-group">
-				<li><b>MSSV: </b><%=@sinhvien.masinhvien%></li>
-				<li><b>Tên SV: </b><%=@sinhvien.tensinhvien%></li>
+				<li><b>Mã số sinh viên: </b><%=@sinhvien.masinhvien%></li>
+				<li><b>Tên sinh viên: </b><%=@sinhvien.tensinhvien%></li>
 				<li><b>Ngày sinh: </b><%=@sinhvien.ngaysinh%></li>
 				<li><b>Lớp: </b><%=@sinhvien.tenlopsinhvien%></li>
 				<li><b>Email: </b><%=@sinhvien.email%></li>
@@ -15,7 +15,7 @@
 			</ul>
 		</div>
 		<% if admin? %>
-			<%=link_to "Sửa thông tin SV",edit_sinhvien_path(@sinhvien)%><br>
+			<%=link_to "Sửa thông tin",edit_sinhvien_path(@sinhvien)%><br>
 			<%= link_to ' ', @sinhvien, method: :delete,data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %>
 		<%end%>
 	</div>

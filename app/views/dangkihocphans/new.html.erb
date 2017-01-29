@@ -1,12 +1,12 @@
-<%=provide(:title,"Thêm dang ki hoc phan")%>
+<%=provide(:title,"Thêm đăng kí học phần")%>
 <div class="row">
 	<div class="col-md-9">
 		<h1>Thêm dang ki hoc phan mới </h1>
 		<%= form_for(@dangkihocphan) do |f| %>
 		    <%= render 'shared/error_messages', object: f.object %>
-		    <%= f.label :"Sinh vien" %>
+		    <%= f.label :"Sinh viên" %>
 		    <%= f.collection_select :sinhvien_id, Sinhvien.where(trangthai: true), :id, :masinhvien, prompt: true %>
-		    <%= f.label :"Hoc phan" %>
+		    <%= f.label :"Học phần" %>
 		    <%= f.collection_select :hocphan_id, Hocphan.all, :id, :mahocphan, prompt: true %>		    
 		    <%= f.hidden_field :hocki_id, :value=> @hocki_modangkihocphan.id %>
 		    <%= f.submit "Thêm ",class: "btn btn-primary"%>

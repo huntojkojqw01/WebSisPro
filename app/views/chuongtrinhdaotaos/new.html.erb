@@ -1,14 +1,14 @@
-<%=provide(:title,"Thêm hoc phan vao chuong trinh dao tao")%>
+<%=provide(:title,"Thêm học phần vào chương trình")%>
 <div class="row">
 	<div class="col-md-9">
-		<h1>Thêm chuong hoc phan vao trinh dao tao </h1>
+		<h1>Thêm học phần vào chương trình đào tạo </h1>
 		<%= form_for(@chuongtrinhdaotao) do |f| %>
 		    <%= render 'shared/error_messages', object: f.object %>
-		    <%= f.label :"Lop sinh vien" %>
+		    <%= f.label :"Lớp sinh viên" %>
 		    <%= f.collection_select :lopsinhvien_id, Lopsinhvien.all, :id, :tenlopsinhvien, prompt: true %>
-		    <%= f.label :"Hoc phan" %>
+		    <%= f.label :"Học phần" %>
 		    <%= f.collection_select :hocphan_id, Hocphan.all, :id, :mahocphan, prompt: true %>
-		    <%= f.label :"Hoc ki" %>
+		    <%= f.label :"Học kì" %>
 		    <%= f.select :hocki,[1,2,3,4,5,6,7,8,9,10] %>
 		    <%= f.submit "Thêm ",class: "btn btn-primary"%>
 		<% end %>

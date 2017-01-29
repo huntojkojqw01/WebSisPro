@@ -1,0 +1,1 @@
+json.partial! "hungs/hung", hung: @hung

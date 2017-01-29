@@ -1,56 +1,13 @@
 <% provide(:title, "Home") %>
 <div class="row">
-    <button id="node" >Json</button>
-  <div class="col-md-12">
-    <%=image_tag("bachkhoa3.jpg")%>
-  </div>
+	<div class="col-md-10" id="results" >Ban Dau</div>	
+    <button id="clear"> Clear </button>
+    <button id="html"> Html </button>
+    <button id="json"> Json</button>    
+    
 </div>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$.ajax({
-	    type: "GET",
-	    url: "/hockis/60",
-	    dataType: "json",
-	    success: function(data){
-	    	var getData = $.parseJSON(data);
-	        alert("hihihi") // Will alert Max
-	    }        
-	});
-		/*
-	    // Gắn sự kiện onclick vào #viewbtn
-
-	    $('#viewbtn').click(function() {
-	        $('#loading').html('Loading...');
-
-	        var strURL = $('#base_url').val();
-	        $.ajax({
-	            url: hockis,
-	            type: 'POST',
-            cache: false,
-            data: 'getMember=view',
-	            success: function(string){
-	                var getData = $.parseJSON(string);
-	                //input dữ liệu lấy về từ server vào textbox
-	                $('#txt_username').val(getData.username);
-	                $('#txt_password').val(getData.password);
-	                $('#txt_email').val(getData.email);
-	                //Trả loading về trạng thái ban đầu
-	                $('#loading').html(' ');
-
-	            },
-	            error: function (){
-	                alert('Có lỗi xảy ra');
-	            }
-	        });
-	    });
- 	    // Gắn sự kiện onclick vào #resetbtn
-
-	    $('#node').click(function() {
-
-	        $('input:text').val(''); // xóa hết dữ liệu trong textbox
-
-	    });
-	    */
-
-	});
-</script>
+<div class="row">
+  	<div class="col-md-10">
+    <%image_tag("bachkhoa3.jpg")%>
+  	</div>
+</div>

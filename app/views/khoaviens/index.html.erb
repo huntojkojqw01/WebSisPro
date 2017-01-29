@@ -1,27 +1,11 @@
-<%=provide(:title,"Danh sach dang ki lop hoc")%>
+<%=provide(:title,"Danh sách khoa viện")%>
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
+		<h1>Danh sách khoa viện</h1>
 		<%=form_tag(khoaviens_path,method: "GET") do %>
 			<%=text_field_tag :tenkhoavien,@selected[:tenkhoavien], placeholder: "Nhập tên khoa viện"%>
 			<%=submit_tag "Tìm kiếm",class: "btn btn-info glyphicon glyphicon-search"%>
 		<%end%>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Ten khoa</th>
-					<th>Dia diem</th>
-					<th>So dien thoai</th>
-				</tr>
-			</thead>
-			<body>
-				<%@khoaviens.each do |kv| %>
-				<tr>
-					<td><%=link_to kv.tenkhoavien, kv %></td>
-					<td><%=kv.diadiem%></td>
-					<td><%=kv.sodienthoai%></td>
-				</tr>
-				<% end %>
-			</body>
-		</table>
+		<%=render 'list', object: @khoaviens %>
 	</div>
 </div>

@@ -2,7 +2,7 @@ class SinhviensController < ApplicationController
 	include ApplicationHelper
 	before_action :logged_in_user, except: [:index,:svdkh]
 	before_action :is_admin, only: [:edit,:update,:new,:create,:destroy]	
-	before_action :is_sinhvien, only: [:dangkilophoc,:thoikhoabieu,:bangdiem,:chuongtrinhdaotao]
+	before_action :is_sinhvien, only: [:dangkilophoc,:dangkihocphan,:thoikhoabieu,:bangdiem,:chuongtrinhdaotao]
 	before_action :chinh_chu , only: [:show]
 	before_action :set_x, only: [:edit,:update,:destroy]
 	before_action :xx_params ,only: :duyet
@@ -121,12 +121,12 @@ class SinhviensController < ApplicationController
 		if @selected[:hocki_id]
 			@hocki=Hocki.find_by_id(@selected[:hocki_id])
 			@lophocs=Lophoc.joins(:hocphan,:dangkilophocs).select("lophocs.*","hocphans.*","hesohocphi")
-			.where("hocki_id=? and sinhvien_id=?",@selected[:hocki_id],current_sinhvien.id)		
+			.where("hocki_id=? and sinhvien_id=?",@selected[:hocki_id],@current_sinhvien.id)		
 		end		
 	end
 	def bangdiem
 		@lophocs=Lophoc.joins(:hocphan,:hocki,:dangkilophocs)
-		.where("sinhvien_id=?",current_sinhvien.id)
+		.where("sinhvien_id=?",@current_sinhvien.id)
 		.select("lophocs.*","mahocki","diemquatrinh","diemthi","diemso","diemchu","mahocphan","tenhocphan","tinchi")
 		.reorder(:hocki_id).paginate(page: params[:page],:per_page=>10)
 	end
@@ -135,70 +135,78 @@ class SinhviensController < ApplicationController
 		case @selected[:sort_by]
 		when "mahocphan"
 			@hocphans=Hocphan.joins(:chuongtrinhdaotaos)
-			.where("lopsinhvien_id=?",current_sinhvien.lopsinhvien_id).select("hocphans.*","hocki")
+			.where("lopsinhvien_id=?",@current_sinhvien.lopsinhvien_id).select("hocphans.*","hocki")
 			.order(:mahocphan).paginate(page: params[:page],:per_page=>20)
 		when "tenhocphan"					
 			@hocphans=Hocphan.joins(:chuongtrinhdaotaos)
-			.where("lopsinhvien_id=?",current_sinhvien.lopsinhvien_id).select("hocphans.*","hocki")
+			.where("lopsinhvien_id=?",@current_sinhvien.lopsinhvien_id).select("hocphans.*","hocki")
 			.order(:tenhocphan).paginate(page: params[:page],:per_page=>20)
 		when "tinchi"
 			@hocphans=Hocphan.joins(:chuongtrinhdaotaos)
-			.where("lopsinhvien_id=?",current_sinhvien.lopsinhvien_id).select("hocphans.*","hocki")
+			.where("lopsinhvien_id=?",@current_sinhvien.lopsinhvien_id).select("hocphans.*","hocki")
 			.order(:tinchi).paginate(page: params[:page],:per_page=>20)
 		else
 			@hocphans=Hocphan.joins(:chuongtrinhdaotaos)
-			.where("lopsinhvien_id=?",current_sinhvien.lopsinhvien_id).select("hocphans.*","hocki")
+			.where("lopsinhvien_id=?",@current_sinhvien.lopsinhvien_id).select("hocphans.*","hocki")
 			.order("hocki").paginate(page: params[:page],:per_page=>20)
 		end
 	end
 	def dangkilophoc
-		@selected=params
-		if current_hocki_modklophoc		
+		@selected=params.permit(:khoavien_id,:malophoc,:mahocphan)
+		if mo_dangki_lophoc?		
 			@khoaviens=Khoavien.all		
 			if @selected[:khoavien_id]&&@selected[:khoavien_id]!=""
-				@lophocs=current_hocki_modklophoc.lophocs.left_outer_joins(:hocphan).where("khoavien_id = ? and malophoc like ? and mahocphan like ?",@selected[:khoavien_id],"%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%").paginate(page: params[:page],:per_page=>20)
+				@lophocs=@hocki_modangkilophoc.lophocs.left_outer_joins(:hocphan).where("khoavien_id = ? and malophoc like ? and mahocphan like ?",@selected[:khoavien_id],"%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%").paginate(page: params[:page],:per_page=>20)
 			else
-				@lophocs=current_hocki_modklophoc.lophocs.left_outer_joins(:hocphan).where("malophoc like ? and mahocphan like ?","%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%").paginate(page: params[:page],:per_page=>20)
+				@lophocs=@hocki_modangkilophoc.lophocs.left_outer_joins(:hocphan).where("malophoc like ? and mahocphan like ?","%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%").paginate(page: params[:page],:per_page=>20)
 			end					
-			@registeds=current_sinhvien.lophocs.where("hocki_id=?",current_hocki_modklophoc.id)
+			@registeds=@@current_sinhvien.lophocs.where("hocki_id=?",@hocki_modangkilophoc.id)
 		else
-			flash[:info]="Khong co hoc ki nao mo dang ki"
+			flash[:info]="Không có học kì nào mở đăng kí"
 			redirect_to root_url
 		end
 	end
 	def dangkihocphan
-		@selected=params
-		if current_hocki_modkhocphan		
+		@selected=params.permit(:khoavien_id,:tenhocphan,:mahocphan)
+		if mo_dangki_hocphan?		
 			@khoaviens=Khoavien.all		
 			if @selected[:khoavien_id]&&@selected[:khoavien_id]!=""
-				@hocphans=current_hocki_modkhocphan.hocphans.where("khoavien_id = ? and tenhocphan like ? and mahocphan like ?",@selected[:khoavien_id],"%#{@selected[:tenhocphan]}%","%#{@selected[:mahocphan]}%").distinct.paginate(page: params[:page],:per_page=>20)
+				@hocphans=@hocki_modangkihocphan.hocphans
+				.where("khoavien_id = ? and tenhocphan like ? and mahocphan like ?",@selected[:khoavien_id],"%#{@selected[:tenhocphan]}%","%#{@selected[:mahocphan]}%")
+				.reorder(:mahocphan)
+				.distinct.paginate(page: params[:page],:per_page=>20)
 			else
-				@hocphans=current_hocki_modkhocphan.hocphans.where("tenhocphan like ? and mahocphan like ?","%#{@selected[:tenhocphan]}%","%#{@selected[:mahocphan]}%").distinct.paginate(page: params[:page],:per_page=>20)
+				@hocphans=@hocki_modangkihocphan.hocphans
+				.where("tenhocphan like ? and mahocphan like ?","%#{@selected[:tenhocphan]}%","%#{@selected[:mahocphan]}%")
+				.reorder(:mahocphan)
+				.distinct.paginate(page: params[:page],:per_page=>20)
 			end					
-			@registeds=current_sinhvien.hocphans.where("hocki_id=?",current_hocki_modkhocphan.id)
+			@registeds=@@current_sinhvien.hocphans.where("hocki_id=?",@hocki_modangkihocphan.id)
 		else
-			flash[:info]="Khong co hoc ki nao mo dang ki"
+			flash[:info]="Không có học kì nào mở đăng kí"
 			redirect_to root_url
 		end
 	end
 	def svdkh
 		@selected=params.permit(:masinhvien)
-		if current_hocki		
-			@hocki=Hocki.find_by_id(current_hocki.id)
-		else
-			@hocki=Hocki.find_by_id(last_hocki.id)
-		end
-		if @hocki 
-			@sinhvien=Sinhvien.find_by(masinhvien: @selected[:masinhvien])
-			if @sinhvien
-				@lophocs=Lophoc.joins(:hocphan,:dangkilophocs).select("lophocs.*","hocphans.*","hesohocphi")
-						.where("hocki_id=? and sinhvien_id=?",@hocki.id,@sinhvien.id)
+		if @selected[:masinhvien]
+			if current_hocki		
+				@hocki=Hocki.find_by_id(current_hocki.id)
 			else
-				flash[:info]="Không tìm thấy sinh viên nào phù hợp"
-			end			
-		else
-			flash[:info]="Không có học kì nào phù hợp"					
-		end	
+				@hocki=Hocki.find_by_id(last_hocki.id)
+			end
+			if @hocki 
+				@sinhvien=Sinhvien.find_by(masinhvien: @selected[:masinhvien])
+				if @sinhvien
+					@lophocs=Lophoc.joins(:hocphan,:dangkilophocs).select("lophocs.*","hocphans.*","hesohocphi")
+							.where("hocki_id=? and sinhvien_id=?",@hocki.id,@sinhvien.id)
+				else
+					flash[:info]="Không tìm thấy sinh viên nào phù hợp"
+				end			
+			else
+				flash[:info]="Không có học kì nào phù hợp"					
+			end
+		end
 	end
 	def duyet
                   	@mons=[]
@@ -266,7 +274,7 @@ class SinhviensController < ApplicationController
     end#end tim_thoi_khoa_bieu
     def chinh_chu
     	if sinhvien?  
-        unless current_sinhvien.id==params[:id].to_i
+        unless @current_sinhvien.id==params[:id].to_i
           flash[:danger]="Bạn không phải chính chủ !"
           redirect_to(root_url) 
         end

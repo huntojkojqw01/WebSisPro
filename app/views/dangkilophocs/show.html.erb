@@ -1,4 +1,4 @@
-<%=provide(:title,"Thong tin dang ki lop hoc ")%>
+<%=provide(:title,"Thông tin đăng kí lớp học")%>
 <div class="row">
 	<div class="col-md-4">
 		Sinh vien <%=@dangkilophoc.tensinhvien%><br>
@@ -7,7 +7,7 @@
 		Diem thi <%=@dangkilophoc.diemthi%><br>
 		Diem so <%=@dangkilophoc.diemso%><br>
 		Diem chu <%=@dangkilophoc.diemchu%><br>		
-		<%=link_to " Edit ",edit_dangkilophoc_path(@dangkilophoc)%>
+		<%=link_to "Sửa",edit_dangkilophoc_path(@dangkilophoc)%>
 		<%= link_to ' Xóa ', @dangkilophoc, method: :delete,
 				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %>
 		

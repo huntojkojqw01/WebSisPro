@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161118124855) do
+ActiveRecord::Schema.define(version: 20170127010827) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,11 @@ ActiveRecord::Schema.define(version: 20161118124855) do
     t.float   "trongso"
     t.integer "khoavien_id"
     t.index ["khoavien_id"], name: "index_hocphans_on_khoavien_id", using: :btree
+  end
+
+  create_table "hungs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "khoaviens", force: :cascade do |t|

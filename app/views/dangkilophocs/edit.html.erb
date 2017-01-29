@@ -5,9 +5,9 @@
 		<%=@dangkilophoc.masinhvien%>-lớp học <%=@dangkilophoc.malophoc%></h1>
 		<%= form_for(@dangkilophoc) do |f| %>
 		    <%= render 'shared/error_messages', object: f.object %>	    		   		    
-		    <%= f.label :"Diem qua trinh" %>
+		    <%= f.label :"Điểm quá trình" %>
 		    <%= f.number_field :diemquatrinh,class: "form-control",:step => 0.1 %>
-		    <%= f.label :"Diem thi" %>
+		    <%= f.label :"Điểm thi" %>
 		    <%= f.number_field :diemthi ,class: "form-control",:step => 0.1 %>		    
 		    <%= f.submit "Cập nhật ",class: "btn btn-primary"%>
 		<% end %>
