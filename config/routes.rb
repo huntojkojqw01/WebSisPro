@@ -32,6 +32,7 @@ Rails.application.routes.draw do
         get :svdkh
         get :duyet
         post :duyet
+        get :search
       end
     end
   resources :dangkilophocs do
@@ -39,6 +40,10 @@ Rails.application.routes.draw do
         post :import        
       end
     end
-  resources :giaoviens
+  resources :giaoviens do
+    collection do
+      get :search
+    end
+  end
   resources :hockis
 end

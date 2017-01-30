@@ -1,20 +1,22 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
-@query_create = () ->
-	q="/hocphans?mahocphan="+$("#mahocphan").val()+"&tenhocphan="+$("#tenhocphan").val()
+hocphan_params= () ->
+	q={}
 	t=$("#khoavien_id").val()
-	if(t!='')
-		q+="&khoavien_id="+t	
+	if(t!='' && t!='undefined')
+		q.khoavien_id=t
+	t=$("#tenhocphan").val()
+	if(t!='' && t!='undefined')
+		q.tenhocphan=t
+	t=$("#mahocphan").val()
+	if(t!='' && t!='undefined')
+		q.mahocphan=t
 	t=$("#tinchi").val()
-	if(t!='')
-		q+="&tinchi="+t
-	return q+" #hocphan_list"
-@search = (url) ->
-	$("#results").load url, () ->
-		$("#hocphan_list>ul>li>a").click (e) ->			
-			e.preventDefault()								
-			search($(this).attr("href")+" #hocphan_list")		
+	if(t!='' && t!='undefined')
+		q.tinchi=t
+	return q		
 $(document).on 'turbolinks:load', () ->	
-	$("#khoavien_id,#mahocphan,#tenhocphan,#tinchi").change -> search(query_create())
-					
+	if($("#hocphan_search").hasClass("row"))		
+		$("#khoavien_id,#mahocphan,#tenhocphan,#tinchi").change ->
+			search("/hocphans",hocphan_params(),"#hocphan_list","#results")					

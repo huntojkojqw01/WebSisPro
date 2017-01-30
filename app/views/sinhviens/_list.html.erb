@@ -1,4 +1,4 @@
-<div id="sinhviens">
+<div id="sinhvien_list">
 	<table class="table striped-table table-bordered">
 		<thead>
 			<tr>
@@ -9,7 +9,7 @@
 			</tr>
 		</thead>
 		<body>
-				<%= render @sinhviens %>
+			<%= render @sinhviens %>
 		</body>
 		</table>
 	<%= will_paginate @sinhviens ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1%>

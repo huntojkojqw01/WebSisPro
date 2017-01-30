@@ -2,21 +2,14 @@ class GiaoviensController < ApplicationController
 	before_action :logged_in_user
 	before_action :is_admin
 	before_action :set_x, only: [:edit,:update]
-	def index
-		@selected=params.permit(:tengiaovien,:khoavien_id)		
-		@khoaviens=Khoavien.all		
-		if @selected[:khoavien_id]&&@selected[:khoavien_id]!=""
+	def index		
+		if params[:khoavien_id]&&params[:khoavien_id]!=""
 			@giaoviens=Giaovien.joins(:khoavien)
-			.where("khoavien_id = ? and tengiaovien like ?",@selected[:khoavien_id],"%#{@selected[:tengiaovien]}%").select("giaoviens.*","khoaviens.tenkhoavien").paginate(page: params[:page],:per_page=>10)
+			.where("khoavien_id = ? and tengiaovien like ?",params[:khoavien_id],"%#{params[:tengiaovien]}%").select("giaoviens.*","khoaviens.tenkhoavien").paginate(page: params[:page],:per_page=>10)
 		else
 			@giaoviens=Giaovien.joins(:khoavien)
-			.where("tengiaovien like ?","%#{@selected[:tengiaovien]}%").select("giaoviens.*","khoaviens.tenkhoavien").paginate(page: params[:page],:per_page=>10)
+			.where("tengiaovien like ?","%#{params[:tengiaovien]}%").select("giaoviens.*","khoaviens.tenkhoavien").paginate(page: params[:page],:per_page=>10)
 		end		
-		@gvs = Giaovien.all
-        respond_to do |format|
-            format.html
-            format.csv { send_data @gvs.as_csv }
-      end
 	end	
 	def new
 		@giaovien = Giaovien.new
@@ -47,7 +40,9 @@ class GiaoviensController < ApplicationController
 	    else
 	        render 'new'
 	    end
-    end	
+    end
+    def search    	
+    end
 	private
 	def set_x
 		unless @giaovien=Giaovien.find_by_id(params[:id])	

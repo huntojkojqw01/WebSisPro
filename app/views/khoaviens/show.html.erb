@@ -1,6 +1,6 @@
-<%=provide(:title,"Thong tin khoa vien ")%>
-<div class="row">	
-	<div class="col-md-4 col-md-offset-2" >
+<%=provide(:title,"Thông tin khoa viện")%>
+<div class="row" id="khoavien_info">	
+	<div class="col-md-4">
 		<b>Tên khoa viện: </b> <%=@khoavien.tenkhoavien%><br>
 		<b>Địa điểm: </b> <%=@khoavien.diadiem%><br>
 		<b>Số điện thoại: </b> <%=@khoavien.sodienthoai%><br>
@@ -10,6 +10,6 @@
 			<li><button id="giaoviens" class="btn btn-lg btn-info" khoavien_id= "<%=@khoavien.id%>">Danh sách giáo viên</button></li>
 		</ul>
 	</div>
-	<div class="col-md-4" id="show">
+	<div class="col-md-8" id="show">
 	</div>
 </div>

@@ -1,0 +1,13 @@
+<%=provide(:title,"Tìm kiếm giáo viên")%>
+<div class="row" id="giaovien_search" >
+	<div class="col-md-4">
+		<%=label_tag "Khoa viện"%><br>
+		<%=select_tag "khoavien_id", options_from_collection_for_select(Khoavien.all, "id", "tenkhoavien"),:include_blank=>"All"%><br>
+		<%=label_tag "Tên giáo viên"%><br>
+		<%=text_field_tag "tengiaovien"%>			
+	</div>
+	<div class="col-md-8">
+		<h1>Danh sách giáo viên</h1>
+		<div id="results"></div>
+	</div>
+</div>

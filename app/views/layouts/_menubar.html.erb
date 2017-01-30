@@ -17,7 +17,7 @@
         <a >Sinh viên
         <span class="caret"></span></a>
         <ul class="submenu" >
-          <li><%= link_to 'Tìm kiếm sinh viên',sinhviens_path %></li>          
+          <li><%= link_to 'Tìm kiếm sinh viên',search_sinhviens_path %></li>          
           <li><%= link_to 'Thêm sinh viên',new_sinhvien_path %></li>
           <li><%= link_to 'Sinh viên đăng kí học',svdkh_sinhviens_path %></li>
         </ul>
@@ -26,7 +26,7 @@
         <a >Học phần
         <span class="caret"></span></a>
         <ul class="submenu" >
-          <li><%= link_to 'Tìm kiếm học phần',hocphans_path %></li>
+          <li><%= link_to 'Tìm kiếm học phần',search_hocphans_path %></li>
           <li><%= link_to 'Thêm học phần',new_hocphan_path %></li>
           <li><%= link_to 'Thêm đăng kí học phần',new_dangkihocphan_path if mo_dangki_hocphan? %></li>
         </ul>
@@ -45,7 +45,7 @@
                     
         <li><%= link_to 'Khoa viện',khoaviens_path%></li>
         <li><%= link_to 'Học kì',hockis_path%></li>
-        <li><%= link_to 'Giáo viên',giaoviens_path%></li>        
+        <li><%= link_to 'Giáo viên',search_giaoviens_path%></li>        
         
       <%elsif sinhvien? %>
         <li>

@@ -2,24 +2,10 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).on 'turbolinks:load', () ->
-	$("#sinhviens").click ->			
-		$.get
-			url: "/sinhviens"
-			data: "khoavien_id="+$(this).attr("khoavien_id")
-			success: (data) ->
-				$("#show").html $(data).find("#sinhviens").clone()
-			dataType: "html"
-	$("#hocphans").click ->		
-		$.get
-			url: "/hocphans"
-			data: "khoavien_id="+$(this).attr("khoavien_id")
-			success: (data) ->
-				$("#show").html $(data).find("#hocphans").clone()
-			dataType: "html"
-	$("#giaoviens").click ->			
-		$.get
-			url: "/giaoviens"
-			data: "khoavien_id="+$(this).attr("khoavien_id")
-			success: (data) ->
-				$("#show").html $(data).find("#giaoviens").clone()
-			dataType: "html"	
+	if($("#khoavien_info").hasClass("row"))		
+		$("#sinhviens").click ->			
+			search("/sinhviens",{khoavien_id: $(this).attr("khoavien_id")},"#sinhvien_list","#show")
+		$("#hocphans").click ->	
+			search("/hocphans",{khoavien_id: $(this).attr("khoavien_id")},"#hocphan_list","#show")
+		$("#giaoviens").click ->			
+			search("/giaoviens",{khoavien_id: $(this).attr("khoavien_id")},"#giaovien_list","#show")			
