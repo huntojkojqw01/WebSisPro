@@ -1,29 +1,21 @@
-	<table class="table table-striped">
+<div id="lophoc_list">
+	<table class="table table-striped table-bordered">
 		<thead>
 			<tr>
-					<th>Mã lớp</th>
-					<th>Thời gian</th>
-					<th>Địa điểm</th>
-					<th>Mã HP</th>
-					<th>Tên HP</th>
-					<th>Max ĐK</th>
-					<th>Đã ĐK</th>
+				<th>Mã lớp</th>
+				<th>Thời gian</th>
+				<th>Địa điểm</th>
+				<th>Mã HP</th>
+				<th>Tên HP</th>
+				<th>Max ĐK</th>
+				<th>Đã ĐK</th>
 			</tr>
 		</thead>
 		<body>
-				<% object.each do |lh| %>
-			<tr>
-					<td><%=link_to lh.malophoc, lh%></td>
-					<td><%=toStrTime(lh.thoigian)%></td>
-					<td><%=lh.diadiem%></td>
-					<td><%=lh.mahocphan%></td>
-					<td><%=lh.tenhocphan%></td>
-					<td style="text-align: center"><%=lh.maxdangki%></td>
-					<td style="text-align: center"><%=lh.dadangki%></td>
-			</tr>
-				<% end %>
+			<%= render @lophocs %>
 		</body>
 	</table>
-<%= will_paginate object ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1,class: "pager"%><br>
-<%= page_entries_info object %><br>
+	<%= will_paginate @lophocS ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1%><br>
+	<%= page_entries_info @lophocS %>
+</div>
 

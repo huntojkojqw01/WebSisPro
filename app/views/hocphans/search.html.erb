@@ -1,20 +1,17 @@
 <%=provide(:title,"Tìm kiếm học phần ")%>
-<div class="row">        
-    <div class="form-inline">    
-      <div class="col-md-2 col-md-offset-1">
-        Tìm theo khoa viện <%=select_tag "khoavien_id", options_from_collection_for_select(Khoavien.all, "id", "tenkhoavien"),include_blank:"All"%>
-      </div>    
-      <div class="col-md-2">
-        Tìm theo mã HP <%=text_field_tag 'mahocphan'%>
-      </div>    
-      <div class="col-md-2">
-        Tìm theo tên HP <%=text_field_tag 'tenhocphan'%>
-      </div>    
-      <div class="col-md-2">
-        Tìm theo số TC <%=number_field_tag 'tinchi'%>
-      </div>      
-    </div>       
-</div>
-<div class="row">
-  <div class="col-md-8 col-md-offset-2" id="results"></div>
+<div class="row" id="hocphan_search">
+  <div class="col-md-4">         
+    <%=label_tag "Tìm theo khoa viện"%><br>
+    <%=select_tag "khoavien_id", options_from_collection_for_select(Khoavien.all, "id", "tenkhoavien"),include_blank:"All"%><br>
+    <%=label_tag "Tìm theo mã HP"%><br>
+    <%=text_field_tag 'mahocphan'%><br>
+    <%=label_tag "Tìm theo tên HP"%><br>
+    <%=text_field_tag 'tenhocphan'%><br>
+    <%=label_tag "Tìm theo số TC"%><br>
+    <%=number_field_tag 'tinchi'%>
+  </div>
+  <div class="col-md-8">
+    <h1>Danh sách học phần</h1>
+    <div id="results"></div>
+  </div>
 </div>

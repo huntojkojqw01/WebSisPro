@@ -3,20 +3,13 @@ class LopsinhviensController < ApplicationController
 	before_action :is_admin, except: [:index]
 	before_action :set_x, only: [:edit,:update]
 	def index
-		@selected=params.permit(:khoavien_id,:tenlopsinhvien)	
-		@khoaviens=Khoavien.all
-		if @selected[:khoavien_id]&&@selected[:khoavien_id]!=""
+		if params[:khoavien_id]&&params[:khoavien_id]!=""
 			@lopsinhviens=Lopsinhvien.joins(:khoavien,:giaovien)
-			.where("lopsinhviens.khoavien_id = ? and tenlopsinhvien like ?",@selected[:khoavien_id],"%#{@selected[:tenlopsinhvien]}%").select("lopsinhviens.*","tenkhoavien","tengiaovien").paginate(page: params[:page],:per_page=>10)
+			.where("lopsinhviens.khoavien_id = ? and tenlopsinhvien like ?",params[:khoavien_id],"%#{params[:tenlopsinhvien]}%").select("lopsinhviens.*","tenkhoavien","tengiaovien").paginate(page: params[:page],:per_page=>10)
 		else
 			@lopsinhviens=Lopsinhvien.joins(:khoavien,:giaovien)
-			.where("tenlopsinhvien like ?","%#{@selected[:tenlopsinhvien]}%").select("lopsinhviens.*","tenkhoavien","tengiaovien").paginate(page: params[:page],:per_page=>10)
+			.where("tenlopsinhvien like ?","%#{params[:tenlopsinhvien]}%").select("lopsinhviens.*","tenkhoavien","tengiaovien").paginate(page: params[:page],:per_page=>10)
 		end		
-		@lsvs = Lopsinhvien.all
-        respond_to do |format|
-          format.html
-          format.csv { send_data @lsvs.as_csv }
-      end
 	end	
 	def new
 		@lopsinhvien = Lopsinhvien.new

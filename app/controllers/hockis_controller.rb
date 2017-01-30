@@ -4,22 +4,21 @@ class HockisController < ApplicationController
 	before_action :is_admin
 	before_action :set_x, only: [:edit,:update,:show,:destroy]
 	def index
-		@selected=params.permit(:hocki_id_hp,:hocki_id_lh)
 		x=Hocki.find_by(modangkihocphan: true)		
-		if @selected[:hocki_id_hp]
+		if params[:hocki_id_hp]
 			x.update(modangkihocphan: false) if x
-			x=Hocki.find_by_id(@selected[:hocki_id_hp])
+			x=Hocki.find_by_id(params[:hocki_id_hp])
 			x.update(modangkihocphan: true) if x			
 		else
-			@selected[:hocki_id_hp]=x.id if x
+			params[:hocki_id_hp]=x.id if x
 		end
 		x=Hocki.find_by(modangkilophoc: true)		
-		if @selected[:hocki_id_lh]
+		if params[:hocki_id_lh]
 			x.update(modangkilophoc: false) if x
-			x=Hocki.find_by_id(@selected[:hocki_id_lh])
+			x=Hocki.find_by_id(params[:hocki_id_lh])
 			x.update(modangkilophoc: true) if x			
 		else
-			@selected[:hocki_id_lh]=x.id if x
+			params[:hocki_id_lh]=x.id if x
 		end
 		@hockis=Hocki.all			
 	end	

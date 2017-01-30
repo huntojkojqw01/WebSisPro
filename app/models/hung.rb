@@ -1,2 +1,0 @@
-class Hung < ApplicationRecord
-end

@@ -4,44 +4,35 @@ class LophocsController < ApplicationController
 	before_action :is_admin, except: [:index]
 	before_action :set_x, only: [:edit,:update,:destroy]
 	def index
-		@selected=params.permit(:khoavien_id,:hocki_id,:mahocphan,:malophoc)
-		@hockis=Hocki.all
-		@khoaviens=Khoavien.all
-		if @selected[:khoavien_id]&&@selected[:khoavien_id]!=""
-			if @selected[:hocki_id]&&@selected[:hocki_id]!=""
+		if params[:khoavien_id]&&params[:khoavien_id]!=""
+			if params[:hocki_id]&&params[:hocki_id]!=""
 				@lophocs=Lophoc.joins({hocphan: :khoavien},:dangkilophocs)
-				.where("khoavien_id=? and hocki_id = ? and malophoc like ? and mahocphan like ?",@selected[:khoavien_id],@selected[:hocki_id],"%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%")
+				.where("khoavien_id=? and hocki_id = ? and malophoc like ? and mahocphan like ?",params[:khoavien_id],params[:hocki_id],"%#{params[:malophoc]}%","%#{params[:mahocphan]}%")
 				.group(:id,:malophoc,:mahocphan,:tenhocphan)
 				.select("lophocs.*","mahocphan","tenhocphan","count(dangkilophocs.id) as dadangki")
 				.paginate(page: params[:page],:per_page=>20)
 			else
 				@lophocs=Lophoc.joins({hocphan: :khoavien},:dangkilophocs)
-				.where("khoavien_id=? and malophoc like ? and mahocphan like ?",@selected[:khoavien_id],"%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%")
+				.where("khoavien_id=? and malophoc like ? and mahocphan like ?",params[:khoavien_id],"%#{params[:malophoc]}%","%#{params[:mahocphan]}%")
 				.group(:id,:malophoc,:mahocphan,:tenhocphan)
 				.select("lophocs.*","mahocphan","tenhocphan","count(dangkilophocs.id) as dadangki")
 				.paginate(page: params[:page],:per_page=>20)
 			end
 		else
-			if @selected[:hocki_id]&&@selected[:hocki_id]!=""
+			if params[:hocki_id]&&params[:hocki_id]!=""
 				@lophocs=Lophoc.joins(:hocphan,:dangkilophocs)
-				.where("hocki_id = ? and malophoc like ? and mahocphan like ?",@selected[:hocki_id],"%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%")
+				.where("hocki_id = ? and malophoc like ? and mahocphan like ?",params[:hocki_id],"%#{params[:malophoc]}%","%#{params[:mahocphan]}%")
 				.group(:id,:malophoc,:mahocphan,:tenhocphan)
 				.select("lophocs.*","mahocphan","tenhocphan","count(dangkilophocs.id) as dadangki")
 				.paginate(page: params[:page],:per_page=>20)
 			else
 				@lophocs=Lophoc.joins(:hocphan,:dangkilophocs)
-				.where("malophoc like ? and mahocphan like ?","%#{@selected[:malophoc]}%","%#{@selected[:mahocphan]}%")
+				.where("malophoc like ? and mahocphan like ?","%#{params[:malophoc]}%","%#{params[:mahocphan]}%")
 				.group(:id,:malophoc,:mahocphan,:tenhocphan)
 				.select("lophocs.*","mahocphan","tenhocphan","count(dangkilophocs.id) as dadangki")
 				.paginate(page: params[:page],:per_page=>20)
 			end		
 		end		
-			
-		@lhs = Lophoc.order :malophoc
-        respond_to do |format|
-          format.html
-          format.csv { send_data @lhs.as_csv }
-      	end
 	end	
 	def new
 		@lophoc = Lophoc.new
