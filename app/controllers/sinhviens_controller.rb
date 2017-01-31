@@ -28,7 +28,7 @@ class SinhviensController < ApplicationController
 				else					
 					@sinhviens=Sinhvien.joins(:lopsinhvien).select("sinhviens.*","tenlopsinhvien")
 					.where("khoavien_id=? and tensinhvien like ? and masinhvien like ?",params[:khoavien_id],"%#{params[:tensinhvien]}%","%#{params[:masinhvien]}%")
-					.paginate(page: params[:page],:per_page=>20)
+					.paginate(page: params[:page],:per_page=>4)
 				end
 			end						
 		else			
@@ -49,10 +49,10 @@ class SinhviensController < ApplicationController
 					@sinhviens=Sinhvien.joins(:lopsinhvien).select("sinhviens.*","tenlopsinhvien")
 					.where("lopsinhvien_id=? and tensinhvien like ? and masinhvien like ? ",params[:lopsinhvien_id],"%#{params[:tensinhvien]}%","%#{params[:masinhvien]}%")
 					.paginate(page: params[:page],:per_page=>20)
-				else					
+				else										
 					@sinhviens=Sinhvien.joins(:lopsinhvien).select("sinhviens.*","tenlopsinhvien")
 					.where("tensinhvien like ? and masinhvien like ?","%#{params[:tensinhvien]}%","%#{params[:masinhvien]}%")
-					.paginate(page: params[:page],:per_page=>20)
+					.paginate(page: params[:page],:per_page=>20)										
 				end
 			end	
 		end		

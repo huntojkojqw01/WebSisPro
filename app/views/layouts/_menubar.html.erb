@@ -35,7 +35,7 @@
         <a >Lớp học
         <span class="caret"></span></a>
         <ul class="submenu" >
-          <li><%= link_to 'Tìm kiếm lớp học',lophocs_path %></li>         
+          <li><%= link_to 'Tìm kiếm lớp học',search_lophocs_path %></li>         
             <li><%= link_to 'Thêm lớp học',new_lophoc_path %>
             <li><%= link_to 'Thêm đăng kí lớp học',new_dangkilophoc_path if mo_dangki_lophoc? %></li>
             <li><%= link_to 'Cập nhật bảng điểm',dangkilophocs_path %></li>
@@ -82,10 +82,10 @@
         <a >Tra cứu
         <span class="caret"></span></a>
         <ul class="submenu" >
-          <li><%= link_to 'Sinh viên',sinhviens_path %></li>
+          <li><%= link_to 'Sinh viên',search_sinhviens_path %></li>
           <li><%= link_to 'Sinh viên đăng kí học',svdkh_sinhviens_path %></li>          
-          <li><%= link_to 'Học phần',hocphans_path %></li>
-          <li><%= link_to 'Lớp học',lophocs_path %></li>
+          <li><%= link_to 'Học phần',_search_hocphans_path %></li>
+          <li><%= link_to 'Lớp học',search_lophocs_path %></li>
         </ul>
         </li> 
       <%else%>
@@ -94,10 +94,10 @@
         <a >Tra cứu
         <span class="caret"></span></a>
         <ul class="submenu" >
-          <li><%= link_to 'Sinh viên',sinhviens_path %></li>
+          <li><%= link_to 'Sinh viên',search_sinhviens_path %></li>
           <li><%= link_to 'Sinh viên đăng kí học',svdkh_sinhviens_path %></li>          
-          <li><%= link_to 'Học phần',hocphans_path %></li>
-          <li><%= link_to 'Lớp học',lophocs_path %></li>
+          <li><%= link_to 'Học phần',search_hocphans_path %></li>
+          <li><%= link_to 'Lớp học',search_lophocs_path %></li>
         </ul>
         </li>        
       <% end %>

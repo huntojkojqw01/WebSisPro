@@ -41,10 +41,15 @@ class LophocsController < ApplicationController
 		@lophoc=Lophoc.joins(:hocphan,:giaovien,:hocki,:dangkilophocs)				
 				.group(:id,:malophoc,:mahocphan,:tenhocphan,:tengiaovien,:mahocki)
 				.select("lophocs.*","mahocphan","tenhocphan","tengiaovien","mahocki","count(dangkilophocs.id) as dadangki")
-				.find_by_id(params[:id])		
-		@sinhviens=@lophoc.sinhviens.joins(:lopsinhvien)
-			.select("sinhviens.*","tenlopsinhvien")
-			.paginate(page: params[:page],:per_page=>20)						
+				.find_by_id(params[:id])
+		unless @lophoc
+			flash[:info]="Không tìm thấy dữ liệu"	
+			redirect_to root_url
+		else
+			@sinhviens=Sinhvien.joins(:lopsinhvien,dangkilophocs: :lophoc).where("dangkilophocs.lophoc_id=?",@lophoc.id)
+				.select("sinhviens.*","tenlopsinhvien")
+				.paginate(page: params[:page],:per_page=>20)	
+		end										
 	end
 	def edit
 		

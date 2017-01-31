@@ -1,49 +1,23 @@
 <%=provide(:title,"Danh sách học kì ")%>
-<div class="row">
-	<div class="col-md-3">
-
-	</div>
-	<div class="col-md-6">
-		<div class="form-horizontal">
-			<%= form_tag(hockis_path, method: "get") do %>
-				<div class="form-group">
-					<label class="control-label col-sm-6">Mở đăng kí học phần trong HK</label>
-					<div class="col-sm-6">
-						<%=select_tag "hocki_id_hp", options_from_collection_for_select(@hockis, "id", "mahocki",@selected[:hocki_id_hp]),:include_blank=>"Close all",:onchange => "this.form.submit();"%>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-6">Mở đăng kí lớp trong HK</label>
-					<div class="col-sm-6">
-						<%=select_tag "hocki_id_lh", options_from_collection_for_select(@hockis, "id", "mahocki",@selected[:hocki_id_lh]),:include_blank=>"Close all",:onchange => "this.form.submit();"%>
-					</div>
-				</div>
-			<% end %>
-		</div>
-		<table class="table table-striped">
+<div class="row" id="hocki_list">	
+	<div class="col-md-6 col-md-offset-3">		
+		<%=label_tag "Mở đăng kí học phần trong HK" %><br>
+		<%=select_tag "hocki_id_hp", options_from_collection_for_select(@hockis, "id", "mahocki",@hocki_id_hp),:include_blank=>"Close all"%><br>
+		<%=label_tag "Mở đăng kí lớp trong HK" %><br>
+		<%=select_tag "hocki_id_lh", options_from_collection_for_select(@hockis, "id", "mahocki",@hocki_id_lh),:include_blank=>"Close all"%>		
+		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<th>Ma hoc ki</th>
-					<th>Dinh muc hoc phi</th>
-					<th>Thoi gian bat dau</th>
-					<th>Thoi gian ket thuc</th>
+					<th>Mã học kì</th>
+					<th>Định mức học phí</th>
+					<th>Thời gian bắt đầu</th>
+					<th>Thời gian kết thúc</th>
 				</tr>
 			</thead>
 			<body>
-				<%@hockis.each do |hk| %>
-				<tr>
-					<td><%=hk.mahocki%></td>
-					<td style="text-align: center;"><%=hk.dinhmuchocphi%></td>
-					<td style="text-align: center;"><%=hk.bd%></td>
-					<td style="text-align: center;"><%=hk.kt%></td>
-					<td style="text-align: center;"><%=link_to " Sửa ",edit_hocki_path(hk)%></td>
-				</tr>
-				<% end %>
+				<%= render @hockis %>
 			</body>
 		</table>
-		<%= link_to ' Thêm học kì mới ', new_hocki_path %>
-	</div>
-	<div class="col-md-3">
-
-	</div>
+		<%= link_to ' Thêm học kì mới ', new_hocki_path,class: "btn btn-lg btn-primary" %>
+	</div>	
 </div>

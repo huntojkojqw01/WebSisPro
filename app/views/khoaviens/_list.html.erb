@@ -9,4 +9,6 @@
 			<%= render @khoaviens %>				
 		</body>
 	</table>
+	<%=will_paginate @khoaviens, renderer: BootstrapPagination::Rails, :outer_window=>1, :inner_window=>1 %><br>
+	<%=page_entries_info @khoaviens, model: "Khoa viện"%>
 </div>

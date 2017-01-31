@@ -16,22 +16,24 @@ class LopsinhviensController < ApplicationController
 	end
 	def show
 		@lopsinhvien=Lopsinhvien.joins(:khoavien,:giaovien).where("lopsinhviens.id=?",params[:id]).select("lopsinhviens.*","tenkhoavien","tengiaovien").first		
-		@sinhviens=@lopsinhvien.sinhviens			
+		unless @lopsinhvien
+			flash[:info]="Không tìm thấy dữ liệu"	
+			redirect_to root_url
+		else
+			@sinhviens=Sinhvien.joins(:lopsinhvien).select("sinhviens.*","tenlopsinhvien").where(lopsinhvien_id: @lopsinhvien.id).paginate(page: params[:page],per_page: 20)
+		end					
 	end
-	def edit
-		
+	def edit		
 	end
-	def destroy
-		
+	def destroy		
 	end
 	def update
-
-	      if @lopsinhvien.update(x_params)
+	    if @lopsinhvien.update(x_params)
 	      	flash[:info]='Đã cập nhật .'
 	        redirect_to @lopsinhvien
-	      else
+	    else
 	       	render 'edit'
-	      end
+	    end
   	end
 	def create
 		@lopsinhvien=Lopsinhvien.new(x_params)
@@ -50,7 +52,7 @@ class LopsinhviensController < ApplicationController
 		end	
 	end
 	def x_params
-	      params.require(:lopsinhvien).permit(:tenlopsinhvien,:giaovien_id,:khoahoc,:khoavien_id)
+	    params.require(:lopsinhvien).permit(:tenlopsinhvien,:giaovien_id,:khoahoc,:khoavien_id)
 	end
 	
 end

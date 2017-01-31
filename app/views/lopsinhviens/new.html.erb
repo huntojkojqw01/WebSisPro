@@ -1,9 +1,6 @@
 <%=provide(:title,"Thêm lớp sinh viên ")%>
-<div class="col-md-3">
-
-</div>
 <div class="row">
-	<div class="col-md-6" style="background-color:#F2F5A9">
+	<div class="col-md-6 col-md-offset-3" style="background-color:#F2F5A9">
 		<h1 style="text-align:center; margin-bottom: 40px;">Thêm lớp sinh viên mới </h1>
 		<%= form_for(@lopsinhvien) do |f| %>
 		    <%= render 'shared/error_messages', object: f.object %>
@@ -37,8 +34,5 @@
 					</div>
 				</div>
 		<% end %>
-	</div>
-	<div class="col-md-3">
-
-	</div>
+	</div>	
 </div>

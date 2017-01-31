@@ -15,7 +15,10 @@ Rails.application.routes.draw do
     end
   end
   resources :lophocs do
-      collection { post :import }
+      collection do
+        get :search
+        post :import
+      end
     end
   resources :dangkihocphans,:chuongtrinhdaotaos
   resources :khoaviens
@@ -44,5 +47,9 @@ Rails.application.routes.draw do
       get :search
     end
   end
-  resources :hockis
+  resources :hockis do
+    collection do
+      post :modangki
+    end
+  end
 end

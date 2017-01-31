@@ -13,5 +13,5 @@
 		</body>
 		</table>
 	<%= will_paginate @sinhviens ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1%>
-	<%= page_entries_info @sinhviens %>
+	<%= page_entries_info @sinhviens, model: 'Sinh Viên'%>
 </div>

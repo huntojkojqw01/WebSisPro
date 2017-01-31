@@ -1,14 +1,13 @@
-<%=provide(:title,"Thông tin học kì ")%>
+<%=provide(:title,"Thông tin học kì")%>
 <div class="row">
-	<div class="col-md-3">
-		Ma hoc ki <%=@hocki.mahocki%><br>		
-		Dinh muc hoc phi <%=@hocki.dinhmuchocphi%><br>
-		Thoi gian bat dau <%=@hocki.bd%><br>
-		Thoi gian ket thuc <%=@hocki.kt%><br>
-		<%=link_to " Sửa ",edit_hocki_path(@hocki)%>		
-	</div>
-	<div class="col-md-9">
-		Mot con bo chan to		  	
-	</div>
+	<div class="col-md-4 col-md-offset-4">
+		<ul class="list-group">
+			<li class="list-group-item">Mã học kì: <%=@hocki.mahocki%></li>
+			<li class="list-group-item">Định mức học phí: <%=@hocki.dinhmuchocphi%></li>
+			<li class="list-group-item">Thời gian bắt đầu: <%=@hocki.bd%></li>
+			<li class="list-group-item">Thời gian kết thúc: <%=@hocki.kt%></li>
+			<li class="list-group-item"><%=link_to "Sửa",edit_hocki_path(@hocki),class: "btn btn-lg btn-warning"%></li>
+		</ul>			
+	</div>	
 </div>
 

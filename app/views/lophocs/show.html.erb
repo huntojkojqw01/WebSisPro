@@ -1,48 +1,20 @@
 <%=provide(:title,"Thông tin lớp học ")%>
 <div class="row">
 	<div class="col-md-4" style="background-color:#F6D8CE; font-size:15px;">
-		<div class="container">
-			<ul class="list-group">
-				<li><b>Mã lớp học: </b><%=@lophoc.malophoc%></li>
-				<li><b>Thời gian: </b><%=toStrTime(@lophoc.thoigian)%></li>
-				<li><b>Địa điểm: </b><%=@lophoc.diadiem%></li>
-				<li><b>Giáo viên giảng dạy: </b><%=@lophoc.tengiaovien%></li>
-				<li><b>Học phần: </b><%=@lophoc.tenhocphan%>-<%=@lophoc.mahocphan%></li>
-				<li><b>Học kì: </b><%=@lophoc.mahocki%></li>
-				<li><b>Số lượng đăng kí: </b><%=@lophoc.dadangki%>/<%=@lophoc.maxdangki%></li>
-			</ul>
-		</div>
-		
-		<%= link_to " Sửa ", edit_lophoc_path(@lophoc)%><br>
-		<%= link_to ' Xóa', @lophoc, method: :delete,
+		<ul class="list-group">
+				<li class="list-group-item"><b>Mã lớp học: </b><%=@lophoc.malophoc%></li>
+				<li class="list-group-item"><b>Thời gian: </b><%=toStrTime(@lophoc.thoigian)%></li>
+				<li class="list-group-item"><b>Địa điểm: </b><%=@lophoc.diadiem%></li>
+				<li class="list-group-item"><b>Giáo viên giảng dạy: </b><%=@lophoc.tengiaovien%></li>
+				<li class="list-group-item"><b>Học phần: </b><%=@lophoc.tenhocphan%>-<%=@lophoc.mahocphan%></li>
+				<li class="list-group-item"><b>Học kì: </b><%=@lophoc.mahocki%></li>
+				<li class="list-group-item"><b>Số lượng đăng kí: </b><%=@lophoc.dadangki%>/<%=@lophoc.maxdangki%></li>
+		</ul>		
+		<%= link_to '', edit_lophoc_path(@lophoc),class: "btn btn-warning glyphicon glyphicon-edit"%>
+		<%= link_to '', @lophoc, method: :delete,
 				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %>
-
-	</div>
-	<div class="col-md-2">
-
-	</div>
+	</div>	
 	<div class="col-md-6">
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Mã sinh viên</th>
-					<th>Tên sinh viên</th>
-					<th>Tên lớp sinh viên</th>
-				</tr>
-			</thead>
-			<body>
-				<%@sinhviens.each do |dk| %>
-				<tr>
-					<td><%=dk.masinhvien%></td>
-					<td><%=dk.tensinhvien%></td>
-					<td><%=dk.tenlopsinhvien%></td>
-					<td><%=link_to 'Xóa', dk, method: :delete,
-				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %></td>
-				</tr>
-				<% end %>
-			</body>
-		</table>
-		<%= will_paginate @sinhviens , :outer_window=>1,:inner_window=>1,class:"pager"%>
-		<%= page_entries_info @sinhviens %>
+		<%= render "sinhviens/list", object: @sinhviens %>
 	</div>
 </div>

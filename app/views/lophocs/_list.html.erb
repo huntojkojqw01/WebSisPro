@@ -15,7 +15,7 @@
 			<%= render @lophocs %>
 		</body>
 	</table>
-	<%= will_paginate @lophocS ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1%><br>
-	<%= page_entries_info @lophocS %>
+	<%= will_paginate @lophocs ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1%><br>
+	<%= page_entries_info @lophocs, model: "Lớp học" %>
 </div>
 

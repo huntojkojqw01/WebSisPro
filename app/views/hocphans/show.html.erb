@@ -1,26 +1,17 @@
 <%=provide(:title,"Thông tin học phần")%>
-<div class="row">
-	<div class="col-md-4">
-
-	</div>
-	<div class="col-md-4" style="background-color:#F6D8CE; font-size:20px;">
-		<div class="container">
-			<ul class="list-group">
-				<li><b>Mã học phần: </b><%=@hocphan.mahocphan%></li>
-				<li><b>Tên học phần: </b><%=@hocphan.tenhocphan%></li>
-				<li><b>Tín chỉ: </b><%=@hocphan.tinchi%></li>
-				<li><b>Tín chỉ học phí: </b><%=@hocphan.tinchihocphi%></li>
-				<li><b>Trọng số: </b><%=(1-@hocphan.trongso).round(1)%>-<%=@hocphan.trongso%></li>
-				<li><b>Khoa viện: </b><%=@hocphan.tenkhoavien%></li>
-			</ul>
-		</div>
-
-		<%=link_to "Chỉnh sửa thông tin học phần",edit_hocphan_path(@hocphan)%><br>
-		<%= link_to ' ', @hocphan, method: :delete,
+<div class="row">	
+	<div class="col-md-6 col-md-offset-3">
+		<ul class="list-group">
+			<li class="list-group-item"><b>Mã học phần: </b><%=@hocphan.mahocphan%></li>
+			<li class="list-group-item"><b>Tên học phần: </b><%=@hocphan.tenhocphan%></li>
+			<li class="list-group-item"><b>Tín chỉ: </b><%=@hocphan.tinchi%></li>
+			<li class="list-group-item"><b>Tín chỉ học phí: </b><%=@hocphan.tinchihocphi%></li>
+			<li class="list-group-item"><b>Trọng số: </b><%=(1-@hocphan.trongso).round(1)%>-<%=@hocphan.trongso%></li>
+			<li class="list-group-item"><b>Khoa viện: </b><%=@hocphan.tenkhoavien%></li>
+		</ul>		
+		<%=link_to "Sửa",edit_hocphan_path(@hocphan),class: "btn btn-warning"%>
+		<%=link_to '', @hocphan, method: :delete,
 				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %>
 
-	</div>
-	<div class="col-md-4">
-
-	</div>
+	</div>	
 </div>

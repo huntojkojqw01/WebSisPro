@@ -4,10 +4,10 @@
 		<b>Tên khoa viện: </b> <%=@khoavien.tenkhoavien%><br>
 		<b>Địa điểm: </b> <%=@khoavien.diadiem%><br>
 		<b>Số điện thoại: </b> <%=@khoavien.sodienthoai%><br>
-		<ul >
-			<li><button id="sinhviens" class="btn btn-lg btn-primary" khoavien_id= "<%=@khoavien.id%>">Danh sách sinh viên</button></li>
-			<li><button id="hocphans" class="btn btn-lg btn-success" khoavien_id= "<%=@khoavien.id%>">Danh sách học phần</button></li>
-			<li><button id="giaoviens" class="btn btn-lg btn-info" khoavien_id= "<%=@khoavien.id%>">Danh sách giáo viên</button></li>
+		<ul class="list-group">
+			<li class="list-group-item"><button id="sinhviens" class="btn btn-primary" khoavien_id= "<%=@khoavien.id%>">Danh sách sinh viên</button></li>
+			<li class="list-group-item"><button id="hocphans" class="btn btn-success" khoavien_id= "<%=@khoavien.id%>">Danh sách học phần</button></li>
+			<li class="list-group-item"><button id="giaoviens" class="btn btn-info" khoavien_id= "<%=@khoavien.id%>">Danh sách giáo viên</button></li>
 		</ul>
 	</div>
 	<div class="col-md-8" id="show">

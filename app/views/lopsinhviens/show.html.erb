@@ -1,41 +1,16 @@
 <%=provide(:title,"Thông tin lớp sinh viên")%>
 <div class="row">
 	<div class="col-md-4" style="background-color:#F6D8CE; font-size:20px;">
-		<div class="container">
-			<ul class="list-group">
-				<li><b>Tên lớp sinh viên: </b><%=@lopsinhvien.tenlopsinhvien%></li>
-				<li><b>Giáo viên: </b><%=@lopsinhvien.tengiaovien%></li>
-				<li><b>Khóa học: </b><%=@lopsinhvien.khoahoc%></li>
-				<li><b>Khoa viện: </b><%=@lopsinhvien.tenkhoavien%></li>
-			</ul>
-		</div>
-		<%=link_to " Edit ",edit_lopsinhvien_path(@lopsinhvien)%>
-	</div>
-	<div class="col-md-2">
-
-	</div>
-	<div class="col-md-6">
-	
-	
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th>Mã sinh viên</th>
-					<th>Tên sinh viên</th>
-					<th>Ngày sinh</th>
-				</tr>
-			</thead>
-			<body>
-				<%@sinhviens.each do |sv| %>
-				<tr>
-					<td><%=link_to sv.masinhvien, sv%></td>
-					<td><%=sv.tensinhvien%></td>
-					<td><%=sv.ngaysinh%></td>
-				</tr>
-				<% end %>
-			</body>
-		</table>
-	</div>
-	
+		<ul class="list-group">
+			<li class="list-group-item"><b>Tên lớp sinh viên: </b><%=@lopsinhvien.tenlopsinhvien%></li>
+			<li class="list-group-item"><b>Giáo viên: </b><%=@lopsinhvien.tengiaovien%></li>
+			<li class="list-group-item"><b>Khóa học: </b><%=@lopsinhvien.khoahoc%></li>
+			<li class="list-group-item"><b>Khoa viện: </b><%=@lopsinhvien.tenkhoavien%></li>
+		</ul>
+		<%=link_to '',edit_lopsinhvien_path(@lopsinhvien),class: "btn btn-warning glyphicon glyphicon-edit"%>
+	</div>	
+	<div class="col-md-8">
+		<%= render "sinhviens/list", object: @sinhviens %>
+	</div>	
 </div>
 
