@@ -30,11 +30,8 @@
 					<%= f.submit "Thêm sinh viên mới",class: "btn btn-primary"%>
 				</div>
 		<% end %>
-	</div>
-	<div class="col-md-2">
-
-	</div>
-	<div class="col-md-4">
+	</div>	
+	<div class="col-md-4 col-md-offset-2">
 		<h3>Nhập từ file CSV </h3>
 	  	<%= form_tag import_sinhviens_path, multipart: true do %>
 	    <%= file_field_tag :file %>

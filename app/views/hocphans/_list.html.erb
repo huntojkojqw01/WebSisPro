@@ -10,9 +10,9 @@
 				<th>Khoa viện</th>
 			</tr>
 		</thead>
-		<body>
+		<tbody>
 			<%= render @hocphans %>
-		</body>
+		</tbody>
 	</table>	
 	<%= will_paginate @hocphans ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1 %>
 	<%= page_entries_info @hocphans, model: "Học phần" %><br>

@@ -62,7 +62,7 @@
         <a>Thông tin cá nhân
         <span class="caret"></span></a>
         <ul class="submenu" >
-          <li><%= link_to 'Chương trình đào tạo',chuongtrinhdaotao_sinhviens_path %></li>
+          <li><%= link_to 'Chương trình đào tạo',chuongtrinhdaotao_path(@current_sinhvien.lopsinhvien_id) %></li>
           <li><%= link_to 'Bảng điểm cá nhân',bangdiem_sinhviens_path %></li>
           <li><%=link_to "Thời khóa biểu",thoikhoabieu_sinhviens_path %></li>
         </ul>
@@ -71,8 +71,8 @@
         <a>Đăng kí học tập
         <span class="caret"></span></a>
         <ul class="submenu" >
-          <li><%= link_to 'Đăng kí lớp học',dangkilophoc_sinhviens_path if mo_dangki_lophoc? %></li>
-          <li><%= link_to 'Đăng kí học phần',dangkihocphan_sinhviens_path if mo_dangki_hocphan? %></li>
+          <li><%= link_to 'Đăng kí lớp học',dangkilophoc_path(@current_sinhvien.id) if mo_dangki_lophoc? %></li>
+          <li><%= link_to 'Đăng kí học phần',dangkihocphan_path(@current_sinhvien.id) if mo_dangki_hocphan? %></li>
           <% if current_hocki %>
           <li><%=link_to 'Tìm thời khóa biểu',duyet_sinhviens_path%></li>
           <%end%>
@@ -84,7 +84,7 @@
         <ul class="submenu" >
           <li><%= link_to 'Sinh viên',search_sinhviens_path %></li>
           <li><%= link_to 'Sinh viên đăng kí học',svdkh_sinhviens_path %></li>          
-          <li><%= link_to 'Học phần',_search_hocphans_path %></li>
+          <li><%= link_to 'Học phần',search_hocphans_path %></li>
           <li><%= link_to 'Lớp học',search_lophocs_path %></li>
         </ul>
         </li> 

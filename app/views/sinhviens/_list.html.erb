@@ -8,9 +8,9 @@
 				<th>Tên lớp sinh viên</th>
 			</tr>
 		</thead>
-		<body>
+		<tbody>
 			<%= render @sinhviens %>
-		</body>
+		</tbody>
 		</table>
 	<%= will_paginate @sinhviens ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1%>
 	<%= page_entries_info @sinhviens, model: 'Sinh Viên'%>

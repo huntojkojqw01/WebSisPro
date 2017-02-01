@@ -1,27 +1,55 @@
 class DangkilophocsController < ApplicationController
 	include ApplicationHelper
 	before_action :logged_in_user
-	before_action :is_admin, only: [:edit,:update,:import]
-	before_action :chinh_chu, only: [:new,:create,:destroy]
-	before_action :set_x, only: [:destroy]
-	before_action :not_permit, only: [:new,:create]
+	before_action :is_admin, only: [:new,:edit,:update,:import]
+	before_action :chinh_chu, only: [:show,:create,:destroy]
+	before_action :set_x, only: [:update,:destroy]
+	before_action :not_permit, only: [:new,:create]	
 	def index
-		@selected=params.permit(:malophoc,:masinhvien)	
-		@dklhs=Dangkilophoc.joins({lophoc: :hocphan},:sinhvien)
-		.where("malophoc like ? and masinhvien like ?","%#{@selected[:malophoc]}%","%#{@selected[:masinhvien]}%")
-		.order("malophoc")
-		.select("dangkilophocs.*","malophoc","masinhvien","trongso")
-		.paginate(page: params[:page],:per_page=>10)
+		if params[:hocki_id]&&params[:hocki_id]!=''
+			@dklhs=Dangkilophoc.joins({lophoc: :hocphan},:sinhvien)
+				.where("hocki_id=? and malophoc like ? and masinhvien like ?",params[:hocki_id],"%#{params[:malophoc]}%","%#{params[:masinhvien]}%")
+				.order("malophoc")
+				.select("dangkilophocs.*","malophoc","masinhvien","trongso")
+				.paginate(page: params[:page],:per_page=>10)
+		else	
+			@dklhs=Dangkilophoc.joins({lophoc: :hocphan},:sinhvien)
+				.where("malophoc like ? and masinhvien like ?","%#{params[:malophoc]}%","%#{params[:masinhvien]}%")
+				.order("malophoc")
+				.select("dangkilophocs.*","malophoc","masinhvien","trongso")
+				.paginate(page: params[:page],:per_page=>10)
+		end
 	end	
 	def new		
 		@dangkilophoc = Dangkilophoc.new			
 	end
 	def show		
-		unless @dangkilophoc=Dangkilophoc.joins({lophoc: :hocphan},:sinhvien)
-									.select("dangkilophocs.*","malophoc","tensinhvien")
-									.find_by_id(params[:id])																	
-			flash[:warning]="Không tìm thấy dữ liệu."
+		@sinhvien=Sinhvien.find_by_id(params[:id])
+		unless @sinhvien && @sinhvien==@current_sinhvien
+			flash[:info]="Không phải chính chủ"
 			redirect_to root_url
+		else		
+			if mo_dangki_lophoc?						
+				if params[:khoavien_id]&&params[:khoavien_id]!=""
+					@lophocs=@hocki_modangkilophoc.lophocs.joins(:hocphan).left_outer_joins(:dangkilophocs)
+							.where("khoavien_id = ? and malophoc like ? and mahocphan like ?",params[:khoavien_id],"%#{params[:malophoc]}%","%#{params[:mahocphan]}%")
+							.group(:id,"mahocphan","tenhocphan")
+							.select("lophocs.*","mahocphan","tenhocphan","count(dangkilophocs.id) as num_of_dklhs")
+							.paginate(page: params[:page],:per_page=>10)			
+				else
+					@lophocs=@hocki_modangkilophoc.lophocs.joins(:hocphan).left_outer_joins(:dangkilophocs)
+							.where("malophoc like ? and mahocphan like ?","%#{params[:malophoc]}%","%#{params[:mahocphan]}%")
+							.group(:id,"mahocphan","tenhocphan")
+							.select("lophocs.*","mahocphan","tenhocphan","count(dangkilophocs.id) as num_of_dklhs")
+							.paginate(page: params[:page],:per_page=>10)
+				end					
+				@registeds=@sinhvien.dangkilophocs.joins(lophoc: :hocphan)
+							.where("hocki_id=?",@hocki_modangkilophoc.id)							
+							.select("dangkilophocs.*","malophoc","thoigian","diadiem","mahocphan","tenhocphan","tinchi","tinchihocphi","hesohocphi*tinchihocphi as tongphi")
+			else
+				flash[:info]="Không có học kì nào mở đăng kí"
+				redirect_to root_url
+			end			
 		end							
 	end
 	def edit		
@@ -34,62 +62,25 @@ class DangkilophocsController < ApplicationController
 	end
 	def destroy
 		@dangkilophoc.destroy
-		flash.now[:info]= 'Đã xóa .'
-		redirect_to (:back)
+		flash[:info]= 'Đã xóa.'
+		redirect_back fallback_location: root_path
 	end
 	def update
-		pars=update_params
-		if @dangkilophoc=Dangkilophoc.joins({lophoc: :hocphan},:sinhvien)
-									.select("dangkilophocs.*","trongso","hocphan_id","sinhvien_id")
-									.find_by_id(params[:id])									
-			tmp=tinhDiem(pars[:diemquatrinh],pars[:diemthi],@dangkilophoc.trongso)		
-			pars[:diemso]=tmp[0]
-			pars[:diemchu]=tmp[1]			
-			pars[:hesohocphi]=Dangkilophoc.joins(:lophoc).where("hocphan_id=? and sinhvien_id=?",@dangkilophoc.hocphan_id,@dangkilophoc.sinhvien_id).count+1					
-			if @dangkilophoc.update(pars)
-			      		flash[:info]='Đã cập nhật .'
-			      		redirect_to dangkilophocs_path	        	
-			else
-			    		flash.now[:danger]='Có lỗi khi cập nhật .'
-			       		render 'edit'
-			end		   
-		else																	
-			flash[:warning]="Không tìm thấy dữ liệu."
-			redirect_to root_url
-		end					    
+		if @dangkilophoc.update(update_params)
+			flash[:info]='Đã cập nhật.'				        	
+		else
+			flash[:danger]='Thất bại: '+@dangkilophoc.errors.full_messages.join(',')
+		end
+		redirect_back fallback_location: root_path					    
   	end
 	def create
-		pars=create_params		
-		if pars							
-				sinhvien=Sinhvien.find_by_id(pars[:sinhvien_id])
-				lophoc=Lophoc.find_by_id(pars[:lophoc_id])
-				if sinhvien && lophoc			
-					hocphan=lophoc.hocphan				
-					pars[:hesohocphi]=sinhvien.lophocs.where("hocphan_id=?",hocphan.id).count+1					
-						
-						@dangkilophoc=Dangkilophoc.new(pars)
-						r=dangkilophocOk(@dangkilophoc)
-						if r.first
-							if @dangkilophoc.save
-						      	flash[:success]= 'Tạo mới thành công.'							      				        
-						    else
-						    	flash[:danger]= @dangkilophoc.errors.full_messages						    					        
-						    end
-						    redirect_to(:back)	
-						else
-							flash[:danger]= r.last
-							redirect_to(:back)		    			
-						end	
-				else
-					flash[:warning]= 'Không có sinh viên hoặc lớp học như vậy .'
-					redirect_to(:back)
-				end						
-			
-			
+		@dangkilophoc=Dangkilophoc.new(create_params)
+		if @dangkilophoc.save
+			flash[:success]= 'Tạo mới thành công.'							      				        
 		else
-			redirect_to root_url
+			flash[:danger]= 'Tạo mới thất bại: '+@dangkilophoc.errors.full_messages.join(',')					    					        
 		end
-		
+		redirect_back fallback_location: root_path		
     end    	
     def import
 	    r=Dangkilophoc.import(params[:file])
@@ -98,7 +89,7 @@ class DangkilophocsController < ApplicationController
 	    else
 			flash[:danger]= "Lỗi tại dòng thứ #{r[1]}: #{r[2]}."			
 	    end
-	    redirect_to(:back)
+	    redirect_back fallback_location: root_path
 	end	
 	private
 	def set_x
@@ -108,16 +99,24 @@ class DangkilophocsController < ApplicationController
 		end		
 	end
 	def update_params
-	    params.require(:dangkilophoc).permit(:diemquatrinh,:diemthi)
+	    pars=params.require(:dangkilophoc).permit(:diemquatrinh,:diemthi)
+	    hocphan=@dangkilophoc.lophoc.hocphan		
+		tmp=tinhDiem(pars[:diemquatrinh],pars[:diemthi],hocphan.trongso) if hocphan		
+		pars[:diemso],pars[:diemchu]=tmp[0],tmp[1]			
+		return pars		
 	end
 	def create_params
-		params.require(:dangkilophoc).permit(:sinhvien_id,:lophoc_id)
-	end
+		pars=params.require(:dangkilophoc).permit(:sinhvien_id,:lophoc_id)		
+		lophoc=Lophoc.find_by_id(pars[:lophoc_id])
+		hocphan=lophoc.hocphan	if lophoc			
+		pars[:hesohocphi]=Dangkilophoc.joins(:lophoc).where("sinhvien_id=? and hocphan_id=?",pars[:sinhvien_id],hocphan.id).count+1 if hocphan	
+		return pars
+	end	
 	def chinh_chu
     	if sinhvien? && params[:dangkilophoc]  
-        	unless current_sinhvien.id==params[:dangkilophoc][:sinhvien_id].to_i
+        	unless @current_sinhvien.id==params[:dangkilophoc][:sinhvien_id].to_i
           	flash[:danger]="Bạn không phải chính chủ !"
-          	redirect_to(root_url) 
+          	redirect_to root_url 
         	end
         end
     end	

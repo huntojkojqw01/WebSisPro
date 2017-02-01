@@ -5,11 +5,31 @@ class Lophoc < ApplicationRecord
   belongs_to :hocki
   has_many :dangkilophocs, dependent: :destroy
   has_many :sinhviens ,through: :dangkilophocs
+  validate :lophoc_validate
   validates :thoigian, presence: true, numericality: { only_integer: true ,:greater_than=>0,:message => " is empty " }
   validates :diadiem, presence: true, length: { maximum: 50}
   validates :malophoc, presence: true, length: { maximum: 10 }, uniqueness: true
   validates :maxdangki, presence: true, numericality: { only_integer: true, :greater_than=>0, :less_than_or_equal_to=>200 }
   default_scope {order(:malophoc)}
+  def lophoc_validate    
+    errors.add(:diadiem, "Lớp không có địa điểm") unless diadiem
+    errors.add(:giaovien, "Lớp học không có giáo viên") unless giaovien=Giaovien.find_by_id(giaovien_id)
+    lop=Lophoc.find_by(malophoc: malophoc)
+    if lop
+      errors.add(:lophoc,"Lớp đã có sinh viên đăng kí, không thể thay đổi một số thông tin") if (lop.diadiem!=diadiem||lop.thoigian!=thoigian||lop.hocphan_id!=hocphan_id||lop.hocki_id!=hocki_id)&&lop.dangkilophocs.count>0    
+      errors.add(:limited,"Số sinh viên đăng kí đã max, không thể thu hẹp") if lop.maxdangki>maxdangki&&lop.dangkilophocs.count>maxdangki
+    end
+    lophocs=Lophoc.where("hocki_id=? and diadiem=? and malophoc!=?",hocki_id,diadiem,malophoc)
+    lophocs.each do |lh|
+      errors.add(:diadiem,"Phòng học #{diadiem} đã được sử dụng cho lớp #{lh.malophoc}.") if lh.thoigian&thoigian>0
+    end
+    if giaovien   
+      lophocs=giaovien.lophocs.where("hocki_id=? and malophoc!=?",hocki_id,malophoc)
+      lophocs.each do |lh|
+        errors.add(:giaovien,"Giáo viên #{giaovien.tengiaovien} bị trùng lịch dạy với lớp (#{lh.malophoc}).")  if lh.thoigian&thoigian>0
+      end
+    end    
+  end    
   def self.import(file)
       dem=1
       CSV.foreach(file.path, { headers: true, :col_sep => ';' }) do |row|

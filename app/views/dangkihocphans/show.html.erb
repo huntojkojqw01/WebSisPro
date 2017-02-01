@@ -1,13 +1,78 @@
-<%=provide(:title,"Thông tin đăng kí học phần")%>
-<div class="row">
-	<div class="col-md-4">				
-		<%=link_to " Sửa ",edit_dangkihocphan_path(@dangkihocphan)%>
-		<%= link_to ' Xóa ', @dangkihocphan, method: :delete,
-				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %>
-		
+<%=provide(:title,"Đăng kí học phần")%>
+<div class="row" id="dangkihocphan">
+	<div class="col-md-7">		
+		<%=label_tag "Khoa viện"%><br>
+		<%=select_tag "khoavien_id", options_from_collection_for_select(Khoavien.all, "id", "tenkhoavien"),:include_blank=>"All"%><br>
+		<%=label_tag "Tên học phần"%><br>
+		<%=text_field_tag 'tenhocphan'%><br>
+		<%=label_tag "Mã học phần"%><br>
+		<%=text_field_tag 'mahocphan'%><br>
+		<div id="hocphan_list" sinhvien_id="<%=@sinhvien.id%>">
+		<table class="table table-stripped table-bordered">
+			<thead>
+				<tr>
+					<th>Mã học phần</th>
+					<th>Tên học phần </th>
+					<th>Tín chỉ</th>
+					<th>Tín chỉ học phí</th>
+					<th>Trọng số</th>
+					<th>Khoa viện</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%@hocphans.each do |hp| %>
+				<tr>
+					<td><%=link_to hp.mahocphan, hp%></td>
+					<td><%=hp.tenhocphan%></td>
+					<td><%=hp.tinchi%></td>
+					<td><%=hp.tinchihocphi%></td>
+					<td><%=(1-hp.trongso).round(1)%>-<%=hp.trongso%></td>
+					<td><%=hp.tenkhoavien%></td>
+					<% if @sinhvien %>
+					<td><%=link_to '',dangkihocphans_path(dangkihocphan: {:sinhvien_id=>@sinhvien.id,:hocphan_id=>hp.id,:hocki_id=>@hocki_modangkihocphan.id}),method: :post,class: "btn btn-success glyphicon glyphicon-plus"%></td>
+					<%end%>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+		<%= will_paginate @hocphans ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1%><br>
+		<%= page_entries_info @hocphans, model: "học phần"%><br>
+		</div>		
 	</div>
-	<div class="col-md-6">
-			  	
+	<div class="col-md-5">
+		<% if @registeds %>
+		<div class="col-md-12" style="text-align: center; font-size: 30px; margin-bottom: 20px;">
+			Đăng kí học phần trong học kì <%=@hocki_modangkihocphan.mahocki%>
+		</div>
+		<table class="table table-stripped table-bordered">
+			<thead>
+				<tr>
+					<th>Mã HP</th>
+					<th>Tên HP</th>
+					<th>TC</th>
+					<th colspan="2">Trọng số</th>
+				</tr>
+			</thead>
+			<body>
+				<%tongTinChi=0%>
+				<%@registeds.each do |hp| %>
+				<tr>
+					<td><%=hp.mahocphan%></td>
+					<td><%=hp.tenhocphan%></td>
+					<td><%=hp.tinchi%></td><%tongTinChi+=hp.tinchi%>
+					<td><%=(1-hp.trongso).round(1)%>-<%=hp.trongso%></td>
+					<td><%=link_to ' ',dangkihocphan_path(hp.dkhp_id), method: :delete,data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %></td>
+				</tr>
+				<% end %>
+				<tr>
+					<td colspan="2">Tổng tín chỉ</td><td><%=tongTinChi%></td>
+				</tr>
+			</body>
+		</table>
+		<%else%>
+			Chưa đăng kí học phần nào trong kì này.
+		<%end%>
 	</div>
 </div>
+
 

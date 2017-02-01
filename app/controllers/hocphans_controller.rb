@@ -1,6 +1,6 @@
 class HocphansController < ApplicationController
 	before_action :logged_in_user, except: [:index]
-	before_action :is_admin, except: [:index]
+	before_action :is_admin, except: [:index,:search]
 	before_action :set_x, only: [:edit,:update,:destroy]
 	def index		
 		if params[:khoavien_id]&&params[:khoavien_id]!=""
@@ -25,7 +25,8 @@ class HocphansController < ApplicationController
 		@hocphan = Hocphan.new
 	end
 	def show		
-		@hocphan=Hocphan.joins(:khoavien).where("hocphans.id=?",params[:id]).select("hocphans.*","tenkhoavien").first			
+		@hocphan=Hocphan.joins(:khoavien).where("hocphans.id=?",params[:id])
+				.select("hocphans.*","tenkhoavien").first			
 	end
 	def edit
 		
@@ -33,7 +34,7 @@ class HocphansController < ApplicationController
 	def destroy
 		@hocphan.destroy
 		flash[:info]= 'Đã xóa .'
-		redirect_to hocphans_path
+		redirect_back fallback_location: root_path
 		end
 	def update
 

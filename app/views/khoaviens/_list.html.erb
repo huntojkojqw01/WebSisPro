@@ -5,9 +5,9 @@
 				<th>Tên khoa viện</th><th>Địa điểm</th><th>Số điện thoại</th>
 			</tr>
 		</thead>
-		<body>
+		<tbody>
 			<%= render @khoaviens %>				
-		</body>
+		</tbody>
 	</table>
 	<%=will_paginate @khoaviens, renderer: BootstrapPagination::Rails, :outer_window=>1, :inner_window=>1 %><br>
 	<%=page_entries_info @khoaviens, model: "Khoa viện"%>

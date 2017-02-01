@@ -1,7 +1,7 @@
 class LophocsController < ApplicationController
 	include ApplicationHelper
 	before_action :logged_in_user, except: [:index]
-	before_action :is_admin, except: [:index]
+	before_action :is_admin, except: [:index,:search]
 	before_action :set_x, only: [:edit,:update,:destroy]
 	def index
 		if params[:khoavien_id]&&params[:khoavien_id]!=""
@@ -38,7 +38,7 @@ class LophocsController < ApplicationController
 		@lophoc = Lophoc.new
 	end
 	def show
-		@lophoc=Lophoc.joins(:hocphan,:giaovien,:hocki,:dangkilophocs)				
+		@lophoc=Lophoc.joins(:hocphan,:giaovien,:hocki).left_outer_joins(:dangkilophocs)				
 				.group(:id,:malophoc,:mahocphan,:tenhocphan,:tengiaovien,:mahocki)
 				.select("lophocs.*","mahocphan","tenhocphan","tengiaovien","mahocki","count(dangkilophocs.id) as dadangki")
 				.find_by_id(params[:id])
@@ -51,8 +51,7 @@ class LophocsController < ApplicationController
 				.paginate(page: params[:page],:per_page=>20)	
 		end										
 	end
-	def edit
-		
+	def edit		
 	end
 	def destroy
 		@lophoc.destroy
@@ -60,37 +59,21 @@ class LophocsController < ApplicationController
 		redirect_to lophocs_path
 		end
 	def update
-		par=x_params
-		lophoc=Lophoc.new(par)
-		r=lophocOk(lophoc)
-		if r.first			
-		    if @lophoc.update(par)
-		    	flash[:info]='Đã cập nhật .'
-		    	redirect_to @lophoc
-		    else
-		    	
-		    	render 'edit'
-		    end
-	    else
-			flash[:danger]=r.last
-		    redirect_to(:back)
-		end
+		if @lophoc.update(x_params)
+		    flash[:info]='Đã cập nhật .'
+		    redirect_to @lophoc
+		else		    	
+		    render 'edit'
+		end			    
   	end
 	def create
 		@lophoc=Lophoc.new(x_params)
-		r=lophocOk(@lophoc)
-		if r.first
-			if @lophoc.save
-		      	flash[:success]= 'Tạo mới thành công .'
-		        redirect_to @lophoc
-		    else
-		        
-		        render 'new'
-		    end
-		else
-			flash[:danger]=r.last
-		    redirect_to(:back)
-		end
+		if @lophoc.save
+		    flash[:success]= 'Tạo mới thành công .'
+		    redirect_to @lophoc
+		else		        
+		    render 'new'
+		end		
     end
     def import
 	    r=Lophoc.import(params[:file])

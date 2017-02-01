@@ -1,7 +1,7 @@
 <%=provide(:title,"Chương trình đào tạo")%>
 <div class="row">
 	<div class="col-md-9">
-			<table class="table table-striped">
+	<table class="table table-striped">
 	<thead>
 		<tr>
 			<th>Lop sinh vien</th>
@@ -9,22 +9,11 @@
 			<th>Hoc ki</th>			
 		</tr>
 	</thead>
-	<body>
-		<%@ctdts.each do |ct| %>
-		
-		<tr>
-			<td><%=ct.tenlopsinhvien%></td>
-			<td><%=ct.mahocphan%></td>
-			<td><%=ct.hocki%></td>
-			<td><%=link_to '',ct, method: :delete,
-				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %></td>
-			
-		</tr>
-		<% end %>
-	</body>
-</table>
-	</div>
-	<div class="col-md-3">
-				  	
-	</div>
+	<tbody>
+		<%= render @ctdts %>
+	</tbody>
+	</table>
+	<%= will_paginate @ctdts, renderer: BootstrapPagination::Rails, outer_window:1,inner_window:1%>
+	<%=page_entries_info @ctdts, model: "ctdt"%>
+	</div>	
 </div>

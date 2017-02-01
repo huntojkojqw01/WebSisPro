@@ -11,9 +11,9 @@
 				<th>Đã ĐK</th>
 			</tr>
 		</thead>
-		<body>
+		<tbody>
 			<%= render @lophocs %>
-		</body>
+		</tbody>
 	</table>
 	<%= will_paginate @lophocs ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1%><br>
 	<%= page_entries_info @lophocs, model: "Lớp học" %>

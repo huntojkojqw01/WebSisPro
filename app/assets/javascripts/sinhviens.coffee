@@ -23,3 +23,6 @@ $(document).on 'turbolinks:load', () ->
 	if($("#sinhvien_search").hasClass("row"))		
 		$("#khoavien_id,#masinhvien,#tensinhvien,#lopsinhvien_id").change ->
 			search("/sinhviens",sinhvien_params(),"#sinhvien_list","#results")
+	if($("#svdkh").hasClass("row"))		
+		$("#masinhvien").change ->			
+			this.form.submit()			

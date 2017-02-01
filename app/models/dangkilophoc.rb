@@ -1,13 +1,33 @@
 class Dangkilophoc < ApplicationRecord	
   	require 'csv'
   	belongs_to :sinhvien
-  	belongs_to :lophoc 
-  	validates :lophoc_id, :sinhvien_id, presence: true
-  	validates :lophoc_id, uniqueness: {scope: :sinhvien_id}
+  	belongs_to :lophoc
+  	validate :dklh_validate ,on: :create	
+  	validates :lophoc_id, uniqueness: {scope: :sinhvien_id,message: "Lớp học này đã được đăng kí rồi!"}
   	validates :diemquatrinh,:diemthi, numericality: { :greater_than_or_equal_to=>0,:less_than_or_equal_to=>10 ,:message => " :điểm số theo thang 10 nhé (0.0->10.0)" }, allow_nil: true
   	validates :diemso, numericality: { :greater_than_or_equal_to=>0,:less_than_or_equal_to=>4.5, :message => " :điểm số không hợp lệ "  }, allow_nil: true
   	validates :diemchu, format: { with: /\A[A-D,F]{1}+[+]{0,1}\z/,:message => " :điểm chữ không hợp lệ "  }, allow_nil: true
-  	
+  	def dklh_validate
+		sinhvien=Sinhvien.find_by_id(sinhvien_id)
+		errors.add(:sinhvien , "Sinh viên đã thôi học") unless sinhvien && sinhvien.trangthai		
+		lophoc=Lophoc.find_by_id(lophoc_id)
+		if lophoc
+			hocki=lophoc.hocki
+			hocphan=lophoc.hocphan
+			errors.add(:lophoc, "Lớp không có học kì") unless hocki
+			errors.add(:lophoc, "Lớp học không có học phần tồn tại") unless hocphan
+			errors.add(:hocphan, "Sinh viên chưa đăng kí học phần #{hocphan.mahocphan}") unless sinhvien.dangkihocphans.where("hocphan_id=? and hocki_id=?",hocphan.id,hocki.id).count>0
+			errors.add(:hocki, "Không phải thời điểm đăng kí lớp học cho học kì này") unless lophoc.hocki.modangkilophoc
+			errors.add(:lophoc , "Lớp học đã đầy") unless lophoc.maxdangki>lophoc.dangkilophocs.count
+			lophocs=sinhvien.lophocs.where("hocki_id=? and malophoc!=?",lophoc.hocki_id,lophoc.malophoc)
+			lophocs.each do |lh|
+				errors.add(:thoigian,"Trùng thời khóa biểu với lớp học #{lh.malophoc}") if lh.thoigian&lophoc.thoigian>0
+				errors.add(:hocphan,"Trùng học phần với lớp học đã đăng kí #{lh.malophoc}(#{lh.hocphan.mahocphan})") if lh.hocphan==lophoc.hocphan
+			end
+		else
+			errors.add(:lophoc , "Lớp học không tồn tại")
+		end		
+	end	
   	def self.import(file)
     	dem=1
     	CSV.foreach(file.path, headers: true) do |row|

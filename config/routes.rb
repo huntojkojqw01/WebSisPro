@@ -27,10 +27,7 @@ Rails.application.routes.draw do
       collection do
         post :import
         get :thoikhoabieu
-        get :bangdiem
-        get :dangkilophoc
-        get :dangkihocphan
-        get :chuongtrinhdaotao
+        get :bangdiem                      
         get :svdkh
         get :duyet
         post :duyet

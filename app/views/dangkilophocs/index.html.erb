@@ -1,31 +1,15 @@
 <%=provide(:title,"Danh sách đăng kí lớp học")%>
-<div class="row">
-	<div class="col-md-6">
+<div class="row" id="dklh_search">
+	<div class="col-md-8">
 		<h1 style="text-align: center; font-size: 30px;">Danh sách đăng kí lớp học</h1>
-		<div class="form-horizontal" style="margin-top: 20px;">
-			<%=form_tag(dangkilophocs_path,method: "GET") do %>
-				<div class="form-group">
-					<label class="control-label col-sm-4"> Mã lớp học</label>
-					<div class="col-sm-8">
-						<%=text_field_tag :malophoc,@selected[:malophoc], placeholder: "Nhập mã lớp học"%>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="control-label col-sm-4">Mã sinh viên</label>
-					<div class="col-sm-8">
-						<%=text_field_tag :masinhvien,@selected[:masinhvien], placeholder: "Nhập mã sinh viên"%>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-sm-offset-4 col-sm-8">
-						<%=submit_tag "Tìm kiếm",class: "btn btn-info glyphicon glyphicon-search"%>
-					</div>
-				</div>
-			<%end%>
-
-		</div>
-
-		<table class="table table-striped">
+		<%=label_tag "Học kì" %><br>
+		<%=select_tag :hocki_id, options_from_collection_for_select(Hocki.all,"id","mahocki"), include_blank: "All"%><br>
+		<%=label_tag "Mã lớp học" %><br>
+		<%=text_field_tag :malophoc,nil, placeholder: "Nhập mã lớp học"%><br>
+		<%=label_tag "Mã sinh viên" %><br>
+		<%=text_field_tag :masinhvien,nil, placeholder: "Nhập mã sinh viên"%><br>
+		<div id="dklh_list">
+		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
 					<th>Mã lớp học</th>
@@ -36,34 +20,19 @@
 					<th>Điểm chữ</th>
 				</tr>
 			</thead>
-			<body>
-				<%@dklhs.each do |dklh| %>				
-				<tr>
-
-					<td><%=dklh.malophoc%></td>
-					<td><%=dklh.masinhvien%></td>
-					<td><%=dklh.trongso%></td>
-					<td><%=dklh.diemquatrinh%></td>
-					<td><%=dklh.diemthi%></td>
-					<td><%=dklh.diemchu%></td>
-					<td><%=link_to 'Sửa điểm',edit_dangkilophoc_path(dklh)%></td>
-				</tr>
-				<% end %>
-			</body>
+			<tbody>
+				<%=render @dklhs %>
+			</tbody>
 		</table>
 		<%= will_paginate @dklhs ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1%><br>
-		<%= page_entries_info @dklhs %><br>
-	</div>
-	<div class="col-md-2">
-
-	</div>
+		<%= page_entries_info @dklhs, model: "đăng kí lớp học" %>
+		</div>
+	</div>	
 	<div class="col-md-4">
-
-			<h3>Cập nhật điểm từ file CSV </h3>
+		<h3>Cập nhật điểm từ file CSV </h3>
 	  	<%= form_tag import_dangkilophocs_path, multipart: true do %>
 	    <%= file_field_tag :file %>
 	    <%= submit_tag "Nạp",class: "btn btn-info" %>
 	  	<% end %>
-
 	</div>
 </div>

@@ -1,28 +1,18 @@
 <%=provide(:title,"Bảng điểm cá nhân")%>
 <div class="row">
-	<div class="col-md-7">
-		<div class="container" id="student_info">
-			<div id="student_info_label">
-				<p id="student_info_title">
-					Thông tin sinh viên
-				</p>
-			</div>
-			<div class="row" id="green_line">
-			</div>
-			<div class="container" id="student_info_board">
-				<ul class="list-group">
-					<li>Mã sinh viên: <b><%=@current_sinhvien.masinhvien%></b></li>
-					<li>Tên sinh viên: <b><%=@current_sinhvien.tensinhvien%></b></li>
-					<li>Ngày sinh: <b><%=@current_sinhvien.ngaysinh%></b></li>
-					<li>Lớp: <b><%=@current_sinhvien.lopsinhvien.tenlopsinhvien%></b></li>
-					<li>Email: <b><%=@current_sinhvien.email%></b></li>
-					<li>Trạng thái: <b><%= @current_sinhvien.trangthai ? "Học" : "Thôi học"%></b></li>
-				</ul>
-			</div>
-		</div>
-
-		<table class="table table-striped">
+	<div class="col-md-7">		
+		<ul class="list-group">
+			<li class="list-group-item" style="font-size: 30px;text-align: center;color: red"><b>Thông tin sinh viên</b></li>
+			<li class="list-group-item">Mã sinh viên: <b><%=@current_sinhvien.masinhvien%></b></li>
+			<li class="list-group-item">Tên sinh viên: <b><%=@current_sinhvien.tensinhvien%></b></li>
+			<li class="list-group-item">Ngày sinh: <b><%=@current_sinhvien.ngaysinh%></b></li>
+			<li class="list-group-item">Lớp: <b><%=@current_sinhvien.lopsinhvien.tenlopsinhvien%></b></li>
+			<li class="list-group-item">Email: <b><%=@current_sinhvien.email%></b></li>
+			<li class="list-group-item">Trạng thái: <b><%= @current_sinhvien.trangthai ? "Học" : "Thôi học"%></b></li>
+		</ul>		
+		<table class="table table-striped table-bordered">
 			<thead>
+				<tr><th colspan="8" style="font-size: 30px;text-align: center;color: blue">Các lớp đã học</th></tr>
 				<tr>
 					<th>Mã học kì</th>
 					<th>Mã học phần</th>
@@ -34,7 +24,7 @@
 					<th>Điểm chữ</th>
 				</tr>
 			</thead>
-			<body>
+			<tbody>
 				<%@lophocs.each do |lh| %>
 				<tr>
 					<td><%=lh.mahocki%></td>
@@ -48,14 +38,15 @@
 
 				</tr>
 				<% end %>
-			</body>
+			</tbody>
 		</table>
 		<%= will_paginate @lophocs ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1%><br>
 		<%= page_entries_info @lophocs %><br>
 	</div>
-	<div class="col-md-5">
-		<table class="table table-bordered">
+	<div class="col-md-5">		
+		<table class="table table-stripped table-bordered">
 			<thead>
+				<tr><th colspan="7" style="font-size: 30px;text-align: center;color: green">Kết quả đánh giá</th></tr>
 				<tr>
 					<th>Mã học kì</th>
 					<th>GPA</th>
@@ -101,6 +92,5 @@
 				<% end %>
 			</body>
 		</table>
-
 	</div>
 </div>

@@ -53,35 +53,21 @@ class HockisController < ApplicationController
 	def destroy		
 	end
 	def update
-		par=x_params
-		hocki=Hocki.new(par)
-		r=hockiOk(hocki)
-		if r.first
-	      if @hocki.update(par)
+		if @hocki.update(x_params)
 	      	flash[:info]='Đã cập nhật .'
 	        redirect_to @hocki
-	      else
-	       	render 'edit'
-	      end
 	    else
-	    	flash[:danger]=r.last
-	    	redirect_to(:back)
-	    end
+	       	render 'edit'
+	    end	    
   	end
 	def create
 		@hocki=Hocki.new(x_params)
-		r=hockiOk(@hocki)
-		if r.first
-			if @hocki.save
-		      	flash[:success]= 'Tạo mới thành công .'
-		        redirect_to @hocki
-		    else
-		        render 'new'
-		    end
+		if @hocki.save
+		    flash[:success]= 'Tạo mới thành công .'
+		   	redirect_to @hocki
 		else
-	    	flash[:danger]=r.last
-	    	redirect_to(:back)
-	    end   
+		    render 'new'
+		end		  
     end	
 	private
 	def set_x
@@ -91,6 +77,6 @@ class HockisController < ApplicationController
 		end	
 	end
 	def x_params
-	      params.require(:hocki).permit(:mahocki,:dinhmuchocphi,:bd,:kt,:modangkihocphan,:modangkilophoc)
+	    params.require(:hocki).permit(:mahocki,:dinhmuchocphi,:bd,:kt,:modangkihocphan,:modangkilophoc)
 	end
 end
