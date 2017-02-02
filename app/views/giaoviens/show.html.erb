@@ -1,20 +1,13 @@
 <%=provide(:title,"Thông tin giáo viên ")%>
-<div class="row">
-	<div class="col-md-4">		
-	</div>
-	<div class="col-md-4" style="background-color:#F6D8CE; font-size:20px;">
-		<div class="container">
-			<ul class="list-group">
-				<li><b>Mã giáo viên: </b><%=@giaovien.magiaovien%></li>
-				<li><b>Giáo viên: </b><%=@giaovien.tengiaovien%></li>
-				<li><b>Ngày sinh: </b><%=@giaovien.ngaysinh%></li>
-				<li><b>Email: </b><%=@giaovien.email%></li>
-				<li><b>Khoa viện: </b><%=@giaovien.tenkhoavien%></li>
-			</ul>
-		</div>
-		<%=link_to " Sửa ",edit_giaovien_path(@giaovien)%>
-	</div>
-	<div class="col-md-4">
-
-	</div>
+<div class="row">	
+	<div class="col-md-4 col-md-offset-4" style="background-color:#F6D8CE; font-size:20px;">
+		<ul class="list-group">
+			<li class="list-group-item"><b>Mã giáo viên: </b><%=@giaovien.magiaovien%></li>
+			<li class="list-group-item"><b>Giáo viên: </b><%=@giaovien.tengiaovien%></li>
+			<li class="list-group-item"><b>Ngày sinh: </b><%=@giaovien.ngaysinh%></li>
+			<li class="list-group-item"><b>Email: </b><%=@giaovien.email%></li>
+			<li class="list-group-item"><b>Khoa viện: </b><%=@giaovien.tenkhoavien%></li>
+		</ul>		
+		<%=link_to '',edit_giaovien_path(@giaovien),class: "btn btn-warning glyphicon glyphicon-edit"%>
+	</div>	
 </div>

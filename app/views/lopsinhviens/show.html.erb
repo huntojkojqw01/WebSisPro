@@ -5,8 +5,9 @@
 			<li class="list-group-item"><b>Tên lớp sinh viên: </b><%=@lopsinhvien.tenlopsinhvien%></li>
 			<li class="list-group-item"><b>Giáo viên: </b><%=@lopsinhvien.tengiaovien%></li>
 			<li class="list-group-item"><b>Khóa học: </b><%=@lopsinhvien.khoahoc%></li>
-			<li class="list-group-item"><b>Khoa viện: </b><%=@lopsinhvien.tenkhoavien%></li>
+			<li class="list-group-item"><b>Khoa viện: </b><%=@lopsinhvien.tenkhoavien%></li>			
 		</ul>
+		<%=link_to 'CTĐT',chuongtrinhdaotao_path(@lopsinhvien.id),class: "btn btn-success"%>
 		<%=link_to '',edit_lopsinhvien_path(@lopsinhvien),class: "btn btn-warning glyphicon glyphicon-edit"%>
 	</div>	
 	<div class="col-md-8">

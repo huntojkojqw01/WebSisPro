@@ -130,7 +130,7 @@ class DangkilophocsController < ApplicationController
 			return [4,"A+"]
 		elsif diem>=8.45
 			return [4,"A"]
-		elsif diem>=7.95
+		elsif diem>7.95
 			return [3.5,"B+"]
 		elsif diem>=6.95
 			return [3,"B"]

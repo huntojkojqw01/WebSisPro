@@ -2,7 +2,7 @@
 <div class="row" id="svdkh">
 	<div class="col-md-6">
 		<%=form_tag(svdkh_sinhviens_path,method: :get) do %>
-		<h1>Mã số sinh viên <%= text_field_tag :masinhvien,@sinhvien.masinhvien%></h1><br>
+		<h1>Mã số sinh viên <%= text_field_tag :masinhvien,@sinhvien ? @sinhvien.masinhvien : nil%></h1><br>
 		<% end %>
 		<% if @lophocs %>
 			<div style="text-align: center; font-size: 30px">

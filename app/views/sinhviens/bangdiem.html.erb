@@ -35,60 +35,49 @@
 					<td><%=lh.diemquatrinh%></td>
 					<td><%=lh.diemthi%></td>
 					<td><%=lh.diemchu%></td>
-
 				</tr>
 				<% end %>
 			</tbody>
 		</table>
 		<%= will_paginate @lophocs ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1%><br>
-		<%= page_entries_info @lophocs %><br>
+		<%= page_entries_info @lophocs , model: "lớp học"%><br>
 	</div>
 	<div class="col-md-5">		
 		<table class="table table-stripped table-bordered">
 			<thead>
-				<tr><th colspan="7" style="font-size: 30px;text-align: center;color: green">Kết quả đánh giá</th></tr>
+				<tr><th colspan="9" style="font-size: 30px;text-align: center;color: green">Kết quả đánh giá</th></tr>
+				<tr>
+					<th></th>					
+					<th colspan="4">Kết quả theo kì</th>
+					<th colspan="4">Kết quả theo khóa</th>					
+				</tr>
 				<tr>
 					<th>Mã học kì</th>
+					<th>TC đăng kí</th>
+					<th>TC đạt</th>
+					<th>TC nợ</th>
 					<th>GPA</th>
+					<th>TC đăng kí</th>
+					<th>TC đạt</th>
+					<th>TC nợ</th>
 					<th>CPA</th>
-					<th>Tín chỉ đạt</th>
-					<th>Tín chỉ đăng kí</th>
-					<th>Tín chỉ tích lũy</th>
-					<th>Tín chỉ nợ</th>
 				</tr>
 			</thead>
 			<tbody>
-				<%tcdangki=tcdat=tctichluy=cpa=gpa=tongdiem=tongdiemkhoa=0%>
-				<% if @lophocs.count>0 %>
-				<%mahockidangxet=@lophocs.first.mahocki%>
-				<%@lophocs.each do |lh| %>					
-					<% if mahockidangxet!=lh.mahocki%>
-						<tr>
-							<td><%=mahockidangxet%></td><%mahockidangxet=lh.mahocki%><%gpa=tcdat>0 ? (tongdiem/tcdat).round(2) : 0%><%tongdiemkhoa+=tongdiem%><%tongdiem=0%><%cpa=tcdangki>0 ? (tongdiemkhoa/tcdangki).round(2) : 0%>
-								<%tctichluy+=tcdat%>
-							<td><%=gpa%></td><%gpa=0%>
-							<td><%=cpa%></td>
-							<td><%=tcdat%></td><%tcdat=0%>
-							<td><%=tcdangki%></td>
-							<td><%=tctichluy%></td>
-							<td><%=tcdangki-tctichluy%></td>
-						</tr>
-					<%else%>
-					<%end%>
-					<%tcdangki+=lh.tinchi%>
-					<%tcdat+=lh.tinchi if (lh.diemquatrinh || lh.diemthi)&&lh.diemso>=1.0%>
-					<%tongdiem+=lh.tinchi*lh.diemso if lh.diemso%>
-				<% end %>
-				<tr>
-					<td><%=mahockidangxet%></td><%gpa=tcdat>0 ? (tongdiem/tcdat).round(2) : 0%><%tongdiemkhoa+=tongdiem%><%tongdiem=0%><%cpa=tcdangki>0 ? (tongdiemkhoa/tcdangki).round(2) : 0%>
-								<%tctichluy+=tcdat%>
-					<td><%=gpa%></td>
-					<td><%=cpa%></td>
-					<td><%=tcdat%></td>
-					<td><%=tcdangki%></td>
-					<td><%=tctichluy%></td>
-					<td><%=tcdangki-tctichluy%></td>
-				</tr>
+				<% if @results %>
+					<%@results.each do |key,val| %>								
+					<tr>
+						<td><%=key%></td>
+						<td><%=val[:tcdkKI]%></td>
+						<td><%=val[:tcqKI]%></td>
+						<td><%=val[:tcdkKI]-val[:tcqKI]%></td>
+						<td><b><%=val[:gpa]%></b></td>
+						<td><%=val[:tcdkKH]%></td>
+						<td><%=val[:tcqKH]%></td>
+						<td><%=val[:tcdkKH]-val[:tcqKH]%></td>
+						<td><b><%=val[:cpa]%></b></td>
+					</tr>
+					<%end%>					
 				<% end %>
 			</body>
 		</table>

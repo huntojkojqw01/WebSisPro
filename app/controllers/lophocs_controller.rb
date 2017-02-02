@@ -6,13 +6,13 @@ class LophocsController < ApplicationController
 	def index
 		if params[:khoavien_id]&&params[:khoavien_id]!=""
 			if params[:hocki_id]&&params[:hocki_id]!=""
-				@lophocs=Lophoc.joins({hocphan: :khoavien},:dangkilophocs)
+				@lophocs=Lophoc.joins(hocphan: :khoavien).left_outer_joins(:dangkilophocs)
 				.where("khoavien_id=? and hocki_id = ? and malophoc like ? and mahocphan like ?",params[:khoavien_id],params[:hocki_id],"%#{params[:malophoc]}%","%#{params[:mahocphan]}%")
 				.group(:id,:malophoc,:mahocphan,:tenhocphan)
 				.select("lophocs.*","mahocphan","tenhocphan","count(dangkilophocs.id) as dadangki")
 				.paginate(page: params[:page],:per_page=>20)
 			else
-				@lophocs=Lophoc.joins({hocphan: :khoavien},:dangkilophocs)
+				@lophocs=Lophoc.joins(hocphan: :khoavien).left_outer_joins(:dangkilophocs)
 				.where("khoavien_id=? and malophoc like ? and mahocphan like ?",params[:khoavien_id],"%#{params[:malophoc]}%","%#{params[:mahocphan]}%")
 				.group(:id,:malophoc,:mahocphan,:tenhocphan)
 				.select("lophocs.*","mahocphan","tenhocphan","count(dangkilophocs.id) as dadangki")
@@ -20,13 +20,13 @@ class LophocsController < ApplicationController
 			end
 		else
 			if params[:hocki_id]&&params[:hocki_id]!=""
-				@lophocs=Lophoc.joins(:hocphan,:dangkilophocs)
+				@lophocs=Lophoc.joins(:hocphan).left_outer_joins(:dangkilophocs)
 				.where("hocki_id = ? and malophoc like ? and mahocphan like ?",params[:hocki_id],"%#{params[:malophoc]}%","%#{params[:mahocphan]}%")
 				.group(:id,:malophoc,:mahocphan,:tenhocphan)
 				.select("lophocs.*","mahocphan","tenhocphan","count(dangkilophocs.id) as dadangki")
 				.paginate(page: params[:page],:per_page=>20)
 			else
-				@lophocs=Lophoc.joins(:hocphan,:dangkilophocs)
+				@lophocs=Lophoc.joins(:hocphan).left_outer_joins(:dangkilophocs)
 				.where("malophoc like ? and mahocphan like ?","%#{params[:malophoc]}%","%#{params[:mahocphan]}%")
 				.group(:id,:malophoc,:mahocphan,:tenhocphan)
 				.select("lophocs.*","mahocphan","tenhocphan","count(dangkilophocs.id) as dadangki")
@@ -56,7 +56,7 @@ class LophocsController < ApplicationController
 	def destroy
 		@lophoc.destroy
 		flash[:info]= 'Đã xóa .'
-		redirect_to lophocs_path
+		redirect_to search_lophocs_path
 		end
 	def update
 		if @lophoc.update(x_params)
@@ -82,7 +82,7 @@ class LophocsController < ApplicationController
 	    else
 			flash[:danger]= "Lỗi tại dòng thứ #{r[1]}: #{r[2]}."			
 	    end
-	    redirect_to lophocs_path
+	    redirect_to search_lophocs_path
 	end	
 	private
 	def set_x

@@ -87,11 +87,18 @@ class SinhviensController < ApplicationController
   	end
 	def create
 		@sinhvien=Sinhvien.new(x_params)
-		if @sinhvien.save
-			user=User.create!(name:@sinhvien[:masinhvien],password:"123456",password_confirmation:"123456",loai:"sv")
-			flash[:success]= 'Tạo mới thành công .'
-			redirect_to @sinhvien
+		user=User.create(name:@sinhvien[:masinhvien],password:"123456",password_confirmation:"123456",loai:"sv")
+		if user.id
+			@sinhvien[:user_id]=user.id			
+			if @sinhvien.save				
+				flash[:success]= 'Tạo mới thành công .'
+				redirect_to @sinhvien
+			else
+				user.destroy
+				render 'new'
+			end
 		else
+			flash[:danger]= 'Không tạo được tài khoản.'
 			render 'new'
 		end		    
 	end
@@ -112,11 +119,61 @@ class SinhviensController < ApplicationController
 					.where("hocki_id=? and sinhvien_id=?",params[:hocki_id],@current_sinhvien.id)		
 		end		
 	end
-	def bangdiem
-		@lophocs=Lophoc.joins(:hocphan,:hocki,:dangkilophocs)
+	def bangdiem		
+		@alllophocs=Lophoc.joins(:hocphan,:hocki,:dangkilophocs)
 				.where("sinhvien_id=?",@current_sinhvien.id)
 				.select("lophocs.*","mahocki","diemquatrinh","diemthi","diemso","diemchu","mahocphan","tenhocphan","tinchi")
-				.reorder(:hocki_id).paginate(page: params[:page],:per_page=>10)
+				.reorder(:hocki_id)
+		@lophocs=@alllophocs.paginate(page: params[:page],:per_page=>15)		
+		@results={}
+		hocphans={}
+		@alllophocs.each do |lh|
+			if @results.key? lh.mahocki
+				@results["#{lh.mahocki}"][:tcdkKI]+=lh.tinchi
+				@results["#{lh.mahocki}"][:tcqKI]+=lh.diemso>0 ? lh.tinchi : 0
+				@results["#{lh.mahocki}"][:diemki]+=lh.diemso*lh.tinchi
+				if hocphans.key? lh.mahocphan
+					diemcu=	hocphans["#{lh.mahocphan}"][:diemcu]			
+					@results["#{lh.mahocki}"][:tcdkKI_thucte]+=0
+					@results["#{lh.mahocki}"][:tcqKI_thucte]+= diemcu <=0 ? lh.tinchi : 0
+					@results["#{lh.mahocki}"][:diemki_thucte]+= lh.diemso>diemcu ? (lh.diemso-diemcu)*lh.tinchi : 0
+					hocphans["#{lh.mahocphan}"][:diemcu]=lh.diemso if diemcu<lh.diemso
+				else
+					@results["#{lh.mahocki}"][:tcdkKI_thucte]+=lh.tinchi
+					@results["#{lh.mahocki}"][:tcqKI_thucte]+= lh.diemso>0 ? lh.tinchi : 0
+					@results["#{lh.mahocki}"][:diemki_thucte]+= lh.diemso*lh.tinchi
+					hocphans["#{lh.mahocphan}"]={diemcu: lh.diemso}
+				end				
+			else
+				@results["#{lh.mahocki}"]={
+					tcdkKI: lh.tinchi,
+					tcqKI: lh.diemso>0 ? lh.tinchi : 0,
+					diemki: lh.diemso*lh.tinchi,								
+				}
+				if hocphans.key? lh.mahocphan
+					diemcu=	hocphans["#{lh.mahocphan}"][:diemcu]			
+					@results["#{lh.mahocki}"][:tcdkKI_thucte]=0
+					@results["#{lh.mahocki}"][:tcqKI_thucte]= diemcu <=0 ? lh.tinchi : 0
+					@results["#{lh.mahocki}"][:diemki_thucte]= lh.diemso>diemcu ? (lh.diemso-diemcu)*lh.tinchi : 0
+					hocphans["#{lh.mahocphan}"][:diemcu]=lh.diemso if diemcu<lh.diemso
+				else
+					@results["#{lh.mahocki}"][:tcdkKI_thucte]=lh.tinchi
+					@results["#{lh.mahocki}"][:tcqKI_thucte]= lh.diemso>0 ? lh.tinchi : 0
+					@results["#{lh.mahocki}"][:diemki_thucte]= lh.diemso*lh.tinchi
+					hocphans["#{lh.mahocphan}"]={diemcu: lh.diemso}
+				end					
+			end							
+		end
+		tongTCdangki=tongTCqua=tongDiem=0
+		@results.each do |key,val|
+			tongDiem+=val[:diemki_thucte]
+			tongTCdangki+=val[:tcdkKI_thucte]
+			tongTCqua+=val[:tcqKI_thucte]
+			val[:gpa]=(val[:diemki]/val[:tcdkKI]).round(2)
+			val[:cpa]=(tongDiem/tongTCdangki).round(2)
+			val[:tcdkKH]=tongTCdangki
+			val[:tcqKH]=tongTCqua
+		end
 	end	
 	def svdkh		
 		if params[:masinhvien]

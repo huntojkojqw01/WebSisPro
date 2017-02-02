@@ -4,6 +4,7 @@
 		<h1>Chương trình đào tạo cho lớp sinh viên:<br> <b><%=@lopsinhvien.tenlopsinhvien%></b></h1><br> 
       	<%=label_tag "Xếp theo"%><br>
       	<%=select_tag "sort_by", options_from_collection_for_select([["hocki","Học kì"],["mahocphan","Mã học phần"],["tenhocphan","Tên học phần"],["tinchi","Số tín chỉ"]], :first, :last )%>
+      	<%=link_to '',new_chuongtrinhdaotao_path,class: 'btn btn-success glyphicon glyphicon-plus'%>
       	<div id="results" lopsinhvien_id="<%=@lopsinhvien.id%>">  
   		<table class="table table-striped table-bordered">
 			<thead>

@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'csv'
 def tinhDiem(diemquatrinh,diemthi,trongso)
   		diemquatrinh=diemquatrinh.to_f
   		diemthi=diemthi.to_f
@@ -15,7 +16,7 @@ def tinhDiem(diemquatrinh,diemthi,trongso)
 			return [4,"A+"]
 		elsif diem>=8.45
 			return [4,"A"]
-		elsif diem>=7.95
+		elsif diem>7.95
 			return [3.5,"B+"]
 		elsif diem>=6.95
 			return [3,"B"]
@@ -53,7 +54,7 @@ def convertTime(thoigian)
 		end
 		return t
 end
-
+if false
 Chuongtrinhdaotao.destroy_all
 Dangkihocphan.destroy_all
 Dangkilophoc.destroy_all
@@ -129,5 +130,52 @@ end
 		else
 		end
 end
+end
 
+if true	
+	#init CTDT
+	dem=0
+	CSV.foreach("./db/ctdt.csv",{headers: true, col_sep: ','}).with_index do |row,i|
+		dem=i+2
+		hash=row.to_hash.slice("hocki","tenlopsinhvien","mahocphan")
+		next if hash.length!=3
+		lsv=Lopsinhvien.find_by_tenlopsinhvien(hash["tenlopsinhvien"])
+		next unless lsv
+		hash["lopsinhvien_id"]=lsv.id
+		hash.except! "tenlopsinhvien"
+		hp=Hocphan.find_by_mahocphan(hash["mahocphan"])
+		next unless hp
+		hash["hocphan_id"]=hp.id
+		hash.except! "mahocphan"
+		ctdt=Chuongtrinhdaotao.new(hash)
+		if !ctdt.save
+			puts "Row: #{dem}=> #{ctdt.errors.full_messages.join(',')}"
+			break
+		end
+	end
+	puts dem
+end
+if true
+	#init DKLH
+	dem=0
+	CSV.foreach("./db/dklh.csv",{headers: true, col_sep: ','}).with_index do |row,i|
+		dem=i+2
+		hash=row.to_hash.slice("masinhvien","malophoc")
+		next if hash.length!=2
+		sv=Sinhvien.find_by_masinhvien(hash["masinhvien"])
+		next unless sv
+		hash["sinhvien_id"]=sv.id
+		hash.except! "masinhvien"
+		lh=Lophoc.find_by_malophoc(hash["malophoc"])
+		next unless lh
+		hash["lophoc_id"]=lh.id
+		hash.except! "malophoc"
+		hash["hesohocphi"]=Dangkilophoc.joins(:lophoc).where("sinhvien_id=? and hocphan_id=?",sv.id,lh.hocphan_id).count+1 if lh
+		if !dklh.save			
+			puts "Row: #{dem}=> #{dklh.errors.full_messages.join(',')}"
+			break
+		end
+	end
+	puts dem
+end
 

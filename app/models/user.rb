@@ -1,7 +1,7 @@
 class User < ApplicationRecord  
   has_one :sinhvien
   attr_accessor :remember_token
-  validates :name, presence: true, length: { maximum: 50 }
+  validates :name, presence: true, length: { maximum: 50 }, uniqueness: true
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 },allow_nil:true
   # Returns a random token.

@@ -84,9 +84,9 @@ module SessionsHelper
   def admin?    
     !current_user.nil? && current_user.loai=="ad"
   end
-  def sinhvien?
-    if current_user && current_user.loai=="sv"
-        @current_sinhvien=Sinhvien.find_by_user_id(@current_user.id) 
+  def sinhvien?    
+    if current_user && current_user.loai=="sv"       
+      @current_sinhvien=Sinhvien.find_by_user_id(@current_user.id)        
     end    
   end  
   

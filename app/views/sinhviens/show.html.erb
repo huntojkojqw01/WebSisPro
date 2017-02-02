@@ -1,25 +1,17 @@
 <%=provide(:title,"Thông tin sinh viên")%>
-<div class="row">
-	<div class="col-md-4">
-
-	</div>
-	<div class="col-md-4" style="background-color:#F6D8CE; font-size:20px;">
-		<div class="container">
-			<ul class="list-group">
-				<li><b>Mã số sinh viên: </b><%=@sinhvien.masinhvien%></li>
-				<li><b>Tên sinh viên: </b><%=@sinhvien.tensinhvien%></li>
-				<li><b>Ngày sinh: </b><%=@sinhvien.ngaysinh%></li>
-				<li><b>Lớp: </b><%=@sinhvien.tenlopsinhvien%></li>
-				<li><b>Email: </b><%=@sinhvien.email%></li>
-				<li><b>Trạng thái: </b><%= @sinhvien.trangthai ? "Học" : "Thôi học"%></li>
-			</ul>
-		</div>
+<div class="row">	
+	<div class="col-md-4 col-md-offset-4" style="background-color:#F6D8CE; font-size:20px;">
+		<ul class="list-group">
+			<li class="list-group-item"><b>Mã số sinh viên: </b><%=@sinhvien.masinhvien%></li>
+			<li class="list-group-item"><b>Tên sinh viên: </b><%=@sinhvien.tensinhvien%></li>
+			<li class="list-group-item"><b>Ngày sinh: </b><%=@sinhvien.ngaysinh%></li>
+			<li class="list-group-item"><b>Lớp: </b><%=@sinhvien.tenlopsinhvien%></li>
+			<li class="list-group-item"><b>Email: </b><%=@sinhvien.email%></li>
+			<li class="list-group-item"><b>Trạng thái: </b><%= @sinhvien.trangthai ? "Học" : "Thôi học"%></li>
+		</ul>		
 		<% if admin? %>
-			<%=link_to "Sửa thông tin",edit_sinhvien_path(@sinhvien)%><br>
-			<%= link_to ' ', @sinhvien, method: :delete,data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %>
+			<%=link_to '',edit_sinhvien_path(@sinhvien),class: "btn btn-warning glyphicon glyphicon-edit"%>
+			<%= link_to '', @sinhvien, method: :delete,data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %>
 		<%end%>
-	</div>
-	<div class="col-md-4">
-
-	</div>
+	</div>	
 </div>

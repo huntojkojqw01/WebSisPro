@@ -16,8 +16,8 @@ class Dangkilophoc < ApplicationRecord
 			hocphan=lophoc.hocphan
 			errors.add(:lophoc, "Lớp không có học kì") unless hocki
 			errors.add(:lophoc, "Lớp học không có học phần tồn tại") unless hocphan
-			errors.add(:hocphan, "Sinh viên chưa đăng kí học phần #{hocphan.mahocphan}") unless sinhvien.dangkihocphans.where("hocphan_id=? and hocki_id=?",hocphan.id,hocki.id).count>0
-			errors.add(:hocki, "Không phải thời điểm đăng kí lớp học cho học kì này") unless lophoc.hocki.modangkilophoc
+			#errors.add(:hocphan, "Sinh viên chưa đăng kí học phần #{hocphan.mahocphan}") unless sinhvien.dangkihocphans.where("hocphan_id=? and hocki_id=?",hocphan.id,hocki.id).count>0
+			#errors.add(:hocki, "Không phải thời điểm đăng kí lớp học cho học kì này") unless lophoc.hocki.modangkilophoc
 			errors.add(:lophoc , "Lớp học đã đầy") unless lophoc.maxdangki>lophoc.dangkilophocs.count
 			lophocs=sinhvien.lophocs.where("hocki_id=? and malophoc!=?",lophoc.hocki_id,lophoc.malophoc)
 			lophocs.each do |lh|
@@ -29,42 +29,35 @@ class Dangkilophoc < ApplicationRecord
 		end		
 	end	
   	def self.import(file)
-    	dem=1
-    	CSV.foreach(file.path, headers: true) do |row|
+    	dem=0
+    	CSV.foreach(file.path, headers: true).with_index do |row,i|
+    		dem=i+2
 	        dklh_hash = row.to_hash.slice("masinhvien","malophoc","diemquatrinh","diemthi")      
 	        return [false,dem,"Thiếu cột dữ liệu, cần có: masinhvien,malophoc,diemquatrinh,diemthi"] if dklh_hash.length!=4       
-	        dklh = Dangkilophoc.where("")
-	        sinhvien=Sinhvien.find_by(masinhvien: dklh_hash["masinhvien"])        
-	        return [false,dem,"Mã sinh viên không tồn tại"] if sinhvien==nil
-	        lophoc=Lophoc.find_by(malophoc: dklh_hash["malophoc"])
-	        return [false,dem,"Mã lớp học không tồn tại"] if lophoc==nil
-	        dklh = Dangkilophoc.where("sinhvien_id=? and lophoc_id=?",sinhvien.id,lophoc.id)        
+	        sinhvien=Sinhvien.find_by_masinhvien(dklh_hash["masinhvien"])        
+	        return [false,dem,"Mã sinh viên không tồn tại"] unless sinhvien
+	        lophoc=Lophoc.find_by_malophoc(dklh_hash["malophoc"])
+	        return [false,dem,"Mã lớp học không tồn tại"] unless lophoc
+	        dklhs = Dangkilophoc.where("sinhvien_id=? and lophoc_id=?",sinhvien.id,lophoc.id)        
 	        trongso=lophoc.hocphan.trongso        	
 	        dklh_hash.except!("masinhvien","malophoc") 
 			if dklh_hash["diemquatrinh"]
 	          	if dklh_hash["diemthi"]
-		          	x=Dangkilophoc.tinhDiem(dklh_hash["diemquatrinh"],dklh_hash["diemthi"],trongso)
-		          	dklh_hash["diemso"]=x[0]
-		          	dklh_hash["diemchu"]=x[1]
+		          	dklh_hash["diemso"],dklh_hash["diemchu"]=Dangkilophoc.tinhDiem(dklh_hash["diemquatrinh"],dklh_hash["diemthi"],trongso)
 		        else
 		        	dklh_hash["diemquatrinh"]=dklh_hash["diemquatrinh"].to_f
 		        end
 		    else
 		    	if dklh_hash["diemthi"]
-		          	dklh_hash["diemthi"]=dklh_hash["diemthi"].to_f
-		        else	        	
+		          	dklh_hash["diemthi"]=dklh_hash["diemthi"].to_f		        	        	
 		        end
 	        end                   
-	        if dklh.count>0          
-			    begin         
-			        dklh.first.update(dklh_hash)              
-			    rescue
-			        return [false,dem,"Lỗi thông tin khi cập nhật "]
-			    end
-	        else          
+	        if dklhs.count>0          
+			    dklh=dklhs.first
+			    return [false,dem,dklh.errors.full_messages.join(',')] unless dklh.update(dklh_hash)              
+			else          
 		        return [false,dem,"Đăng kí lớp học này không tồn tại, không thể cập nhật điểm số."]
-		    end # end if !product.nil?
-	        dem+=1        
+		    end # end if !product.nil?	        
     	end # end CSV.foreach
     	return [true,dem,""]
   	end # end self.im 
@@ -78,7 +71,7 @@ class Dangkilophoc < ApplicationRecord
 			return [4,"A+"]
 		elsif diem>=8.45
 			return [4,"A"]
-		elsif diem>=7.95
+		elsif diem>7.95 # tren sis thi tinh la >7.95 moi duoc B+
 			return [3.5,"B+"]
 		elsif diem>=6.95
 			return [3,"B"]
@@ -93,22 +86,5 @@ class Dangkilophoc < ApplicationRecord
 		else
 			return [0,"F"]
 		end
-	end
-  
-	def self.dangkilophocOk(dangkilophoc)
-		sinhvien=dangkilophoc.sinhvien
-		return [false , "Sinh vien da thoi hoc nen khong the dang ki"] unless sinhvien.trangthai		
-		lophoc=dangkilophoc.lophoc
-		hocki=lophoc.hocki
-		hocphan=lophoc.hocphan
-		return [false , "Sinh vien chua dang ki hoc phan #{hocphan.mahocphan}"] unless sinhvien.dangkihocphans.where("hocphan_id=? and hocki_id=?",hocphan.id,hocki.id).count>0
-		return [false , "Khong phai thoi diem dang ki lop cho hoc ki nay"] unless lophoc.hocki.modangkilophoc
-		return [false , "Lop hoc da day nen khong the dang ki"] unless lophoc.maxdangki>lophoc.dangkilophocs.count
-		lophocs=sinhvien.lophocs.where("hocki_id=? and malophoc!=?",lophoc.hocki_id,lophoc.malophoc)
-		lophocs.each do |lh|
-			return [false,"Trung thoi khoa bieu voi lop hoc #{lh.malophoc}"] if lh.thoigian&lophoc.thoigian>0
-			return [false,"Trung hoc phan da dang ki voi lop hoc #{lh.malophoc}(#{lh.hocphan.mahocphan})"] if lh.hocphan==lophoc.hocphan
-		end
-		return [true,""]
-	end
+	end  
 end

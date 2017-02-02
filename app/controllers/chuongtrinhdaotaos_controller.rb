@@ -8,7 +8,7 @@ class ChuongtrinhdaotaosController < ApplicationController
 		.paginate(page: params[:page],per_page: 20)		
 	end	
 	def new
-		@chuongtrinhdaotao = Chuongtrinhdaotao.new
+		@chuongtrinhdaotao = Chuongtrinhdaotao.new		
 	end
 	def show
 		@lopsinhvien=Lopsinhvien.find_by_id(params[:id])				
@@ -23,8 +23,7 @@ class ChuongtrinhdaotaosController < ApplicationController
 			.paginate(page: params[:page],per_page: 20)
 		end						
 	end
-	def edit
-		
+	def edit		
 	end
 	def destroy
 		@chuongtrinhdaotao.destroy

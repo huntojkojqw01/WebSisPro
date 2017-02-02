@@ -86,7 +86,7 @@ module ApplicationHelper
                         
                 end#ds.each
                 return array                  
-          end # to_tkb      	
+    end # to_tkb      	
 	def tietHoc(time)
 		g=[[405, 450], [455, 500], [510, 555], [560, 605], [615, 660], [665, 710], [750, 795], [800, 845], [855, 900], [905, 950], [960, 1005], [1010, 1055]]
 		tmp=time.hour*60+time.min
@@ -181,7 +181,6 @@ module ApplicationHelper
 		end until goc==i
 		return [false,0,0,0]
 	end
-	
 	def testTiet(lophocs)			
 		x=tietHoc(Time.now)
 		wait=10080

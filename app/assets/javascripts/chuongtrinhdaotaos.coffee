@@ -4,4 +4,4 @@
 $(document).on 'turbolinks:load', () ->
 	if($("#show_ctdts").hasClass("row"))
 		$("#sort_by").change ->			
-			search("/chuongtrinhdaotaos/"+$("#results").attr("lopsinhvien_id"),this.id+"="+this.value,"table","#results")
+			search("/chuongtrinhdaotaos/"+$("#results").attr("lopsinhvien_id"),this.id+"="+this.value,"#results","#results")
