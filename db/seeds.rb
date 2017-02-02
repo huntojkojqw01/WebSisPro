@@ -54,7 +54,7 @@ def convertTime(thoigian)
 		end
 		return t
 end
-if true
+if false
 Chuongtrinhdaotao.destroy_all
 Dangkihocphan.destroy_all
 Dangkilophoc.destroy_all
@@ -132,7 +132,7 @@ end
 end
 end
 
-if false	
+if true	
 	#init CTDT
 	dem=0
 	CSV.foreach("./db/ctdt.csv",{headers: true, col_sep: ','}).with_index do |row,i|
