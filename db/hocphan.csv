@@ -1,0 +1,97 @@
+mahocphan,tenhocphan,trongso,tinchi,tinchihocphi,tenkhoavien
+MIL1110,Đường lối quân sự,0.7,0,3,Giáo dục Quốc phòng - An ninh
+MIL1120,Công tác quốc phòng-An ninh,0.7,0,3,Giáo dục Quốc phòng - An ninh
+MIL1130,QS chung và KCT bắn súng AK,0.7,0,5,Giáo dục Quốc phòng - An ninh
+SSH1050,Tư tưởng HCM,0.8,2,2,Lý luận chính trị
+SSH1110,Những NLCB của CNML I,0.8,2,3,Lý luận chính trị
+SSH1120,Những NLCB của CNML II,0.7,3,3,Lý luận chính trị
+SSH1130,Đường lối CM của ĐCSVN,0.8,3,3,Lý luận chính trị
+SSH1170,Pháp luật đại cương,0.7,2,2,Lý luận chính trị
+FL3115,Tiếng Anh VN VI,0.7,2,3,Ngoại ngữ
+ET2011,Kỹ thuật điện tử,0.7,3,4.5,Điện tử viễn thông
+IT3230,Lập trình C cơ bản,0.7,2,6,Công nghệ thông tin và truyền thông
+IT3250,Đạo đức máy tính,0.7,2,2,Công nghệ thông tin và truyền thông
+IT3312,Cấu trúc dữ liệu và giải thuật,0.7,2,2,Công nghệ thông tin và truyền thông
+IT4592,Lý thuyết thông tin,0.7,2,2,Công nghệ thông tin và truyền thông
+JP1110,Tiếng Nhật 1,0.7,5,5,Ngoại ngữ
+JP1120,Tiếng Nhật 2,0.7,5,5,Ngoại ngữ
+JP1131,Tiếng Nhật 3,0.7,4,4,Ngoại ngữ
+JP2110,Tiếng Nhật 4,0.7,2,2,Ngoại ngữ
+JP2121,Tiếng Nhật 5,0.7,4,4,Ngoại ngữ
+JP2131,Tiếng Nhật 6,0.7,4,4,Ngoại ngữ
+JP2210,Tiếng Nhật 7,0.7,2,2,Ngoại ngữ
+JP2220,Tiếng Nhật 8,0.7,1,1,Ngoại ngữ
+MI1032,Math III,0.7,3,4,Toán tin ứng dụng
+CH1010,Hoá học đại cương,0.5,3,4.5,Kĩ thuật hóa học
+EE2010,Kỹ thuật điện,0.7,3,4.5,Điện
+IT2110,Nhập môn CNTT và TT,0.8,2,2,Công nghệ thông tin và truyền thông
+IT2120,Kiến thức máy tính,0.7,2,4,Công nghệ thông tin và truyền thông
+IT3022,Toán rời rạc,0.7,2,2,Công nghệ thông tin và truyền thông
+IT3072,Hệ điều hành,0.7,2,2,Công nghệ thông tin và truyền thông
+IT3082,Mạng máy tính,0.7,2,2,Công nghệ thông tin và truyền thông
+IT3102,Lý thuyết và ngôn ngữ hướng đối tượng,0.7,3,5,Công nghệ thông tin và truyền thông
+IT3210,C Programming Language,0.7,2,2,Công nghệ thông tin và truyền thông
+IT3220,C Programming (Introduction),0.7,2,6,Công nghệ thông tin và truyền thông
+IT3240,Lập trình C (nâng cao),0.7,2,6,Công nghệ thông tin và truyền thông
+IT3260,Lý thuyết mạch logic,0.7,2,2,Công nghệ thông tin và truyền thông
+IT3270,Thực hành mạch logic,0.7,2,4,Công nghệ thông tin và truyền thông
+IT3280,Thực hành kiến trúc máy tính,0.7,2,6,Công nghệ thông tin và truyền thông
+IT3282,Kiến trúc máy tính,0.7,2,2,Công nghệ thông tin và truyền thông
+IT3290,Thực hành cơ sở dữ liệu,0.7,2,4,Công nghệ thông tin và truyền thông
+IT3292,Cơ sở dữ liệu,0.7,2,2,Công nghệ thông tin và truyền thông
+IT3322,Xây dựng chương trình dịch,0.7,2,2,Công nghệ thông tin và truyền thông
+IT3402,Hệ thống thông tin trên Web,0.7,2,2,Công nghệ thông tin và truyền thông
+IT4012,Bảo mật thông tin,0.7,2,2,Công nghệ thông tin và truyền thông
+IT4042,Trí tuệ nhân tạo,0.7,2,2,Công nghệ thông tin và truyền thông
+IT4062,Thực hành Lập trình mạng,0.7,2,6,Công nghệ thông tin và truyền thông
+IT4082,Kỹ thuật phần mềm,0.7,2,2,Công nghệ thông tin và truyền thông
+IT4132,Lập trình hệ thống,0.7,2,2,Công nghệ thông tin và truyền thông
+IT4152,Kiến trúc phần mềm mạng,0.7,2,2,Công nghệ thông tin và truyền thông
+IT4182,Thực hành xây dựng chương trình dịch,0.7,2,6,Công nghệ thông tin và truyền thông
+IT4212,Hệ thống thời gian thực,0.7,2,2,Công nghệ thông tin và truyền thông
+IT4262,Bảo mật mạng máy tính,0.7,2,2,Công nghệ thông tin và truyền thông
+IT4272,Hệ thống máy tinh,0.7,2,2,Công nghệ thông tin và truyền thông
+IT4312,Mô hình hóa dữ liệu,0.7,2,2,Công nghệ thông tin và truyền thông
+IT4362,Kỹ nghệ tri thức,0.7,2,2,Công nghệ thông tin và truyền thông
+IT4442,Giao diện người dùng,0.7,2,2,Công nghệ thông tin và truyền thông
+IT4492,Lập trình cấu trúc,0.7,2,2,Công nghệ thông tin và truyền thông
+IT4542,Quản trị phát triển phần mềm,0.7,2,2,Công nghệ thông tin và truyền thông
+IT4552,Thực hành Lập trình Web,0.7,2,6,Công nghệ thông tin và truyền thông
+IT4612,Hệ phân tán,0.7,2,2,Công nghệ thông tin và truyền thông
+IT4652,Mạng Internet,0.7,2,2,Công nghệ thông tin và truyền thông
+IT4682,Truyền thông đa phương tiện,0.7,2,2,Công nghệ thông tin và truyền thông
+IT4944,Hệ điều hành và quản trị mạng Linux theo chuẩn kỹ năng ITSS,0.7,2,6,Công nghệ thông tin và truyền thông
+IT4945,Phát triển phần mềm theo chuẩn kỹ năng ITSS,0.7,2,6,Công nghệ thông tin và truyền thông
+IT4946,Linux hệ nhúng theo chuẩn kỹ năng ITSS,0.7,2,6,Công nghệ thông tin và truyền thông
+IT4947,Quản trị dự án hệ nhúng theo chuẩn kỹ năng ITSS,0.7,2,6,Công nghệ thông tin và truyền thông
+IT4948,Thực tập công nghiệp,0.7,2,4,Công nghệ thông tin và truyền thông
+IT5021,Nghiên cứu tốt nghiệp 1,1,2,2,Công nghệ thông tin và truyền thông
+IT5022,Nghiên cứu tốt nghiệp 2,1,2,2,Công nghệ thông tin và truyền thông
+JP3110,Tiếng Nhật chuyên ngành 1,0.7,2,2,Ngoại ngữ
+JP3120,Tiếng Nhật chuyên ngành 2,0.7,2,2,Ngoại ngữ
+JP3130,Tiếng Nhật chuyên ngành 3,0.7,2,2,Ngoại ngữ
+MI1012,Math I,0.7,3,4,Toán tin ứng dụng
+MI1022,Math II,0.7,3,4,Toán tin ứng dụng
+MI1042,Math IV,0.7,3,4,Toán tin ứng dụng
+MI2027,Lý thuyết xác suất,0.7,2,2,Toán tin ứng dụng
+PE1010,Giáo dục thể chất A,0.8,0,1.5,Giáo dục thể chất
+PE1020,Giáo dục thể chất B,0.8,0,1.5,Giáo dục thể chất
+PE1030,Giáo dục thể chất C,0.8,0,1.5,Giáo dục thể chất
+PH1017,Vật lý,0.7,4,4,Vật lí kĩ thuật
+PH1027,Vật lý,0.7,4,4,Vật lí kĩ thuật
+IT5030,Nghiên cứu tốt nghiệp 3,1,2,2,Công nghệ thông tin và truyền thông
+IT5120,Đồ án tốt nghiệp,0.5,9,22.5,Công nghệ thông tin và truyền thông
+PE2011,Bóng đá I,0.8,0,1.5,Giáo dục thể chất
+PE2012,Bóng chuyền I,0.8,0,1.5,Giáo dục thể chất
+PE2013,Bóng rổ I,0.8,0,1.5,Giáo dục thể chất
+PE2014,Bóng ném I,0.8,0,1.5,Giáo dục thể chất
+PE2015,Aerobic I,0.8,0,1.5,Giáo dục thể chất
+PE2016,Cầu lông I,0.8,0,1.5,Giáo dục thể chất
+PE2017,Bóng bàn I,0.8,0,1.5,Giáo dục thể chất
+PE2021,Bóng đá II,0.8,0,1.5,Giáo dục thể chất
+PE2022,Bóng chuyền II,0.8,0,1.5,Giáo dục thể chất
+PE2023,Bóng rổ II,0.8,0,1.5,Giáo dục thể chất
+PE2024,Bóng ném II,0.8,0,1.5,Giáo dục thể chất
+PE2025,Aerobic II,0.8,0,1.5,Giáo dục thể chất
+PE2026,Cầu lông II,0.8,0,1.5,Giáo dục thể chất
+PE2027,Bóng bàn II,0.8,0,1.5,Giáo dục thể chất
