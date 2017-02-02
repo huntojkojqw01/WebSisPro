@@ -155,7 +155,7 @@ if false
 	end
 	puts dem
 end
-if true
+if false
 	#init DKLH
 	dem=0
 	CSV.foreach("./db/dklh.csv",{headers: true, col_sep: ','}).with_index do |row,i|
