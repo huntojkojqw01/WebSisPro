@@ -132,7 +132,7 @@ end
 end
 end
 
-if true	
+if false	
 	#init CTDT
 	dem=0
 	CSV.foreach("./db/ctdt.csv",{headers: true, col_sep: ','}).with_index do |row,i|
@@ -155,7 +155,7 @@ if true
 	end
 	puts dem
 end
-if false
+if true
 	#init DKLH
 	dem=0
 	CSV.foreach("./db/dklh.csv",{headers: true, col_sep: ','}).with_index do |row,i|
