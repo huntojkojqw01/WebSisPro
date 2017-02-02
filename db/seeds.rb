@@ -77,9 +77,9 @@ i=100
 end
 @hk=Hocki.count
 @ihk=Hocki.first.id
-1.upto(10) do |i|
-	Khoavien.create(tenkhoavien:"Khoa viện #{i}",sodienthoai:Faker::PhoneNumber.phone_number,diadiem:" C#{rand(10)}-#{rand(400)+101}")
-end
+#1.upto(10) do |i|
+#	Khoavien.create(tenkhoavien:"Khoa viện #{i}",sodienthoai:Faker::PhoneNumber.phone_number,diadiem:" C#{rand(10)}-#{rand(400)+101}")
+#end
 #ADD KHOA VIEN:		
 		CSV.foreach("./db/khoavien.csv", {headers: true, col_sep: ','}).with_index do |row,i|
 			kv_hash=row.to_hash.slice("tenkhoavien","sodienthoai","diadiem")
@@ -90,9 +90,9 @@ end
 #___________________________
 @kv=Khoavien.count
 @ikv=Khoavien.first.id
-1.upto(50) do |i|	
-	Hocphan.create(mahocphan:"HP#{i}",tenhocphan:"Học phần #{i}",tinchi:rand(3)+2,tinchihocphi:rand(5)+2,trongso:(rand(2)+7)*0.1,khoavien_id:rand(@kv)+@ikv)
-end
+#1.upto(50) do |i|	
+	#Hocphan.create(mahocphan:"HP#{i}",tenhocphan:"Học phần #{i}",tinchi:rand(3)+2,tinchihocphi:rand(5)+2,trongso:(rand(2)+7)*0.1,khoavien_id:rand(@kv)+@ikv)
+#end
 #ADD HOC PHAN
 	CSV.foreach("./db/hocphan.csv", { headers: true, :col_sep => ',' }).with_index do |row,i|
         hp_hash = row.to_hash.slice("mahocphan","tenhocphan","trongso","tinchi","tinchihocphi","tenkhoavien")
@@ -112,19 +112,19 @@ end
 #____________________________
 @hp=Hocphan.count
 @ihp=Hocphan.first.id
-1.upto(200) do |i|	
+1.upto(10) do |i|	
 	Giaovien.create(magiaovien:"GV#{i}",tengiaovien:"Giáo viên #{i}",ngaysinh:Faker::Date.between(60.years.ago,22.years.ago),email:"gv#{i}@gmail.com",khoavien_id:rand(@kv)+@ikv)
 end
 Giaovien.create(magiaovien:"CVT",tengiaovien:"Cao Văn Thủ",ngaysinh:Faker::Date.between(60.years.ago,22.years.ago),email:"cvt@gmail.com",khoavien_id:rand(@kv)+@ikv)
 @gv=Giaovien.count
 @igv=Giaovien.first.id
-1.upto(100) do |i|	
+1.upto(10) do |i|	
 	Lopsinhvien.create(tenlopsinhvien:"Lớp sinh viên #{i}",khoahoc:55+rand(7),giaovien_id:rand(@gv)+@igv,khoavien_id:rand(@kv)+@ikv)
 end
 lsv=Lopsinhvien.create(tenlopsinhvien:"Việt Nhật K58",khoahoc:58,giaovien_id:rand(@gv)+@igv,khoavien_id:rand(@kv)+@ikv)
 @lsv=Lopsinhvien.count
 @ilsv=Lopsinhvien.first.id
-1.upto(500) do |i|	
+1.upto(10) do |i|	
 	user=User.create(name:"sv#{i}",password:"123456",password_confirmation:"123456",loai:"sv")
 	Sinhvien.create(masinhvien:"SV#{i}",tensinhvien:"Sinh viên #{i}",ngaysinh:Faker::Date.between(30.years.ago,18.years.ago),email:"sv#{i}@gmail.com",trangthai:Faker::Boolean.boolean,lopsinhvien_id:rand(@lsv)+@ilsv,user_id:user.id)
 end
@@ -132,7 +132,7 @@ end
 @isv=Sinhvien.first.id
 hocphans=Hocphan.all
 hocphans.each.with_index do |hp,j|
-	1.upto(200) do |i|		
+	1.upto(10) do |i|		
 		Lophoc.create(malophoc:"LH#{j*10+i}",thoigian:convertTime(randomTime),diadiem:"D#{j*10+i}-#{rand(400)+100}",maxdangki:40+rand(10),hocphan_id:hp.id,giaovien_id:rand(@gv)+@igv,hocki_id:rand(@hk)+@ihk)
 	end
 end
@@ -164,18 +164,18 @@ end
 #_______________________________
 @lh=Lophoc.count
 @ilh=Lophoc.first.id
-1.upto(100) do |i|			
-		Dangkihocphan.create(hocphan_id:rand(@hp)+@ihp,sinhvien_id:rand(@sv)+@isv,hocki_id:rand(@hk)+@ihk)
-end
+#1.upto(100) do |i|			
+#		Dangkihocphan.create(hocphan_id:rand(@hp)+@ihp,sinhvien_id:rand(@sv)+@isv,hocki_id:rand(@hk)+@ihk)
+#end
 
-1.upto(500) do |i|	
-		lh=Lophoc.find(rand(@lh)+@ilh)		
-		diemquatrinh=rand(10)
-		diemthi=rand(10)
-		trongso=lh.hocphan.trongso
-		x=tinhDiem(diemquatrinh,diemthi,trongso)		
-		Dangkilophoc.create(diemquatrinh:diemquatrinh,diemthi:diemthi,diemso:x[0],diemchu:x[1],hesohocphi:rand(3)+1,lophoc_id:lh.id,sinhvien_id:rand(@sv)+@isv)
-end
+#1.upto(500) do |i|	
+#		lh=Lophoc.find(rand(@lh)+@ilh)		
+#		diemquatrinh=rand(10)
+#		diemthi=rand(10)
+#		trongso=lh.hocphan.trongso
+#		x=tinhDiem(diemquatrinh,diemthi,trongso)		
+#		Dangkilophoc.create(diemquatrinh:diemquatrinh,diemthi:diemthi,diemso:x[0],diemchu:x[1],hesohocphi:rand(3)+1,lophoc_id:lh.id,sinhvien_id:rand(@sv)+@isv)
+#end
 #ADD DKLH
 	CSV.foreach("./db/dklh.csv",{headers: true, col_sep: ','}).with_index do |row,i|
 		dem=i+2
@@ -199,7 +199,7 @@ end
 		end
 	end
 #________________________________
-1.upto(200) do |i|		
+1.upto(10) do |i|		
 		tmp=rand(@hp)+@ihp
 		tmp2=rand(@lsv)+@ilsv		
 		if Chuongtrinhdaotao.where("hocphan_id=? and lopsinhvien_id=?",tmp,tmp2).count==0		
