@@ -132,7 +132,7 @@ end
 end
 end
 
-if true	
+if false	
 	#init CTDT
 	dem=0
 	CSV.foreach("./db/ctdt.csv",{headers: true, col_sep: ','}).with_index do |row,i|
@@ -171,6 +171,7 @@ if true
 		hash["lophoc_id"]=lh.id
 		hash.except! "malophoc"
 		hash["hesohocphi"]=Dangkilophoc.joins(:lophoc).where("sinhvien_id=? and hocphan_id=?",sv.id,lh.hocphan_id).count+1 if lh
+		dklh=Dangkilophoc.new(hash)
 		if !dklh.save			
 			puts "Row: #{dem}=> #{dklh.errors.full_messages.join(',')}"
 			break
