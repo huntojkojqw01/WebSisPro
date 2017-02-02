@@ -16,8 +16,8 @@ class Dangkilophoc < ApplicationRecord
 			hocphan=lophoc.hocphan
 			errors.add(:lophoc, "Lớp không có học kì") unless hocki
 			errors.add(:lophoc, "Lớp học không có học phần tồn tại") unless hocphan
-			errors.add(:hocphan, "Sinh viên chưa đăng kí học phần #{hocphan.mahocphan}") unless sinhvien.dangkihocphans.where("hocphan_id=? and hocki_id=?",hocphan.id,hocki.id).count>0
-			errors.add(:hocki, "Không phải thời điểm đăng kí lớp học cho học kì này") unless lophoc.hocki.modangkilophoc
+			#errors.add(:hocphan, "Sinh viên chưa đăng kí học phần #{hocphan.mahocphan}") unless sinhvien.dangkihocphans.where("hocphan_id=? and hocki_id=?",hocphan.id,hocki.id).count>0
+			#errors.add(:hocki, "Không phải thời điểm đăng kí lớp học cho học kì này") unless lophoc.hocki.modangkilophoc
 			errors.add(:lophoc , "Lớp học đã đầy") unless lophoc.maxdangki>lophoc.dangkilophocs.count
 			lophocs=sinhvien.lophocs.where("hocki_id=? and malophoc!=?",lophoc.hocki_id,lophoc.malophoc)
 			lophocs.each do |lh|

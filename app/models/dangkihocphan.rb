@@ -11,6 +11,6 @@ class Dangkihocphan < ApplicationRecord
 		hocki=Hocki.find_by_id(hocki_id)
 		errors.add(:hocki, "Đăng kí không có học kì") unless hocki
 		errors.add(:hocphan, "Đăng kí không có học phần tồn tại") unless hocphan
-		errors.add(:hocki, "Không phải thời điểm đăng kí học phần cho học kì này") unless hocki.modangkihocphan
+		#errors.add(:hocki, "Không phải thời điểm đăng kí học phần cho học kì này") unless hocki.modangkihocphan
 	end
 end
