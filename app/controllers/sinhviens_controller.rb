@@ -121,7 +121,7 @@ class SinhviensController < ApplicationController
 	end
 	def bangdiem		
 		@alllophocs=Lophoc.joins(:hocphan,:hocki,:dangkilophocs)
-				.where("sinhvien_id=? and diemso!=?",@current_sinhvien.id,nil)
+				.where("sinhvien_id=? and diemchu!=?",@current_sinhvien.id,"")
 				.select("lophocs.*","mahocki","diemquatrinh","diemthi","diemso","diemchu","mahocphan","tenhocphan","tinchi")
 				.reorder(:hocki_id)
 		@lophocs=@alllophocs.paginate(page: params[:page],:per_page=>15)		
