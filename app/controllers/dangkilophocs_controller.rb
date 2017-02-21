@@ -26,7 +26,7 @@ class DangkilophocsController < ApplicationController
 	def show		
 		@sinhvien=Sinhvien.find_by_id(params[:id])
 		unless @sinhvien && @sinhvien==@current_sinhvien
-			flash[:info]="Không phải chính chủ"
+			flash[:info]="あなたは本人じゃない"
 			redirect_to root_url
 		else		
 			if mo_dangki_lophoc?						
@@ -47,7 +47,7 @@ class DangkilophocsController < ApplicationController
 							.where("hocki_id=?",@hocki_modangkilophoc.id)							
 							.select("dangkilophocs.*","malophoc","thoigian","diadiem","mahocphan","tenhocphan","tinchi","tinchihocphi","hesohocphi*tinchihocphi as tongphi")
 			else
-				flash[:info]="Không có học kì nào mở đăng kí"
+				flash[:info]="登録できるクラスがない"
 				redirect_to root_url
 			end			
 		end							
@@ -56,29 +56,29 @@ class DangkilophocsController < ApplicationController
 		unless @dangkilophoc=Dangkilophoc.joins({lophoc: :hocphan},:sinhvien)
 									.select("dangkilophocs.*","malophoc","masinhvien")
 									.find_by_id(params[:id])																	
-			flash[:warning]="Không tìm thấy dữ liệu."
+			flash[:warning]="見付からない"
 			redirect_to root_url
 		end
 	end
 	def destroy
 		@dangkilophoc.destroy
-		flash[:info]= 'Đã xóa.'
+		flash[:info]= '削除しました'
 		redirect_back fallback_location: root_path
 	end
 	def update
 		if @dangkilophoc.update(update_params)
-			flash[:info]='Đã cập nhật.'				        	
+			flash[:info]='更新しました'				        	
 		else
-			flash[:danger]='Thất bại: '+@dangkilophoc.errors.full_messages.join(',')
+			flash[:danger]='エラ➖: '+@dangkilophoc.errors.full_messages.join(',')
 		end
 		redirect_back fallback_location: root_path					    
   	end
 	def create
 		@dangkilophoc=Dangkilophoc.new(create_params)
 		if @dangkilophoc.save
-			flash[:success]= 'Tạo mới thành công.'							      				        
+			flash[:success]= '追加しました'							      				        
 		else
-			flash[:danger]= 'Tạo mới thất bại: '+@dangkilophoc.errors.full_messages.join(',')					    					        
+			flash[:danger]= 'エラ➖: '+@dangkilophoc.errors.full_messages.join(',')					    					        
 		end
 		redirect_back fallback_location: root_path		
     end    	
@@ -87,14 +87,14 @@ class DangkilophocsController < ApplicationController
 	    if r[0]
 	      	flash[:success]= "File is imported(#{r[1]-1} record)."	      
 	    else
-			flash[:danger]= "Lỗi tại dòng thứ #{r[1]}: #{r[2]}."			
+			flash[:danger]= "エラ➖ #{r[1]}: #{r[2]}."			
 	    end
 	    redirect_back fallback_location: root_path
 	end	
 	private
 	def set_x
 		unless @dangkilophoc=Dangkilophoc.find_by_id(params[:id])
-			flash[:warning]="Không tìm thấy dữ liệu."
+			flash[:warning]="見付からない"
 			redirect_to root_url
 		end		
 	end
@@ -115,7 +115,7 @@ class DangkilophocsController < ApplicationController
 	def chinh_chu
     	if sinhvien? && params[:dangkilophoc]  
         	unless @current_sinhvien.id==params[:dangkilophoc][:sinhvien_id].to_i
-          	flash[:danger]="Bạn không phải chính chủ !"
+          	flash[:danger]="あなたは本人じゃない"
           	redirect_to root_url 
         	end
         end
@@ -148,7 +148,7 @@ class DangkilophocsController < ApplicationController
 	end
 	def not_permit
     	unless @hocki_modangkilophoc=Hocki.find_by_modangkilophoc(true)
-    		flash[:danger]="Hiện không có học kì nào mở đăng kí lớp học"
+    		flash[:danger]="今クラスを登録できない"
     		redirect_to root_url 
     	end
     end

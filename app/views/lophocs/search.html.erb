@@ -1,17 +1,17 @@
-<%=provide(:title,"Tìm kiếm lớp học")%>
+<%=provide(:title,"クラス検索")%>
 <div class="row" id="lophoc_search">
 	<div class="col-md-4">
-		<%=label_tag "Học kì"%><br>
+		<%=label_tag "学期"%><br>
 		<%=select_tag "hocki_id", options_from_collection_for_select(Hocki.all, "id", "mahocki"),:include_blank=>"All"%><br>
-		<%=label_tag "Khoa viện"%><br>
+		<%=label_tag "学部"%><br>
 		<%=select_tag "khoavien_id", options_from_collection_for_select(Khoavien.all, "id", "tenkhoavien"),:include_blank=>"All"%><br>
-		<%=label_tag "Mã lớp"%><br>
+		<%=label_tag "クラスコ➖ド"%><br>
 		<%=text_field_tag 'malophoc'%><br>
-		<%=label_tag "Mã học phần"%><br>
+		<%=label_tag "科目コ➖ド"%><br>
 		<%=text_field_tag 'mahocphan'%><br>		
 	</div>
 	<div class="col-md-8">
-		<h1>Danh sách lớp học</h1>	
+		<h1>クラスリスト</h1>	
 		<div id="results"></div>
 	</div>
 </div>

@@ -1,23 +1,23 @@
-<%=provide(:title,"Danh sách đăng kí lớp học")%>
+<%=pどFrovide(:title,"クラス登録")%>
 <div class="row" id="dklh_search">
 	<div class="col-md-8">
-		<h1 style="text-align: center; font-size: 30px;">Danh sách đăng kí lớp học</h1>
-		<%=label_tag "Học kì" %><br>
+		<h1 style="text-align: center; font-size: 30px;">クラス登録リスト</h1>
+		<%=label_tag "学期" %><br>
 		<%=select_tag :hocki_id, options_from_collection_for_select(Hocki.all,"id","mahocki"), include_blank: "All"%><br>
-		<%=label_tag "Mã lớp học" %><br>
-		<%=text_field_tag :malophoc,nil, placeholder: "Nhập mã lớp học"%><br>
-		<%=label_tag "Mã sinh viên" %><br>
-		<%=text_field_tag :masinhvien,nil, placeholder: "Nhập mã sinh viên"%><br>
+		<%=label_tag "クラスコ➖ド" %><br>
+		<%=text_field_tag :malophoc,nil, placeholder: ""%><br>
+		<%=label_tag "学生コ➖ド" %><br>
+		<%=text_field_tag :masinhvien,nil, placeholder: ""%><br>
 		<div id="dklh_list">
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<th>Mã lớp học</th>
-					<th>Mã sinh viên</th>
-					<th>Trọng số</th>
-					<th>Điểm quá trình</th>
-					<th>Điểm thi</th>
-					<th>Điểm chữ</th>
+					<th>クラスコ➖ド</th>
+					<th>学生コ➖ド</th>
+					<th>科目係数</th>
+					<th>中間点</th>
+					<th>期末点</th>
+					<th>点字</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -25,14 +25,14 @@
 			</tbody>
 		</table>
 		<%= will_paginate @dklhs ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1%><br>
-		<%= page_entries_info @dklhs, model: "đăng kí lớp học" %>
+		<%= page_entries_info @dklhs, model: "クラス登録" %>
 		</div>
 	</div>	
 	<div class="col-md-4">
-		<h3>Cập nhật điểm từ file CSV </h3>
+		<h3>From .CSV file </h3>
 	  	<%= form_tag import_dangkilophocs_path, multipart: true do %>
 	    <%= file_field_tag :file %>
-	    <%= submit_tag "Nạp",class: "btn btn-info" %>
+	    <%= submit_tag "Import",class: "btn btn-info" %>
 	  	<% end %>
 	</div>
 </div>

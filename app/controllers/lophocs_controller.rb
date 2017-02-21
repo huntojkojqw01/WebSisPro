@@ -1,6 +1,6 @@
 class LophocsController < ApplicationController
 	include ApplicationHelper
-	before_action :logged_in_user, except: [:index]
+	before_action :logged_in_user, except: [:index,:search]
 	before_action :is_admin, except: [:index,:search]
 	before_action :set_x, only: [:edit,:update,:destroy]
 	def index
@@ -43,7 +43,7 @@ class LophocsController < ApplicationController
 				.select("lophocs.*","mahocphan","tenhocphan","tengiaovien","mahocki","count(dangkilophocs.id) as dadangki")
 				.find_by_id(params[:id])
 		unless @lophoc
-			flash[:info]="Không tìm thấy dữ liệu"	
+			flash[:info]="見付からない"	
 			redirect_to root_url
 		else
 			@sinhviens=Sinhvien.joins(:lopsinhvien,dangkilophocs: :lophoc).where("dangkilophocs.lophoc_id=?",@lophoc.id)
@@ -55,12 +55,12 @@ class LophocsController < ApplicationController
 	end
 	def destroy
 		@lophoc.destroy
-		flash[:info]= 'Đã xóa .'
+		flash[:info]= '削除しました'
 		redirect_to search_lophocs_path
 		end
 	def update
 		if @lophoc.update(x_params)
-		    flash[:info]='Đã cập nhật .'
+		    flash[:info]='更新しました'
 		    redirect_to @lophoc
 		else		    	
 		    render 'edit'
@@ -69,7 +69,7 @@ class LophocsController < ApplicationController
 	def create
 		@lophoc=Lophoc.new(x_params)
 		if @lophoc.save
-		    flash[:success]= 'Tạo mới thành công .'
+		    flash[:success]= '追加しました'
 		    redirect_to @lophoc
 		else		        
 		    render 'new'
@@ -80,14 +80,14 @@ class LophocsController < ApplicationController
 	    if r[0]
 	      	flash[:success]= "File is imported(#{r[1]-1} record)."	      
 	    else
-			flash[:danger]= "Lỗi tại dòng thứ #{r[1]}: #{r[2]}."			
+			flash[:danger]= "エラ➖ #{r[1]}: #{r[2]}."			
 	    end
 	    redirect_to search_lophocs_path
 	end	
 	private
 	def set_x
 		unless @lophoc=Lophoc.find_by_id(params[:id])
-			flash[:info]="Không tìm thấy dữ liệu"	
+			flash[:info]="見付からない"	
 			redirect_to root_url	
 		end		
 	end

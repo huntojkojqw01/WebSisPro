@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
 			params[:session][:remember_me]==1 ? remember(user) : forget(user)			
 			redirect_back_or root_url
 		else
-			flash[:danger]="Đăng nhập thất bại."			
+			flash[:danger]="ログインできない"			
 			render 'new'
 		end
 	end

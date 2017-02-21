@@ -1,18 +1,18 @@
-<%=provide(:title,"Sửa lớp sinh viên ")%>
+<%=provide(:title,"学生グル➖プ更新")%>
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
-		<h1>Thay đổi thông tin lớp sinh viên </h1>
+		<h1>学生グル➖プを更新</h1>
 		<%= form_for(@lopsinhvien) do |f| %>
 		    <%= render 'shared/error_messages', object: f.object %>
-		    <%= f.label :"Tên lớp" %>
+		    <%= f.label :"学生グル➖プ" %>
 		    <%= f.text_field :tenlopsinhvien ,class: 'form-control', placeholder: "Nhập tên lớp sinh viên "%>		    		    
-		    <%= f.label :"Giáo viên chủ nhiệm" %><br>
+		    <%= f.label :"教師" %><br>
 		    <%= f.collection_select :giaovien_id, Giaovien.all, :id, :tengiaovien, prompt: true %><br>
-			<%= f.label :"Khóa học" %><br>
+			<%= f.label :"年課" %><br>
 		    <%= f.number_field :khoahoc ,class: 'form-control', placeholder: "Chọn khóa học "%>
-		    <%= f.label :"Khoa viện" %><br>
+		    <%= f.label :"学部" %><br>
 		    <%= f.collection_select :khoavien_id, Khoavien.all, :id, :tenkhoavien, prompt: true %><br>
-		    <%= f.submit "Thay đổi ",class: "btn btn-primary"%>
+		    <%= f.submit "更新",class: "btn btn-primary"%>
 		<% end %>
 	</div>
 </div>

@@ -1,13 +1,13 @@
-<%=provide(:title,"Thông tin lớp sinh viên")%>
+<%=provide(:title,"学生グル➖プ情報")%>
 <div class="row">
 	<div class="col-md-4" style="background-color:#F6D8CE; font-size:20px;">
 		<ul class="list-group">
-			<li class="list-group-item"><b>Tên lớp sinh viên: </b><%=@lopsinhvien.tenlopsinhvien%></li>
-			<li class="list-group-item"><b>Giáo viên: </b><%=@lopsinhvien.tengiaovien%></li>
-			<li class="list-group-item"><b>Khóa học: </b><%=@lopsinhvien.khoahoc%></li>
-			<li class="list-group-item"><b>Khoa viện: </b><%=@lopsinhvien.tenkhoavien%></li>			
+			<li class="list-group-item"><b>学生グル➖プ: </b><%=@lopsinhvien.tenlopsinhvien%></li>
+			<li class="list-group-item"><b>教師: </b><%=@lopsinhvien.tengiaovien%></li>
+			<li class="list-group-item"><b>年課: </b><%=@lopsinhvien.khoahoc%></li>
+			<li class="list-group-item"><b>学部: </b><%=@lopsinhvien.tenkhoavien%></li>			
 		</ul>
-		<%=link_to 'CTĐT',chuongtrinhdaotao_path(@lopsinhvien.id),class: "btn btn-success"%>
+		<%=link_to 'コ➖ス',chuongtrinhdaotao_path(@lopsinhvien.id),class: "btn btn-success"%>
 		<%=link_to '',edit_lopsinhvien_path(@lopsinhvien),class: "btn btn-warning glyphicon glyphicon-edit"%>
 	</div>	
 	<div class="col-md-8">

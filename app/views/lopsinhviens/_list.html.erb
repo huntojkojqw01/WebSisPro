@@ -2,10 +2,10 @@
 	<table class="table table-striped table-bordered">
 	  	<thead>
 	  		<tr>
-	  			<th>Tên lớp sinh viên</th>
-	  			<th>Giao viên</th>
-	  			<th>Khóa học</th>
-	  			<th>Khoa viện</th>
+	  			<th>学生グル➖プ</th>
+	  			<th>教師</th>
+	  			<th>年課</th>
+	  			<th>学部</th>
 	  		</tr>
 	  	</thead>
   	<tbody>
@@ -13,5 +13,5 @@
   	</tbody>
   </table>
   <%= will_paginate @lopsinhviens ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1%>
-  <%= page_entries_info @lopsinhviens, model: "Lớp sinh viên" %><br>
+  <%= page_entries_info @lopsinhviens, model: "学生グル➖プ" %><br>
 </div>

@@ -1,21 +1,21 @@
-<%=provide(:title,"Chương trình đào tạo sinh viên") %>
+<%=provide(:title,"コ➖ス") %>
 <div class="row" id="show_ctdts">
 	<div class="col-md-8 col-md-offset-2">
-		<h1>Chương trình đào tạo cho lớp sinh viên:<br> <b><%=@lopsinhvien.tenlopsinhvien%></b></h1><br> 
-      	<%=label_tag "Xếp theo"%><br>
-      	<%=select_tag "sort_by", options_from_collection_for_select([["hocki","Học kì"],["mahocphan","Mã học phần"],["tenhocphan","Tên học phần"],["tinchi","Số tín chỉ"]], :first, :last )%>
+		<h1>学生グル➖プ:<br> <b><%=@lopsinhvien.tenlopsinhvien%></b></h1><br> 
+      	<%=label_tag "並ぶ"%><br>
+      	<%=select_tag "sort_by", options_from_collection_for_select([["hocki","学期"],["mahocphan","科目コ➖ド"],["tenhocphan","科目名"],["tinchi","単位"]], :first, :last )%>
       	<%=link_to '',new_chuongtrinhdaotao_path,class: 'btn btn-success glyphicon glyphicon-plus'%>
       	<div id="results" lopsinhvien_id="<%=@lopsinhvien.id%>">  
   		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<th>Kì học</th>
-					<th>Mã học phần</th>
-					<th>Tên học phần</th>
-					<th>Tín chỉ</th>
-					<th>Tín chỉ học phí</th>
-					<th>Trọng số</th>
-					<th>Khoa viện</th>
+					<th>期</th>
+					<th>科目コ➖ド</th>
+					<th>科目名</th>
+					<th>単位</th>
+					<th>学費単位</th>
+					<th>科目係数</th>
+					<th>学部</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -28,13 +28,13 @@
 					<td><%=ct.tinchihocphi%></td>
 					<td><%=(1-ct.trongso).round(1)%>-<%=ct.trongso%></td>
 					<td><%=ct.tenkhoavien%></td>
-					<td><%=link_to '',ct, method: :delete,data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %></td>
+					<td><%=link_to '',ct, method: :delete,data: { confirm: '削除' },class: "btn btn-danger glyphicon glyphicon-trash" %></td>
 				</tr>
 				<% end %>
 			</tbody>
 		</table>
 		<%= will_paginate @ctdts ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1%>
-		<%= page_entries_info @ctdts, model: "học phần" %><br>
+		<%= page_entries_info @ctdts, model: "科目" %><br>
 		</div>
 	</div>
 </div>

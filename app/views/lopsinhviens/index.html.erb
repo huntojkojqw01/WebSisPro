@@ -1,14 +1,14 @@
-<%=provide(:title,"Danh sách lớp sinh viên")%>
+<%=provide(:title,"学生グル➖プリスト")%>
 <div class="row" id="lopsinhvien_search">
   <div class="col-md-4">
-    <%=label_tag "Khoa viện" %><br>
+    <%=label_tag "学部" %><br>
     <%=select_tag "khoavien_id", options_from_collection_for_select(Khoavien.all, "id", "tenkhoavien"),:include_blank=>"All"%><br>
-    <%=label_tag "Tên lớp sinh viên" %><br>
+    <%=label_tag "学生グル➖プ" %><br>
     <%=text_field_tag "tenlopsinhvien"%><br>
     <%=link_to '', new_lopsinhvien_path,class: "btn btn-success glyphicon glyphicon-plus" %>   
   </div>
   <div class="col-md-8">
-    <h1>Danh sách lớp sinh viên</h1>
+    <h1>学生グル➖プリスト</h1>
     <div id="results"><%=render "list", object: @lopsinhviens %></div>    
   </div>
 </div>

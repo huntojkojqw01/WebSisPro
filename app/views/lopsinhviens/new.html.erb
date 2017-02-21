@@ -1,36 +1,36 @@
-<%=provide(:title,"Thêm lớp sinh viên ")%>
+<%=provide(:title,"学生グル➖プ追加")%>
 <div class="row">
 	<div class="col-md-6 col-md-offset-3" style="background-color:#F2F5A9">
-		<h1 style="text-align:center; margin-bottom: 40px;">Thêm lớp sinh viên mới </h1>
+		<h1 style="text-align:center; margin-bottom: 40px;">追加lớp sinh viên mới </h1>
 		<%= form_for(@lopsinhvien) do |f| %>
 		    <%= render 'shared/error_messages', object: f.object %>
 				<div class="form-group">
-					<%= f.label :"Tên lớp" ,class:"control-label col-sm-4"%>
+					<%= f.label :"学生グル➖プ" ,class:"control-label col-sm-4"%>
 					<div class="col-sm-8">
 						<%= f.text_field :tenlopsinhvien ,class: 'form-control', placeholder: "Nhập tên lớp sinh viên "%>
 					</div>
 				</div>
 				<div class="form-group">
-					<%= f.label :"Giáo viên chủ nhiệm" ,class:"control-label col-sm-4"%>
+					<%= f.label :"教師" ,class:"control-label col-sm-4"%>
 					<div class="col-sm-8">
 						<%= f.collection_select :giaovien_id, Giaovien.all, :id, :tengiaovien, prompt: true %>
 					</div>
 				</div>
 				<div class="form-group">
-					<%= f.label :"Khóa học" ,class:"control-label col-sm-4" %>
+					<%= f.label :"年課" ,class:"control-label col-sm-4" %>
 					<div class="col-sm-8">
 						<%= f.number_field :khoahoc ,class: 'form-control', placeholder: "Chọn khóa học "%>
 					</div>
 				</div>
 				<div class="form-group">
-					<%= f.label :"Khoa viện" ,class:"control-label col-sm-4" %>
+					<%= f.label :"学部" ,class:"control-label col-sm-4" %>
 					<div class="col-sm-8">
 						<%= f.collection_select :khoavien_id, Khoavien.all, :id, :tenkhoavien, prompt: true %>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-4 col-sm-8">
-						<%= f.submit "Thêm ",class: "btn btn-primary"%>
+						<%= f.submit "追加",class: "btn btn-primary"%>
 					</div>
 				</div>
 		<% end %>

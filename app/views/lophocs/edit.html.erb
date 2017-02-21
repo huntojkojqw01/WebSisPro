@@ -1,24 +1,24 @@
-<%=provide(:title,"Sửa lớp học ")%>
+<%=provide(:title,"クラス更新")%>
 <div class="row">
 	<div class="col-md-6 col-md-offset-3" style="background-color:#F2F5A9">
-		<h1 style="text-align: center; font-size: 40px;">Thay đổi thông tin lớp học</h1>
+		<h1 style="text-align: center; font-size: 40px;">クラス情報を更新</h1>
 		<%= form_for(@lophoc) do |f| %>
 			<%= render 'shared/error_messages', object: f.object %>
-			<%= f.label :"Mã lớp học" %>
-			<%= f.text_field :malophoc ,class: 'form-control', placeholder: "Nhập mã lớp học "%>
-			<%= f.label :"Thời gian" %>
-			<%= f.text_field :thoigian ,value: nil,class: 'form-control', placeholder: "thu,batdau,ketthuc "%>
-			<%= f.label :"Địa điểm" %>
-			<%= f.text_field :diadiem ,class: 'form-control', placeholder: "Nhập phòng học"%>
-			<%= f.label :"Max đăng kí" %>
-			<%= f.number_field :maxdangki ,class: 'form-control', placeholder: "Nhập so luong toi da "%>
-			<%= f.label :"Giao vien" %>
+			<%= f.label :"クラスコ➖ド" %>
+			<%= f.text_field :malophoc ,class: 'form-control', placeholder: ""%>
+			<%= f.label :"タイム" %>
+			<%= f.text_field :thoigian ,value: nil,class: 'form-control', placeholder: "日,始まる,終わる"%>
+			<%= f.label :"教室" %>
+			<%= f.text_field :diadiem ,class: 'form-control', placeholder: ""%>
+			<%= f.label :"最大" %>
+			<%= f.number_field :maxdangki ,class: 'form-control', placeholder: ""%>
+			<%= f.label :"教師" %>
 			<%= f.collection_select :giaovien_id, Giaovien.all, :id, :tengiaovien, prompt: true %>
-			<%= f.label :"Học phần" %>
+			<%= f.label :"科目" %>
 			<%= f.collection_select :hocphan_id, Hocphan.all, :id, :mahocphan, prompt: true %>
-			<%= f.label :"Học kì" %>
+			<%= f.label :"学期" %>
 			<%= f.collection_select :hocki_id, Hocki.all, :id, :mahocki, prompt: true %>
-			<%= f.submit "Thay đổi ",class: "btn btn-primary"%>
+			<%= f.submit "更新",class: "btn btn-primary"%>
 		<% end %>		
 	</div>
 </div>

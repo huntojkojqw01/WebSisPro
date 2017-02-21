@@ -1,23 +1,23 @@
-<%=provide(:title,"Đăng kí lớp học")%>
+<%=provide(:title,"クラス登録")%>
 <div class="row" id="dangkilophoc">
 	<div class="col-md-7">		
-		<%=label_tag "Khoa viện" %><br>
+		<%=label_tag "学部" %><br>
 		<%=select_tag "khoavien_id", options_from_collection_for_select(Khoavien.all, "id", "tenkhoavien"),:include_blank=>"All"%><br>
-		<%=label_tag "Mã lớp học" %><br>
+		<%=label_tag "クラスコ➖ド" %><br>
 		<%=text_field_tag 'malophoc'%><br>
-		<%=label_tag "Mã học phần" %><br>
+		<%=label_tag "科目コ➖ド" %><br>
 		<%=text_field_tag 'mahocphan'%><br>			
 		<div id="lophoc_list" sinhvien_id="<%=@sinhvien.id%>">		
 		<table class="table table-striped table-bordered">
 			<thead>
 				<tr>
-					<th>Mã lớp</th>
-					<th>Thời gian</th>
-					<th>Địa điểm</th>
-					<th>Mã học phần </th>
-					<th>Tên học phần</th>
-					<th>Max đăng kí</th>
-					<th>Đã đăng kí</th>
+					<th>クラスコ➖ド</th>
+					<th>タイム</th>
+					<th>教室</th>
+					<th>科目コ➖ド </th>
+					<th>科目名</th>
+					<th>最大</th>
+					<th>名</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -38,25 +38,25 @@
 			</tbody>
 		</table>
 		<%= will_paginate @lophocs ,renderer: BootstrapPagination::Rails, :outer_window=>1,:inner_window=>1%><br>
-		<%= page_entries_info @lophocs, model: "lớp học"%><br>
+		<%= page_entries_info @lophocs, model: "クラス"%><br>
 		</div>
 	</div>
 	<div class="col-md-5">
 		<% if @registeds %>
 		<div class="col-md-12" style="text-align: center; font-size: 30px; margin-bottom: 20px;">
-			Đăng kí lớp trong học kì <%=@hocki_modangkilophoc.mahocki%>
+			学期： <%=@hocki_modangkilophoc.mahocki%>
 		</div>
 		<table class="table table-stripped table-bordered">
 			<thead>
 				<tr>
-					<th>Mã lớp</th>
-					<th>Thời gian</th>
-					<th>Địa điểm</th>
-					<th>Mã học phần</th>
-					<th>Tên học phần</th>
-					<th>Tín chỉ</th>
-					<th>Tín chỉ học phí</th>
-					<th>Hệ số học phí</th>
+					<th>クラスコ➖ド</th>
+					<th>タイム</th>
+					<th>教室</th>
+					<th>科目コ➖ド</th>
+					<th>科目名</th>
+					<th>単位</th>
+					<th>学費単位</th>
+					<th>学期係数</th>
 				</tr>
 			</thead>
 			<body>								
@@ -70,20 +70,19 @@
 					<td><%=dklh.tinchi%></td>
 					<td><%=dklh.tinchihocphi%></td>					
 					<td><%=dklh.hesohocphi%></td>
-					<td><%=link_to '',dklh, method: :delete,data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %></td>			
+					<td><%=link_to '',dklh, method: :delete,data: { confirm: '削除' },class: "btn btn-danger glyphicon glyphicon-trash" %></td>			
 				</tr>
 				<% end %>
 				<tr>
-					<td colspan="5">Tổng</td>
+					<td colspan="5">合計</td>
 					<td><%=@registeds.sum(&:tinchi)%></td>
 					<td><%=@registeds.sum(&:tongphi)%></td>			
 				</tr>
 			</body>
 		</table>
-		Định mức học phí: <b><%=@hocki_modangkilophoc.dinhmuchocphi%></b> <br>
-		Học phí trong học kì: <b><%=@registeds.sum(&:tongphi)*@hocki_modangkilophoc.dinhmuchocphi%></b><br>
-		<%else%>
-		Chưa đăng kí lớp học nào trong học kì này.
+		単位学費: <b><%=@hocki_modangkilophoc.dinhmuchocphi%></b> <br>
+		学費: <b><%=@registeds.sum(&:tongphi)*@hocki_modangkilophoc.dinhmuchocphi%></b><br>
+		<%else%>		
 		<%end%>
 	</div>
 </div>

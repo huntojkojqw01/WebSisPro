@@ -1,16 +1,16 @@
-<%=provide(:title,"Thêm học phần vào chương trình")%>
+<%=provide(:title,"コ➖スに科目を追加")%>
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
-		<h1>Thêm học phần vào chương trình đào tạo </h1>
+		<h1>コ➖スに科目を追加</h1>
 		<%= form_for(@chuongtrinhdaotao) do |f| %>
 		    <%= render 'shared/error_messages', object: f.object %>
-		    <%= f.label :"Lớp sinh viên" %>
+		    <%= f.label :"学生グル➖プ" %>
 		    <%= f.collection_select :lopsinhvien_id, Lopsinhvien.all, :id, :tenlopsinhvien, prompt: true %>
-		    <%= f.label :"Học phần" %>
+		    <%= f.label :"科目" %>
 		    <%= f.collection_select :hocphan_id, Hocphan.all, :id, :mahocphan, prompt: true %>
-		    <%= f.label :"Học kì" %>
+		    <%= f.label :"学期" %>
 		    <%= f.select :hocki,[1,2,3,4,5,6,7,8,9,10] %>
-		    <%= f.submit "Thêm ",class: "btn btn-primary"%>
+		    <%= f.submit "追加",class: "btn btn-primary"%>
 		<% end %>
 	</div>	
 </div>

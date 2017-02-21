@@ -1,17 +1,17 @@
-<%=provide(:title,"Tìm kiếm học phần ")%>
+<%=provide(:title,"科目を検索")%>
 <div class="row" id="hocphan_search">
   <div class="col-md-4">         
-    <%=label_tag "Tìm theo khoa viện"%><br>
+    <%=label_tag "学部によって"%><br>
     <%=select_tag "khoavien_id", options_from_collection_for_select(Khoavien.all, "id", "tenkhoavien"),include_blank:"All"%><br>
-    <%=label_tag "Tìm theo mã HP"%><br>
+    <%=label_tag "科目コ➖ドによって"%><br>
     <%=text_field_tag 'mahocphan'%><br>
-    <%=label_tag "Tìm theo tên HP"%><br>
+    <%=label_tag "科目名によって"%><br>
     <%=text_field_tag 'tenhocphan'%><br>
-    <%=label_tag "Tìm theo số TC"%><br>
+    <%=label_tag "単位によって"%><br>
     <%=number_field_tag 'tinchi'%>
   </div>
   <div class="col-md-8">
-    <h1>Danh sách học phần</h1>
+    <h1>科目を検索</h1>
     <div id="results"></div>
   </div>
 </div>

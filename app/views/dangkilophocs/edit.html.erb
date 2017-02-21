@@ -1,15 +1,15 @@
-<%=provide(:title,"Cập nhật điểm ")%>
+<%=provide(:title,"点更新")%>
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
-		<h1>Cập nhật điểm cho sinh viên <br>
-		<%=@dangkilophoc.masinhvien%>-lớp học <%=@dangkilophoc.malophoc%></h1>
+		<h1>学生：<br>
+		<%=@dangkilophoc.masinhvien%>-クラス： <%=@dangkilophoc.malophoc%></h1>
 		<%= form_for(@dangkilophoc) do |f| %>
 		    <%= render 'shared/error_messages', object: f.object %>	    		   		    
-		    <%= f.label :"Điểm quá trình" %>
+		    <%= f.label :"中間点" %>
 		    <%= f.number_field :diemquatrinh,class: "form-control",:step => 0.1 %>
-		    <%= f.label :"Điểm thi" %>
+		    <%= f.label :"期末点" %>
 		    <%= f.number_field :diemthi ,class: "form-control",:step => 0.1 %>		    
-		    <%= f.submit "Cập nhật ",class: "btn btn-primary"%>
+		    <%= f.submit "更新",class: "btn btn-primary"%>
 		<% end %>
 	</div>		
 </div>

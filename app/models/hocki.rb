@@ -8,16 +8,16 @@ class Hocki < ApplicationRecord
 	validates :dinhmuchocphi, numericality: { only_integer: true,:greater_than_or_equal_to=>100 }
 	default_scope {order(:mahocki)}
 	def hocki_validate
-		errors.add(:time,"Thời gian bắt đầu(#{bd}) >= thời gian kết thúc(#{kt}), không hợp lệ") if bd>=kt
+		errors.add(:time,"始まる時点(#{bd}) >= 終わる時点(#{kt})、無効") if bd>=kt
 		hockis=Hocki.where("mahocki!=?",mahocki)
 		hockis.each do |hk|
 			if hk.bd==bd
-				errors.add(:time,"Trùng thời gian bắt đầu với học kì #{hk.mahocki}")
+				errors.add(:time,"時間重複。学期： #{hk.mahocki}")
 			else
 				if hk.bd<bd 
-					errors.add(:time,"Trùng thời gian với học kì #{hk.mahocki}") if hk.kt>=bd
+					errors.add(:time,"時間重複。学期： #{hk.mahocki}") if hk.kt>=bd
 				else
-					errors.add(:time,"Trùng thời gian với học kì #{hk.mahocki}") if hk.bd<=kt
+					errors.add(:time,"時間重複。学期： #{hk.mahocki}") if hk.bd<=kt
 				end
 			end
 		end		

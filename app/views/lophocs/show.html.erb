@@ -1,18 +1,18 @@
-<%=provide(:title,"Thông tin lớp học ")%>
+<%=provide(:title,"クラス情報")%>
 <div class="row">
 	<div class="col-md-4" style="background-color:#F6D8CE; font-size:15px;">
 		<ul class="list-group">
-				<li class="list-group-item"><b>Mã lớp học: </b><%=@lophoc.malophoc%></li>
-				<li class="list-group-item"><b>Thời gian: </b><%=toStrTime(@lophoc.thoigian)%></li>
-				<li class="list-group-item"><b>Địa điểm: </b><%=@lophoc.diadiem%></li>
-				<li class="list-group-item"><b>Giáo viên giảng dạy: </b><%=@lophoc.tengiaovien%></li>
-				<li class="list-group-item"><b>Học phần: </b><%=@lophoc.tenhocphan%>-<%=@lophoc.mahocphan%></li>
-				<li class="list-group-item"><b>Học kì: </b><%=@lophoc.mahocki%></li>
-				<li class="list-group-item"><b>Số lượng đăng kí: </b><%=@lophoc.dadangki%>/<%=@lophoc.maxdangki%></li>
+				<li class="list-group-item"><b>クラスコ➖ド: </b><%=@lophoc.malophoc%></li>
+				<li class="list-group-item"><b>タイム: </b><%=toStrTime(@lophoc.thoigian)%></li>
+				<li class="list-group-item"><b>教室: </b><%=@lophoc.diadiem%></li>
+				<li class="list-group-item"><b>教師: </b><%=@lophoc.tengiaovien%></li>
+				<li class="list-group-item"><b>科目: </b><%=@lophoc.tenhocphan%>-<%=@lophoc.mahocphan%></li>
+				<li class="list-group-item"><b>学期: </b><%=@lophoc.mahocki%></li>
+				<li class="list-group-item"><b>登録した： </b><%=@lophoc.dadangki%>/<%=@lophoc.maxdangki%></li>
 		</ul>		
 		<%= link_to '', edit_lophoc_path(@lophoc),class: "btn btn-warning glyphicon glyphicon-edit"%>
 		<%= link_to '', @lophoc, method: :delete,
-				                                     data: { confirm: 'Chắc chắn xóa ?' },class: "btn btn-danger glyphicon glyphicon-trash" %>
+				                                     data: { confirm: '削除' },class: "btn btn-danger glyphicon glyphicon-trash" %>
 	</div>	
 	<div class="col-md-6">
 		<%= render "sinhviens/list", object: @sinhviens %>

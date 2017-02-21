@@ -3,7 +3,7 @@ module SessionsHelper
     def logged_in_user
       unless logged_in?
         store_location
-        flash[:danger] = "Hãy đăng nhập trước đã."
+        flash[:danger] = "ログインしてください"
         redirect_to login_url
       end
     end
@@ -15,13 +15,13 @@ module SessionsHelper
     # Confirms an admin user.
   def is_admin
     unless admin?
-      flash[:danger]="Chỉ admin mới có quyền đó !"
+      flash[:danger]="アドミン要求"
       redirect_to(root_url)
     end
   end
   def is_sinhvien
     unless sinhvien?
-      flash[:danger]="Bạn không phải là sinh viên !"
+      flash[:danger]="あなたは学生じゃない"
       redirect_to(root_url) 
     end
   end

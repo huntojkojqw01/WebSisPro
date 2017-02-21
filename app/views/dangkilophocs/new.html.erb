@@ -1,24 +1,24 @@
-<%=provide(:title,"Thêm đăng kí lớp học")%>
+<%=provide(:title,"クラス登録追加")%>
 <div class="row">	
 	<div class="col-md-6 col-md-offset-3">
-		<h1>Thêm đăng kí lớp học mới </h1>
+		<h1>クラス登録を追加</h1>
 		<%= form_for(@dangkilophoc) do |f| %>
 		    <%= render 'shared/error_messages', object: f.object %>
 					<div class="form-group">
-						<%= f.label :"Sinh viên",class:"control-label col-sm-3"%>
+						<%= f.label :"学生",class:"control-label col-sm-3"%>
 						<div class="col-sm-9">
 							<%= f.collection_select :sinhvien_id, Sinhvien.where(trangthai: true), :id, :masinhvien, prompt: true %>
 						</div>
 					</div>
 					<div class="form-group">
-						<%= f.label :"Lớp học" ,class:"control-label col-sm-3"%>
+						<%= f.label :"クラス" ,class:"control-label col-sm-3"%>
 						<div class="col-sm-9">
 							<%= f.collection_select :lophoc_id, @hocki_modangkilophoc.lophocs, :id, :malophoc, prompt: true %>
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-sm-offset-3 col-sm-9">
-							<%= f.submit "Thêm ",class: "btn btn-primary"%>
+							<%= f.submit "追加",class: "btn btn-primary"%>
 						</div>
 					</div>
 		<% end %>

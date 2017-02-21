@@ -12,7 +12,7 @@ class KhoaviensController < ApplicationController
 	    if r[0]
 	      	flash[:success]= "File is imported(#{r[1]-1} record)."	      
 	    else
-			flash[:danger]= "Lỗi tại dòng thứ #{r[1]}: #{r[2]}."			
+			flash[:danger]= "エラ➖ #{r[1]}: #{r[2]}."			
 	    end
 	    redirect_to khoaviens_path
 	end

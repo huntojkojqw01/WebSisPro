@@ -1,40 +1,39 @@
-<%=provide(:title,"Thêm học kì ")%>
+<%=provide(:title,"学期追加")%>
 <div class="row">	
 	<div class="col-md-6 col-md-offset-3" style="background-color:#F2F5A9">
-		<h1 style="text-align: center; font-size: 40px;">Thêm học kì mới</h1>
+		<h1 style="text-align: center; font-size: 40px;">追加học kì mới</h1>
 		<div class="form-horizontal" style="margin-top:20px;">
 			<%= form_for(@hocki) do |f| %>
 				<%= render 'shared/error_messages', object: f.object %>
 				<div class="form-group">
-					<%= f.label :"Mã học kì" ,class:"control-label col-sm-4"%>
+					<%= f.label :"学期コ➖ド" ,class:"control-label col-sm-4"%>
 					<div class="col-sm-8">
 				    <%= f.text_field :mahocki ,class: 'form-control', placeholder: "Nhập mã học kì "%>
 					</div>
 				</div>
 				<div class="form-group">
-					<%= f.label :"Bắt đầu" ,class:"control-label col-sm-4"%>
+					<%= f.label :"始まる" ,class:"control-label col-sm-4"%>
 					<div class="col-sm-8">
 				    <%= f.date_select :bd %>
 					</div>
 				</div>
 				<div class="form-group">
-					<%= f.label :"Kết thúc" ,class:"control-label col-sm-4"%>
+					<%= f.label :"終わる" ,class:"control-label col-sm-4"%>
 					<div class="col-sm-8">
 				    <%= f.date_select :kt %>
 					</div>
 				</div>
 				<div class="form-group">
-					<%= f.label :"Định mức học phí" ,class:"control-label col-sm-4"%>
+					<%= f.label :"単位学費" ,class:"control-label col-sm-4"%>
 					<div class="col-sm-8">
 				    <%= f.number_field :dinhmuchocphi ,class: 'form-control', placeholder: "Nhập mức học phí"%>
 					</div>
 				</div>
 				<div class="form-group">
 					<div class="col-sm-offset-4 col-sm-8">
-						<%= f.submit "Thêm ",class: "btn btn-primary"%>
+						<%= f.submit "追加",class: "btn btn-primary"%>
 					</div>
 				</div>
-
 			<% end %>
 		</div>
 	</div>	

@@ -1,6 +1,6 @@
 class SinhviensController < ApplicationController
 	include ApplicationHelper
-	before_action :logged_in_user, except: [:index,:svdkh]
+	before_action :logged_in_user, except: [:index,:search,:svdkh]
 	before_action :is_admin, only: [:edit,:update,:new,:create,:destroy]	
 	before_action :is_sinhvien, only: [:dangkilophoc,:thoikhoabieu,:bangdiem]
 	before_action :chinh_chu , only: [:show]
@@ -60,9 +60,9 @@ class SinhviensController < ApplicationController
 	def new
 		@sinhvien = Sinhvien.new
 	end
-	def show		
+	def show			
 		unless @sinhvien=Sinhvien.joins(:lopsinhvien).select("sinhviens.*","tenlopsinhvien").find_by_id(params[:id])			
-			flash[:danger]="Không tìm thấy sinh viên"
+			flash[:danger]="見付からない"
 			redirect_to search_sinhviens_path
 		end
 	end
@@ -74,12 +74,12 @@ class SinhviensController < ApplicationController
 		if user!=nil
 		    user.destroy
 		end
-		flash[:info]= 'Đã xóa .'
+		flash[:info]= '削除しました'
 		redirect_to search_sinhviens_path
 	end
 	def update
 	    if @sinhvien.update(update_params)
-	      	flash[:info]='Đã cập nhật .'
+	      	flash[:info]='更新しました'
 	        redirect_to @sinhvien
 	    else
 	       	render 'edit'
@@ -91,23 +91,26 @@ class SinhviensController < ApplicationController
 		if user.id
 			@sinhvien[:user_id]=user.id			
 			if @sinhvien.save				
-				flash[:success]= 'Tạo mới thành công .'
+				flash[:success]= '追加しました'
 				redirect_to @sinhvien
 			else
 				user.destroy
 				render 'new'
 			end
 		else
-			flash[:danger]= 'Không tạo được tài khoản.'
+			flash[:danger]= 'アカウントを作成できない'
 			render 'new'
 		end		    
+	end
+	def search
+		@khoahocs=Lopsinhvien.reorder(:khoahoc).select("khoahoc").distinct
 	end
 	def import
 	    r=Sinhvien.import(params[:file])
 	    if r[0]
 	      	flash[:success]= "File is imported(#{r[1]-1} record)."	      
 	    else
-			flash[:danger]= "Lỗi tại dòng thứ #{r[1]}: #{r[2]}."			
+			flash[:danger]= "エラ➖ #{r[1]}: #{r[2]}."			
 	    end
 	    redirect_to sinhviens_path
 	end
@@ -189,10 +192,10 @@ class SinhviensController < ApplicationController
 							.select("lophocs.*","mahocphan","tenhocphan","tinchi","tinchihocphi","hesohocphi","tinchihocphi*hesohocphi as tongphi")
 							.where("hocki_id=? and sinhvien_id=?",@hocki.id,@sinhvien.id)
 				else
-					flash[:info]="Không tìm thấy sinh viên nào phù hợp"
+					flash[:info]="見付からない"
 				end			
 			else
-				flash[:info]="Không có học kì nào phù hợp"					
+				flash[:info]="見付からない"					
 			end
 		end
 	end
@@ -210,7 +213,7 @@ class SinhviensController < ApplicationController
 	private
 	def set_x
 		unless @sinhvien=Sinhvien.find_by_id(params[:id])
-			flash[:info]="Không tìm thấy dữ liệu"	
+			flash[:info]="見付からない"	
 			redirect_to root_url	
 		end
 	end
@@ -259,7 +262,7 @@ class SinhviensController < ApplicationController
     def chinh_chu
     	if sinhvien?  
 	        unless @current_sinhvien.id==params[:id].to_i
-	          flash[:danger]="Bạn không phải chính chủ !"
+	          flash[:danger]="あなたは本人じゃない"
 	          redirect_to(root_url) 
 	        end
         end

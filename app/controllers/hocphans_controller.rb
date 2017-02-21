@@ -1,5 +1,5 @@
 class HocphansController < ApplicationController
-	before_action :logged_in_user, except: [:index]
+	before_action :logged_in_user, except: [:index,:search]
 	before_action :is_admin, except: [:index,:search]
 	before_action :set_x, only: [:edit,:update,:destroy]
 	def index		
@@ -33,12 +33,12 @@ class HocphansController < ApplicationController
 	end
 	def destroy
 		@hocphan.destroy
-		flash[:info]= 'Đã xóa .'
+		flash[:info]= '削除しました'
 		redirect_back fallback_location: root_path
 		end
 	def update
 	    if @hocphan.update(x_params)
-	      	flash[:info]='Đã cập nhật .'
+	      	flash[:info]='更新しました'
 	        redirect_to @hocphan
 	    else
 	       	render 'edit'
@@ -47,7 +47,7 @@ class HocphansController < ApplicationController
 	def create
 		@hocphan=Hocphan.new(x_params)
 		if @hocphan.save
-	      	flash[:success]= 'Tạo mới thành công .'
+	      	flash[:success]= '追加しました'
 	        redirect_to @hocphan
 	    else
 	        render 'new'
@@ -60,14 +60,14 @@ class HocphansController < ApplicationController
 	    if r[0]
 	      	flash[:success]= "File is imported(#{r[1]-1} record)."	      
 	    else
-			flash[:danger]= "Lỗi tại dòng thứ #{r[1]}: #{r[2]}."			
+			flash[:danger]= "エラ➖ #{r[1]}: #{r[2]}."			
 	    end
 	    redirect_to new_hocphan_path
     end	
 	private
 	def set_x
 		unless @hocphan=Hocphan.find_by_id(params[:id])
-			flash[:info]="Không tìm thấy dữ liệu"	
+			flash[:info]="見付からない"	
 			redirect_to root_url	
 		end		
 	end

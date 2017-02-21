@@ -17,7 +17,7 @@ class LopsinhviensController < ApplicationController
 	def show
 		@lopsinhvien=Lopsinhvien.joins(:khoavien,:giaovien).where("lopsinhviens.id=?",params[:id]).select("lopsinhviens.*","tenkhoavien","tengiaovien").first		
 		unless @lopsinhvien
-			flash[:info]="Không tìm thấy dữ liệu"	
+			flash[:info]="見付からない"	
 			redirect_to root_url
 		else
 			@sinhviens=Sinhvien.joins(:lopsinhvien).select("sinhviens.*","tenlopsinhvien").where(lopsinhvien_id: @lopsinhvien.id).paginate(page: params[:page],per_page: 20)
@@ -29,7 +29,7 @@ class LopsinhviensController < ApplicationController
 	end
 	def update
 	    if @lopsinhvien.update(x_params)
-	      	flash[:info]='Đã cập nhật .'
+	      	flash[:info]='更新しました'
 	        redirect_to @lopsinhvien
 	    else
 	       	render 'edit'
@@ -38,7 +38,7 @@ class LopsinhviensController < ApplicationController
 	def create
 		@lopsinhvien=Lopsinhvien.new(x_params)
 		if @lopsinhvien.save
-	      	flash[:success]= 'Tạo mới thành công .'
+	      	flash[:success]= '追加しました'
 	        redirect_to @lopsinhvien
 	    else
 	        render 'new'
@@ -47,7 +47,7 @@ class LopsinhviensController < ApplicationController
 	private
 	def set_x
 		unless @lopsinhvien=Lopsinhvien.find_by_id(params[:id])	
-			flash[:info]="Không tìm thấy dữ liệu"	
+			flash[:info]="見付からない"	
 			redirect_to root_url	
 		end	
 	end

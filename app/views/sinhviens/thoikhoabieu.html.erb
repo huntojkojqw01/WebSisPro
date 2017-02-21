@@ -1,23 +1,23 @@
-<%=provide(:title,"Xem thời khóa biểu")%>
+き<%=provide(:title,"スケ➖ジュール")%>
 <div class="row">
 	<div class="col-md-6">		
 		<%= form_tag(thoikhoabieu_sinhviens_path, method: "get") do %>			
-			Học kì <%=select_tag "hocki_id", options_from_collection_for_select(Hocki.all, "id", "mahocki", @hocki ? @hocki.id : nil),:include_blank=>"All",:onchange => "this.form.submit();"%><br><% end %>
+			学期 <%=select_tag "hocki_id", options_from_collection_for_select(Hocki.all, "id", "mahocki", @hocki ? @hocki.id : nil),:include_blank=>"All",:onchange => "this.form.submit();"%><br><% end %>
 		<% if @lophocs %>
 			<div style="text-align: center; font-size: 30px">
-				Danh sách lớp học
+				クラスリスト
 			</div>
 			<table class="table table-bordered table-striped" style="margin-top: 20px;">
 				<thead>
 					<tr>
-						<th>Mã lớp</th>
-						<th>Thời gian</th>
-						<th>Địa điểm</th>
-						<th>Mã học phần</th>
-						<th>Tên học phần</th>
-						<th>Tín chỉ</th>
-						<th>Tín chỉ học phí</th>
-						<th>Hệ số học phí</th>
+						<th>クラスコ➖ド</th>
+						<th>タイム</th>
+						<th>教室</th>
+						<th>科目コ➖ド</th>
+						<th>科目名</th>
+						<th>単位</th>
+						<th>学費単位</th>
+						<th>学費係数</th>
 					</tr>
 				</thead>
 				<tbody>				
@@ -34,7 +34,7 @@
 					</tr>
 					<% end %>
 					<tr>
-						<td colspan="5">Tổng</td>
+						<td colspan="5">合計</td>
 						<td><%=@lophocs.sum(&:tinchi)%></td>
 						<td><%=@lophocs.sum(&:tongphi)%></td>
 						<td></td>
@@ -42,14 +42,14 @@
 				</tbody>
 			</table>
 			<ul class="list-group">
-				<li class="list-group-item">Định mức học phí: <%=@hocki.dinhmuchocphi%></li>
-				<li class="list-group-item">Tổng số tiền phải đóng trong kì: <%=@lophocs.sum(&:tongphi)*@hocki.dinhmuchocphi%></li>			
+				<li class="list-group-item">単位学費: <%=@hocki.dinhmuchocphi%></li>
+				<li class="list-group-item">合計: <%=@lophocs.sum(&:tongphi)*@hocki.dinhmuchocphi%></li>			
 			</ul>
 			<% if current_hocki==@hocki %>
 			<h3 style="color: red"><%= testTiet @lophocs %></h3>
 			<%end%>
 		<%else%>
-			<h3>Không đăng kí lớp nào trong học kì này</h3>
+			<h3>登録したクラスがない</h3>
 		<%end%>
 	</div>
 	<div class="col-md-6">

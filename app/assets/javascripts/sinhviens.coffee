@@ -21,7 +21,7 @@ sinhvien_params= () ->
 	return q		
 $(document).on 'turbolinks:load', () ->	
 	if($("#sinhvien_search").hasClass("row"))		
-		$("#khoavien_id,#masinhvien,#tensinhvien,#lopsinhvien_id").change ->
+		$("#khoavien_id,#masinhvien,#tensinhvien,#lopsinhvien_id,#khoahoc").change ->
 			search("/sinhviens",sinhvien_params(),"#sinhvien_list","#results")
 	if($("#svdkh").hasClass("row"))		
 		$("#masinhvien").change ->			

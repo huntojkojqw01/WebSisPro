@@ -13,7 +13,7 @@ class ChuongtrinhdaotaosController < ApplicationController
 	def show
 		@lopsinhvien=Lopsinhvien.find_by_id(params[:id])				
 		unless @lopsinhvien
-			flash[:info]="Không tìm thấy dữ liệu"	
+			flash[:info]="見付からない"	
 				redirect_to root_url
 			else
 			@ctdts=Chuongtrinhdaotao.joins(hocphan: :khoavien)
@@ -27,7 +27,7 @@ class ChuongtrinhdaotaosController < ApplicationController
 	end
 	def destroy
 		@chuongtrinhdaotao.destroy
-		flash[:info]= 'Đã xóa .'
+		flash[:info]= '削除しました'
 		redirect_back fallback_location: root_path
 	end
 	def update	    
@@ -35,7 +35,7 @@ class ChuongtrinhdaotaosController < ApplicationController
 	def create
 		@chuongtrinhdaotao=Chuongtrinhdaotao.new(x_params)
 		if @chuongtrinhdaotao.save
-	      	flash[:success]= 'Tạo mới thành công .'
+	      	flash[:success]= '追加しました'
 	        redirect_to chuongtrinhdaotaos_path
 	    else
 	        render 'new'
@@ -44,7 +44,7 @@ class ChuongtrinhdaotaosController < ApplicationController
 	private
 	def set_x
 		unless @chuongtrinhdaotao=Chuongtrinhdaotao.find_by_id(params[:id])	
-			flash[:info]="Không tìm thấy dữ liệu"	
+			flash[:info]="見付からない"	
 			redirect_to root_url	
 		end
 	end

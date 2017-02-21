@@ -23,9 +23,9 @@ class HockisController < ApplicationController
 				end
 			end			
 			if flag
-				render plain: "Đã mở đăng kí học phần kì #{flag}."
+				render plain: "科目登録できます。学期： #{flag}"
 			else
-				render plain: "Đóng hết đăng kí học phần."
+				render plain: "これから科目登録できない"
 			end
 		else
 			@hockis.each do |hk|				
@@ -37,9 +37,9 @@ class HockisController < ApplicationController
 				end
 			end			
 			if flag
-				render plain: "Đã mở đăng kí lớp học kì #{flag}."
+				render plain: "クラス登録できます。学期： #{flag}"
 			else
-				render plain: "Đóng hết đăng kí lớp học."
+				render plain: "これからクラス登録できない"
 			end				
 		end			
 	end	
@@ -54,7 +54,7 @@ class HockisController < ApplicationController
 	end
 	def update
 		if @hocki.update(x_params)
-	      	flash[:info]='Đã cập nhật .'
+	      	flash[:info]='更新しました'
 	        redirect_to @hocki
 	    else
 	       	render 'edit'
@@ -63,7 +63,7 @@ class HockisController < ApplicationController
 	def create
 		@hocki=Hocki.new(x_params)
 		if @hocki.save
-		    flash[:success]= 'Tạo mới thành công .'
+		    flash[:success]= '追加しました'
 		   	redirect_to @hocki
 		else
 		    render 'new'
@@ -72,7 +72,7 @@ class HockisController < ApplicationController
 	private
 	def set_x
 		unless @hocki=Hocki.find_by_id(params[:id])	
-			flash[:info]="Không tìm thấy dữ liệu"	
+			flash[:info]="見付からない"	
 			redirect_to root_url	
 		end	
 	end

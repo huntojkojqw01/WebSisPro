@@ -1,49 +1,49 @@
-<%=provide(:title,"Sửa học phần ")%>
+<%=provide(:title,"科目更新")%>
 <div class="row">
 	<div class="col-md-6 col-md-offset-3" style="background-color:#F2F5A9">
-		<h1 style="text-align: center; font-size: 40px;">Thay đổi thông tin học phần </h1>
+		<h1 style="text-align: center; font-size: 40px;">科目情報を更新 </h1>
 		<div class="form-horizontal", style="margin-top: 20px;">
 			<%= form_for(@hocphan) do |f| %>
 			    <%= render 'shared/error_messages', object: f.object %>
 					<div class="form-group">
-						<%= f.label :"Mã HP" ,class:"control-label col-sm-4"%>
+						<%= f.label :"科目コ➖ド" ,class:"control-label col-sm-4"%>
 						<div class="col-sm-8">
-							<%= f.text_field :mahocphan ,class: 'form-control', placeholder: "Nhập ma hoc phan "%>
+							<%= f.text_field :mahocphan ,class: 'form-control', placeholder: ""%>
 						</div>
 					</div>
 					<div class="form-group">
-						<%= f.label :"Tên HP",class:"control-label col-sm-4" %>
+						<%= f.label :"科目名",class:"control-label col-sm-4" %>
 						<div class="col-sm-8">
-							<%= f.text_field :tenhocphan ,class: 'form-control', placeholder: "Nhập tên hoc phan "%>
+							<%= f.text_field :tenhocphan ,class: 'form-control', placeholder: ""%>
 						</div>
 					</div>
 					<div class="form-group">
-						<%= f.label :"Tín chỉ",class:"control-label col-sm-4"%>
+						<%= f.label :"単位",class:"control-label col-sm-4"%>
 						<div class="col-sm-8">
 							<%= f.select :tinchi ,options_for_select((1..12).step(0.5))%>
 						</div>
 					</div>
 					<div class="form-group">
-						<%= f.label :"Tín chỉ học phí" ,class:"control-label col-sm-4"%>
+						<%= f.label :"学費単位" ,class:"control-label col-sm-4"%>
 						<div class="col-sm-8">
 							<%= f.select :tinchihocphi ,options_for_select((1.5..25).step(0.5))%>
 						</div>
 					</div>
 					<div class="form-group">
-						<%= f.label :"Trọng số" ,class:"control-label col-sm-4"%>
+						<%= f.label :"科目係数" ,class:"control-label col-sm-4"%>
 						<div class="col-sm-8">
 							<%= f.select :trongso ,options_for_select((0.5..1).step(0.1))%>
 						</div>
 					</div>
 					<div class="form-group">
-						<%= f.label :"Khoa viện",class:"control-label col-sm-4"%>
+						<%= f.label :"学部",class:"control-label col-sm-4"%>
 						<div class="col-sm-8">
 							<%= f.collection_select :khoavien_id, Khoavien.all, :id, :tenkhoavien, prompt: true %>
 						</div>
 					</div>
 					<div class="form-group">
 			      <div class="col-sm-offset-4 col-sm-8">
-			        <%= f.submit "Thay đổi ",class: "btn btn-primary"%>
+			        <%= f.submit "更新",class: "btn btn-primary"%>
 			      </div>
 	    		</div>
 					<% end %>

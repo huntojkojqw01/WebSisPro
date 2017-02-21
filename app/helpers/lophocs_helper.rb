@@ -9,19 +9,19 @@ module LophocsHelper
 				ketthuc=i if ketthuc==0				
 			else
 				if ketthuc>0																	
-					strTime="Thu #{thu}:#{i+1-(thu-2)*12}-#{ketthuc-(thu-2)*12} "+strTime
+					strTime="日 #{thu}:#{i+1-(thu-2)*12}-#{ketthuc-(thu-2)*12} "+strTime
 					ketthuc=0					
 				end
 			end
 			if i%12==0
 				if ketthuc>i
-					strTime="Thu #{thu}:1-#{ketthuc-(thu-2)*12} "+strTime
+					strTime="日 #{thu}:1-#{ketthuc-(thu-2)*12} "+strTime
 					ketthuc=i
 				end
 				thu-=1
 			end	
 		end
-		strTime="Thu 2:1-#{ketthuc} "+strTime if ketthuc>0
+		strTime="日 2:1-#{ketthuc} "+strTime if ketthuc>0
 		return strTime
 	end	
 end

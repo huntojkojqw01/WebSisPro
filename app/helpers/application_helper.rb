@@ -1,6 +1,6 @@
 module ApplicationHelper
 	def full_title title=""
-		return title=="" ? "SisHedspi" : title+" | WebSisPro"
+		return title=="" ? "学生情報システム" : title+" | 学生情報システム"
 	end	
 	def toIntTime(strTime)
 		
@@ -60,19 +60,19 @@ module ApplicationHelper
 				ketthuc=i if ketthuc==0				
 			else
 				if ketthuc>0																	
-					strTime="Thứ #{thu}:#{i+1-(thu-2)*12}-#{ketthuc-(thu-2)*12} "+strTime
+					strTime="日 #{thu}:#{i+1-(thu-2)*12}-#{ketthuc-(thu-2)*12} "+strTime
 					ketthuc=0					
 				end
 			end
 			if i%12==0
 				if ketthuc>i
-					strTime="Thứ #{thu}:1-#{ketthuc-(thu-2)*12} "+strTime
+					strTime="日 #{thu}:1-#{ketthuc-(thu-2)*12} "+strTime
 					ketthuc=i
 				end
 				thu-=1
 			end	
 		end
-		strTime="Thứ 2:1-#{ketthuc} "+strTime if ketthuc>0
+		strTime="日 2:1-#{ketthuc} "+strTime if ketthuc>0
 		return strTime
 	end	
 	def to_tkb(ds_lop)
@@ -132,9 +132,9 @@ module ApplicationHelper
 		x+=1 if sotiet%12!=0
 		case x
 		when 0
-			"Chủ nhật"
+			"日曜日"
 		when 1,2,3,4,5,6
-			"Thứ #{x+1}"
+			"日 #{x+1}"
 		else
 		end
 	end
@@ -189,10 +189,10 @@ module ApplicationHelper
 			lophocs.each do |lh|
 				r=tinhGoc(x[0],x[2],x[3],lh.thoigian)
 				if r[0]
-					return "Hiện đang học tiết học #{r[1]}, môn #{lh.hocphan.mahocphan}, của ngày #{r[2]}, còn #{r[3]/60} giờ #{r[3]%60} phút."
+					return "今勉強しています。コマ： #{r[1]}、科目： #{lh.hocphan.mahocphan}, 日： #{r[2]}、あと #{r[3]/60} 時 #{r[3]%60} 分"
 				else
 					if r[3]< wait
-						mess="Chờ #{r[3]/60} giờ #{r[3]%60} phút nữa đến tiết học kế tiếp (tiết #{r[1]}, môn #{lh.hocphan.mahocphan}, của ngày #{r[2]})."
+						mess="待っています。あと #{r[3]/60} 時 #{r[3]%60} 分。次は (こま： #{r[1]}、科目： #{lh.hocphan.mahocphan}、日： #{r[2]})."
 						wait=r[3]
 					end
 				end

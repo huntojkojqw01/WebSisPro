@@ -12,7 +12,7 @@ class DangkihocphansController < ApplicationController
 	def show
 		@sinhvien=Sinhvien.find_by_id(params[:id])
 		unless @sinhvien && @sinhvien==@current_sinhvien
-			flash[:info]="Không phải chính chủ"
+			flash[:info]="本人じゃない"
 			redirect_to root_url
 		else		
 			if mo_dangki_hocphan?				
@@ -33,7 +33,7 @@ class DangkihocphansController < ApplicationController
 					.where("hocki_id=?",@hocki_modangkihocphan.id)
 					.select("hocphans.*","dangkihocphans.id as dkhp_id")
 			else
-				flash[:info]="Không có học kì nào mở đăng kí"
+				flash[:info]="登録できる科目がない"
 				redirect_to root_url
 			end
 		end				
@@ -42,7 +42,7 @@ class DangkihocphansController < ApplicationController
 	end
 	def destroy
 		@dangkihocphan.destroy
-		flash[:info]= 'Đã xóa .'
+		flash[:info]= '削除しました'
 		redirect_back fallback_location: root_path
 	end
 	def update
@@ -50,16 +50,16 @@ class DangkihocphansController < ApplicationController
 	def create
 		@dangkihocphan=Dangkihocphan.new(x_params)
 		if @dangkihocphan.save
-			flash[:success]= 'Tạo mới thành công.'					        
+			flash[:success]= '追加しました'					        
 		else			
-		    flash[:danger]= 'Tạo mới thất bại: '+@dangkihocphan.errors.full_messages.join(',')
+		    flash[:danger]= 'エラ➖: '+@dangkihocphan.errors.full_messages.join('、')
 		end
 		redirect_back fallback_location: root_path		
     end	
 	private
 	def set_x
 		unless @dangkihocphan=Dangkihocphan.find_by_id(params[:id])		
-			flash[:info]="Không tìm thấy dữ liệu ."
+			flash[:info]="見付からない"
 			redirect_to root_url
 		end	
 	end
@@ -69,14 +69,14 @@ class DangkihocphansController < ApplicationController
 	def chinh_chu
     	if sinhvien? && params[:dangkihocphan]  
         unless @current_sinhvien.id==params[:dangkihocphan][:sinhvien_id].to_i
-          flash[:danger]="Bạn không phải chính chủ !"
+          flash[:danger]="あなたは本人じゃない"
           redirect_to(root_url) 
         end
         end
     end
     def not_permit
     	unless @hocki_modangkihocphan=Hocki.find_by_modangkihocphan(true)
-    		flash[:danger]="Hiện không có học kì nào mở đăng kí học phần"
+    		flash[:danger]="今科目を登録できない"
     		redirect_to root_url 
     	end
     end

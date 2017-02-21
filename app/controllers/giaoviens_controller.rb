@@ -26,7 +26,7 @@ class GiaoviensController < ApplicationController
 	def update
 
 	      if @giaovien.update(x_params)
-	      	flash[:info]='Đã cập nhật .'
+	      	flash[:info]='更新しました'
 	        redirect_to @giaovien
 	      else
 	       	render 'edit'
@@ -35,7 +35,7 @@ class GiaoviensController < ApplicationController
 	def create
 		@giaovien=Giaovien.new(x_params)
 		if @giaovien.save
-	      	flash[:success]= 'Tạo mới thành công .'
+	      	flash[:success]= '追加しました'
 	        redirect_to @giaovien
 	    else
 	        render 'new'
@@ -46,7 +46,7 @@ class GiaoviensController < ApplicationController
 	private
 	def set_x
 		unless @giaovien=Giaovien.find_by_id(params[:id])	
-			flash[:info]="Không tìm thấy dữ liệu"	
+			flash[:info]="見付からない"	
 			redirect_to root_url
 		end
 	end

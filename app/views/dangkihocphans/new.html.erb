@@ -1,15 +1,15 @@
-<%=provide(:title,"Thêm đăng kí học phần")%>
+<%=provide(:title,"科目登録を追加")%>
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
-		<h1>Thêm đăng kí học phần mới </h1>
+		<h1>科目登録を追加 </h1>
 		<%= form_for(@dangkihocphan) do |f| %>
 		    <%= render 'shared/error_messages', object: f.object %>
-		    <%= f.label :"Sinh viên" %>
+		    <%= f.label :"学生" %>
 		    <%= f.collection_select :sinhvien_id, Sinhvien.where(trangthai: true), :id, :masinhvien, prompt: true %>
-		    <%= f.label :"Học phần" %>
+		    <%= f.label :"科目" %>
 		    <%= f.collection_select :hocphan_id, Hocphan.all, :id, :mahocphan, prompt: true %> 
 		    <%= f.hidden_field :hocki_id, :value=> @hocki_modangkihocphan.id %>
-		    <%= f.submit "Thêm ",class: "btn btn-primary"%>
+		    <%= f.submit "追加",class: "btn btn-primary"%>
 		<% end %>
 	</div>	
 </div>
