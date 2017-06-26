@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title
+      = full_title(yield(:title))
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body    
+    =render 'layouts/navigation_bar'
+    .container
+      - flash.each do |message_type, message|
+        |  <div class="alert alert-
+        = message_type
+        | ">
+        = message
+    = yield
