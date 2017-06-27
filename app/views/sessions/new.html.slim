@@ -3,13 +3,14 @@
   .col-sm-6.col-md-6.col-md-offset-3.col-sm-offset-3
     h1 ログイン
     = form_for(:session, url: login_path) do |f|
-
-      = f.label "ユ➖ザ名"
-      = f.text_field :name, class: 'form-control'
-
-      = f.label "パスワ➖ド"
-      = f.password_field :password, class: 'form-control'
-
-      = f.check_box :remember_me
-      = f.label "ユ➖ザ名を記憶する"
-      = f.submit "ログイン", class: " form-control btn btn-primary"    
+      .form-group
+        = f.label :name,"ユ➖ザ名"
+        = f.text_field :name, class: 'form-control'
+      .form-group
+        = f.label :password,"パスワ➖ド"
+        = f.password_field :password, class: 'form-control'
+      .form-group
+        = f.check_box :remember_me
+        = f.label "ユ➖ザ名を記憶する"
+      .form-group
+        = f.submit "ログイン", class: "btn btn-primary"    
