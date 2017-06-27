@@ -22,7 +22,7 @@ nav.navbar.navbar-inverse
             span.caret
           ul.dropdown-menu
             li
-              = link_to '学生検索',search_sinhviens_path
+              = link_to '学生検索',sinhviens_path
             li
               = link_to '学生グル➖プ',lopsinhviens_path
             li
@@ -35,7 +35,7 @@ nav.navbar.navbar-inverse
             span.caret
           ul.dropdown-menu
             li
-              = link_to '科目検索',search_hocphans_path
+              = link_to '科目検索',hocphans_path
             li
               = link_to '科目追加',new_hocphan_path
             li
@@ -46,7 +46,7 @@ nav.navbar.navbar-inverse
             span.caret
           ul.dropdown-menu
             li
-              = link_to 'クラス検索',search_lophocs_path
+              = link_to 'クラス検索',lophocs_path
             li
               = link_to 'クラス追加',new_lophoc_path
             li
@@ -63,7 +63,7 @@ nav.navbar.navbar-inverse
             span.caret
           ul.dropdown-menu
             li
-              = link_to '教師検索',search_giaoviens_path
+              = link_to '教師検索',giaoviens_path
             li
               = link_to '教師を追加',new_giaovien_path
       - elsif sinhvien?
@@ -107,13 +107,13 @@ nav.navbar.navbar-inverse
             span.caret
           ul.dropdown-menu
             li
-              = link_to '学生',search_sinhviens_path
+              = link_to '学生',sinhviens_path
             li
               = link_to '登録検索',svdkh_sinhviens_path
             li
-              = link_to '科目',search_hocphans_path
+              = link_to '科目',hocphans_path
             li
-              = link_to 'クラス',search_lophocs_path
+              = link_to 'クラス',lophocs_path
       - else
         li
           = link_to 'ログイン',login_path
@@ -123,10 +123,10 @@ nav.navbar.navbar-inverse
             span.caret
           ul.dropdown-menu
             li
-              = link_to '学生',search_sinhviens_path
+              = link_to '学生',sinhviens_path
             li
               = link_to '登録検索',svdkh_sinhviens_path
             li
-              = link_to '科目',search_hocphans_path
+              = link_to '科目',hocphans_path
             li
-              = link_to 'クラス',search_lophocs_path
+              = link_to 'クラス',lophocs_path

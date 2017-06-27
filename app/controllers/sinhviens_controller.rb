@@ -7,55 +7,7 @@ class SinhviensController < ApplicationController
 	before_action :set_x, only: [:edit,:update,:destroy]
 	before_action :xx_params ,only: :duyet
 	def index
-		if params[:khoavien_id]&&params[:khoavien_id]!=""
-			if params[:khoahoc]&&params[:khoahoc]!=""
-				@lopsinhviens=Lopsinhvien.where("khoavien_id=? and khoahoc=?", params[:khoavien_id], params[:khoahoc] ) 
-				if params[:lopsinhvien_id]&&params[:lopsinhvien_id]!=""					
-					@sinhviens=Sinhvien.joins(:lopsinhvien).select("sinhviens.*","tenlopsinhvien")
-					.where("lopsinhvien_id=? and tensinhvien like ? and masinhvien like ?",params[:lopsinhvien_id],"%#{params[:tensinhvien]}%","%#{params[:masinhvien]}%")
-					.paginate(page: params[:page],:per_page=>20)
-				else
-					@sinhviens=Sinhvien.joins(:lopsinhvien).select("sinhviens.*","tenlopsinhvien")
-					.where("khoavien_id=? and khoahoc=? and tensinhvien like ? and masinhvien like ?",params[:khoavien_id],params[:khoahoc],"%#{params[:tensinhvien]}%","%#{params[:masinhvien]}%")
-					.paginate(page: params[:page],:per_page=>20)
-				end
-			else
-				@lopsinhviens=Lopsinhvien.where("khoavien_id=? ",params[:khoavien_id])				
-				if params[:lopsinhvien_id]&&params[:lopsinhvien_id]!=""					
-					@sinhviens=Sinhvien.joins(:lopsinhvien).select("sinhviens.*","tenlopsinhvien")
-					.where("lopsinhvien_id=? and tensinhvien like ? and masinhvien like ? ",params[:lopsinhvien_id],"%#{params[:tensinhvien]}%","%#{params[:masinhvien]}%")
-					.paginate(page: params[:page],:per_page=>20)
-				else					
-					@sinhviens=Sinhvien.joins(:lopsinhvien).select("sinhviens.*","tenlopsinhvien")
-					.where("khoavien_id=? and tensinhvien like ? and masinhvien like ?",params[:khoavien_id],"%#{params[:tensinhvien]}%","%#{params[:masinhvien]}%")
-					.paginate(page: params[:page],:per_page=>4)
-				end
-			end						
-		else			
-			if params[:khoahoc]&&params[:khoahoc]!=""
-				@lopsinhviens=Lopsinhvien.where("khoahoc=?",params[:khoahoc])				 
-				if params[:lopsinhvien_id]&&params[:lopsinhvien_id]!=""					
-					@sinhviens=Sinhvien.joins(:lopsinhvien).select("sinhviens.*","tenlopsinhvien")
-					.where("lopsinhvien_id=? and tensinhvien like ? and masinhvien like ? ",params[:lopsinhvien_id],"%#{params[:tensinhvien]}%","%#{params[:masinhvien]}%")
-					.paginate(page: params[:page],:per_page=>20)
-				else					
-					@sinhviens=Sinhvien.joins(:lopsinhvien).select("sinhviens.*","tenlopsinhvien")
-					.where("khoahoc=? and tensinhvien like ? and masinhvien like ?",params[:khoahoc],"%#{params[:tensinhvien]}%","%#{params[:masinhvien]}%")
-					.paginate(page: params[:page],:per_page=>20)
-				end
-			else
-				@lopsinhviens=Lopsinhvien.order :tenlopsinhvien 
-				if params[:lopsinhvien_id]&&params[:lopsinhvien_id]!=""					
-					@sinhviens=Sinhvien.joins(:lopsinhvien).select("sinhviens.*","tenlopsinhvien")
-					.where("lopsinhvien_id=? and tensinhvien like ? and masinhvien like ? ",params[:lopsinhvien_id],"%#{params[:tensinhvien]}%","%#{params[:masinhvien]}%")
-					.paginate(page: params[:page],:per_page=>20)
-				else										
-					@sinhviens=Sinhvien.joins(:lopsinhvien).select("sinhviens.*","tenlopsinhvien")
-					.where("tensinhvien like ? and masinhvien like ?","%#{params[:tensinhvien]}%","%#{params[:masinhvien]}%")
-					.paginate(page: params[:page],:per_page=>20)										
-				end
-			end	
-		end		
+		@sinhviens=Sinhvien.includes(lopsinhvien: :khoavien)		
 	end	
 	def new
 		@sinhvien = Sinhvien.new
@@ -63,19 +15,35 @@ class SinhviensController < ApplicationController
 	def show			
 		unless @sinhvien=Sinhvien.joins(:lopsinhvien).select("sinhviens.*","tenlopsinhvien").find_by_id(params[:id])			
 			flash[:danger]="見付からない"
-			redirect_to search_sinhviens_path
+			redirect_to sinhviens_path
 		end
 	end
 	def edit		
 	end
 	def destroy
-		user=@sinhvien.user
-		@sinhvien.destroy
-		if user!=nil
-		    user.destroy
+		if params[:ids]
+			params[:ids].each do |sinhvien_id|
+				sinhvien=Sinhvien.find_by_id(sinhvien_id)
+				if sinhvien
+					user=sinhvien.user
+					sinhvien.destroy
+					if user!=nil
+					    user.destroy
+					end
+				end
+			end			        
+			respond_to do |f|
+				f.json {render json: {destroy_success: 'success'}}				
+			end
+		else		
+			user=@sinhvien.user
+			@sinhvien.destroy
+			if user!=nil
+			    user.destroy
+			end
+			flash[:info]= '削除しました'
+			redirect_to sinhviens_path
 		end
-		flash[:info]= '削除しました'
-		redirect_to search_sinhviens_path
 	end
 	def update
 	    if @sinhvien.update(update_params)
@@ -101,10 +69,7 @@ class SinhviensController < ApplicationController
 			flash[:danger]= 'アカウントを作成できない'
 			render 'new'
 		end		    
-	end
-	def search
-		@khoahocs=Lopsinhvien.reorder(:khoahoc).select("khoahoc").distinct
-	end
+	end	
 	def import
 	    r=Sinhvien.import(params[:file])
 	    if r[0]
@@ -212,7 +177,7 @@ class SinhviensController < ApplicationController
     end
 	private
 	def set_x
-		unless @sinhvien=Sinhvien.find_by_id(params[:id])
+		unless params[:ids] || @sinhvien=Sinhvien.find_by_id(params[:id])
 			flash[:info]="見付からない"	
 			redirect_to root_url	
 		end

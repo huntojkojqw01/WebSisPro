@@ -3,21 +3,18 @@ Rails.application.routes.draw do
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  root 'test_page#home'
-  get '/sieu', to: 'test_page#sieu'    
+  root 'test_page#home'    
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   resources :users
   resources :hocphans do
-    collection do
-      get :search
+    collection do      
       post :import
     end
   end
   resources :lophocs do
-      collection do
-        get :search
+      collection do        
         post :import
       end
     end
@@ -36,8 +33,7 @@ Rails.application.routes.draw do
         get :bangdiem                      
         get :svdkh
         get :duyet
-        post :duyet
-        get :search
+        post :duyet        
       end
     end
   resources :dangkilophocs do
@@ -45,11 +41,7 @@ Rails.application.routes.draw do
         post :import        
       end
     end
-  resources :giaoviens do
-    collection do
-      get :search
-    end
-  end
+  resources :giaoviens
   resources :hockis do
     collection do
       post :modangki

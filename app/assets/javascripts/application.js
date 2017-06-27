@@ -14,4 +14,10 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require turbolinks
+//= require sweetalert2
 //= require_tree .
+$(document).on('turbolinks:load', function() {
+  setTimeout(function() {
+    $('.alert').fadeOut('normal');
+  }, 6000);
+});

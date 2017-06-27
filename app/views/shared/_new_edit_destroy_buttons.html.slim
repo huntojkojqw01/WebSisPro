@@ -1,0 +1,8 @@
+-new_path||=nil
+-if new_path
+	=link_to "New",new_path,class: "btn btn-primary "
+-else
+	button.btn.btn-primary id="new_#{object}" New
+button.btn.btn-warning id="edit_#{object}" Edit
+button.btn.btn-danger id="destroy_#{object}" Delete
+span#delete_confirm_message hidden="true" Are you sure?

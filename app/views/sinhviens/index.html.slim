@@ -1,0 +1,28 @@
+-provide(:title,"学生list")
+.row
+	.col-md-10.col-sm-10.col-md-offset-1.col-sm-offset-1
+		h1 Sinh vien list
+		table#sinhviens.table.striped-table.table-bordered
+			thead
+				tr
+					th id
+					th edit_link
+					th Khoa hoc
+					th Khoa vien
+					th 学生グル➖プ
+					th 学生コ➖ド
+					th 学生名
+					th 誕生日				
+			tbody>
+				= render @sinhviens		
+			tfoot
+				tr
+					th id
+					th edit_link
+					th Khoa hoc
+					th Khoa vien
+					th 学生グル➖プ
+					th 学生コ➖ド
+					th 学生名
+					th 誕生日
+		=render "shared/new_edit_destroy_buttons",object: "sinhvien",new_path: new_sinhvien_path

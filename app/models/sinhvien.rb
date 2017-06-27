@@ -1,7 +1,8 @@
 class Sinhvien < ApplicationRecord
 	require 'csv'
   	belongs_to :user
-  	belongs_to :lopsinhvien  
+  	belongs_to :lopsinhvien
+  	delegate :tenlopsinhvien,:khoahoc,:tenkhoavien,to: :lopsinhvien  
   	has_many :chuongtrinhdaotaos, through: :lopsinhvien
   	has_many :dangkilophocs, dependent: :destroy
   	has_many :lophocs, through: :dangkilophocs
