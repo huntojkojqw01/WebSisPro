@@ -19,5 +19,9 @@
 $(document).on('turbolinks:load', function() {
   setTimeout(function() {
     $('.alert').fadeOut('normal');
+<<<<<<< HEAD
   }, 4000);
+=======
+  }, 6000);
+>>>>>>> fc074199a12cdd01b64a0be1a2328be38747e7aa
 });
