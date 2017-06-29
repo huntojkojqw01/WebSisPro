@@ -1,0 +1,42 @@
+-provide(:title,"学生グル➖プ情報")
+.row
+  .col-md-3.col-sm-4.col-md-offset-1.col-sm-offset-1
+    table.table.table-striped.table-bordered
+      tr
+        td 学生グル➖プ 
+        td =@lopsinhvien.tenlopsinhvien
+      tr
+        td 教師
+        td =@lopsinhvien.tengiaovien
+      tr
+        td 年課
+        td =@lopsinhvien.khoahoc
+      tr
+        td 学部
+        td =@lopsinhvien.tenkhoavien
+    =link_to 'コ➖ス',chuongtrinhdaotao_path(@lopsinhvien.id),class: "btn btn-success"
+  .col-md-6.col-sm-6.col-md-offset-1
+    h3 Sinh vien list
+    table#sinhviens.table.table-striped.table-bordered
+      thead
+        tr
+          th id
+          th edit_link                      
+          th 学生コ➖ド
+          th 学生名
+          th 誕生日        
+      tbody
+        -@sinhviens.each do |sinhvien|
+          tr
+            td=sinhvien.id
+            td=edit_sinhvien_path(sinhvien)          
+            td=link_to sinhvien.masinhvien, sinhvien
+            td=sinhvien.tensinhvien
+            td=sinhvien.ngaysinh   
+      tfoot
+        tr
+          th id
+          th edit_link          
+          th 学生コ➖ド
+          th 学生名
+          th 誕生日

@@ -73,7 +73,7 @@ class LophocsController < ApplicationController
 	end	
 	private
 	def set_x
-		unless !params[:ids] || @lophoc=Lophoc.find_by_id(params[:id])
+		unless params[:ids] || @lophoc=Lophoc.find_by_id(params[:id])
 			flash[:info]="見付からない"	
 			redirect_to root_url	
 		end		

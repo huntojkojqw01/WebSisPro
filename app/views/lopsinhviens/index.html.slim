@@ -1,0 +1,24 @@
+-provide(:title,"学生グル➖プリスト")
+.row
+  .col-md-8.col-sm-8.col-md-offset-2.col-sm-offset-2
+    h1 danh sach lop sinh vien
+    table#lopsinhviens.table.table-striped.table-bordered
+      thead
+        tr
+          th id
+          th edit_link
+          th 学生グル➖プ
+          th 教師
+          th 年課
+          th 学部
+      tfoot
+        tr
+          th id
+          th edit_link
+          th 学生グル➖プ
+          th 教師
+          th 年課
+          th 学部
+      tbody
+        = render @lopsinhviens
+    =render "shared/new_edit_destroy_buttons",object: "lopsinhvien",new_path: new_lopsinhvien_path

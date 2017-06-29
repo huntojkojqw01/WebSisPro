@@ -9,12 +9,12 @@ class LopsinhviensController < ApplicationController
 		@lopsinhvien = Lopsinhvien.new
 	end
 	def show
-		@lopsinhvien=Lopsinhvien.joins(:khoavien,:giaovien).where("lopsinhviens.id=?",params[:id]).select("lopsinhviens.*","tenkhoavien","tengiaovien").first		
-		unless @lopsinhvien
-			flash[:info]="見付からない"	
-			redirect_to root_url
+		@lopsinhvien=Lopsinhvien.includes(:khoavien,:giaovien).find_by_id(params[:id])
+		if @lopsinhvien
+			@sinhviens=@lopsinhvien.sinhviens
 		else
-			@sinhviens=Sinhvien.joins(:lopsinhvien).select("sinhviens.*","tenlopsinhvien").where(lopsinhvien_id: @lopsinhvien.id).paginate(page: params[:page],per_page: 20)
+			flash[:info]="見付からない"	
+			redirect_to root_url		
 		end					
 	end
 	def edit		
@@ -55,7 +55,7 @@ class LopsinhviensController < ApplicationController
     end	
 	private
 	def set_x
-		unless !params[:ids] || @lopsinhvien=Lopsinhvien.find_by_id(params[:id])	
+		unless params[:ids] || @lopsinhvien=Lopsinhvien.find_by_id(params[:id])	
 			flash[:info]="見付からない"	
 			redirect_to root_url	
 		end	

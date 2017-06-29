@@ -1,7 +1,9 @@
 class Lopsinhvien < ApplicationRecord
 	require 'csv'
   	belongs_to :giaovien
+    delegate :tengiaovien,to: :giaovien
   	belongs_to :khoavien
+    delegate :tenkhoavien,to: :khoavien
     delegate :tenkhoavien,to: :khoavien
   	has_many :sinhviens, dependent: :destroy
   	has_many :chuongtrinhdaotaos, dependent: :destroy

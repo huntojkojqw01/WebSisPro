@@ -36,9 +36,6 @@ setStandardTable = function(obj, ajax_url) {
         "visible": false,
         "sortable": false,
         "searchable": false
-      }, {
-        "targets": 2,
-        "width": '10%'
       }
     ]
   });
@@ -137,7 +134,5 @@ setStandardTable = function(obj, ajax_url) {
   });
 };
 $(document).on('turbolinks:load', function() {
-  setTimeout(function() {
-    $('.alert').fadeOut('normal');
-  }, 4000);
+  $(".alert" ).fadeOut(4000);
 });

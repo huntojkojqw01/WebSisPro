@@ -22,7 +22,7 @@ class KhoaviensController < ApplicationController
 	    end
   	end
 	def create
-		@khoavien=Hocphan.new(x_params)
+		@khoavien=Khoavien.new(x_params)
 		if @khoavien.save
 	      	flash[:success]= '追加しました'
 	        redirect_to @khoavien
