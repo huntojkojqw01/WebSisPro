@@ -1,6 +1,6 @@
 class SinhviensController < ApplicationController
 	include ApplicationHelper
-	before_action :logged_in_user, except: [:index,:search,:svdkh]
+	before_action :logged_in_user, except: [:index,:svdkh]
 	before_action :is_admin, only: [:edit,:update,:new,:create,:destroy]	
 	before_action :is_sinhvien, only: [:dangkilophoc,:thoikhoabieu,:bangdiem]
 	before_action :chinh_chu , only: [:show]

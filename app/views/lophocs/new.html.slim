@@ -1,0 +1,28 @@
+=provide(:title,"クラス追加")
+.row
+  .col-md-7.col-md-offset-1
+    h1[style="text-align: center; font-size: 40px;"]
+      | クラスを追加
+    = form_for(@lophoc) do |f|
+      = render 'shared/error_messages', object: f.object
+      = f.label :"クラスコ➖ド"
+      = f.text_field :malophoc ,class: 'form-control', placeholder: ""
+      = f.label :"タイム"
+      = f.text_field :thoigian ,class: 'form-control', placeholder: "日,始まる,終わる"
+      = f.label :"教室"
+      = f.text_field :diadiem ,class: 'form-control', placeholder: ""
+      = f.label :"最大"
+      = f.number_field :maxdangki ,class: 'form-control', placeholder: ""
+      = f.label :"教師"
+      = f.collection_select :giaovien_id, Giaovien.all, :id, :tengiaovien, prompt: true
+      = f.label :"科目"
+      = f.collection_select :hocphan_id, Hocphan.all, :id, :mahocphan, prompt: true,class: 'form-control'
+      = f.label :"学期"
+      = f.collection_select :hocki_id, Hocki.all, :id, :mahocki, prompt: true
+      = f.submit "追加",class: "form-control btn btn-primary"
+  .col-md-4
+    h3
+      | From .csv file
+    = form_tag import_lophocs_path, multipart: true do
+      = file_field_tag :file
+      = submit_tag "Import",class: "form-control btn btn-info"

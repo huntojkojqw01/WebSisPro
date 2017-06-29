@@ -1,38 +1,13 @@
 class LophocsController < ApplicationController
 	include ApplicationHelper
-	before_action :logged_in_user, except: [:index,:search]
-	before_action :is_admin, except: [:index,:search]
+	before_action :logged_in_user, except: [:index]
+	before_action :is_admin, except: [:index]
 	before_action :set_x, only: [:edit,:update,:destroy]
 	def index
-		if params[:khoavien_id]&&params[:khoavien_id]!=""
-			if params[:hocki_id]&&params[:hocki_id]!=""
-				@lophocs=Lophoc.joins(hocphan: :khoavien).left_outer_joins(:dangkilophocs)
-				.where("khoavien_id=? and hocki_id = ? and malophoc like ? and mahocphan like ?",params[:khoavien_id],params[:hocki_id],"%#{params[:malophoc]}%","%#{params[:mahocphan]}%")
-				.group(:id,:malophoc,:mahocphan,:tenhocphan)
-				.select("lophocs.*","mahocphan","tenhocphan","count(dangkilophocs.id) as dadangki")
-				.paginate(page: params[:page],:per_page=>20)
-			else
-				@lophocs=Lophoc.joins(hocphan: :khoavien).left_outer_joins(:dangkilophocs)
-				.where("khoavien_id=? and malophoc like ? and mahocphan like ?",params[:khoavien_id],"%#{params[:malophoc]}%","%#{params[:mahocphan]}%")
-				.group(:id,:malophoc,:mahocphan,:tenhocphan)
-				.select("lophocs.*","mahocphan","tenhocphan","count(dangkilophocs.id) as dadangki")
-				.paginate(page: params[:page],:per_page=>20)
-			end
-		else
-			if params[:hocki_id]&&params[:hocki_id]!=""
-				@lophocs=Lophoc.joins(:hocphan).left_outer_joins(:dangkilophocs)
-				.where("hocki_id = ? and malophoc like ? and mahocphan like ?",params[:hocki_id],"%#{params[:malophoc]}%","%#{params[:mahocphan]}%")
-				.group(:id,:malophoc,:mahocphan,:tenhocphan)
-				.select("lophocs.*","mahocphan","tenhocphan","count(dangkilophocs.id) as dadangki")
-				.paginate(page: params[:page],:per_page=>20)
-			else
-				@lophocs=Lophoc.joins(:hocphan).left_outer_joins(:dangkilophocs)
-				.where("malophoc like ? and mahocphan like ?","%#{params[:malophoc]}%","%#{params[:mahocphan]}%")
-				.group(:id,:malophoc,:mahocphan,:tenhocphan)
-				.select("lophocs.*","mahocphan","tenhocphan","count(dangkilophocs.id) as dadangki")
-				.paginate(page: params[:page],:per_page=>20)
-			end		
-		end		
+		@lophocs=Lophoc.includes(hocphan: :khoavien).includes(:hocki)
+		.left_outer_joins(:dangkilophocs)
+		.group(:id)
+		.select("lophocs.*","count(dangkilophocs.id) as dadangki")
 	end	
 	def new
 		@lophoc = Lophoc.new
@@ -54,10 +29,22 @@ class LophocsController < ApplicationController
 	def edit		
 	end
 	def destroy
-		@lophoc.destroy
-		flash[:info]= '削除しました'
-		redirect_to search_lophocs_path
+		if params[:ids]
+			params[:ids].each do |lophoc_id|
+				lophoc=Lophoc.find_by_id(lophoc_id)
+				if lophoc
+					lophoc.destroy					
+				end
+			end			        
+			respond_to do |f|
+				f.json {render json: {destroy_success: 'success'}}				
+			end
+		else			
+			@lophoc.destroy		
+			flash[:info]= '削除しました'
+			redirect_to lophocs_path
 		end
+	end
 	def update
 		if @lophoc.update(x_params)
 		    flash[:info]='更新しました'
@@ -86,7 +73,7 @@ class LophocsController < ApplicationController
 	end	
 	private
 	def set_x
-		unless @lophoc=Lophoc.find_by_id(params[:id])
+		unless !params[:ids] || @lophoc=Lophoc.find_by_id(params[:id])
 			flash[:info]="見付からない"	
 			redirect_to root_url	
 		end		

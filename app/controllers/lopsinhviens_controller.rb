@@ -1,15 +1,9 @@
 class LopsinhviensController < ApplicationController
 	before_action :logged_in_user, except: [:index]
 	before_action :is_admin, except: [:index]
-	before_action :set_x, only: [:edit,:update]
+	before_action :set_x, only: [:edit,:update,:destroy]
 	def index
-		if params[:khoavien_id]&&params[:khoavien_id]!=""
-			@lopsinhviens=Lopsinhvien.joins(:khoavien,:giaovien)
-			.where("lopsinhviens.khoavien_id = ? and tenlopsinhvien like ?",params[:khoavien_id],"%#{params[:tenlopsinhvien]}%").select("lopsinhviens.*","tenkhoavien","tengiaovien").paginate(page: params[:page],:per_page=>10)
-		else
-			@lopsinhviens=Lopsinhvien.joins(:khoavien,:giaovien)
-			.where("tenlopsinhvien like ?","%#{params[:tenlopsinhvien]}%").select("lopsinhviens.*","tenkhoavien","tengiaovien").paginate(page: params[:page],:per_page=>10)
-		end		
+		@lopsinhviens=Lopsinhvien.includes(:khoavien,:giaovien)
 	end	
 	def new
 		@lopsinhvien = Lopsinhvien.new
@@ -25,7 +19,22 @@ class LopsinhviensController < ApplicationController
 	end
 	def edit		
 	end
-	def destroy		
+	def destroy
+		if params[:ids]
+			params[:ids].each do |lopsinhvien_id|
+				lopsinhvien=Lopsinhvien.find_by_id(lopsinhvien_id)
+				if lopsinhvien
+					lopsinhvien.destroy					
+				end
+			end			        
+			respond_to do |f|
+				f.json {render json: {destroy_success: 'success'}}				
+			end
+		else			
+			@lopsinhvien.destroy			
+			flash[:info]= '削除しました'
+			redirect_to lopsinhviens_path
+		end		
 	end
 	def update
 	    if @lopsinhvien.update(x_params)
@@ -46,7 +55,7 @@ class LopsinhviensController < ApplicationController
     end	
 	private
 	def set_x
-		unless @lopsinhvien=Lopsinhvien.find_by_id(params[:id])	
+		unless !params[:ids] || @lopsinhvien=Lopsinhvien.find_by_id(params[:id])	
 			flash[:info]="見付からない"	
 			redirect_to root_url	
 		end	

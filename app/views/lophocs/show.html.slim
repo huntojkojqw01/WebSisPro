@@ -1,0 +1,38 @@
+=provide(:title,"クラス情報")
+.row
+  .col-md-4[style="background-color:#F6D8CE; font-size:15px;"]
+    ul.list-group
+      li.list-group-item
+        b
+          | クラスコ➖ド: 
+        =@lophoc.malophoc
+      li.list-group-item
+        b
+          | タイム: 
+        =toStrTime(@lophoc.thoigian)
+      li.list-group-item
+        b
+          | 教室: 
+        =@lophoc.diadiem
+      li.list-group-item
+        b
+          | 教師: 
+        =@lophoc.tengiaovien
+      li.list-group-item
+        b
+          | 科目: 
+        =@lophoc.tenhocphan
+        | -
+        =@lophoc.mahocphan
+      li.list-group-item
+        b
+          | 学期: 
+        =@lophoc.mahocki
+      li.list-group-item
+        b
+          | 登録した： 
+        =@lophoc.dadangki
+        | /
+        =@lophoc.maxdangki
+  .col-md-6
+    = render "sinhviens/list", object: @sinhviens

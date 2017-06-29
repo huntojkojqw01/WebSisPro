@@ -1,6 +1,6 @@
 class HocphansController < ApplicationController
-	before_action :logged_in_user, except: [:index,:search]
-	before_action :is_admin, except: [:index,:search]
+	before_action :logged_in_user, except: [:index]
+	before_action :is_admin, except: [:index]
 	before_action :set_x, only: [:edit,:update,:destroy]
 	def index		
 		@hocphans=Hocphan.includes(:khoavien)
@@ -12,8 +12,7 @@ class HocphansController < ApplicationController
 		@hocphan=Hocphan.left_outer_joins(:khoavien).where("hocphans.id=?",params[:id])
 				.select("hocphans.*","tenkhoavien").first			
 	end
-	def edit
-		
+	def edit		
 	end
 	def destroy
 		if params[:ids]

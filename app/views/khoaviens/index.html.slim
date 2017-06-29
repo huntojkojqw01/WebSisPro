@@ -1,0 +1,22 @@
+-provide(:title,"学部リスト")
+.row
+  .col-md-10.col-sm-10.col-md-offset-1.col-sm-offset-1
+    h1 danh sach khoa vien
+    table#khoaviens.table.table-striped.table-bordered
+      thead
+        tr
+          th id
+          th edit_link
+          th 学部
+          th 教室
+          th 電話
+      tfoot
+        tr
+          th id
+          th edit_link
+          th 学部
+          th 教室
+          th 電話
+      tbody
+        = render @khoaviens
+    =render "shared/new_edit_destroy_buttons",object: "khoavien",new_path: new_khoavien_path

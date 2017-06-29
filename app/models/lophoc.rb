@@ -2,8 +2,10 @@ class Lophoc < ApplicationRecord
   require 'csv'
   belongs_to :giaovien
   belongs_to :hocphan
+  delegate :mahocphan,:tenhocphan,:tenkhoavien,to: :hocphan
   belongs_to :hocki
-  has_many :dangkilophocs, dependent: :destroy
+  delegate :mahocki,to: :hocki
+  has_many :dangkilophocs, dependent: :destroy    
   has_many :sinhviens ,through: :dangkilophocs
   validate :lophoc_validate
   validates :thoigian, presence: true, numericality: { only_integer: true ,:greater_than=>0,:message => " is empty " }
