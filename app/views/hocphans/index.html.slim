@@ -1,0 +1,28 @@
+-provide :title, "hocphan_list"
+.row
+  .col-sm-10.col-md-10.col-sm-offset-1.col-md-offset-1
+    table#hocphans.table.table-striped.table-bordered
+      thead
+        tr
+          th id
+          th edit_link
+          th 科目コ➖ド
+          th 科目名
+          th 単位
+          th 学費単位
+          th 科目係数
+          th 学部
+      tfoot
+        tr
+          th id
+          th edit_link
+          th 科目コ➖ド
+          th 科目名
+          th 単位
+          th 学費単位
+          th 科目係数
+          th 学部
+      tbody
+        = render @hocphans
+    =render 'shared/new_edit_destroy_buttons',object: "hocphan",new_path: new_hocphan_path
+  

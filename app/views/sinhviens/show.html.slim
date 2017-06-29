@@ -1,0 +1,23 @@
+-provide(:title,"学生情報")
+.row
+  .col-sm-4.col-md-4.col-md-offset-4.col-sm-offset-4
+    table.table.table-bordered.table-striped
+      tbody
+        tr
+          td 学生コ➖ド
+          td =@sinhvien.masinhvien
+        tr
+          td 学生名
+          td =@sinhvien.tensinhvien
+        tr
+          td 誕生日
+          td =@sinhvien.ngaysinh
+        tr
+          td 学生グル➖プ
+          td =@sinhvien.tenlopsinhvien
+        tr
+          td メ➖ル
+          td =@sinhvien.email
+        tr
+          td 調子
+          td = @sinhvien.trangthai ? "勉強している" : "辞めました"    

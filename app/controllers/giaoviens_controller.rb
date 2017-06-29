@@ -1,15 +1,9 @@
 class GiaoviensController < ApplicationController
 	before_action :logged_in_user
 	before_action :is_admin
-	before_action :set_x, only: [:edit,:update]
+	before_action :set_x, only: [:edit,:update,:destroy]
 	def index		
-		if params[:khoavien_id]&&params[:khoavien_id]!=""
-			@giaoviens=Giaovien.joins(:khoavien)
-			.where("khoavien_id = ? and tengiaovien like ?",params[:khoavien_id],"%#{params[:tengiaovien]}%").select("giaoviens.*","khoaviens.tenkhoavien").paginate(page: params[:page],:per_page=>10)
-		else
-			@giaoviens=Giaovien.joins(:khoavien)
-			.where("tengiaovien like ?","%#{params[:tengiaovien]}%").select("giaoviens.*","khoaviens.tenkhoavien").paginate(page: params[:page],:per_page=>10)
-		end		
+		@giaoviens=Giaovien.includes(:khoavien)		
 	end	
 	def new
 		@giaovien = Giaovien.new
@@ -21,7 +15,21 @@ class GiaoviensController < ApplicationController
 		
 	end
 	def destroy
-		
+		if params[:ids]
+			params[:ids].each do |giaovien_id|
+				giaovien=Giaovien.find_by_id(giaovien_id)
+				if giaovien
+					giaovien.destroy					
+				end
+			end			        
+			respond_to do |f|
+				f.json {render json: {destroy_success: 'success'}}				
+			end
+		else			
+			@giaovien.destroy			
+			flash[:info]= '削除しました'
+			redirect_to giaoviens_path
+		end
 	end
 	def update
 
@@ -40,12 +48,10 @@ class GiaoviensController < ApplicationController
 	    else
 	        render 'new'
 	    end
-    end
-    def search    	
-    end
+    end    
 	private
 	def set_x
-		unless @giaovien=Giaovien.find_by_id(params[:id])	
+		unless params[:ids] || @giaovien=Giaovien.find_by_id(params[:id])	
 			flash[:info]="見付からない"	
 			redirect_to root_url
 		end

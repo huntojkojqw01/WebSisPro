@@ -10,9 +10,7 @@
 				<li class="list-group-item"><b>学期: </b><%=@lophoc.mahocki%></li>
 				<li class="list-group-item"><b>登録した： </b><%=@lophoc.dadangki%>/<%=@lophoc.maxdangki%></li>
 		</ul>		
-		<%= link_to '', edit_lophoc_path(@lophoc),class: "btn btn-warning glyphicon glyphicon-edit"%>
-		<%= link_to '', @lophoc, method: :delete,
-				                                     data: { confirm: '削除' },class: "btn btn-danger glyphicon glyphicon-trash" %>
+		
 	</div>	
 	<div class="col-md-6">
 		<%= render "sinhviens/list", object: @sinhviens %>

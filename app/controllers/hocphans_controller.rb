@@ -3,23 +3,7 @@ class HocphansController < ApplicationController
 	before_action :is_admin, except: [:index,:search]
 	before_action :set_x, only: [:edit,:update,:destroy]
 	def index		
-		if params[:khoavien_id]&&params[:khoavien_id]!=""
-			if params[:tinchi]&&params[:tinchi]!=""
-				@hocphans=Hocphan.left_outer_joins(:khoavien)
-				.where("khoavien_id=? and tinchi = ? and tenhocphan like ? and mahocphan like ?",params[:khoavien_id],params[:tinchi],"%#{params[:tenhocphan]}%","%#{params[:mahocphan]}%").select("hocphans.*","tenkhoavien").paginate(page: params[:page],:per_page=>10)
-			else
-				@hocphans=Hocphan.left_outer_joins(:khoavien)
-				.where("khoavien_id=? and tenhocphan like ? and mahocphan like ?",params[:khoavien_id],"%#{params[:tenhocphan]}%","%#{params[:mahocphan]}%").select("hocphans.*","tenkhoavien").paginate(page: params[:page],:per_page=>10)
-			end				
-		else
-			if params[:tinchi]&&params[:tinchi]!=""
-				@hocphans=Hocphan.left_outer_joins(:khoavien)
-				.where("tinchi = ? and tenhocphan like ? and mahocphan like ?",params[:tinchi],"%#{params[:tenhocphan]}%","%#{params[:mahocphan]}%").select("hocphans.*","tenkhoavien").paginate(page: params[:page],:per_page=>10)
-			else
-				@hocphans=Hocphan.left_outer_joins(:khoavien)
-				.where("tenhocphan like ? and mahocphan like ?","%#{params[:tenhocphan]}%","%#{params[:mahocphan]}%").select("hocphans.*","tenkhoavien").paginate(page: params[:page],:per_page=>10)
-			end
-		end	
+		@hocphans=Hocphan.includes(:khoavien)
 	end	
 	def new
 		@hocphan = Hocphan.new
@@ -32,10 +16,22 @@ class HocphansController < ApplicationController
 		
 	end
 	def destroy
-		@hocphan.destroy
-		flash[:info]= '削除しました'
-		redirect_back fallback_location: root_path
-		end
+		if params[:ids]
+			params[:ids].each do |hocphan_id|
+				hocphan=Hocphan.find_by_id(hocphan_id)
+				if hocphan
+					hocphan.destroy					
+				end
+			end			        
+			respond_to do |f|
+				f.json {render json: {destroy_success: 'success'}}				
+			end
+		else			
+			@hocphan.destroy
+			flash[:info]= '削除しました'
+			redirect_to hocphans_path
+		end		
+	end
 	def update
 	    if @hocphan.update(x_params)
 	      	flash[:info]='更新しました'
@@ -52,9 +48,7 @@ class HocphansController < ApplicationController
 	    else
 	        render 'new'
 	    end
-    end
-    def search    		
-    end
+    end    
     def import
     	r=Hocphan.import(params[:file])    	
 	    if r[0]
@@ -66,7 +60,7 @@ class HocphansController < ApplicationController
     end	
 	private
 	def set_x
-		unless @hocphan=Hocphan.find_by_id(params[:id])
+		unless params[:ids] || @hocphan=Hocphan.find_by_id(params[:id])
 			flash[:info]="見付からない"	
 			redirect_to root_url	
 		end		

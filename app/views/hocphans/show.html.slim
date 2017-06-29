@@ -1,0 +1,25 @@
+-provide(:title,"科目情報")
+.row
+  .col-md-6.col-sm-6.col-md-offset-3.col-sm-offset-3
+    table.table.table-striped.table-bordered
+      tr
+        td 科目コ➖ド
+        td =@hocphan.mahocphan
+      tr
+        td 科目名
+        td =@hocphan.tenhocphan
+      tr
+        td 単位
+        td =@hocphan.tinchi
+      tr
+        td 学費単位
+        td =@hocphan.tinchihocphi
+      tr
+        td 科目係数
+        td 
+          =(1-@hocphan.trongso).round(1)
+          |-
+          =@hocphan.trongso
+      tr
+        td 学部
+        td =@hocphan.tenkhoavien

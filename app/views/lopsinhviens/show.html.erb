@@ -7,8 +7,7 @@
 			<li class="list-group-item"><b>年課: </b><%=@lopsinhvien.khoahoc%></li>
 			<li class="list-group-item"><b>学部: </b><%=@lopsinhvien.tenkhoavien%></li>			
 		</ul>
-		<%=link_to 'コ➖ス',chuongtrinhdaotao_path(@lopsinhvien.id),class: "btn btn-success"%>
-		<%=link_to '',edit_lopsinhvien_path(@lopsinhvien),class: "btn btn-warning glyphicon glyphicon-edit"%>
+		<%=link_to 'コ➖ス',chuongtrinhdaotao_path(@lopsinhvien.id),class: "btn btn-success"%>	
 	</div>	
 	<div class="col-md-8">
 		<%= render "sinhviens/list", object: @sinhviens %>

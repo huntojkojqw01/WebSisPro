@@ -1,0 +1,12 @@
+tr
+  td =hocphan.id
+  td =edit_hocphan_path(hocphan)
+  td =link_to hocphan.mahocphan,hocphan
+  td =hocphan.tenhocphan
+  td =hocphan.tinchi
+  td =hocphan.tinchihocphi
+  td
+  	=(1-hocphan.trongso).round(1)
+  	| -
+  	=hocphan.trongso
+  td =hocphan.tenkhoavien

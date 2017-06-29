@@ -23,7 +23,7 @@
       .form-group
         = f.label :"調子" ,class: "control-label col-sm-4 col-md-4"
         .col-sm-8.col-md-8
-          = f.collection_radio_buttons :trangthai, [[true,"勉強"],[false,"辞めた"]], :first, :last
+          = f.collection_radio_buttons :trangthai, [[true,"勉強"],[false,"辞めた"]], :first, :last, {checked: true}
       .form-group
         = f.label :"学生グル➖プ" ,class: "control-label col-sm-4 col-md-4"
         .col-sm-8.col-md-8
