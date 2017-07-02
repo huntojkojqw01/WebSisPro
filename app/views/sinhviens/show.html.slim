@@ -20,4 +20,5 @@
           td =@sinhvien.email
         tr
           td 調子
-          td = @sinhvien.trangthai ? "勉強している" : "辞めました"    
+          td = @sinhvien.trangthai ? "勉強している" : "辞めました"
+    = link_to 'パスワ➖ド更新',edit_user_path(@sinhvien.user)   

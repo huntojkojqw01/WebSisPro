@@ -5,9 +5,7 @@ class Sinhvien < ApplicationRecord
   	delegate :tenlopsinhvien,:khoahoc,:tenkhoavien,to: :lopsinhvien  
   	has_many :chuongtrinhdaotaos, through: :lopsinhvien
   	has_many :dangkilophocs, dependent: :destroy
-  	has_many :lophocs, through: :dangkilophocs
-  	has_many :dangkihocphans, dependent: :destroy
-  	has_many :hocphans, through: :dangkihocphans
+  	has_many :lophocs, through: :dangkilophocs  	
   	validates :tensinhvien, presence: true, length: { maximum: 50 }
   	validates :masinhvien, presence: true, length: { maximum: 10 }, uniqueness: true  	
   	validates :email,:format => { :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/ }

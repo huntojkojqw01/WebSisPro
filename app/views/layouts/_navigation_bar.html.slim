@@ -13,7 +13,7 @@ nav.navbar.navbar-inverse
             span.caret
           ul.dropdown-menu
             li
-              = link_to 'パスワ➖ド更新',edit_user_path(@current_user)
+              = link_to 'profile',edit_user_path(@current_user)
             li
               = link_to 'ログアウト',logout_path,method: "delete"
         li.dropdown
@@ -24,31 +24,18 @@ nav.navbar.navbar-inverse
             li
               = link_to '学生検索',sinhviens_path
             li
-              = link_to '学生グル➖プ',lopsinhviens_path
-            li
-              = link_to '追加追加',new_sinhvien_path
+              = link_to '学生グル➖プ',lopsinhviens_path            
             li
               = link_to '登録検索',svdkh_sinhviens_path
-        li.dropdown
-          a.dropdown-toggle[data-toggle="dropdown",href="#"]
-            | 科目
-            span.caret
-          ul.dropdown-menu
-            li
-              = link_to '科目検索',hocphans_path
-            li
-              = link_to '科目追加',new_hocphan_path
-            li
-              = link_to '科目登録を追加',new_dangkihocphan_path if mo_dangki_hocphan?
+        li
+          = link_to '科目',hocphans_path                      
         li.dropdown
           a.dropdown-toggle[data-toggle="dropdown",href="#"]
             | クラス
             span.caret
           ul.dropdown-menu
             li
-              = link_to 'クラス検索',lophocs_path
-            li
-              = link_to 'クラス追加',new_lophoc_path
+              = link_to 'クラス検索',lophocs_path            
             li
               = link_to 'クラス登録を追加',new_dangkilophoc_path if mo_dangki_lophoc?
             li
@@ -57,27 +44,9 @@ nav.navbar.navbar-inverse
           = link_to '学部',khoaviens_path
         li
           = link_to '学期',hockis_path
-        li.dropdown
-          a.dropdown-toggle[data-toggle="dropdown",href="#"]
-            | 教師
-            span.caret
-          ul.dropdown-menu
-            li
-              = link_to '教師検索',giaoviens_path
-            li
-              = link_to '教師を追加',new_giaovien_path
-      - elsif sinhvien?
-        li.dropdown
-          a.dropdown-toggle[data-toggle="dropdown",href="#"]
-            =@current_user.name
-            span.caret
-          ul.dropdown-menu
-            li
-              = link_to '学生情報',@current_sinhvien
-            li
-              = link_to 'パスワ➖ド更新',edit_user_path(@current_user)
-            li
-              = link_to 'ログアウト',logout_path,method: "delete"
+        li
+          = link_to '教師',giaoviens_path          
+      - elsif sinhvien?        
         li.dropdown
           a.dropdown-toggle[data-toggle="dropdown",href="#"]
             | 個人情報
@@ -109,14 +78,21 @@ nav.navbar.navbar-inverse
             li
               = link_to '学生',sinhviens_path
             li
-              = link_to '登録検索',svdkh_sinhviens_path
-            li
               = link_to '科目',hocphans_path
             li
               = link_to 'クラス',lophocs_path
-      - else
-        li
-          = link_to 'ログイン',login_path
+            li
+              = link_to '登録検索',svdkh_sinhviens_path
+        li.dropdown
+          a.dropdown-toggle[data-toggle="dropdown",href="#"]
+            =@current_user.name
+            span.caret
+          ul.dropdown-menu
+            li
+              = link_to 'profile',@current_sinhvien            
+            li
+              = link_to 'ログアウト',logout_path,method: "delete"           
+      - else        
         li.dropdown
           a.dropdown-toggle[data-toggle="dropdown",href="#"]
             | 検索
@@ -125,8 +101,10 @@ nav.navbar.navbar-inverse
             li
               = link_to '学生',sinhviens_path
             li
-              = link_to '登録検索',svdkh_sinhviens_path
-            li
               = link_to '科目',hocphans_path
             li
               = link_to 'クラス',lophocs_path
+            li
+              = link_to '登録検索',svdkh_sinhviens_path
+        li
+          = link_to 'ログイン',login_path

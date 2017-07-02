@@ -4,8 +4,7 @@ class Hocphan < ApplicationRecord
   delegate :tenkhoavien,to: :khoavien
   has_many :chuongtrinhdaotaos, dependent: :destroy
   has_many :lophocs, dependent: :destroy
-  has_many :dangkilophocs, through: :lophocs
-  has_many :dangkihocphans, dependent: :destroy
+  has_many :dangkilophocs, through: :lophocs  
   validates :tenhocphan, presence: true, length: { maximum: 60 }
   validates :mahocphan, presence: true, length: { maximum: 10 }, uniqueness: true
   validates :tinchi, presence: true, numericality: { :greater_than_or_equal_to=>0, :less_than_or_equal_to=>10 }

@@ -6,41 +6,7 @@ class HockisController < ApplicationController
 	def index		
 		@hockis=Hocki.all
 		@hockis.each do |hk|
-			@hocki_id_lh=hk.id if hk.modangkilophoc==true
-			@hocki_id_hp=hk.id if hk.modangkihocphan==true
-		end			
-	end
-	def modangki
-		@hockis=Hocki.all
-		flag=nil
-		if params[:hocki_id_hp]
-			@hockis.each do |hk|				
-				if hk.id==params[:hocki_id_hp].to_i
-					hk.update(modangkihocphan: true)
-					flag=hk.mahocki
-				elsif hk.modangkihocphan
-					hk.update(modangkihocphan: false)
-				end
-			end			
-			if flag
-				render plain: "科目登録できます。学期： #{flag}"
-			else
-				render plain: "これから科目登録できない"
-			end
-		else
-			@hockis.each do |hk|				
-				if hk.id==params[:hocki_id_lh].to_i
-					hk.update(modangkilophoc: true)
-					flag=hk.mahocki
-				elsif hk.modangkilophoc
-					hk.update(modangkilophoc: false)
-				end
-			end			
-			if flag
-				render plain: "クラス登録できます。学期： #{flag}"
-			else
-				render plain: "これからクラス登録できない"
-			end				
+			@hocki_id_lh=hk.id if hk.modangkilophoc==true			
 		end			
 	end	
 	def new
@@ -53,12 +19,21 @@ class HockisController < ApplicationController
 	def destroy		
 	end
 	def update
-		if @hocki.update(x_params)
-	      	flash[:info]='更新しました'
-	        redirect_to @hocki
-	    else
-	       	render 'edit'
-	    end	    
+		if params[:modangki]
+			opening_hocki=Hocki.find_by(modangkilophoc: true)			
+			if @hocki && @hocki != opening_hocki
+				opening_hocki.update(modangkilophoc: false)
+				@hocki.update(modangkilophoc: true)
+				render plain: "クラス登録できます。学期： #{@hocki.mahocki}"
+			end
+		else
+			if @hocki.update(x_params)
+		      	flash[:info]='更新しました'
+		        redirect_to @hocki
+		    else
+		       	render 'edit'
+		    end
+		end	    
   	end
 	def create
 		@hocki=Hocki.new(x_params)
@@ -77,6 +52,6 @@ class HockisController < ApplicationController
 		end	
 	end
 	def x_params
-	    params.require(:hocki).permit(:mahocki,:dinhmuchocphi,:bd,:kt,:modangkihocphan,:modangkilophoc)
+	    params.require(:hocki).permit(:mahocki,:dinhmuchocphi,:bd,:kt,:modangkilophoc)
 	end
 end

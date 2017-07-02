@@ -9,8 +9,11 @@ module SessionsHelper
     end
     # Confirms the correct user.
     def correct_user
-      @user = User.find(params[:id])
-      redirect_to(root_url) unless @user == current_user
+      @user = User.find_by_id(params[:id])
+      unless @user == current_user || admin?
+        flash[:danger]="permision denied"
+        redirect_to(root_url) 
+      end
     end
     # Confirms an admin user.
   def is_admin

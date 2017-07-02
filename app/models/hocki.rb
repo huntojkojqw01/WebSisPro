@@ -1,5 +1,4 @@
-class Hocki < ApplicationRecord
-	has_many :dangkihocphans, dependent: :destroy	
+class Hocki < ApplicationRecord		
 	has_many :lophocs, dependent: :destroy
 	has_many :dangkilophocs, through: :lophocs
 	has_many :hocphans, through: :lophocs

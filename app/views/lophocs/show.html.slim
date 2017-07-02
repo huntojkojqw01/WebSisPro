@@ -1,38 +1,57 @@
 =provide(:title,"クラス情報")
 .row
-  .col-md-4[style="background-color:#F6D8CE; font-size:15px;"]
-    ul.list-group
-      li.list-group-item
-        b
-          | クラスコ➖ド: 
-        =@lophoc.malophoc
-      li.list-group-item
-        b
-          | タイム: 
-        =toStrTime(@lophoc.thoigian)
-      li.list-group-item
-        b
-          | 教室: 
-        =@lophoc.diadiem
-      li.list-group-item
-        b
-          | 教師: 
-        =@lophoc.tengiaovien
-      li.list-group-item
-        b
-          | 科目: 
-        =@lophoc.tenhocphan
-        | -
-        =@lophoc.mahocphan
-      li.list-group-item
-        b
-          | 学期: 
-        =@lophoc.mahocki
-      li.list-group-item
-        b
-          | 登録した： 
-        =@lophoc.dadangki
-        | /
-        =@lophoc.maxdangki
-  .col-md-6
-    = render "sinhviens/list", object: @sinhviens
+  .col-md-4.col-sm-4[style="background-color:#F6D8CE; font-size:15px;"]
+    table.table.table-striped.table-bordered
+      tbody
+        tr
+          td クラスコ➖ド
+          td =@lophoc.malophoc
+        tr
+          td タイム 
+          td =toStrTime(@lophoc.thoigian)
+        tr
+          td 教室
+          td =@lophoc.diadiem
+        tr
+          td 教師 
+          td =link_to @lophoc.tengiaovien,@lophoc.giaovien
+        tr
+          td 科目 
+          td
+            =@lophoc.tenhocphan
+            | -
+            =link_to @lophoc.mahocphan,@lophoc.hocphan
+        tr
+          td 学期
+          td =@lophoc.mahocki
+        tr
+          td 登録した 
+          td
+            =@lophoc.dadangki
+            | /
+            =@lophoc.maxdangki
+  .col-md-6.col-sm-6
+    h3 Sinh vien list
+    table#sinhviens.table.table-striped.table-bordered
+      thead
+        tr
+          th id
+          th edit_link                      
+          th 学生コ➖ド
+          th 学生名
+          th 誕生日        
+      tbody
+        -@sinhviens.each do |sinhvien|
+          tr
+            td=sinhvien.id
+            td=edit_sinhvien_path(sinhvien)          
+            td=link_to sinhvien.masinhvien, sinhvien
+            td=sinhvien.tensinhvien
+            td=sinhvien.ngaysinh   
+      tfoot
+        tr
+          th id
+          th edit_link          
+          th 学生コ➖ド
+          th 学生名
+          th 誕生日

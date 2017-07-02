@@ -15,8 +15,7 @@ class Dangkilophoc < ApplicationRecord
 			hocki=lophoc.hocki
 			hocphan=lophoc.hocphan
 			errors.add(:lophoc, "正しい学期情報が必要") unless hocki
-			errors.add(:lophoc, "正しい科目情報が必要") unless hocphan
-			errors.add(:hocphan, "科目を登録してください。#{hocphan.mahocphan}") unless sinhvien.dangkihocphans.where("hocphan_id=? and hocki_id=?",hocphan.id,hocki.id).count>0
+			errors.add(:lophoc, "正しい科目情報が必要") unless hocphan			
 			errors.add(:hocki, "今クラス登録できない") unless lophoc.hocki.modangkilophoc
 			errors.add(:lophoc , "このクラスは満員です") unless lophoc.maxdangki>lophoc.dangkilophocs.count
 			lophocs=sinhvien.lophocs.where("hocki_id=? and malophoc!=?",lophoc.hocki_id,lophoc.malophoc)

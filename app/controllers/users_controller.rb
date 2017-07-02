@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 		@users=User.all
 	end
 	def show
-		@user=User.find(params[:id])
+		@user=User.find_by_id(params[:id])
 	end
 	def new
 		@user=User.new
@@ -19,10 +19,10 @@ class UsersController < ApplicationController
 		end
 	end
 	def edit
-	    	@user = User.find(params[:id])
+	    @user = User.find_by_id(params[:id])
 	end
 	def update
-		@user = User.find(params[:id])
+		@user = User.find_by_id(params[:id])
 	    if @user.update_attributes(user_params)	      
 	      redirect_to @user
 	    else
@@ -30,7 +30,8 @@ class UsersController < ApplicationController
 	    end
 	end
 	def destroy
-		User.find(params[:id]).destroy
+		user=User.find_by_id(params[:id])
+		user.destroy if user
 		redirect_to users_path
 	end
 	private
