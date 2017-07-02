@@ -15,13 +15,13 @@
 //= require bootstrap
 //= require turbolinks
 //= require sweetalert2
+//= require jquery.turbolinks
 //= require_tree .
 var setStandardTable;
 
-setStandardTable = function(obj, ajax_url) {
-  var destroy_btn, edit_btn, model_name, oTable, table_id;
-  table_id = '#' + obj + 's';
-  model_name = obj;
+setStandardTable = function(model_name, ajax_url) {
+  var destroy_btn, edit_btn, model_name, oTable, table_id;  
+  table_id = '#' + model_name + 's';  
   $(table_id + ' tfoot th').each(function() {
     var title;
     title = $(this).text();

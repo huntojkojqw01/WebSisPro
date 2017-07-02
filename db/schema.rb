@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161118124855) do
+ActiveRecord::Schema.define(version: 20170307032749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,7 +30,6 @@ ActiveRecord::Schema.define(version: 20161118124855) do
     t.integer "hocki_id"
     t.index ["hocki_id"], name: "index_dangkihocphans_on_hocki_id", using: :btree
     t.index ["hocphan_id"], name: "index_dangkihocphans_on_hocphan_id", using: :btree
-    t.index ["sinhvien_id", "hocphan_id", "hocki_id"], name: "index_dangkihocphans_on_sinhvien_id_and_hocphan_id_and_hocki_id", unique: true, using: :btree
     t.index ["sinhvien_id"], name: "index_dangkihocphans_on_sinhvien_id", using: :btree
   end
 
@@ -43,7 +42,6 @@ ActiveRecord::Schema.define(version: 20161118124855) do
     t.integer "sinhvien_id"
     t.integer "lophoc_id"
     t.index ["lophoc_id"], name: "index_dangkilophocs_on_lophoc_id", using: :btree
-    t.index ["sinhvien_id", "lophoc_id"], name: "index_dangkilophocs_on_sinhvien_id_and_lophoc_id", unique: true, using: :btree
     t.index ["sinhvien_id"], name: "index_dangkilophocs_on_sinhvien_id", using: :btree
   end
 
@@ -75,6 +73,11 @@ ActiveRecord::Schema.define(version: 20161118124855) do
     t.index ["khoavien_id"], name: "index_hocphans_on_khoavien_id", using: :btree
   end
 
+  create_table "hungs", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "khoaviens", force: :cascade do |t|
     t.string "tenkhoavien"
     t.string "sodienthoai"
@@ -101,6 +104,15 @@ ActiveRecord::Schema.define(version: 20161118124855) do
     t.integer "khoavien_id"
     t.index ["giaovien_id"], name: "index_lopsinhviens_on_giaovien_id", using: :btree
     t.index ["khoavien_id"], name: "index_lopsinhviens_on_khoavien_id", using: :btree
+  end
+
+  create_table "pg_search_documents", force: :cascade do |t|
+    t.text     "content"
+    t.string   "searchable_type"
+    t.integer  "searchable_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id", using: :btree
   end
 
   create_table "sinhviens", force: :cascade do |t|
