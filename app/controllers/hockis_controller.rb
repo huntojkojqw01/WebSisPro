@@ -19,14 +19,16 @@ class HockisController < ApplicationController
 	def destroy		
 	end
 	def update
-		if params[:modangki]
-			opening_hocki=Hocki.find_by(modangkilophoc: true)			
-			if @hocki && @hocki != opening_hocki
-				opening_hocki.update(modangkilophoc: false)
+		if params[:modangki]			
+			opening_hocki=Hocki.find_by(modangkilophoc: true)
+			opening_hocki.update(modangkilophoc: false) if opening_hocki			
+			if @hocki				
 				@hocki.update(modangkilophoc: true)
 				render plain: "クラス登録できます。学期： #{@hocki.mahocki}"
+			else
+				render plain: "Stop クラス登録"				
 			end
-		else
+		else			
 			if @hocki.update(x_params)
 		      	flash[:info]='更新しました'
 		        redirect_to @hocki
@@ -46,7 +48,7 @@ class HockisController < ApplicationController
     end	
 	private
 	def set_x
-		unless @hocki=Hocki.find_by_id(params[:id])	
+		unless (@hocki=Hocki.find_by_id(params[:id]))	|| params[:modangki]
 			flash[:info]="見付からない"	
 			redirect_to root_url	
 		end	

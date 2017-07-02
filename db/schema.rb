@@ -22,16 +22,7 @@ ActiveRecord::Schema.define(version: 20170307032749) do
     t.index ["hocphan_id"], name: "index_chuongtrinhdaotaos_on_hocphan_id", using: :btree
     t.index ["lopsinhvien_id", "hocphan_id"], name: "index_chuongtrinhdaotaos_on_lopsinhvien_id_and_hocphan_id", unique: true, using: :btree
     t.index ["lopsinhvien_id"], name: "index_chuongtrinhdaotaos_on_lopsinhvien_id", using: :btree
-  end
-
-  create_table "dangkihocphans", force: :cascade do |t|
-    t.integer "sinhvien_id"
-    t.integer "hocphan_id"
-    t.integer "hocki_id"
-    t.index ["hocki_id"], name: "index_dangkihocphans_on_hocki_id", using: :btree
-    t.index ["hocphan_id"], name: "index_dangkihocphans_on_hocphan_id", using: :btree
-    t.index ["sinhvien_id"], name: "index_dangkihocphans_on_sinhvien_id", using: :btree
-  end
+  end  
 
   create_table "dangkilophocs", force: :cascade do |t|
     t.float   "diemquatrinh"
@@ -58,8 +49,7 @@ ActiveRecord::Schema.define(version: 20170307032749) do
     t.string  "mahocki"
     t.integer "dinhmuchocphi"
     t.date    "bd"
-    t.date    "kt"
-    t.boolean "modangkihocphan"
+    t.date    "kt"    
     t.boolean "modangkilophoc"
   end
 

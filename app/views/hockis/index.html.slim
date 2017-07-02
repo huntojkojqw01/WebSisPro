@@ -1,0 +1,27 @@
+-provide(:title,"学期リスト")
+.row
+  .col-sm-6.col-md-6.col-sm-offset-1.col-md-offset-1
+    h1 danh sach hoc ki
+    table#hockis.table.table-striped.table-bordered
+      thead
+        tr
+          th id
+          th edit_link
+          th 学期コ➖ド
+          th 単位学費
+          th 始
+          th 終          
+      tfoot
+        tr
+          th id
+          th edit_link
+          th 学期コ➖ド
+          th 単位学費
+          th 始
+          th 終
+      tbody
+        = render @hockis
+    =render 'shared/new_edit_destroy_buttons',object: "hocki",new_path: new_hocki_path
+  .col-md-3.col-sm-3
+    =label_tag "Open クラス登録"
+    =select_tag "hocki_id_lh", options_from_collection_for_select(@hockis, "id", "mahocki",@hocki_id_lh),:include_blank=>"Close all"    

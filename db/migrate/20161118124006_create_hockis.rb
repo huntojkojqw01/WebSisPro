@@ -5,7 +5,6 @@ class CreateHockis < ActiveRecord::Migration[5.0]
       t.integer :dinhmuchocphi
       t.date :bd
       t.date :kt
-      t.boolean :modangkihocphan
       t.boolean :modangkilophoc
     end
   end
