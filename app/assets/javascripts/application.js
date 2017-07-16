@@ -72,7 +72,7 @@ setStandardTable = function(model_name, ajax_url) {
       return window.location = new_address;
     }
   });
-  return destroy_btn.click(function() {
+  destroy_btn.click(function() {
     var Ids, selects;
     selects = oTable.rows('tr.selected').data();
     Ids = new Array();
@@ -110,7 +110,7 @@ setStandardTable = function(model_name, ajax_url) {
             }
           },
           failure: function() {
-            return console.log("sinhvien_削除する keydown Unsuccessful");
+            return console.log("削除する keydown Unsuccessful");
           }
         });
         edit_btn.hide();

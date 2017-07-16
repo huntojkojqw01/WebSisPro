@@ -1,6 +1,8 @@
 class Chuongtrinhdaotao < ApplicationRecord	
   belongs_to :lopsinhvien
-  belongs_to :hocphan  
+  delegate :tenlopsinhvien,to: :lopsinhvien
+  belongs_to :hocphan
+  delegate :mahocphan,:tenhocphan,:tinchi,:tinchihocphi,:trongso,:tenkhoavien,to: :hocphan  
   validates :hocphan_id, uniqueness: {scope: :lopsinhvien_id,message: "重複しました"}
   validates :hocphan_id, presence: true
   validates :lopsinhvien_id, presence: true

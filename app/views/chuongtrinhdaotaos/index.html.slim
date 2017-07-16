@@ -1,0 +1,24 @@
+=provide(:title,"コ➖ス")
+.row
+  .col-md-8.col-sm-8.col-md-offset-2.col-sm-offset-2
+    h1 
+      | コ➖ス         
+    table#chuongtrinhdaotaos.table.table-striped.table-bordered
+      thead
+        tr
+          th id          
+          th 期
+          th 科目コ➖ド
+          th 科目名          
+          th 学生グル➖プ
+      tbody
+        =render @ctdts
+      tfoot
+        tr
+          th id          
+          th 期
+          th 科目コ➖ド
+          th 科目名          
+          th 学生グル➖プ
+    =render 'shared/new_edit_destroy_buttons',object: 'chuongtrinhdaotao',new_path: new_chuongtrinhdaotao_path
+            
