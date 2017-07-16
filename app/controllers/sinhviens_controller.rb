@@ -163,18 +163,7 @@ class SinhviensController < ApplicationController
 				flash[:info]="見付からない"					
 			end
 		end
-	end
-	def duyet
-        @mons=[]
-        if @hocphan_ids
-            @hocphan_ids.each do |x|                            
-            	@mons<<Hocphan.find_by_id(x)
-            end                     	
-            @mang_ket_qua=[]
-           	@danh_sach_lop=[]
-            tim_thoi_khoa_bieu(0)                                            
-        end
-    end
+	end	
 	private
 	def set_x
 		unless params[:ids] || @sinhvien=Sinhvien.find_by_id(params[:id])
@@ -196,34 +185,7 @@ class SinhviensController < ApplicationController
                     @tkb|=(1<<i.to_i)
                	end
             end
-        end
-	def check_tkb(ds_lop,tkb)
-        ds_lop.each do |lop|
-            if tkb&lop.thoigian==0
-                tkb|=lop.thoigian
-            else
-                return false
-            end                           
-        end
-        return true
-    end
-    def  tim_thoi_khoa_bieu(mon_hien_tai)
-        lhs=@mons[mon_hien_tai].lophocs.where("hocki_id=?",current_hocki.id)
-        lhs.each do |lop|
-            @danh_sach_lop<<lop
-            if check_tkb(@danh_sach_lop,@tkb)  
-                if @danh_sach_lop.count==@mons.count
-                    @mang_ket_qua<<Array.new(@danh_sach_lop)
-                    @danh_sach_lop.pop
-                else    
-                    tim_thoi_khoa_bieu(mon_hien_tai+1)
-                    @danh_sach_lop.pop
-                end                               
-            else
-                @danh_sach_lop.pop        
-            end
-        end# lhs.each do |lop|                  
-    end#end tim_thoi_khoa_bieu
+    end    
     def chinh_chu
     	if sinhvien?  
 	        unless @current_sinhvien.id==params[:id].to_i

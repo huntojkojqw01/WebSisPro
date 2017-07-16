@@ -31,9 +31,7 @@ Rails.application.routes.draw do
         post :import
         get :thoikhoabieu
         get :bangdiem                      
-        get :svdkh
-        get :duyet
-        post :duyet        
+        get :svdkh               
       end
     end
   resources :dangkilophocs do
