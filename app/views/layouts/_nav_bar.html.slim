@@ -1,0 +1,19 @@
+nav.navbar.navbar-primary 
+  .container-fluid
+    .navbar-header
+      button.navbar-toggle.collapsed[data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"]
+        span.sr-only Toggle navigation</span>
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand[href="#"]        
+        =image_tag 'logo.jpg',size: "30x40",alt: "SIS"
+    .collapse.navbar-collapse[id="bs-example-navbar-collapse-1"]
+      ul.nav.navbar-nav
+        li= link_to 'ホ➖ム',root_path
+        - if admin?          
+          =render 'layouts/admin_navbar'          
+        - elsif sinhvien?        
+          =render 'layouts/sinhvien_navbar'           
+        - else        
+          =render 'layouts/khach_navbar'

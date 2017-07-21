@@ -8,7 +8,7 @@ class Lophoc < ApplicationRecord
   has_many :dangkilophocs, dependent: :destroy    
   has_many :sinhviens ,through: :dangkilophocs
   validate :lophoc_validate
-  validates :thoigian, presence: true, numericality: { only_integer: true ,:greater_than=>0,:message => " is empty " }
+  validates :thoigian, presence: true, numericality: { only_integer: true ,:greater_than=>0,:message => " can't be blank " }
   validates :diadiem, presence: true, length: { maximum: 50}
   validates :malophoc, presence: true, length: { maximum: 10 }, uniqueness: true
   validates :maxdangki, presence: true, numericality: { only_integer: true, :greater_than=>0, :less_than_or_equal_to=>200 }

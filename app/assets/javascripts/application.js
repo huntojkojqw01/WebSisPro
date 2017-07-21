@@ -48,6 +48,7 @@ setStandardTable = function(model_name, ajax_url) {
       }
     });
   });
+  new_btn = $('#new_' + model_name);
   edit_btn = $('#edit_' + model_name);
   destroy_btn = $('#destroy_' + model_name);
   edit_btn.hide();
@@ -65,11 +66,16 @@ setStandardTable = function(model_name, ajax_url) {
       return destroy_btn.hide();
     }
   });
-  edit_btn.click(function() {
-    var new_address;
-    new_address = oTable.row('tr.selected').data()[1];
+  new_btn.click(function() {
+    var new_address = $(this).attr("href");
     if (new_address !== void 0) {
       return window.location = new_address;
+    }
+  });
+  edit_btn.click(function() {
+    var edit_address = oTable.row('tr.selected').data()[1];
+    if (edit_address !== void 0) {
+      return window.location = edit_address;
     }
   });
   destroy_btn.click(function() {

@@ -1,0 +1,35 @@
+= form_for(object,html: {class: "form-horizontal"}) do |f|
+  = render 'shared/error_messages', object: f.object
+  -if object.id
+    = f.hidden_field :malophoc
+  -else
+    .form-group
+      = f.label :"クラスコ➖ド",class: "col-md-4 col-sm-4"
+      .col-sm-8.col-md-8
+        = f.text_field :malophoc,class: 'form-control'
+  .form-group
+    = f.label :"タイム",class: "col-md-4 col-sm-4"
+    .col-sm-8.col-md-8
+      = f.text_field :thoigian,placeholder: "日,始まる,終わる",class: 'form-control'
+  .form-group
+    = f.label :"教室",class: "col-md-4 col-sm-4"
+    .col-sm-8.col-md-8
+      = f.text_field :diadiem,class: 'form-control'
+  .form-group
+    = f.label :"最大",class: "col-md-4 col-sm-4"
+    .col-sm-8.col-md-8
+      = f.number_field :maxdangki,min: 0,class: 'form-control'
+  .form-group
+    = f.label :"教師",class: "col-md-4 col-sm-4"
+    .col-sm-8.col-md-8
+      = f.collection_select :giaovien_id, Giaovien.all, :id, :tengiaovien, prompt: true
+  .form-group
+    = f.label :"科目",class: "col-md-4 col-sm-4"
+    .col-sm-8.col-md-8
+      = f.collection_select :hocphan_id, Hocphan.all, :id, :mahocphan, prompt: true
+  .form-group
+    = f.label :"学期",class: "col-md-4 col-sm-4"
+    .col-sm-8.col-md-8
+      = f.collection_select :hocki_id, Hocki.all, :id, :mahocki, prompt: true
+  .form-group
+    = f.submit (object.id ? "更新" : "追加"),class: "btn btn-primary col-md-offset-4 col-sm-offset-4"

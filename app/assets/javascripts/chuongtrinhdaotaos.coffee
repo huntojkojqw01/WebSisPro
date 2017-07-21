@@ -18,14 +18,15 @@ $(document).on 'turbolinks:load', () ->
       }
       {
         "targets": [1],
-        "width": "5%"
+        "width": "10%"
       }
     ]  
   oTable.columns().every ()->
     that = this
     return $('input', this.footer()).on 'keyup change', ()->
       if (that.search() != this.value)
-        return that.search(this.value).draw()  
+        return that.search(this.value).draw()
+  new_btn = $('button#new_chuongtrinhdaotao') 
   $('#edit_chuongtrinhdaotao').remove() 
   destroy_btn = $('#destroy_chuongtrinhdaotao')  
   destroy_btn.hide()
@@ -35,6 +36,10 @@ $(document).on 'turbolinks:load', () ->
       destroy_btn.show()
     else
       destroy_btn.hide()
+  new_btn.click ()->
+    new_address = $(this).attr("href")
+    if new_address != ""
+      return window.location = new_address    
   destroy_btn.click ()->
     Ids = undefined
     selects = undefined

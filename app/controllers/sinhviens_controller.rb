@@ -71,13 +71,17 @@ class SinhviensController < ApplicationController
 		end		    
 	end	
 	def import
+		begin
 	    r=Sinhvien.import(params[:file])
 	    if r[0]
 	      	flash[:success]= "File is imported(#{r[1]-1} record)."	      
 	    else
 			flash[:danger]= "エラ➖ #{r[1]}: #{r[2]}."			
 	    end
-	    redirect_to sinhviens_path
+	  rescue
+	  	flash[:danger]= "Invalid CSV file format."
+	  end
+	  redirect_to sinhviens_path
 	end
 	def thoikhoabieu		
 		if params[:hocki_id]

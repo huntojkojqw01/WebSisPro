@@ -3,3 +3,4 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).on 'turbolinks:load', () ->
 	setStandardTable("lophoc","/lophocs/destroy")	
+	$("input#lophoc_thoigian").val($('span#time').text())

@@ -19,24 +19,24 @@ class Hocphan < ApplicationRecord
 	      end
 	    end
   end
-  def self.import file
-    dem=0    
-      CSV.foreach(file.path, { headers: true, :col_sep => ',' }).with_index do |row,i|
-        dem=i+2
-        hp_hash = row.to_hash.slice("mahocphan","tenhocphan","trongso","tinchi","tinchihocphi","tenkhoavien")
-        return [false,dem,"Thiếu cột dữ liệu, cần có: mahocphan,tenhocphan,trongso,tinchi,tinchihocphi,tenkhoavien"] if hp_hash.length!=6      
-        khoavien=Khoavien.find_by_tenkhoavien(hp_hash["tenkhoavien"])
-        return [false,dem,"Tên khoa viện không tồn tại"] unless khoavien
-        hp_hash["khoavien_id"]=khoavien.id
-        hp_hash.except! "tenkhoavien"
-        hocphan=Hocphan.find_by(mahocphan: hp_hash["mahocphan"])                
-        if hocphan
-          return [false,dem,hocphan.errors.full_messages.join(',')] unless hocphan.update(hp_hash)
-        else                      
-          new_hocphan=Hocphan.new(hp_hash)          
-          return [false,dem,new_hocphan.errors.full_messages.join(',')] unless new_hocphan.save
-        end # if hocphan                   
-      end # end CSV.foreach
-      return [true,dem,""]
+  def self.import file    
+    dem=0 
+    CSV.foreach(file.path, { headers: true, :col_sep => ',' }).with_index do |row,i|
+      dem=i+2
+      hp_hash = row.to_hash.slice("mahocphan","tenhocphan","trongso","tinchi","tinchihocphi","tenkhoavien")
+      return [false,dem,"Thiếu cột dữ liệu, cần có: mahocphan,tenhocphan,trongso,tinchi,tinchihocphi,tenkhoavien"] if hp_hash.length!=6      
+      khoavien=Khoavien.find_by_tenkhoavien(hp_hash["tenkhoavien"])
+      return [false,dem,"Tên khoa viện không tồn tại"] unless khoavien
+      hp_hash["khoavien_id"]=khoavien.id
+      hp_hash.except! "tenkhoavien"
+      hocphan=Hocphan.find_by(mahocphan: hp_hash["mahocphan"])                
+      if hocphan
+        return [false,dem,hocphan.errors.full_messages.join(',')] unless hocphan.update(hp_hash)
+      else                      
+        new_hocphan=Hocphan.new(hp_hash)          
+        return [false,dem,new_hocphan.errors.full_messages.join(',')] unless new_hocphan.save
+      end # if hocphan                   
+    end # end CSV.foreach
+    return [true,dem,""]
   end
 end

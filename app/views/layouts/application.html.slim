@@ -7,7 +7,7 @@ html
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body    
-    =render 'layouts/navigation_bar'
+    =render 'layouts/nav_bar'
     .container
       - flash.each do |message_type, message|
         |  <div class="alert alert-

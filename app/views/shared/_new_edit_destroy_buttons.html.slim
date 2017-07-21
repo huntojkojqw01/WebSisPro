@@ -1,6 +1,6 @@
 -new_path||=nil
 -if new_path
-	=link_to "New",new_path,class: "btn btn-primary "
+	button.btn.btn-primary id="new_#{object}" href="#{new_path}" New
 -else
 	button.btn.btn-primary id="new_#{object}" New
 button.btn.btn-warning id="edit_#{object}" Edit

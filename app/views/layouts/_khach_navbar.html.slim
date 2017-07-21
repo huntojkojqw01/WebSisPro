@@ -1,0 +1,25 @@
+li.dropdown
+  a.dropdown-toggle[data-toggle="dropdown",href="#",role="button" aria-haspopup="true" aria-expanded="false"]
+    | 検索
+    span.caret
+  ul.dropdown-menu
+    li= link_to '学生',sinhviens_path
+    li.divider role="separator"
+    li= link_to '科目',hocphans_path
+    li.divider role="separator"
+    li= link_to 'クラス',lophocs_path
+    li.divider role="separator"
+    li= link_to '登録検索',svdkh_sinhviens_path
+form.navbar-form.navbar-left
+  .form-group
+    input.form-control[type="text" placeholder="Search"]
+    button.btn.btn-default[type="submit"] Submit
+ul.nav.navbar-nav.navbar-right
+  li.dropdown
+    a.dropdown-toggle[data-toggle="dropdown",href="#",role="button" aria-haspopup="true" aria-expanded="false"]
+      | language
+      span.caret
+    ul.dropdown-menu
+      li= link_to 'nihongo',"#"           
+      li= link_to 'vietnam',"#"
+  li= link_to 'ログイン',login_path

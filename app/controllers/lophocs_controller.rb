@@ -61,15 +61,19 @@ class LophocsController < ApplicationController
 		else		        
 		    render 'new'
 		end		
-    end
-    def import
+  end
+  def import
+  	begin
 	    r=Lophoc.import(params[:file])
 	    if r[0]
-	      	flash[:success]= "File is imported(#{r[1]-1} record)."	      
+	      flash[:success]= "File is imported(#{r[1]-1} record)."	      
 	    else
-			flash[:danger]= "エラ➖ #{r[1]}: #{r[2]}."			
+				flash[:danger]= "エラ➖ #{r[1]}: #{r[2]}."			
 	    end
-	    redirect_to search_lophocs_path
+	  rescue
+	  	flash[:danger]= "Invalid CSV file format."
+	  end
+	  redirect_to lophocs_path
 	end	
 	private
 	def set_x

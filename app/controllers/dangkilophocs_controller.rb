@@ -81,15 +81,19 @@ class DangkilophocsController < ApplicationController
 			flash[:danger]= 'エラ➖: '+@dangkilophoc.errors.full_messages.join(',')					    					        
 		end
 		redirect_back fallback_location: root_path		
-    end    	
-    def import
+  end    	
+  def import
+  	begin
 	    r=Dangkilophoc.import(params[:file])
 	    if r[0]
 	      	flash[:success]= "File is imported(#{r[1]-1} record)."	      
 	    else
 			flash[:danger]= "エラ➖ #{r[1]}: #{r[2]}."			
 	    end
-	    redirect_back fallback_location: root_path
+	  rescue
+	  	flash[:danger]= "Invalid CSV file format."
+	  end
+	  redirect_back fallback_location: root_path
 	end	
 	private
 	def set_x
@@ -120,7 +124,7 @@ class DangkilophocsController < ApplicationController
         	end
         end
     end	
-    def tinhDiem(diemquatrinh,diemthi,trongso)
+  def tinhDiem(diemquatrinh,diemthi,trongso)
   		diemquatrinh=diemquatrinh.to_f
   		diemthi=diemthi.to_f
   		trongso=trongso.to_f
