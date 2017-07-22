@@ -3,7 +3,7 @@ class Hocki < ApplicationRecord
 	has_many :dangkilophocs, through: :lophocs
 	has_many :hocphans, through: :lophocs
 	validate :hocki_validate
-	validates :mahocki, presence: true, length: { maximum: 5 } , uniqueness: true
+	validates :mahocki, presence: true, length: { maximum: 5 } , uniqueness: true, format: { with: /\A[0-9]+\z/ }
 	validates :dinhmuchocphi, numericality: { only_integer: true,:greater_than_or_equal_to=>100 }
 	default_scope {order(:mahocki)}
 	def hocki_validate

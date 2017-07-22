@@ -2,25 +2,4 @@
 .row
   .col-md-6.col-md-offset-3.col-sm-6.col-sm-offset-3 style="background-color:#F2F5A9" 
     h1 style=("text-align: center; font-size: 40px;")  学期情報を更新
-    .form-horizontal style="margin-top:20px;" 
-      = form_for(@hocki) do |f|
-        = render 'shared/error_messages', object: f.object
-        .form-group
-          = f.label :"学期コ➖ド" ,class: "control-label col-sm-4 col-md-4"
-          .col-sm-8.col-md-8
-            = f.text_field :mahocki,readonly: true
-        .form-group
-          = f.label :"始まる" ,class: "control-label col-sm-4 col-md-4"
-          .col-sm-8.col-md-8
-            = f.date_select :bd
-        .form-group
-          = f.label :"終わる" ,class: "control-label col-sm-4 col-md-4"
-          .col-sm-8.col-md-8
-            = f.date_select :kt
-        .form-group
-          = f.label :"単位学費" ,class: "control-label col-sm-4 col-md-4"
-          .col-sm-8.col-md-8
-            = f.number_field :dinhmuchocphi
-        .form-group
-          .col-sm-8.col-md-8.col-sm-offset-4.col-md-offset-4
-            = f.submit "更新",class: "btn btn-primary"
+    =render 'form',object: @hocki

@@ -1,0 +1,25 @@
+= form_for(object,html: {class: "form-horizontal",style: "margin-top:20px" }) do |f|
+  = render 'shared/error_messages', object: f.object
+  .form-group
+      = f.label :"学期コ➖ド" ,class: "control-label col-sm-4 col-md-4"
+      -if object.id        
+        .col-sm-8.col-md-8
+          = f.text_field :mahocki,readonly: true
+      -else
+        .col-sm-8.col-md-8
+          = f.text_field :mahocki
+  .form-group
+    = f.label :"始まる" ,class: "control-label col-sm-4 col-md-4"
+    .col-sm-8.col-md-8
+      = f.date_select :bd
+  .form-group
+    = f.label :"終わる" ,class: "control-label col-sm-4 col-md-4"
+    .col-sm-8.col-md-8
+      = f.date_select :kt
+  .form-group
+    = f.label :"単位学費" ,class: "control-label col-sm-4 col-md-4"
+    .col-sm-8.col-md-8
+      = f.number_field :dinhmuchocphi
+  .form-group
+    .col-sm-8.col-md-8.col-sm-offset-4.col-md-offset-4
+      = f.submit (object.id ? "更新" : "新規"),class: "btn btn-primary"

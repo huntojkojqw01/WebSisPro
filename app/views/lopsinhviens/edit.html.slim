@@ -1,26 +1,5 @@
 -provide(:title,"学生グル➖プ更新")
 .row
   .col-md-6.col-sm-6.col-md-offset-3.col-sm-offset-3[style="background-color:#F2F5A9"]
-    h1[style="text-align:center; margin-bottom: 40px;"]
-      | 追加 lớp sinh viên mới 
-    = form_for(@lopsinhvien) do |f|
-      = render 'shared/error_messages', object: f.object
-      .form-group
-        = f.label :"学生グル➖プ" ,class: "control-label col-sm-4 col-md-4"
-        .col-sm-8.col-md-8
-          = f.text_field :tenlopsinhvien ,class: 'form-control'
-      .form-group
-        = f.label :"教師" ,class: "control-label col-sm-4 col-md-4"
-        .col-sm-8.col-md-8
-          = f.collection_select :giaovien_id, Giaovien.all, :id, :tengiaovien, prompt: true
-      .form-group
-        = f.label :"年課" ,class: "control-label col-sm-4 col-md-4"
-        .col-sm-8.col-md-8
-          = f.number_field :khoahoc ,class: 'form-control'
-      .form-group
-        = f.label :"学部" ,class: "control-label col-sm-4 col-md-4"
-        .col-sm-8.col-md-8
-          = f.collection_select :khoavien_id, Khoavien.all, :id, :tenkhoavien, prompt: true
-      .form-group
-        .col-sm-offset-4.col-sm-8.col-md-8
-          = f.submit "更新",class: "btn btn-primary"
+    h1[style="text-align:center; margin-bottom: 40px;"] update lớp sinh viên 
+    =render 'form',object: @lopsinhvien

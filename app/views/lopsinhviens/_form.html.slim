@@ -1,0 +1,24 @@
+= form_for(object,html: {class: "form-horizontal"}) do |f|
+  = render 'shared/error_messages', object: f.object
+  .form-group
+    = f.label :"学生グル➖プ" ,class: "control-label col-sm-4 col-md-4"
+    .col-sm-8.col-md-8
+      -if object.id
+        = f.text_field :tenlopsinhvien ,class: 'form-control',readonly: true
+      -else
+        = f.text_field :tenlopsinhvien ,class: 'form-control'
+  .form-group
+    = f.label :"教師" ,class: "control-label col-sm-4 col-md-4"
+    .col-sm-8.col-md-8
+      = f.collection_select :giaovien_id, Giaovien.all, :id, :tengiaovien, prompt: true
+  .form-group
+    = f.label :"年課" ,class: "control-label col-sm-4 col-md-4"
+    .col-sm-8.col-md-8
+      = f.number_field :khoahoc ,class: 'form-control'
+  .form-group
+    = f.label :"学部" ,class: "control-label col-sm-4 col-md-4"
+    .col-sm-8.col-md-8
+      = f.collection_select :khoavien_id, Khoavien.all, :id, :tenkhoavien, prompt: true
+  .form-group
+    .col-sm-offset-4.col-md-offset-4.col-sm-8.col-md-8
+      = f.submit (object.id ? "更新" : "追加"),class: "btn btn-primary"

@@ -14,6 +14,7 @@ $(document).on 'turbolinks:load', () ->
 			success: (data) ->
 				$(".container>.alert").remove()										
 				$(".container").prepend("<div class='alert alert-success'>"+data+"</div>")
+				$(".alert" ).fadeOut(4000);
 			dataType: "text"
 	setStandardTable("hocki","/hockis/destroy")
 	$("#destroy_hocki").remove()	

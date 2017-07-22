@@ -1,0 +1,32 @@
+=form_for(object,html: {class: "form-horizontal"}) do |f|
+  =render 'shared/error_messages', object: f.object
+  .form-group
+    = f.label :"学生コ➖ド " ,class: "control-label col-sm-4 col-md-4"
+    .col-sm-8.col-md-8
+      -if object.id
+        = f.text_field :masinhvien ,class: 'form-control',readonly: true
+      -else
+        = f.text_field :masinhvien ,class: 'form-control'
+  .form-group
+    = f.label :"学生名" ,class: "control-label col-sm-4 col-md-4"
+    .col-sm-8.col-md-8
+      = f.text_field :tensinhvien ,class: 'form-control'
+  .form-group
+    = f.label :"誕生日 " ,class: "control-label col-sm-4 col-md-4"
+    .col-sm-8.col-md-8
+      = f.date_select :ngaysinh ,:start_year=>1980,:end_year=>2000    
+  .form-group
+    = f.label :"メ➖ル" ,class: "control-label col-sm-4 col-md-4"
+    .col-sm-8.col-md-8
+      = f.text_field :email ,class: 'form-control'    
+  .form-group
+    = f.label :"調子" ,class: "control-label col-sm-4 col-md-4"
+    .col-sm-8.col-md-8
+      = f.collection_radio_buttons :trangthai, [[true,"勉強"],[false,"辞めた"]], :first, :last
+  .form-group
+    = f.label :"学生グル➖プ" ,class: "control-label col-sm-4 col-md-4"
+    .col-sm-8.col-md-8
+      = f.collection_select :lopsinhvien_id, Lopsinhvien.all, :id, :tenlopsinhvien, prompt: true    
+  .form-group
+    .col-sm-8.col-md-8.col-sm-offset-4.col-md-offset-4
+      = f.submit (object.id ? "更新" : "追加"),class: "btn btn-primary" 
