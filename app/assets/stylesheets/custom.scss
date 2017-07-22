@@ -4,12 +4,34 @@
 .text {
     font-family: "Times New Roman";
 }
-#sis{
-    font-size: 50px;
+.table{
+	border-radius: 10px 10px 10px 10px;
+	thead{
+		background-color: #B266FF;
+		tr{
+			th:nth-child(1){
+			  border-radius: 10px 0px 0px 0px;
+			}
+			th:nth-last-child(1){
+		  	border-radius: 0px 10px 0px 0px;
+			}
+		}
+	}
+	tbody > tr.selected > td{
+		background-color: #FF99CC !important;
+	}
+	tfoot{
+		background-color: #B266FF;
+		tr{
+			th:nth-child(1){
+			  border-radius: 0px 0px 0px 10px;
+			}
+			th:nth-last-child(1){
+		  	border-radius: 0px 0px 10px 0px;
+			}
+		}
+	}
 }
-#hust{
-    font-size: 35px;
-}
-#logo{
-    padding-left: 90px;
+.table-striped > tbody > tr:nth-child(2n+1) > td{
+  background-color: #CCFFE5;
 }

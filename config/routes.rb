@@ -29,8 +29,7 @@ Rails.application.routes.draw do
   resources :sinhviens do
       collection do
         post :import
-        get :thoikhoabieu
-        get :bangdiem                      
+        get :thoikhoabieu                              
         get :svdkh               
       end
     end

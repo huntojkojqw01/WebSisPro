@@ -1,6 +1,6 @@
 class LopsinhviensController < ApplicationController
 	before_action :logged_in_user, except: [:index]
-	before_action :is_admin, except: [:index]
+	before_action :is_admin, except: [:index,:show]
 	before_action :set_x, only: [:edit,:update,:destroy]
 	def index
 		@lopsinhviens=Lopsinhvien.includes(:khoavien,:giaovien)

@@ -81,8 +81,8 @@ class DangkilophocsController < ApplicationController
 		end		
 	end
 	def update_params
-	    pars=params.require(:dangkilophoc).permit(:diemquatrinh,:diemthi)
-	    hocphan=@dangkilophoc.lophoc.hocphan		
+	  pars=params.require(:dangkilophoc).permit(:diemquatrinh,:diemthi)
+	  hocphan=@dangkilophoc.lophoc.hocphan		
 		tmp=tinhDiem(pars[:diemquatrinh],pars[:diemthi],hocphan.trongso) if hocphan		
 		pars[:diemso],pars[:diemchu]=tmp[0],tmp[1]			
 		return pars		
@@ -103,9 +103,9 @@ class DangkilophocsController < ApplicationController
         end
     end	
   def tinhDiem(diemquatrinh,diemthi,trongso)
-  		diemquatrinh=diemquatrinh.to_f
-  		diemthi=diemthi.to_f
-  		trongso=trongso.to_f
+  	diemquatrinh=diemquatrinh.to_f
+  	diemthi=diemthi.to_f
+  	trongso=trongso.to_f
 		return [0,"F"] if diemquatrinh<3.0 || diemthi<3.0
 		diem=((1-trongso)*diemquatrinh+trongso*diemthi)
 		if diem>=9.45			

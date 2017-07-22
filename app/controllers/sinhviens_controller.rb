@@ -2,7 +2,7 @@ class SinhviensController < ApplicationController
 	include ApplicationHelper
 	before_action :logged_in_user, except: [:index,:svdkh]
 	before_action :is_admin, only: [:edit,:update,:new,:create,:destroy]	
-	before_action :is_sinhvien, only: [:dangkilophoc,:thoikhoabieu,:bangdiem]
+	before_action :is_sinhvien, only: [:thoikhoabieu]
 	before_action :chinh_chu , only: [:show]
 	before_action :set_x, only: [:edit,:update,:destroy]
 	before_action :xx_params ,only: :duyet
@@ -12,10 +12,62 @@ class SinhviensController < ApplicationController
 	def new
 		@sinhvien = Sinhvien.new
 	end
-	def show			
-		unless @sinhvien=Sinhvien.joins(:lopsinhvien).select("sinhviens.*","tenlopsinhvien").find_by_id(params[:id])			
+	def show
+		unless @sinhvien=Sinhvien.includes(:lopsinhvien).find_by_id(params[:id])			
 			flash[:danger]="見付からない"
 			redirect_to sinhviens_path
+		else		
+			@lophocs=Dangkilophoc.includes(lophoc: [:hocphan,:hocki])
+					.where("sinhvien_id=? and diemchu!=?",@current_sinhvien.id,"")		
+			@results={}
+			hocphans={}
+			@lophocs.each do |lh|
+				if @results.key? lh.mahocki
+					@results["#{lh.mahocki}"][:tcdkKI]+=lh.tinchi
+					@results["#{lh.mahocki}"][:tcqKI]+=lh.diemso>0 ? lh.tinchi : 0
+					@results["#{lh.mahocki}"][:diemki]+=lh.diemso*lh.tinchi
+					if hocphans.key? lh.mahocphan
+						diemcu=	hocphans["#{lh.mahocphan}"][:diemcu]			
+						@results["#{lh.mahocki}"][:tcdkKI_thucte]+=0
+						@results["#{lh.mahocki}"][:tcqKI_thucte]+= diemcu <=0 ? lh.tinchi : 0
+						@results["#{lh.mahocki}"][:diemki_thucte]+= lh.diemso>diemcu ? (lh.diemso-diemcu)*lh.tinchi : 0
+						hocphans["#{lh.mahocphan}"][:diemcu]=lh.diemso if diemcu<lh.diemso
+					else
+						@results["#{lh.mahocki}"][:tcdkKI_thucte]+=lh.tinchi
+						@results["#{lh.mahocki}"][:tcqKI_thucte]+= lh.diemso>0 ? lh.tinchi : 0
+						@results["#{lh.mahocki}"][:diemki_thucte]+= lh.diemso*lh.tinchi
+						hocphans["#{lh.mahocphan}"]={diemcu: lh.diemso}
+					end				
+				else
+					@results["#{lh.mahocki}"]={
+						tcdkKI: lh.tinchi,
+						tcqKI: lh.diemso>0 ? lh.tinchi : 0,
+						diemki: lh.diemso*lh.tinchi,								
+					}
+					if hocphans.key? lh.mahocphan
+						diemcu=	hocphans["#{lh.mahocphan}"][:diemcu]			
+						@results["#{lh.mahocki}"][:tcdkKI_thucte]=0
+						@results["#{lh.mahocki}"][:tcqKI_thucte]= diemcu <=0 ? lh.tinchi : 0
+						@results["#{lh.mahocki}"][:diemki_thucte]= lh.diemso>diemcu ? (lh.diemso-diemcu)*lh.tinchi : 0
+						hocphans["#{lh.mahocphan}"][:diemcu]=lh.diemso if diemcu<lh.diemso
+					else
+						@results["#{lh.mahocki}"][:tcdkKI_thucte]=lh.tinchi
+						@results["#{lh.mahocki}"][:tcqKI_thucte]= lh.diemso>0 ? lh.tinchi : 0
+						@results["#{lh.mahocki}"][:diemki_thucte]= lh.diemso*lh.tinchi
+						hocphans["#{lh.mahocphan}"]={diemcu: lh.diemso}
+					end					
+				end							
+			end
+			tongTCdangki=tongTCqua=tongDiem=0
+			@results.each do |key,val|
+				tongDiem+=val[:diemki_thucte]
+				tongTCdangki+=val[:tcdkKI_thucte]
+				tongTCqua+=val[:tcqKI_thucte]
+				val[:gpa]=(val[:diemki]/val[:tcdkKI]).round(2)
+				val[:cpa]=(tongDiem/tongTCdangki).round(2)
+				val[:tcdkKH]=tongTCdangki
+				val[:tcqKH]=tongTCqua
+			end
 		end
 	end
 	def edit		
@@ -91,62 +143,6 @@ class SinhviensController < ApplicationController
 					.where("hocki_id=? and sinhvien_id=?",params[:hocki_id],@current_sinhvien.id)		
 		end		
 	end
-	def bangdiem		
-		@alllophocs=Lophoc.joins(:hocphan,:hocki,:dangkilophocs)
-				.where("sinhvien_id=? and diemchu!=?",@current_sinhvien.id,"")
-				.select("lophocs.*","mahocki","diemquatrinh","diemthi","diemso","diemchu","mahocphan","tenhocphan","tinchi")
-				.reorder(:hocki_id)
-		@lophocs=@alllophocs.paginate(page: params[:page],:per_page=>15)		
-		@results={}
-		hocphans={}
-		@alllophocs.each do |lh|
-			if @results.key? lh.mahocki
-				@results["#{lh.mahocki}"][:tcdkKI]+=lh.tinchi
-				@results["#{lh.mahocki}"][:tcqKI]+=lh.diemso>0 ? lh.tinchi : 0
-				@results["#{lh.mahocki}"][:diemki]+=lh.diemso*lh.tinchi
-				if hocphans.key? lh.mahocphan
-					diemcu=	hocphans["#{lh.mahocphan}"][:diemcu]			
-					@results["#{lh.mahocki}"][:tcdkKI_thucte]+=0
-					@results["#{lh.mahocki}"][:tcqKI_thucte]+= diemcu <=0 ? lh.tinchi : 0
-					@results["#{lh.mahocki}"][:diemki_thucte]+= lh.diemso>diemcu ? (lh.diemso-diemcu)*lh.tinchi : 0
-					hocphans["#{lh.mahocphan}"][:diemcu]=lh.diemso if diemcu<lh.diemso
-				else
-					@results["#{lh.mahocki}"][:tcdkKI_thucte]+=lh.tinchi
-					@results["#{lh.mahocki}"][:tcqKI_thucte]+= lh.diemso>0 ? lh.tinchi : 0
-					@results["#{lh.mahocki}"][:diemki_thucte]+= lh.diemso*lh.tinchi
-					hocphans["#{lh.mahocphan}"]={diemcu: lh.diemso}
-				end				
-			else
-				@results["#{lh.mahocki}"]={
-					tcdkKI: lh.tinchi,
-					tcqKI: lh.diemso>0 ? lh.tinchi : 0,
-					diemki: lh.diemso*lh.tinchi,								
-				}
-				if hocphans.key? lh.mahocphan
-					diemcu=	hocphans["#{lh.mahocphan}"][:diemcu]			
-					@results["#{lh.mahocki}"][:tcdkKI_thucte]=0
-					@results["#{lh.mahocki}"][:tcqKI_thucte]= diemcu <=0 ? lh.tinchi : 0
-					@results["#{lh.mahocki}"][:diemki_thucte]= lh.diemso>diemcu ? (lh.diemso-diemcu)*lh.tinchi : 0
-					hocphans["#{lh.mahocphan}"][:diemcu]=lh.diemso if diemcu<lh.diemso
-				else
-					@results["#{lh.mahocki}"][:tcdkKI_thucte]=lh.tinchi
-					@results["#{lh.mahocki}"][:tcqKI_thucte]= lh.diemso>0 ? lh.tinchi : 0
-					@results["#{lh.mahocki}"][:diemki_thucte]= lh.diemso*lh.tinchi
-					hocphans["#{lh.mahocphan}"]={diemcu: lh.diemso}
-				end					
-			end							
-		end
-		tongTCdangki=tongTCqua=tongDiem=0
-		@results.each do |key,val|
-			tongDiem+=val[:diemki_thucte]
-			tongTCdangki+=val[:tcdkKI_thucte]
-			tongTCqua+=val[:tcqKI_thucte]
-			val[:gpa]=(val[:diemki]/val[:tcdkKI]).round(2)
-			val[:cpa]=(tongDiem/tongTCdangki).round(2)
-			val[:tcdkKH]=tongTCdangki
-			val[:tcqKH]=tongTCqua
-		end
-	end	
 	def svdkh		
 		if params[:masinhvien]
 			if current_hocki		
