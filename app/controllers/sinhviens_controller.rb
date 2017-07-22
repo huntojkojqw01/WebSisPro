@@ -81,7 +81,7 @@ class SinhviensController < ApplicationController
 	  rescue
 	  	flash[:danger]= "Invalid CSV file format."
 	  end
-	  redirect_to sinhviens_path
+	  redirect_back fallback_location: sinhviens_path
 	end
 	def thoikhoabieu		
 		if params[:hocki_id]

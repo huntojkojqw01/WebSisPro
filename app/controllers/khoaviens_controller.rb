@@ -43,7 +43,7 @@ class KhoaviensController < ApplicationController
 	  rescue
 	  	flash[:danger]= "Invalid CSV file format."
 	  end
-	  redirect_to khoaviens_path
+	  redirect_back fallback_location: khoaviens_path
 	end
 	private
 	def set_x			

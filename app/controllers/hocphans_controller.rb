@@ -59,7 +59,7 @@ class HocphansController < ApplicationController
 		  rescue
 		  	flash[:danger]= "Invalid CSV file format."
 		  end
-	    redirect_to new_hocphan_path
+	    redirect_back fallback_location: hocphans_path
     end	
 	private
 	def set_x

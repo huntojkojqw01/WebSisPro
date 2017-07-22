@@ -1,7 +1,9 @@
 class Dangkilophoc < ApplicationRecord	
   	require 'csv'
   	belongs_to :sinhvien
+  	delegate :masinhvien,to: :sinhvien
   	belongs_to :lophoc
+  	delegate :mahocki,:malophoc,:thoigian,:diadiem,:maxdangki,:mahocphan,:tenhocphan,:tinchi,:tinchihocphi,:trongso,to: :lophoc
   	validate :dklh_validate ,on: :create	
   	validates :lophoc_id, uniqueness: {scope: :sinhvien_id,message: "重複しました"}
   	validates :diemquatrinh,:diemthi, numericality: { :greater_than_or_equal_to=>0,:less_than_or_equal_to=>10 ,:message => " :点数 (0.0->10.0)" }, allow_nil: true

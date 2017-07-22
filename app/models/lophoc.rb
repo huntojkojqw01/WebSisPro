@@ -2,7 +2,7 @@ class Lophoc < ApplicationRecord
   require 'csv'
   belongs_to :giaovien
   belongs_to :hocphan
-  delegate :mahocphan,:tenhocphan,:tenkhoavien,to: :hocphan
+  delegate :mahocphan,:tenhocphan,:tinchi,:tinchihocphi,:tenkhoavien,:trongso,to: :hocphan
   belongs_to :hocki
   delegate :mahocki,to: :hocki
   has_many :dangkilophocs, dependent: :destroy    

@@ -15,7 +15,7 @@ $(document).on 'turbolinks:load', () ->
         "visible": false,
         "sortable": false,
         "searchable": false
-      }
+      },
       {
         "targets": [1],
         "width": "10%"

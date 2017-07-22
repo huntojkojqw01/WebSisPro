@@ -1,0 +1,30 @@
+-provide(:title,"クラス登録")
+.row
+  .col-md-10.col-sm-10.col-md-offset-1.col-sm-offset-1
+    h1 Danh sach dang ki lop hoc
+    table#dangkilophocs.table.table-striped.table-bordered
+      thead
+        tr
+          th id
+          th edit_link
+          th hocki
+          th クラスコ➖ド
+          th 学生コ➖ド
+          th 科目係数
+          th 中間点
+          th 期末点
+          th 点字
+      tbody
+          =render @dangkilophocs
+      tfoot
+        tr
+          th id
+          th edit_link
+          th hocki
+          th クラスコ➖ド
+          th 学生コ➖ド
+          th 科目係数
+          th 中間点
+          th 期末点
+          th 点字
+    =render "shared/new_edit_destroy_buttons",object: "dangkilophoc",new_path: new_dangkilophoc_path

@@ -1,0 +1,81 @@
+-provide(:title,"クラス登録")
+.row
+  .col-md-10.col-sm-10.col-md-offset-1.col-sm-offset-1
+    h1 style=("text-align: center; font-size: 30px; margin-bottom: 20px;") danh sach lop hoc
+    table#dslophoc.table.table-striped.table-bordered
+      thead
+        tr
+          th クラスコ➖ド
+          th タイム
+          th 教室
+          th 科目コ➖ド
+          th 科目名
+          th 最大
+          th 名
+          th
+      tbody
+        -@lophocs.each do |lh| 
+          tr
+            td= link_to lh.malophoc,lh
+            td= toStrTime(lh.thoigian)
+            td= lh.diadiem
+            td= lh.mahocphan
+            td= lh.tenhocphan
+            td= lh.maxdangki
+            td= lh.num_of_dklhs
+            -if @sinhvien
+              td= link_to '',dangkilophocs_path(dangkilophoc:  {sinhvien_id: @sinhvien.id,lophoc_id: lh.id}),method: :post,class: "btn btn-success glyphicon glyphicon-plus"
+      tfoot
+        tr
+          th クラスコ➖ド
+          th タイム
+          th 教室
+          th 科目コ➖ド
+          th 科目名
+          th 最大
+          th 名
+.row                 
+  .col-md-8.col-sm-8.col-md-offset-2.col-sm-offset-2
+    -if @registeds 
+      h1 style=("text-align: center; font-size: 30px; margin-bottom: 20px;") 
+        | 学期
+        =@hocki_modangkilophoc.mahocki
+      table#registeds.table.table-striped.table-bordered
+        thead
+          tr
+            th クラスコ➖ド
+            th タイム
+            th 教室
+            th 科目コ➖ド
+            th 科目名
+            th 単位
+            th 学費単位
+            th 学期係数
+            th
+        tbody
+          -@registeds.each do |dklh| 
+            tr
+              td= dklh.malophoc
+              td= toStrTime(dklh.thoigian)
+              td= dklh.diadiem
+              td= dklh.mahocphan
+              td= dklh.tenhocphan
+              td= dklh.tinchi
+              td= dklh.tinchihocphi
+              td= dklh.hesohocphi
+              td= link_to '',dklh, method: :delete,data: {confirm: '削除?'},class: "btn btn-danger glyphicon glyphicon-trash"            
+          tr
+            td colspan="5"  合計
+            td= @registeds.sum(&:tinchi)
+            td= @registeds.sum(&:tongphi)
+            td colspan="2"
+      table.table.table-bordered.table-striped
+        tbody
+          tr
+            td 単位学費
+            td
+              b= @hocki_modangkilophoc.dinhmuchocphi 
+          tr
+            td 学費
+            td
+              b= @registeds.sum(&:tongphi)*@hocki_modangkilophoc.dinhmuchocphi 

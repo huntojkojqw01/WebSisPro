@@ -113,8 +113,5 @@ module SessionsHelper
   end
   def mo_dangki_lophoc?
     @hocki_modangkilophoc=Hocki.find_by_modangkilophoc(true)
-  end
-  def mo_dangki_hocphan?
-    @hocki_modangkihocphan=Hocki.find_by_modangkihocphan(true)
-  end
+  end  
 end

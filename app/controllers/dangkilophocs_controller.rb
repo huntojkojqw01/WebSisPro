@@ -6,21 +6,9 @@ class DangkilophocsController < ApplicationController
 	before_action :set_x, only: [:update,:destroy]
 	before_action :not_permit, only: [:new,:create]	
 	def index
-		if params[:hocki_id]&&params[:hocki_id]!=''
-			@dklhs=Dangkilophoc.joins({lophoc: :hocphan},:sinhvien)
-				.where("hocki_id=? and malophoc like ? and masinhvien like ?",params[:hocki_id],"%#{params[:malophoc]}%","%#{params[:masinhvien]}%")
-				.order("malophoc")
-				.select("dangkilophocs.*","malophoc","masinhvien","trongso")
-				.paginate(page: params[:page],:per_page=>10)
-		else	
-			@dklhs=Dangkilophoc.joins({lophoc: :hocphan},:sinhvien)
-				.where("malophoc like ? and masinhvien like ?","%#{params[:malophoc]}%","%#{params[:masinhvien]}%")
-				.order("malophoc")
-				.select("dangkilophocs.*","malophoc","masinhvien","trongso")
-				.paginate(page: params[:page],:per_page=>10)
-		end
+		@dangkilophocs=Dangkilophoc.includes({lophoc: [:hocphan,:hocki]},:sinhvien)		
 	end	
-	def new		
+	def new
 		@dangkilophoc = Dangkilophoc.new			
 	end
 	def show		
@@ -30,22 +18,12 @@ class DangkilophocsController < ApplicationController
 			redirect_to root_url
 		else		
 			if mo_dangki_lophoc?						
-				if params[:khoavien_id]&&params[:khoavien_id]!=""
-					@lophocs=@hocki_modangkilophoc.lophocs.joins(:hocphan).left_outer_joins(:dangkilophocs)
-							.where("khoavien_id = ? and malophoc like ? and mahocphan like ?",params[:khoavien_id],"%#{params[:malophoc]}%","%#{params[:mahocphan]}%")
-							.group(:id,"mahocphan","tenhocphan")
-							.select("lophocs.*","mahocphan","tenhocphan","count(dangkilophocs.id) as num_of_dklhs")
-							.paginate(page: params[:page],:per_page=>10)			
-				else
-					@lophocs=@hocki_modangkilophoc.lophocs.joins(:hocphan).left_outer_joins(:dangkilophocs)
-							.where("malophoc like ? and mahocphan like ?","%#{params[:malophoc]}%","%#{params[:mahocphan]}%")
-							.group(:id,"mahocphan","tenhocphan")
-							.select("lophocs.*","mahocphan","tenhocphan","count(dangkilophocs.id) as num_of_dklhs")
-							.paginate(page: params[:page],:per_page=>10)
-				end					
-				@registeds=@sinhvien.dangkilophocs.joins(lophoc: :hocphan)
-							.where("hocki_id=?",@hocki_modangkilophoc.id)							
-							.select("dangkilophocs.*","malophoc","thoigian","diadiem","mahocphan","tenhocphan","tinchi","tinchihocphi","hesohocphi*tinchihocphi as tongphi")
+				@lophocs=@hocki_modangkilophoc.lophocs.includes(:hocphan).left_outer_joins(:dangkilophocs)
+					.group(:id)
+					.select("lophocs.*","count(dangkilophocs.id) as num_of_dklhs")						
+				@registeds=Dangkilophoc.joins(lophoc: :hocphan)
+					.where("sinhvien_id=? and hocki_id=?",@sinhvien.id,@hocki_modangkilophoc.id)
+					.select("dangkilophocs.*","dangkilophocs.hesohocphi*hocphans.tinchihocphi as tongphi")
 			else
 				flash[:info]="登録できるクラスがない"
 				redirect_to root_url
@@ -86,9 +64,9 @@ class DangkilophocsController < ApplicationController
   	begin
 	    r=Dangkilophoc.import(params[:file])
 	    if r[0]
-	      	flash[:success]= "File is imported(#{r[1]-1} record)."	      
+	      flash[:success]= "File is imported(#{r[1]-1} record)."	      
 	    else
-			flash[:danger]= "エラ➖ #{r[1]}: #{r[2]}."			
+				flash[:danger]= "エラ➖ #{r[1]}: #{r[2]}."			
 	    end
 	  rescue
 	  	flash[:danger]= "Invalid CSV file format."
@@ -153,7 +131,7 @@ class DangkilophocsController < ApplicationController
 	def not_permit
     	unless @hocki_modangkilophoc=Hocki.find_by_modangkilophoc(true)
     		flash[:danger]="今クラスを登録できない"
-    		redirect_to root_url 
+    		redirect_back fallback_location: dangkilophocs_path 
     	end
     end
 end

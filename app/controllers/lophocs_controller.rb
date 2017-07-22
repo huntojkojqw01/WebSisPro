@@ -1,7 +1,7 @@
 class LophocsController < ApplicationController
 	include ApplicationHelper
 	before_action :logged_in_user, except: [:index]
-	before_action :is_admin, except: [:index]
+	before_action :is_admin, except: [:index,:show]
 	before_action :set_x, only: [:edit,:update,:destroy]
 	def index
 		@lophocs=Lophoc.includes(hocphan: :khoavien).includes(:hocki)
@@ -73,7 +73,7 @@ class LophocsController < ApplicationController
 	  rescue
 	  	flash[:danger]= "Invalid CSV file format."
 	  end
-	  redirect_to lophocs_path
+	  redirect_back fallback_location: lophocs_path
 	end	
 	private
 	def set_x
