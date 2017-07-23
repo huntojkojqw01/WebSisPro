@@ -48,19 +48,19 @@ class HocphansController < ApplicationController
 	        render 'new'
 	    end
     end    
-    def import
-    	begin
-	    	r=Hocphan.import(params[:file])    	
-		    if r[0]
-		      flash[:success]= "File is imported(#{r[1]-1} record)."	      
-		    else
-					flash[:danger]= "エラ➖ #{r[1]}: #{r[2]}."			
-		    end
-		  rescue
-		  	flash[:danger]= "Invalid CSV file format."
+  def import
+    begin
+	  	r=Hocphan.import(params[:file])    	
+		  if r[0]
+		    flash[:success]= "File is imported(#{r[1]-1} record)."	      
+		  else
+				flash[:danger]= "エラ➖ #{r[1]}: #{r[2]}."			
 		  end
-	    redirect_back fallback_location: hocphans_path
-    end	
+		rescue
+		  flash[:danger]= "Invalid CSV file format."
+		end
+	  redirect_back fallback_location: hocphans_path
+  end	
 	private
 	def set_x
 		unless params[:ids] || @hocphan=Hocphan.find_by_id(params[:id])

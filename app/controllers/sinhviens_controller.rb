@@ -1,10 +1,8 @@
 class SinhviensController < ApplicationController
 	include ApplicationHelper
-	before_action :logged_in_user, except: [:index,:svdkh]
+	before_action :logged_in_user, except: [:index,:show]
 	before_action :is_admin, only: [:edit,:update,:new,:create,:destroy]	
-	before_action :chinh_chu , only: [:show]
-	before_action :set_x, only: [:edit,:update,:destroy]
-	before_action :xx_params ,only: :duyet
+	before_action :set_x, only: [:edit,:update,:destroy]	
 	def index
 		@sinhviens=Sinhvien.includes(lopsinhvien: :khoavien)		
 	end	
@@ -24,58 +22,61 @@ class SinhviensController < ApplicationController
 				respond_to do |f|				
 					f.js
 				end
-			else				
-				@lophocs=Dangkilophoc.includes(lophoc: [:hocphan,:hocki])
+			else
+				if admin? || (sinhvien? && @current_sinhvien==@sinhvien)
+					@lophocs=Dangkilophoc.includes(lophoc: [:hocphan,:hocki])
 						.where("sinhvien_id=? and diemchu!=?",@sinhvien.id,"")		
-				@results={}
-				hocphans={}
-				@lophocs.each do |lh|
-					if @results.key? lh.mahocki
-						@results["#{lh.mahocki}"][:tcdkKI]+=lh.tinchi
-						@results["#{lh.mahocki}"][:tcqKI]+=lh.diemso>0 ? lh.tinchi : 0
-						@results["#{lh.mahocki}"][:diemki]+=lh.diemso*lh.tinchi
-						if hocphans.key? lh.mahocphan
-							diemcu=	hocphans["#{lh.mahocphan}"][:diemcu]			
-							@results["#{lh.mahocki}"][:tcdkKI_thucte]+=0
-							@results["#{lh.mahocki}"][:tcqKI_thucte]+= diemcu <=0 ? lh.tinchi : 0
-							@results["#{lh.mahocki}"][:diemki_thucte]+= lh.diemso>diemcu ? (lh.diemso-diemcu)*lh.tinchi : 0
-							hocphans["#{lh.mahocphan}"][:diemcu]=lh.diemso if diemcu<lh.diemso
-						else
-							@results["#{lh.mahocki}"][:tcdkKI_thucte]+=lh.tinchi
-							@results["#{lh.mahocki}"][:tcqKI_thucte]+= lh.diemso>0 ? lh.tinchi : 0
-							@results["#{lh.mahocki}"][:diemki_thucte]+= lh.diemso*lh.tinchi
-							hocphans["#{lh.mahocphan}"]={diemcu: lh.diemso}
-						end				
-					else #if @results.key? lh.mahocki
-						@results["#{lh.mahocki}"]={
-							tcdkKI: lh.tinchi,
-							tcqKI: lh.diemso>0 ? lh.tinchi : 0,
-							diemki: lh.diemso*lh.tinchi,								
-						}
-						if hocphans.key? lh.mahocphan
-							diemcu=	hocphans["#{lh.mahocphan}"][:diemcu]			
-							@results["#{lh.mahocki}"][:tcdkKI_thucte]=0
-							@results["#{lh.mahocki}"][:tcqKI_thucte]= diemcu <=0 ? lh.tinchi : 0
-							@results["#{lh.mahocki}"][:diemki_thucte]= lh.diemso>diemcu ? (lh.diemso-diemcu)*lh.tinchi : 0
-							hocphans["#{lh.mahocphan}"][:diemcu]=lh.diemso if diemcu<lh.diemso
-						else
-							@results["#{lh.mahocki}"][:tcdkKI_thucte]=lh.tinchi
-							@results["#{lh.mahocki}"][:tcqKI_thucte]= lh.diemso>0 ? lh.tinchi : 0
-							@results["#{lh.mahocki}"][:diemki_thucte]= lh.diemso*lh.tinchi
-							hocphans["#{lh.mahocphan}"]={diemcu: lh.diemso}
-						end					
-					end# if @results.key? lh.mahocki						
-				end# @lophocs.each do |lh|
-				tongTCdangki=tongTCqua=tongDiem=0
-				@results.each do |key,val|
-					tongDiem+=val[:diemki_thucte]
-					tongTCdangki+=val[:tcdkKI_thucte]
-					tongTCqua+=val[:tcqKI_thucte]
-					val[:gpa]=(val[:diemki]/val[:tcdkKI]).round(2)
-					val[:cpa]=(tongDiem/tongTCdangki).round(2)
-					val[:tcdkKH]=tongTCdangki
-					val[:tcqKH]=tongTCqua
-				end# @results.each do |key,val|
+					@results,hocphans={},{}					
+					@lophocs.each do |lh|
+						if @results.key? lh.mahocki
+							@results["#{lh.mahocki}"][:tcdkKI]+=lh.tinchi
+							@results["#{lh.mahocki}"][:tcqKI]+=lh.diemso>0 ? lh.tinchi : 0
+							@results["#{lh.mahocki}"][:diemki]+=lh.diemso*lh.tinchi
+							if hocphans.key? lh.mahocphan
+								diemcu=	hocphans["#{lh.mahocphan}"][:diemcu]			
+								@results["#{lh.mahocki}"][:tcdkKI_thucte]+=0
+								@results["#{lh.mahocki}"][:tcqKI_thucte]+= diemcu <=0 ? lh.tinchi : 0
+								@results["#{lh.mahocki}"][:diemki_thucte]+= lh.diemso>diemcu ? (lh.diemso-diemcu)*lh.tinchi : 0
+								hocphans["#{lh.mahocphan}"][:diemcu]=lh.diemso if diemcu<lh.diemso
+							else
+								@results["#{lh.mahocki}"][:tcdkKI_thucte]+=lh.tinchi
+								@results["#{lh.mahocki}"][:tcqKI_thucte]+= lh.diemso>0 ? lh.tinchi : 0
+								@results["#{lh.mahocki}"][:diemki_thucte]+= lh.diemso*lh.tinchi
+								hocphans["#{lh.mahocphan}"]={diemcu: lh.diemso}
+							end				
+						else #if @results.key? lh.mahocki
+							@results["#{lh.mahocki}"]={
+								tcdkKI: lh.tinchi,
+								tcqKI: lh.diemso>0 ? lh.tinchi : 0,
+								diemki: lh.diemso*lh.tinchi,								
+							}
+							if hocphans.key? lh.mahocphan
+								diemcu=	hocphans["#{lh.mahocphan}"][:diemcu]			
+								@results["#{lh.mahocki}"][:tcdkKI_thucte]=0
+								@results["#{lh.mahocki}"][:tcqKI_thucte]= diemcu <=0 ? lh.tinchi : 0
+								@results["#{lh.mahocki}"][:diemki_thucte]= lh.diemso>diemcu ? (lh.diemso-diemcu)*lh.tinchi : 0
+								hocphans["#{lh.mahocphan}"][:diemcu]=lh.diemso if diemcu<lh.diemso
+							else
+								@results["#{lh.mahocki}"][:tcdkKI_thucte]=lh.tinchi
+								@results["#{lh.mahocki}"][:tcqKI_thucte]= lh.diemso>0 ? lh.tinchi : 0
+								@results["#{lh.mahocki}"][:diemki_thucte]= lh.diemso*lh.tinchi
+								hocphans["#{lh.mahocphan}"]={diemcu: lh.diemso}
+							end					
+						end# if @results.key? lh.mahocki						
+					end# @lophocs.each do |lh|
+					tongTCdangki=tongTCqua=tongDiem=0
+					@results.each do |key,val|
+						tongDiem+=val[:diemki_thucte]
+						tongTCdangki+=val[:tcdkKI_thucte]
+						tongTCqua+=val[:tcqKI_thucte]
+						val[:gpa]=(val[:diemki]/val[:tcdkKI]).round(2)
+						val[:cpa]=(tongDiem/tongTCdangki).round(2)
+						val[:tcdkKH]=tongTCdangki
+						val[:tcqKH]=tongTCqua
+					end# @results.each do |key,val|
+				else
+					@lophocs=@results=nil
+				end# if sinhvien? && @current_sinhvien==@sinhvien
 			end# if params[:hocki_id]
 		end# unless @sinhvien=
 	end
@@ -143,27 +144,6 @@ class SinhviensController < ApplicationController
 	  	flash[:danger]= "Invalid CSV file format."
 	  end
 	  redirect_back fallback_location: sinhviens_path
-	end	
-	def svdkh		
-		if params[:masinhvien]
-			if current_hocki		
-				@hocki=Hocki.find_by_id(current_hocki.id)
-			else
-				@hocki=Hocki.find_by_id(last_hocki.id)
-			end
-			if @hocki 
-				@sinhvien=Sinhvien.find_by(masinhvien: params[:masinhvien])
-				if @sinhvien
-					@lophocs=Dangkilophoc.joins(lophoc: :hocphan)
-							.select("dangkilophocs.*","tinchihocphi*hesohocphi as tongphi")
-							.where("hocki_id=? and sinhvien_id=?",@hocki.id,@sinhvien.id)
-				else
-					flash[:info]="見付からない"
-				end			
-			else
-				flash[:info]="見付からない"					
-			end
-		end
 	end	
 	private
 	def set_x

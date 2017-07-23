@@ -14,7 +14,7 @@ class DangkilophocsController < ApplicationController
 	def show		
 		@sinhvien=Sinhvien.find_by_id(params[:id])
 		unless @sinhvien && @sinhvien==@current_sinhvien
-			flash[:info]="あなたは本人じゃない"
+			flash[:danger]="本人じゃない"
 			redirect_to root_url
 		else		
 			if mo_dangki_lophoc?						
@@ -97,7 +97,7 @@ class DangkilophocsController < ApplicationController
 	def chinh_chu
     	if sinhvien? && params[:dangkilophoc]  
         	unless @current_sinhvien.id==params[:dangkilophoc][:sinhvien_id].to_i
-          	flash[:danger]="あなたは本人じゃない"
+          	flash[:danger]="本人じゃない"
           	redirect_to root_url 
         	end
         end
