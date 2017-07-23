@@ -18,7 +18,7 @@ class LophocsController < ApplicationController
 				.select("lophocs.*","mahocphan","tenhocphan","tengiaovien","mahocki","count(dangkilophocs.id) as dadangki")
 				.find_by_id(params[:id])
 		unless @lophoc
-			flash[:info]="見付からない"	
+			flash[:danger]= t 'c.shared.notfound'
 			redirect_to root_url
 		else
 			@sinhviens=Sinhvien.joins(:lopsinhvien,dangkilophocs: :lophoc).where("dangkilophocs.lophoc_id=?",@lophoc.id)
@@ -41,13 +41,13 @@ class LophocsController < ApplicationController
 			end
 		else			
 			@lophoc.destroy		
-			flash[:info]= '削除しました'
+			flash[:info]= t 'c.shared.deleted'
 			redirect_to lophocs_path
 		end
 	end
 	def update
 		if @lophoc.update(x_params)
-		    flash[:info]='更新しました'
+		    flash[:info]= t 'c.shared.updated'
 		    redirect_to @lophoc
 		else		    	
 		    render 'edit'
@@ -56,7 +56,7 @@ class LophocsController < ApplicationController
 	def create
 		@lophoc=Lophoc.new(x_params)
 		if @lophoc.save
-		    flash[:success]= '追加しました'
+		    flash[:success]= t 'c.shared.added'
 		    redirect_to @lophoc
 		else		        
 		    render 'new'
@@ -78,7 +78,7 @@ class LophocsController < ApplicationController
 	private
 	def set_x
 		unless params[:ids] || @lophoc=Lophoc.find_by_id(params[:id])
-			flash[:info]="見付からない"	
+			flash[:danger]= t 'c.shared.notfound'	
 			redirect_to root_url	
 		end		
 	end

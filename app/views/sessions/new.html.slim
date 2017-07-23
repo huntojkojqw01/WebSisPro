@@ -1,16 +1,16 @@
--provide :title, "ログイン"
+-provide :title, t('v.sessions.login')
 .row
   .col-sm-6.col-md-6.col-md-offset-3.col-sm-offset-3
-    h1 ログイン
-    = form_for(:session, url: login_path) do |f|
+    h1= t('v.sessions.signin')
+    = form_for(:session, url: login_path) do |f|      
       .form-group
-        = f.label :name,"ユ➖ザ名"
+        = f.label :name,t('v.sessions.username')
         = f.text_field :name, class: 'form-control'
       .form-group
-        = f.label :password,"パスワ➖ド"
+        = f.label :password,t('v.sessions.password')
         = f.password_field :password, class: 'form-control'
       .form-group
         = f.check_box :remember_me
-        = f.label "ユ➖ザ名を記憶する"
+        = f.label t('v.sessions.remember')
       .form-group
-        = f.submit "ログイン", class: "btn btn-primary"    
+        = f.submit t('v.sessions.login'), class: "btn btn-primary"    

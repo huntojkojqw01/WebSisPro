@@ -27,13 +27,13 @@ class HocphansController < ApplicationController
 			end
 		else			
 			@hocphan.destroy
-			flash[:info]= '削除しました'
+			flash[:info]= t 'c.shared.deleted'
 			redirect_to hocphans_path
 		end		
 	end
 	def update
 	    if @hocphan.update(x_params)
-	      	flash[:info]='更新しました'
+	      	flash[:info]= t 'c.shared.updated'
 	        redirect_to @hocphan
 	    else
 	       	render 'edit'
@@ -42,7 +42,7 @@ class HocphansController < ApplicationController
 	def create
 		@hocphan=Hocphan.new(x_params)
 		if @hocphan.save
-	      	flash[:success]= '追加しました'
+	      	flash[:success]= t 'c.shared.added'
 	        redirect_to @hocphan
 	    else
 	        render 'new'
@@ -64,7 +64,7 @@ class HocphansController < ApplicationController
 	private
 	def set_x
 		unless params[:ids] || @hocphan=Hocphan.find_by_id(params[:id])
-			flash[:info]="見付からない"	
+			flash[:danger]= t 'c.shared.notfound'
 			redirect_to root_url	
 		end		
 	end

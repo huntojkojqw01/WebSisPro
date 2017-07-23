@@ -6,7 +6,7 @@ class Hocki < ApplicationRecord
 	validates :mahocki, presence: true, length: { maximum: 5 } , uniqueness: true, format: { with: /\A[0-9]+\z/ }
 	validates :dinhmuchocphi, numericality: { only_integer: true,:greater_than_or_equal_to=>100 }
 	default_scope {order(:mahocki)}
-	def hocki_validate
+	def hocki_validate		
 		errors.add(:time,"始まる時点(#{bd}) >= 終わる時点(#{kt})、無効") if bd>=kt
 		hockis=Hocki.where("mahocki!=?",mahocki)
 		hockis.each do |hk|

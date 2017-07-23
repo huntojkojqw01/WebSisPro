@@ -15,7 +15,7 @@ class KhoaviensController < ApplicationController
 	end
 	def update
 		if @khoavien.update(x_params)
-	      	flash[:info]='更新しました'
+	      	flash[:info]= t 'c.shared.updated'
 	        redirect_to @khoavien
 	    else
 	       	render 'edit'
@@ -24,7 +24,7 @@ class KhoaviensController < ApplicationController
 	def create
 		@khoavien=Khoavien.new(x_params)
 		if @khoavien.save
-	      	flash[:success]= '追加しました'
+	      	flash[:success]= t 'c.shared.added'
 	        redirect_to @khoavien
 	    else
 	        render 'new'
@@ -48,7 +48,7 @@ class KhoaviensController < ApplicationController
 	private
 	def set_x			
 		unless params[:ids] || @khoavien=Khoavien.find_by_id(params[:id])
-			flash[:info]="見付からない"
+			flash[:danger]= t 'c.shared.notfound'
 			redirect_to root_url
 		end
 	end

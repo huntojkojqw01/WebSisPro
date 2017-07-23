@@ -24,36 +24,36 @@ class HockisController < ApplicationController
 			opening_hocki.update(modangkilophoc: false) if opening_hocki			
 			if @hocki				
 				@hocki.update(modangkilophoc: true)
-				render plain: "クラス登録できます。学期： #{@hocki.mahocki}"
+				render plain: t('.registerable')+@hocki.mahocki
 			else
-				render plain: "Stop クラス登録"				
+				render plain: t('.stopregister')	
 			end
 		else			
 			if @hocki.update(x_params)
-		      	flash[:info]='更新しました'
-		        redirect_to @hocki
-		    else
-		       	render 'edit'
-		    end
+		    flash[:info]= t 'c.shared.updated'
+		    redirect_to @hocki
+		  else
+		    render 'edit'
+		  end
 		end	    
   	end
-	def create
+	def create		
 		@hocki=Hocki.new(x_params)
 		if @hocki.save
-		    flash[:success]= '追加しました'
+		    flash[:success]= t 'c.shared.added'
 		   	redirect_to @hocki
 		else
 		    render 'new'
 		end		  
     end	
 	private
-	def set_x
+	def set_x		
 		unless (@hocki=Hocki.find_by_id(params[:id]))	|| params[:modangki]
-			flash[:info]="見付からない"	
+			flash[:danger]= t 'c.shared.notfound'
 			redirect_to root_url	
 		end	
 	end
-	def x_params
-	    params.require(:hocki).permit(:mahocki,:dinhmuchocphi,:bd,:kt,:modangkilophoc)
+	def x_params		
+	  params.require(:hocki).permit(:mahocki,:dinhmuchocphi,:bd,:kt,:modangkilophoc)
 	end
 end

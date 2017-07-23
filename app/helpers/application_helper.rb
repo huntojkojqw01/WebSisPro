@@ -1,6 +1,7 @@
 module ApplicationHelper
 	def full_title title=""
-		return title=="" ? "学生情報システム" : title+" | 学生情報システム"
+		default=t("h.application.title")
+		return title=="" ? default : title+" | "+default
 	end	
 	def toIntTime(strTime)
 		

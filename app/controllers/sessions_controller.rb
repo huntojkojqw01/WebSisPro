@@ -1,6 +1,5 @@
 class SessionsController < ApplicationController
 	def new
-
 	end
 	def create
 		user=User.find_by(name: params[:session][:name])
@@ -9,12 +8,12 @@ class SessionsController < ApplicationController
 			params[:session][:remember_me]==1 ? remember(user) : forget(user)			
 			redirect_back_or root_url
 		else
-			flash[:danger]="ログインできない"			
+			flash[:danger]= t '.cantlogin'			
 			render 'new'
 		end
 	end
 	def destroy
 		log_out if logged_in?
-    	redirect_to root_url	
+    redirect_to root_url	
 	end	
 end

@@ -3,7 +3,7 @@ module SessionsHelper
     def logged_in_user
       unless logged_in?
         store_location
-        flash[:danger] = "ログインしてください"
+        flash[:danger] = t 'h.sessions.pleaselogin'
         redirect_to login_url
       end
     end
@@ -11,24 +11,17 @@ module SessionsHelper
     def correct_user
       @user = User.find_by_id(params[:id])
       unless @user == current_user || admin?
-        flash[:danger]="permision denied"
+        flash[:danger]= t 'h.sessions.permisiondenied'
         redirect_to(root_url) 
       end
     end
     # Confirms an admin user.
   def is_admin
     unless admin?
-      flash[:danger]="アドミン要求"
+      flash[:danger]= t 'h.sessions.requireadmin'
       redirect_to(root_url)
     end
   end
-  def is_sinhvien
-    unless sinhvien?
-      flash[:danger]="あなたは学生じゃない"
-      redirect_to(root_url) 
-    end
-  end
-  
 	# Logs in the given user.
   def log_in(user)
     session[:user_id] = user.id

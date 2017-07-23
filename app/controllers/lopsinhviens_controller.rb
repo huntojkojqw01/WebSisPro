@@ -13,7 +13,7 @@ class LopsinhviensController < ApplicationController
 		if @lopsinhvien
 			@sinhviens=@lopsinhvien.sinhviens
 		else
-			flash[:info]="見付からない"	
+			flash[:danger]= t 'c.shared.notfound'
 			redirect_to root_url		
 		end					
 	end
@@ -32,36 +32,35 @@ class LopsinhviensController < ApplicationController
 			end
 		else			
 			@lopsinhvien.destroy			
-			flash[:info]= '削除しました'
+			flash[:info]= t 'c.shared.deleted'
 			redirect_to lopsinhviens_path
 		end		
 	end
 	def update
-	    if @lopsinhvien.update(x_params)
-	      	flash[:info]='更新しました'
-	        redirect_to @lopsinhvien
-	    else
-	       	render 'edit'
-	    end
-  	end
+	  if @lopsinhvien.update(x_params)
+	    flash[:info]= t 'c.shared.updated'
+	    redirect_to @lopsinhvien
+	  else
+	    render 'edit'
+	  end
+  end
 	def create
 		@lopsinhvien=Lopsinhvien.new(x_params)
 		if @lopsinhvien.save
-	      	flash[:success]= '追加しました'
-	        redirect_to @lopsinhvien
-	    else
-	        render 'new'
-	    end
-    end	
+	    flash[:success]= t 'c.shared.added'
+	    redirect_to @lopsinhvien
+	  else
+	    render 'new'
+	  end
+  end	
 	private
 	def set_x
 		unless params[:ids] || @lopsinhvien=Lopsinhvien.find_by_id(params[:id])	
-			flash[:info]="見付からない"	
+			flash[:danger]= t 'c.shared.notfound'	
 			redirect_to root_url	
 		end	
 	end
 	def x_params
 	    params.require(:lopsinhvien).permit(:tenlopsinhvien,:giaovien_id,:khoahoc,:khoavien_id)
-	end
-	
+	end	
 end

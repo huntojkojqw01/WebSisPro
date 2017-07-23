@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+  post '/locale',to: 'locale#create'
   resources :users,:lopsinhviens,:dangkihocphans,:chuongtrinhdaotaos,:giaoviens,:hockis
   resources :sinhviens,:hocphans,:lophocs,:khoaviens,:dangkilophocs do
     collection do      
