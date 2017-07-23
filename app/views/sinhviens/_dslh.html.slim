@@ -1,0 +1,46 @@
+-if lophocs.any?
+  h1 style=("text-align: center") クラスリスト
+  table.table.table-bordered.table-striped style=("margin-top: 20px;") 
+    thead
+      tr
+        th クラスコ➖ド
+        th タイム
+        th 教室
+        th 科目コ➖ド
+        th 科目名
+        th 単位
+        th 学費単位
+        th 学費係数
+    tbody
+      -lophocs.each do |lh| 
+        tr
+          td= link_to lh.malophoc, lh
+          td= toStrTime(lh.thoigian)
+          td= lh.diadiem
+          td= lh.mahocphan
+          td= lh.tenhocphan
+          td= lh.tinchi
+          td= lh.tinchihocphi
+          td= lh.hesohocphi 
+    tfooter   
+      tr
+        th colspan="5" style="text-align:center" 合計
+        th= lophocs.sum(&:tinchi)
+        th= lophocs.sum(&:tongphi)
+        th
+  table style="font-size: 2em"
+    tbody
+      tr
+        td 単位学費
+        td 
+          b= hocki.dinhmuchocphi
+          b 000VND / 1単位
+      tr
+        td 合計学費
+        td
+          b= (lophocs.sum(&:tongphi)*hocki.dinhmuchocphi).round(0)
+          b 000VND
+  -if current_hocki==hocki 
+    h3 style=("color: red") =  testTiet lophocs     
+-else
+  h3 登録したクラスがありません。

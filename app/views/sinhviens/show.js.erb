@@ -1,0 +1,14 @@
+$("#thoikhoabieu").html("<%= j render 'tkb',lichhoc: make_tkb(@lophocs) if @lophocs.any? %>");
+$("#danhsachlophoc").html("<%= j render 'dslh',lophocs: @lophocs,hocki: @hocki %>");
+$('#thoikhoabieu td#mahocphan').mouseover(function(){
+	var that=$(this).text();	
+	$('#thoikhoabieu td#mahocphan').each(function(){
+		if($(this).text()==that){
+			$(this).attr("bgcolor","#00FF00");
+		}
+		else{
+			$(this).removeAttr("bgcolor");
+		}		
+	});	
+});
+   

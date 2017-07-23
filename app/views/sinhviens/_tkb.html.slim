@@ -1,0 +1,28 @@
+-tiethocs=[\
+    "6h45-7h30","7h35-8h20","8h30-9h15","9h20-10h05",
+    "10h15-11h00","11h05-11h50","12h30-13h15","13h20-14h05",
+    "14h15-15h00","15h05-15h50","16h00-16h45","16h50-17h35"\
+    ]
+table.table.table-bordered
+  thead
+    tr bgcolor="#6666FF" 
+      th コ➖マ
+      th 時間
+      th 月
+      th 火
+      th 水
+      th 木
+      th 金       
+  tbody
+    -tiethocs.each.with_index do |tiet,index|
+      tr
+        td bgcolor="#6666FF" width="10%" = index+1
+        td bgcolor="#6666FF" width="15%" = tiet
+        -5.times.map{|i| lichhoc[i*12+index]}.each do |lophoc|          
+          -if lophoc                  
+            td#mahocphan= lophoc.mahocphan                  
+          -else
+            td        
+        -if index==5
+          tr
+            td      

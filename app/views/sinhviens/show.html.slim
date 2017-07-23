@@ -44,8 +44,8 @@
           th CPA
         tr
           td
-          td colspan="4"  学期
-          td colspan="4"  コ➖ス
+          td colspan="4" style="text-align:center"  学期
+          td colspan="4" style="text-align:center" コ➖ス
       tbody
         -if @results 
           -@results.each do |key,val| 
@@ -61,6 +61,7 @@
               td= val[:tcdkKH]-val[:tcqKH]
               td
                 b= val[:cpa]
+hr
 .row
   .col-md-10.col-sm-10.col-md-offset-1.col-sm-offset-1
     h1 style=("text-align: center;color: blue")  参加したクラス
@@ -86,3 +87,15 @@
             td= lh.diemquatrinh
             td= lh.diemthi
             td= lh.diemchu
+hr
+.row       
+  .col-md-8.col-sm-8.col-md-offset-2.col-sm-offset-2
+    h1 style=("text-align: center")
+      | スケージュール for 学期 
+    h3 style=("text-align: center")
+      = select_tag "hocki_id", options_from_collection_for_select(Hocki.all, "id", "mahocki", @hocki ? @hocki.id : nil),:include_blank=>"None"
+    #thoikhoabieu
+.row
+  .col-md-10.col-sm-10.col-md-offset-1.col-sm-offset-1
+    
+    #danhsachlophoc

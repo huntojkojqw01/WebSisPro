@@ -1,44 +1,22 @@
 Rails.application.routes.draw do
-  
-
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
   root 'test_page#home'    
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
-  resources :users
-  resources :hocphans do
+  resources :users,:lopsinhviens,:dangkihocphans,:chuongtrinhdaotaos,:giaoviens
+  resources :hocphans,:lophocs,:khoaviens,:dangkilophocs do
     collection do      
       post :import
     end
   end
-  resources :lophocs do
-      collection do        
-        post :import
-      end
-    end
-  resources :dangkihocphans,:chuongtrinhdaotaos
-  resources :khoaviens do
-    collection do
-        post :import
-      end
-    end
-
-  resources :lopsinhviens
+  
   resources :sinhviens do
       collection do
-        post :import
-        get :thoikhoabieu                              
+        post :import                                     
         get :svdkh               
       end
-    end
-  resources :dangkilophocs do
-      collection do
-        post :import        
-      end
-    end
-  resources :giaoviens
+    end  
   resources :hockis do
     collection do
       post :modangki

@@ -75,18 +75,17 @@ module ApplicationHelper
 		strTime="日 2:1-#{ketthuc} "+strTime if ketthuc>0
 		return strTime
 	end	
-	def to_tkb(ds_lop)
-                array=[]                
-                ds_lop.each do |lop|
-                        60.times do |i|
-                            if (lop.thoigian&(1<<(59-i)))!=0
-                              array[i]=lop
-                            end
-                        end# 60.times            
-                        
-                end#ds.each
-                return array                  
-    end # to_tkb      	
+	def make_tkb(ds_lop)
+    lichhoc=[]                
+    ds_lop.each do |lop|
+      60.times do |i|
+        if (lop.thoigian&(1<<(59-i)))!=0
+          lichhoc[i]=lop
+        end
+      end# 60.times            
+    end#ds.each
+    return lichhoc                  
+  end # to_tkb      	
 	def tietHoc(time)
 		g=[[405, 450], [455, 500], [510, 555], [560, 605], [615, 660], [665, 710], [750, 795], [800, 845], [855, 900], [905, 950], [960, 1005], [1010, 1055]]
 		tmp=time.hour*60+time.min

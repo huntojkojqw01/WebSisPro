@@ -2,7 +2,6 @@ class SinhviensController < ApplicationController
 	include ApplicationHelper
 	before_action :logged_in_user, except: [:index,:svdkh]
 	before_action :is_admin, only: [:edit,:update,:new,:create,:destroy]	
-	before_action :is_sinhvien, only: [:thoikhoabieu]
 	before_action :chinh_chu , only: [:show]
 	before_action :set_x, only: [:edit,:update,:destroy]
 	before_action :xx_params ,only: :duyet
@@ -16,59 +15,69 @@ class SinhviensController < ApplicationController
 		unless @sinhvien=Sinhvien.includes(:lopsinhvien).find_by_id(params[:id])			
 			flash[:danger]="見付からない"
 			redirect_to sinhviens_path
-		else		
-			@lophocs=Dangkilophoc.includes(lophoc: [:hocphan,:hocki])
-					.where("sinhvien_id=? and diemchu!=?",@current_sinhvien.id,"")		
-			@results={}
-			hocphans={}
-			@lophocs.each do |lh|
-				if @results.key? lh.mahocki
-					@results["#{lh.mahocki}"][:tcdkKI]+=lh.tinchi
-					@results["#{lh.mahocki}"][:tcqKI]+=lh.diemso>0 ? lh.tinchi : 0
-					@results["#{lh.mahocki}"][:diemki]+=lh.diemso*lh.tinchi
-					if hocphans.key? lh.mahocphan
-						diemcu=	hocphans["#{lh.mahocphan}"][:diemcu]			
-						@results["#{lh.mahocki}"][:tcdkKI_thucte]+=0
-						@results["#{lh.mahocki}"][:tcqKI_thucte]+= diemcu <=0 ? lh.tinchi : 0
-						@results["#{lh.mahocki}"][:diemki_thucte]+= lh.diemso>diemcu ? (lh.diemso-diemcu)*lh.tinchi : 0
-						hocphans["#{lh.mahocphan}"][:diemcu]=lh.diemso if diemcu<lh.diemso
-					else
-						@results["#{lh.mahocki}"][:tcdkKI_thucte]+=lh.tinchi
-						@results["#{lh.mahocki}"][:tcqKI_thucte]+= lh.diemso>0 ? lh.tinchi : 0
-						@results["#{lh.mahocki}"][:diemki_thucte]+= lh.diemso*lh.tinchi
-						hocphans["#{lh.mahocphan}"]={diemcu: lh.diemso}
-					end				
-				else
-					@results["#{lh.mahocki}"]={
-						tcdkKI: lh.tinchi,
-						tcqKI: lh.diemso>0 ? lh.tinchi : 0,
-						diemki: lh.diemso*lh.tinchi,								
-					}
-					if hocphans.key? lh.mahocphan
-						diemcu=	hocphans["#{lh.mahocphan}"][:diemcu]			
-						@results["#{lh.mahocki}"][:tcdkKI_thucte]=0
-						@results["#{lh.mahocki}"][:tcqKI_thucte]= diemcu <=0 ? lh.tinchi : 0
-						@results["#{lh.mahocki}"][:diemki_thucte]= lh.diemso>diemcu ? (lh.diemso-diemcu)*lh.tinchi : 0
-						hocphans["#{lh.mahocphan}"][:diemcu]=lh.diemso if diemcu<lh.diemso
-					else
-						@results["#{lh.mahocki}"][:tcdkKI_thucte]=lh.tinchi
-						@results["#{lh.mahocki}"][:tcqKI_thucte]= lh.diemso>0 ? lh.tinchi : 0
-						@results["#{lh.mahocki}"][:diemki_thucte]= lh.diemso*lh.tinchi
-						hocphans["#{lh.mahocphan}"]={diemcu: lh.diemso}
-					end					
-				end							
-			end
-			tongTCdangki=tongTCqua=tongDiem=0
-			@results.each do |key,val|
-				tongDiem+=val[:diemki_thucte]
-				tongTCdangki+=val[:tcdkKI_thucte]
-				tongTCqua+=val[:tcqKI_thucte]
-				val[:gpa]=(val[:diemki]/val[:tcdkKI]).round(2)
-				val[:cpa]=(tongDiem/tongTCdangki).round(2)
-				val[:tcdkKH]=tongTCdangki
-				val[:tcqKH]=tongTCqua
-			end
-		end
+		else
+			if params[:hocki_id]
+				@hocki=Hocki.find_by_id(params[:hocki_id])
+				@lophocs=Dangkilophoc.joins(lophoc: :hocphan)					
+						.where("hocki_id=? and sinhvien_id=?",params[:hocki_id],@sinhvien.id)
+						.select("dangkilophocs.*","tinchihocphi*hesohocphi as tongphi")		
+				respond_to do |f|				
+					f.js
+				end
+			else				
+				@lophocs=Dangkilophoc.includes(lophoc: [:hocphan,:hocki])
+						.where("sinhvien_id=? and diemchu!=?",@sinhvien.id,"")		
+				@results={}
+				hocphans={}
+				@lophocs.each do |lh|
+					if @results.key? lh.mahocki
+						@results["#{lh.mahocki}"][:tcdkKI]+=lh.tinchi
+						@results["#{lh.mahocki}"][:tcqKI]+=lh.diemso>0 ? lh.tinchi : 0
+						@results["#{lh.mahocki}"][:diemki]+=lh.diemso*lh.tinchi
+						if hocphans.key? lh.mahocphan
+							diemcu=	hocphans["#{lh.mahocphan}"][:diemcu]			
+							@results["#{lh.mahocki}"][:tcdkKI_thucte]+=0
+							@results["#{lh.mahocki}"][:tcqKI_thucte]+= diemcu <=0 ? lh.tinchi : 0
+							@results["#{lh.mahocki}"][:diemki_thucte]+= lh.diemso>diemcu ? (lh.diemso-diemcu)*lh.tinchi : 0
+							hocphans["#{lh.mahocphan}"][:diemcu]=lh.diemso if diemcu<lh.diemso
+						else
+							@results["#{lh.mahocki}"][:tcdkKI_thucte]+=lh.tinchi
+							@results["#{lh.mahocki}"][:tcqKI_thucte]+= lh.diemso>0 ? lh.tinchi : 0
+							@results["#{lh.mahocki}"][:diemki_thucte]+= lh.diemso*lh.tinchi
+							hocphans["#{lh.mahocphan}"]={diemcu: lh.diemso}
+						end				
+					else #if @results.key? lh.mahocki
+						@results["#{lh.mahocki}"]={
+							tcdkKI: lh.tinchi,
+							tcqKI: lh.diemso>0 ? lh.tinchi : 0,
+							diemki: lh.diemso*lh.tinchi,								
+						}
+						if hocphans.key? lh.mahocphan
+							diemcu=	hocphans["#{lh.mahocphan}"][:diemcu]			
+							@results["#{lh.mahocki}"][:tcdkKI_thucte]=0
+							@results["#{lh.mahocki}"][:tcqKI_thucte]= diemcu <=0 ? lh.tinchi : 0
+							@results["#{lh.mahocki}"][:diemki_thucte]= lh.diemso>diemcu ? (lh.diemso-diemcu)*lh.tinchi : 0
+							hocphans["#{lh.mahocphan}"][:diemcu]=lh.diemso if diemcu<lh.diemso
+						else
+							@results["#{lh.mahocki}"][:tcdkKI_thucte]=lh.tinchi
+							@results["#{lh.mahocki}"][:tcqKI_thucte]= lh.diemso>0 ? lh.tinchi : 0
+							@results["#{lh.mahocki}"][:diemki_thucte]= lh.diemso*lh.tinchi
+							hocphans["#{lh.mahocphan}"]={diemcu: lh.diemso}
+						end					
+					end# if @results.key? lh.mahocki						
+				end# @lophocs.each do |lh|
+				tongTCdangki=tongTCqua=tongDiem=0
+				@results.each do |key,val|
+					tongDiem+=val[:diemki_thucte]
+					tongTCdangki+=val[:tcdkKI_thucte]
+					tongTCqua+=val[:tcqKI_thucte]
+					val[:gpa]=(val[:diemki]/val[:tcdkKI]).round(2)
+					val[:cpa]=(tongDiem/tongTCdangki).round(2)
+					val[:tcdkKH]=tongTCdangki
+					val[:tcqKH]=tongTCqua
+				end# @results.each do |key,val|
+			end# if params[:hocki_id]
+		end# unless @sinhvien=
 	end
 	def edit		
 	end
@@ -134,15 +143,7 @@ class SinhviensController < ApplicationController
 	  	flash[:danger]= "Invalid CSV file format."
 	  end
 	  redirect_back fallback_location: sinhviens_path
-	end
-	def thoikhoabieu		
-		if params[:hocki_id]
-			@hocki=Hocki.find_by_id(params[:hocki_id])
-			@lophocs=Lophoc.joins(:hocphan,:dangkilophocs)
-					.select("lophocs.*","mahocphan","tenhocphan","tinchi","tinchihocphi","hesohocphi","tinchihocphi*hesohocphi as tongphi")
-					.where("hocki_id=? and sinhvien_id=?",params[:hocki_id],@current_sinhvien.id)		
-		end		
-	end
+	end	
 	def svdkh		
 		if params[:masinhvien]
 			if current_hocki		
@@ -153,8 +154,8 @@ class SinhviensController < ApplicationController
 			if @hocki 
 				@sinhvien=Sinhvien.find_by(masinhvien: params[:masinhvien])
 				if @sinhvien
-					@lophocs=Lophoc.joins(:hocphan,:dangkilophocs)
-							.select("lophocs.*","mahocphan","tenhocphan","tinchi","tinchihocphi","hesohocphi","tinchihocphi*hesohocphi as tongphi")
+					@lophocs=Dangkilophoc.joins(lophoc: :hocphan)
+							.select("dangkilophocs.*","tinchihocphi*hesohocphi as tongphi")
 							.where("hocki_id=? and sinhvien_id=?",@hocki.id,@sinhvien.id)
 				else
 					flash[:info]="見付からない"
@@ -172,26 +173,17 @@ class SinhviensController < ApplicationController
 		end
 	end
 	def update_params
-	    params.require(:sinhvien).permit(:tensinhvien,:ngaysinh,:email,:trangthai,:lopsinhvien_id)
+	  params.require(:sinhvien).permit(:tensinhvien,:ngaysinh,:email,:trangthai,:lopsinhvien_id)
 	end	
 	def x_params
-	    params.require(:sinhvien).permit(:masinhvien,:tensinhvien,:ngaysinh,:email,:trangthai,:lopsinhvien_id)
+	  params.require(:sinhvien).permit(:masinhvien,:tensinhvien,:ngaysinh,:email,:trangthai,:lopsinhvien_id)
 	end	
-	def xx_params
-        @hocphan_ids=params[:list] ? params[:list].collect {|x| x.to_i} : nil
-            @tkb=0
-            if params[:so_tiets]!=nil
-                params[:so_tiets].each do |i|
-                    @tkb|=(1<<i.to_i)
-               	end
-            end
-    end    
-    def chinh_chu
-    	if sinhvien?  
-	        unless @current_sinhvien.id==params[:id].to_i
-	          flash[:danger]="あなたは本人じゃない"
-	          redirect_to(root_url) 
-	        end
-        end
+	def chinh_chu
+    if sinhvien?  
+	    unless @current_sinhvien.id==params[:id].to_i
+	      flash[:danger]="あなたは本人じゃない"
+	      redirect_to(root_url) 
+	    end
     end
+  end
 end
