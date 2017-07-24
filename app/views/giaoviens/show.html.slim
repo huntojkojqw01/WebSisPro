@@ -1,19 +1,20 @@
--provide(:title,"教師情報")
+-provide(:title,t('.title'))
 .row
   .col-md-4.col-sm-4.col-md-offset-4.col-sm-offset-4
+    h1 =t '.title'
     table.table.table-striped.table-bordered
       tr
-        td 教師コ➖ド
+        td= t '.teachercode'
         td =@giaovien.magiaovien
       tr
-        td 教師
+        td= t '.teachername'
         td =@giaovien.tengiaovien
       tr
-        td 誕生日
+        td= t '.birthday'
         td =@giaovien.ngaysinh
       tr
-        td メ➖ル
+        td= t '.email'
         td =@giaovien.email
       tr
-        td 学部
+        td= t '.academy'
         td =link_to @giaovien.tenkhoavien,@giaovien.khoavien

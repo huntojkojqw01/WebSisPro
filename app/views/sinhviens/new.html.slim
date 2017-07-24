@@ -1,10 +1,10 @@
--provide(:title,"学生追加")
+-provide(:title,t('.title'))
 .row
   .col-sm-6.col-md-6.col-sm-offset-2.col-md-offset-2    
-    h1 style="text-align: center;" 学生を追加   
+    h1 style="text-align: center;" = t('.title')
     =render 'form',object: @sinhvien  
   .col-md-3.col-sm-3
-    h3 From .csv file
+    h3 From .CSV file
     = form_tag import_sinhviens_path, multipart: true
       = file_field_tag :file
       = submit_tag "Import",class: "btn btn-info"

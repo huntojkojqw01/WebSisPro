@@ -27,31 +27,33 @@ class GiaoviensController < ApplicationController
 			end
 		else			
 			@giaovien.destroy			
-			flash[:info]= t 'c.shared.deleted'
+			flash[:info]= t 'shared.deleted'
 			redirect_to giaoviens_path
 		end
 	end
 	def update
 	  if @giaovien.update(x_params)
-	    flash[:info]= t 'c.shared.updated'
+	    flash[:info]= t 'shared.updated'
 	    redirect_to @giaovien
 	  else
+	  	flash.now[:danger]= t 'shared.notupdate'
 	   	render 'edit'
 	  end
   end
 	def create
 		@giaovien=Giaovien.new(x_params)
 		if @giaovien.save
-	      	flash[:success]= t 'c.shared.added'
-	        redirect_to @giaovien
-	    else
-	        render 'new'
-	    end
-    end    
+	    flash[:success]= t 'shared.added'
+	    redirect_to @giaovien
+	  else
+	  	flash.now[:danger]= t 'shared.notadd'
+	    render 'new'
+	  end
+  end    
 	private
 	def set_x
 		unless params[:ids] || @giaovien=Giaovien.find_by_id(params[:id])	
-			flash[:info]= t 'c.shared.notfound'
+			flash[:info]= t 'shared.notfound'
 			redirect_to root_url
 		end
 	end

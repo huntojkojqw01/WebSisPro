@@ -30,9 +30,10 @@ class HockisController < ApplicationController
 			end
 		else			
 			if @hocki.update(x_params)
-		    flash[:info]= t 'c.shared.updated'
+		    flash[:info]= t 'shared.updated'
 		    redirect_to @hocki
 		  else
+		  	flash.now[:danger]= t 'shared.notupdate'
 		    render 'edit'
 		  end
 		end	    
@@ -40,16 +41,17 @@ class HockisController < ApplicationController
 	def create		
 		@hocki=Hocki.new(x_params)
 		if @hocki.save
-		    flash[:success]= t 'c.shared.added'
-		   	redirect_to @hocki
+		  flash[:success]= t 'shared.added'
+		  redirect_to @hocki
 		else
-		    render 'new'
+			flash.now[:danger]= t 'shared.notadd'
+		  render 'new'
 		end		  
-    end	
+  end	
 	private
 	def set_x		
 		unless (@hocki=Hocki.find_by_id(params[:id]))	|| params[:modangki]
-			flash[:danger]= t 'c.shared.notfound'
+			flash[:danger]= t 'shared.notfound'
 			redirect_to root_url	
 		end	
 	end

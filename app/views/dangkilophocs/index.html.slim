@@ -1,30 +1,30 @@
--provide(:title,"クラス登録")
+-provide(:title,t('.title'))
 .row
   .col-md-10.col-sm-10.col-md-offset-1.col-sm-offset-1
-    h1 Danh sach dang ki lop hoc
+    h1 =t('.title')
     table#dangkilophocs.table.table-striped.table-bordered
       thead
         tr
           th id
           th edit_link
-          th hocki
-          th クラスコ➖ド
-          th 学生コ➖ド
-          th 科目係数
-          th 中間点
-          th 期末点
-          th 点字
+          th=t '.semester'
+          th=t '.lesson'
+          th=t '.student'
+          th=t '.coefficient'
+          th=t '.midpoint'
+          th=t '.finalpoint'
+          th=t '.letterpoint'
       tbody
           =render @dangkilophocs
       tfoot
         tr
           th id
           th edit_link
-          th hocki
-          th クラスコ➖ド
-          th 学生コ➖ド
-          th 科目係数
-          th 中間点
-          th 期末点
-          th 点字
+          th=t '.semester'
+          th=t '.lesson'
+          th=t '.student'
+          th=t '.coefficient'
+          th=t '.midpoint'
+          th=t '.finalpoint'
+          th=t '.letterpoint'
     =render "shared/new_edit_destroy_buttons",object: "dangkilophoc",new_path: new_dangkilophoc_path

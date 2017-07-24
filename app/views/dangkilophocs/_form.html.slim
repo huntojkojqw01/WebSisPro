@@ -1,28 +1,28 @@
 = form_for(object,html: {class: 'form-horizontal'}) do |f| 
   = render 'shared/error_messages', object: f.object
   .form-group
-    = f.label :"学生",class:"control-label col-sm-4 col-md-4"    
+    = f.label t('.student'),class:"control-label col-sm-4 col-md-4"    
     .col-sm-8.col-md-8
       -if object.id
         = f.text_field :masinhvien,class: "form-control",readonly: true
       -else
-        = f.collection_select :sinhvien_id, Sinhvien.where(trangthai: true), :id, :masinhvien, prompt: true 
+        = f.collection_select :sinhvien_id, Sinhvien.where(trangthai: true), :id, :masinhvien, prompt: t('.selectstudent')
   .form-group
-    = f.label :"クラス" ,class:"control-label col-sm-4 col-md-4"
+    = f.label t('.lesson') ,class:"control-label col-sm-4 col-md-4"
     .col-sm-8.col-md-8
       -if object.id
         = f.text_field :malophoc,class: "form-control",readonly: true
       -else
-        = f.collection_select :lophoc_id, lophocs, :id, :malophoc, prompt: true
+        = f.collection_select :lophoc_id, lophocs, :id, :malophoc, prompt: t('.selectlesson')
   -if object.id
     .form-group
-      = f.label :"中間点",class:"control-label col-sm-4 col-md-4"
+      = f.label t('.midpoint'),class:"control-label col-sm-4 col-md-4"
       .col-sm-8.col-md-8
         = f.number_field :diemquatrinh ,:step => 0.1 
     .form-group
-      = f.label :"期末点",class:"control-label col-sm-4 col-md-4"
+      = f.label t('.finalpoint'),class:"control-label col-sm-4 col-md-4"
       .col-sm-8.col-md-8
         = f.number_field :diemthi ,:step => 0.1
   .form-group
     .col-sm-offset-4.col-md-offset-4.col-sm-8.col-md-8
-      = f.submit (object.id ? "更新" : "追加"),class: "btn btn-primary"
+      = f.submit (object.id ? t('.update') : t('.add')),class: "btn btn-primary"

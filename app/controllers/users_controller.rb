@@ -15,6 +15,7 @@ class UsersController < ApplicationController
 		if @user.save
 			redirect_to @user
 		else
+			flash.now[:danger]= t 'shared.notadd'
 			render 'new'
 		end
 	end
@@ -26,6 +27,7 @@ class UsersController < ApplicationController
 	    if @user.update_attributes(user_params)	      
 	      redirect_to @user
 	    else
+	    	flash.now[:danger]= t 'shared.notupdate'
 	      render 'edit'
 	    end
 	end

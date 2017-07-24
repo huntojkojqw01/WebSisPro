@@ -1,7 +1,7 @@
--provide(:title,"科目を追加")
+-provide(:title,t('.title'))
 .row
   .col-md-6.col-sm-6.col-md-offset-2.col-sm-offset-2
-    h1 style=("text-align:center; margin-bottom: 40px;")  科目を追加    
+    h1 style=("text-align:center; margin-bottom: 40px;") =t('.title')   
     =render 'form',object: @hocphan
   .col-md-3.col-sm-3
     h3 From .csv file

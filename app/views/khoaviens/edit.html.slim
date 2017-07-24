@@ -1,5 +1,5 @@
--provide(:title,"edit khoa vien")
+-provide(:title,t('.title'))
 .row
   .col-md-6.col-sm-6.col-md-offset-2.col-sm-offset-2 
-    h1 style=("text-align:center; margin-bottom: 40px;")  edit khoa vien    
+    h1 style=("text-align:center; margin-bottom: 40px;") =t('.title') 
     =render 'form',object: @khoavien

@@ -141,7 +141,7 @@ setStandardTable = function(model_name, ajax_url) {
 };
 $(document).on('turbolinks:load', function() {
   $(".alert" ).fadeOut(4000);
-  $('li.dropdown ul li a').click(function(){        
+  $('li.dropdown#locale ul li a').click(function(){        
     $.post({
       url: '/locale',
       data: {locale: this.id},

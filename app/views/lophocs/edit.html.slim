@@ -1,6 +1,6 @@
--provide(:title,"クラス更新")
+-provide(:title,t('.title'))
 .row
   .col-md-6.col-md-offset-2.col-sm-6.col-sm-offset-2
-    h1 クラス情報を更新
+    h1 =t('.title')
     =render 'form',object: @lophoc
 span#time[hidden="true"]= toStrTime(@lophoc.thoigian).split(/[\s,:,\,-]/)[1..4].join(',')

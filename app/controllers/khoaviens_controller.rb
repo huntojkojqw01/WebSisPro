@@ -15,23 +15,25 @@ class KhoaviensController < ApplicationController
 	end
 	def update
 		if @khoavien.update(x_params)
-	      	flash[:info]= t 'c.shared.updated'
+	      	flash[:info]= t 'shared.updated'
 	        redirect_to @khoavien
 	    else
+	    		flash.now[:danger]= t 'shared.notupdate'
 	       	render 'edit'
 	    end
   	end
 	def create
 		@khoavien=Khoavien.new(x_params)
 		if @khoavien.save
-	      	flash[:success]= t 'c.shared.added'
-	        redirect_to @khoavien
-	    else
-	        render 'new'
-	    end
-    end
-    def destroy        	
-    end    
+	    flash[:success]= t 'shared.added'
+	    redirect_to @khoavien
+	  else
+	  	flash.now[:danger]= t 'shared.notadd'
+	    render 'new'
+	  end
+  end
+  def destroy        	
+  end    
 	def import
 		begin
 			r=Khoavien.import(params[:file])    	
@@ -48,7 +50,7 @@ class KhoaviensController < ApplicationController
 	private
 	def set_x			
 		unless params[:ids] || @khoavien=Khoavien.find_by_id(params[:id])
-			flash[:danger]= t 'c.shared.notfound'
+			flash[:danger]= t 'shared.notfound'
 			redirect_to root_url
 		end
 	end

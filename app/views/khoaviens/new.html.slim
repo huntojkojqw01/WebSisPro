@@ -1,10 +1,10 @@
--provide(:title,"new khoa vien")
+-provide(:title,t('.title'))
 .row
   .col-md-6.col-sm-6.col-md-offset-2.col-sm-offset-2 
-    h1 style=("text-align:center; margin-bottom: 40px;")  new khoa vien    
+    h1 style=("text-align:center; margin-bottom: 40px;") =t('.title')  
     =render 'form',object: @khoavien
   .col-md-3.col-sm-3
-    h3 Add from .csv file
+    h3 From .CSV file
     = form_tag import_khoaviens_path, multipart: true do
       = file_field_tag :file
       = submit_tag "Import",class: "form-control btn btn-info"

@@ -1,52 +1,52 @@
--provide(:title,"学生情報")
+-provide(:title,t('.title'))
 .row
   -if @results
     .col-md-3.col-sm-3.col-md-offset-1.col-sm-offset-1
-      h1 style=("text-align: center;color: #990099") info
+      h1 style=("text-align: center;color: #990099") =t('.title')
       table.table.table-bordered.table-striped
         tbody
           tr
             td 
-              b 学生コ➖ド
+              b =t '.studentcode'
             td =@sinhvien.masinhvien
           tr
             td
-              b 学生名
+              b =t '.studentname'
             td =@sinhvien.tensinhvien
           tr
             td
-              b 誕生日
+              b =t '.birthday'
             td =@sinhvien.ngaysinh
           tr
             td
-              b 学生グル➖プ
+              b =t '.class'
             td =link_to @sinhvien.tenlopsinhvien,lopsinhvien_path(@sinhvien.lopsinhvien)
           tr
             td
-              b メ➖ル
+              b =t '.email'
             td =@sinhvien.email
           tr
             td
-              b 調子
-            td = @sinhvien.trangthai ? "勉強している" : "辞めました"
+              b =t '.state'
+            td = @sinhvien.trangthai ? t('.learning') : t('.exited')
     .col-md-7.col-sm-7             
-      h1 style=("text-align: center;color: green")  成績
+      h1 style=("text-align: center;color: green") =t '.result'
       table.table.table-stripped.table-bordered
         thead        
           tr
-            th 学期コ➖ド
-            th 登録した単位
-            th 合格単位
-            th 失敗した単位
-            th GPA
-            th 登録した単位
-            th 合格単位
-            th 失敗した単位
-            th CPA
+            th =t '.semester'
+            th =t '.registed unit'
+            th =t '.passed unit'
+            th =t '.unpassed unit'
+            th =t '.gpa'
+            th =t '.registed unit'
+            th =t '.passed unit'
+            th =t '.unpassed unit'
+            th =t '.cpa'
           tr
             td
-            td colspan="4" style="text-align:center"  学期
-            td colspan="4" style="text-align:center" コ➖ス
+            td colspan="4" style="text-align:center" =t '.onsemester'
+            td colspan="4" style="text-align:center" =t '.oncourse'
         tbody
           -@results.each do |key,val| 
             tr
@@ -63,49 +63,49 @@
                 b= val[:cpa]
   -else
     .col-md-4.col-sm-4.col-md-offset-4.col-sm-offset-4    
-      h1 style=("text-align: center;color: #990099") info
+      h1 style=("text-align: center;color: #990099") =t('.title')
       table.table.table-bordered.table-striped
         tbody
           tr
             td 
-              b 学生コ➖ド
+              b =t '.studentcode'
             td =@sinhvien.masinhvien
           tr
             td
-              b 学生名
+              b =t '.studentname'
             td =@sinhvien.tensinhvien
           tr
             td
-              b 誕生日
+              b =t '.birthday'
             td =@sinhvien.ngaysinh
           tr
             td
-              b 学生グル➖プ
+              b =t '.class'
             td =link_to @sinhvien.tenlopsinhvien,lopsinhvien_path(@sinhvien.lopsinhvien)
           tr
             td
-              b メ➖ル
+              b =t '.email'
             td =@sinhvien.email
           tr
             td
-              b 調子
-            td = @sinhvien.trangthai ? "勉強している" : "辞めました"
+              b =t '.state'
+            td = @sinhvien.trangthai ? t('.learning') : t('.exited')
 hr
 .row
   .col-md-10.col-sm-10.col-md-offset-1.col-sm-offset-1
     -if @lophocs
-      h1 style=("text-align: center;color: blue")  参加したクラス
+      h1 style=("text-align: center;color: blue") =t '.registedclass'
       table#caclopdahoc.table.table-striped.table-bordered
         thead        
           tr
-            th 学期コ➖ド
-            th 科目コ➖ド
-            th 科目名
-            th 単位
-            th クラスコ➖ド
-            th 中間点
-            th 期末点
-            th 点字
+            th =t '.semester'
+            th =t '.subjectcode'
+            th =t '.subjectname'
+            th =t '.unit'
+            th =t '.lesson'
+            th =t '.midpoint'
+            th =t '.finalpoint'
+            th =t '.letterpoint'
         tbody
           -@lophocs.each do |lh| 
             tr
@@ -120,10 +120,9 @@ hr
 hr
 .row       
   .col-md-8.col-sm-8.col-md-offset-2.col-sm-offset-2
-    h1 style=("text-align: center")
-      | スケージュール for 学期 
+    h1 style=("text-align: center") =t '.timetable'
     h3 style=("text-align: center")
-      = select_tag "hocki_id", options_from_collection_for_select(Hocki.all, "id", "mahocki", @hocki ? @hocki.id : nil),:include_blank=>"None"
+      = select_tag "hocki_id", options_from_collection_for_select(Hocki.all, "id", "mahocki", @hocki ? @hocki.id : nil),:include_blank=> t('.none')
     #thoikhoabieu
 .row
   .col-md-10.col-sm-10.col-md-offset-1.col-sm-offset-1

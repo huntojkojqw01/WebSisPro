@@ -13,7 +13,7 @@ class LopsinhviensController < ApplicationController
 		if @lopsinhvien
 			@sinhviens=@lopsinhvien.sinhviens
 		else
-			flash[:danger]= t 'c.shared.notfound'
+			flash[:danger]= t 'shared.notfound'
 			redirect_to root_url		
 		end					
 	end
@@ -32,22 +32,23 @@ class LopsinhviensController < ApplicationController
 			end
 		else			
 			@lopsinhvien.destroy			
-			flash[:info]= t 'c.shared.deleted'
+			flash[:info]= t 'shared.deleted'
 			redirect_to lopsinhviens_path
 		end		
 	end
 	def update
 	  if @lopsinhvien.update(x_params)
-	    flash[:info]= t 'c.shared.updated'
+	    flash[:info]= t 'shared.updated'
 	    redirect_to @lopsinhvien
 	  else
+	  	flash.now[:danger]= t 'shared.notupdate'
 	    render 'edit'
 	  end
   end
 	def create
 		@lopsinhvien=Lopsinhvien.new(x_params)
 		if @lopsinhvien.save
-	    flash[:success]= t 'c.shared.added'
+	    flash[:success]= t 'shared.added'
 	    redirect_to @lopsinhvien
 	  else
 	    render 'new'
@@ -56,7 +57,7 @@ class LopsinhviensController < ApplicationController
 	private
 	def set_x
 		unless params[:ids] || @lopsinhvien=Lopsinhvien.find_by_id(params[:id])	
-			flash[:danger]= t 'c.shared.notfound'	
+			flash[:danger]= t 'shared.notfound'	
 			redirect_to root_url	
 		end	
 	end

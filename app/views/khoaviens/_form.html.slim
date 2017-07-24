@@ -1,17 +1,17 @@
 = form_for(object,html: {class: "form-horizontal"}) do |f| 
   = render 'shared/error_messages', object: f.object 
   .form-group
-    = f.label :"ten khoa vien" ,class: "control-label col-sm-4 col-md-4"
+    = f.label t('.name'),class: "control-label col-sm-4 col-md-4"
     .col-sm-8.col-md-8
       = f.text_field :tenkhoavien ,class: 'form-control'
   .form-group
-    = f.label :"dia diem" ,class: "control-label col-sm-4 col-md-4"
+    = f.label t('.place'),class: "control-label col-sm-4 col-md-4"
     .col-sm-8.col-md-8
       = f.text_field :diadiem ,class: 'form-control'
   .form-group
-    = f.label :"so dien thoai" ,class: "control-label col-sm-4 col-md-4"
+    = f.label t('.phone'),class: "control-label col-sm-4 col-md-4"
     .col-sm-8.col-md-8
       = f.text_field :sodienthoai ,class: 'form-control'
   .form-group
     .col-sm-offset-4.col-md-offset-4.col-sm-8.col-md-8
-      = f.submit (object.id ? "更新" : "新規"),class: "btn btn-primary"
+      = f.submit (object.id ? t('.update') : t('.add')),class: "btn btn-primary"

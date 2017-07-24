@@ -1,34 +1,34 @@
--provide :title, "lophoc_list"
+-provide :title,t('.title')
 .row
   .col-md-10.col-sm-10.col-md-offset-1.col-sm-offset-1
-    h1 danh sach lop hoc
+    h1 =t('.title')
     table#lophocs.table.table-striped.table-bordered
       thead
         tr
           th id
           th edit_link
-          th hoc ki
-          th khoa vien
-          th クラスコ➖ド
-          th タイム
-          th 教室
-          th 科目
-          th 科目名
-          th 最大
-          th 名
+          th=t '.semester'
+          th=t '.academy'
+          th=t '.lesson'
+          th=t '.time'
+          th=t '.classroom'
+          th=t '.subjectcode'
+          th=t '.subjectname'
+          th=t '.maximum'
+          th=t '.current'
       tfoot
         tr
           th id
           th edit_link
-          th hoc ki
-          th khoa vien
-          th クラスコ➖ド
-          th タイム
-          th 教室
-          th 科目
-          th 科目名
-          th 最大
-          th 名
+          th=t '.semester'
+          th=t '.academy'
+          th=t '.lesson'
+          th=t '.time'
+          th=t '.classroom'
+          th=t '.subjectcode'
+          th=t '.subjectname'
+          th=t '.maximum'
+          th=t '.current'
       tbody
         = render @lophocs
     =render "shared/new_edit_destroy_buttons",object: "lophoc",new_path: new_lophoc_path

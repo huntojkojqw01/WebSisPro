@@ -11,7 +11,7 @@ class ChuongtrinhdaotaosController < ApplicationController
 	def show
 		@lopsinhvien=Lopsinhvien.find_by_id(params[:id])				
 		unless @lopsinhvien
-			flash[:danger]= t 'c.shared.notfound'	
+			flash[:danger]= t 'shared.notfound'	
 			redirect_to root_url
 		else
 			@ctdts=@lopsinhvien.chuongtrinhdaotaos.includes(hocphan: :khoavien)				
@@ -32,25 +32,26 @@ class ChuongtrinhdaotaosController < ApplicationController
 			end
 		else			
 			@chuongtrinhdaotao.destroy			
-			flash[:info]= t 'c.shared.deleted'
+			flash[:info]= t 'shared.deleted'
 			redirect_to chuongtrinhdaotaos_path
 		end		
 	end
 	def update	    
-  	end
+  end
 	def create
 		@chuongtrinhdaotao=Chuongtrinhdaotao.new(x_params)
 		if @chuongtrinhdaotao.save
-	      	flash[:success]= t 'c.shared.added'
-	        redirect_to chuongtrinhdaotaos_path
-	    else
-	        render 'new'
-	    end
-    end	
+	    flash[:success]= t 'shared.added'
+	    redirect_to chuongtrinhdaotaos_path
+	  else
+	  	flash.now[:danger]= t 'shared.notadd'
+	    render 'new'
+	  end
+  end	
 	private
 	def set_x
 		unless params[:ids] || @chuongtrinhdaotao=Chuongtrinhdaotao.find_by_id(params[:id])	
-			flash[:danger]= t 'c.shared.notfound'	
+			flash[:danger]= t 'shared.notfound'	
 			redirect_to root_url	
 		end
 	end

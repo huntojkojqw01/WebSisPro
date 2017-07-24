@@ -1,45 +1,46 @@
-=provide(:title,"クラス情報")
+=provide(:title,t('.title'))
 .row
   .col-md-4.col-sm-4[style="background-color:#F6D8CE; font-size:15px;"]
+    h1 =t('.title')
     table.table.table-striped.table-bordered
       tbody
         tr
-          td クラスコ➖ド
+          td =t '.lesson'
           td =@lophoc.malophoc
         tr
-          td タイム 
+          td =t '.time'
           td =toStrTime(@lophoc.thoigian)
         tr
-          td 教室
+          td =t '.classroom'
           td =@lophoc.diadiem
         tr
-          td 教師 
+          td =t '.teacher'
           td =link_to @lophoc.tengiaovien,@lophoc.giaovien
         tr
-          td 科目 
+          td =t '.subject'
           td
             =@lophoc.tenhocphan
             | -
             =link_to @lophoc.mahocphan,@lophoc.hocphan
         tr
-          td 学期
+          td =t '.semester'
           td =@lophoc.mahocki
         tr
-          td 登録した 
+          td =t '.current'
           td
             =@lophoc.dadangki
             | /
             =@lophoc.maxdangki
   .col-md-6.col-sm-6
-    h3 Sinh vien list
+    h3 =t '.studentlist'
     table#sinhviens.table.table-striped.table-bordered
       thead
         tr
           th id
           th edit_link                      
-          th 学生コ➖ド
-          th 学生名
-          th 誕生日        
+          th =t '.studentcode'
+          th =t '.studentname'
+          th =t '.studentbirthday'       
       tbody
         -@sinhviens.each do |sinhvien|
           tr
@@ -52,6 +53,6 @@
         tr
           th id
           th edit_link          
-          th 学生コ➖ド
-          th 学生名
-          th 誕生日
+          th =t '.studentcode'
+          th =t '.studentname'
+          th =t '.studentbirthday'
