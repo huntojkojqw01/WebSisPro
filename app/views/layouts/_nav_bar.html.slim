@@ -10,7 +10,7 @@ nav.navbar.navbar-primary
         =image_tag 'logo.jpg',size: "30x40",alt: "SIS"
     .collapse.navbar-collapse[id="bs-example-navbar-collapse-1"]
       ul.nav.navbar-nav
-        li= link_to 'ホ➖ム',root_path
+        li= link_to t('.home'),root_path
         - if admin?          
           =render 'layouts/admin_navbar'          
         - elsif sinhvien?        

@@ -1,5 +1,5 @@
--provide(:title,"教師情報更新")
+-provide(:title,t('.title'))
 .row
   .col-md-6.col-sm-6.col-md-offset-3.col-sm-offset-3
-    h1 style=("text-align: center; font-size: 40px;") 教師情報を更新
+    h1 style=("text-align: center; font-size: 40px;") =t '.title'
     =render 'form',object: @giaovien

@@ -4,25 +4,25 @@
     = f.hidden_field :magiaovien
   -else
     .form-group
-      = f.label :"教師コ➖ド" ,class:"control-label col-sm-4 col-md-4"
+      = f.label t('.teachercode') ,class:"control-label col-sm-4 col-md-4"
       .col-sm-8.col-md-8    
         = f.text_field :magiaovien ,class: 'form-control'
   .form-group
-    = f.label :"教師名" ,class:"control-label col-sm-4 col-md-4"
+    = f.label t('.teachername') ,class:"control-label col-sm-4 col-md-4"
     .col-sm-8.col-md-8
       = f.text_field :tengiaovien ,class: 'form-control'
   .form-group
-    = f.label :"誕生日" ,class:"control-label col-sm-4 col-md-4"
+    = f.label t('.birthday') ,class:"control-label col-sm-4 col-md-4"
     .col-sm-8.col-md-8
       = f.date_select :ngaysinh ,:start_year=>1900,:end_year=>2000
   .form-group
-    = f.label :"メ➖ル" ,class:"control-label col-sm-4 col-md-4"
+    = f.label t('.email') ,class:"control-label col-sm-4 col-md-4"
     .col-sm-8.col-md-8
       = f.text_field :email ,class: 'form-control'
   .form-group
-    = f.label :"学部" ,class:"control-label col-sm-4 col-md-4"
+    = f.label t('.academy') ,class:"control-label col-sm-4 col-md-4"
     .col-sm-8.col-md-8
-      = f.collection_select :khoavien_id, Khoavien.all, :id, :tenkhoavien, prompt: true 
+      = f.collection_select :khoavien_id, Khoavien.all, :id, :tenkhoavien, prompt: t('.selectacademy') 
   .form-group
     .col-md-offset-4.col-sm-offset-4.col-sm-8.col-md-8      
-      = f.submit (object.id ? "更新" : "追加"),class: "btn btn-primary"
+      = f.submit (object.id ? t('.update') : t('.add')),class: "btn btn-primary"

@@ -1,21 +1,22 @@
--provide(:title,"学期情報")
+-provide(:title,t('.title'))
 .row
   .col-md-6.col-md-offset-3.col-sm-6.col-sm-offset-3
+  	h1 =t '.title'
     table.table.table-striped.table-bordered
 	    tbody
 	      tr 
 	      	td 
-	      		b 学期コ➖ド
+	      		b =t '.semester'
 	      	td =@hocki.mahocki
 	      tr
 	      	td
-	      		b 単位学費
+	      		b =t '.tutionunit'
 	      	td =@hocki.dinhmuchocphi
 	      tr
 	      	td
-	      		b 始まる
+	      		b =t '.start'
 	      	td =@hocki.bd
 	      tr
 	      	td
-	      		b 終わる
+	      		b =t '.end'
 	      	td =@hocki.kt

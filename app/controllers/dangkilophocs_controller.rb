@@ -14,7 +14,7 @@ class DangkilophocsController < ApplicationController
 	def show		
 		@sinhvien=Sinhvien.find_by_id(params[:id])
 		unless @sinhvien && @sinhvien==@current_sinhvien
-			flash[:danger]= t 'c.shared.notself'
+			flash[:danger]= t 'shared.notself'
 			redirect_to root_url
 		else		
 			if mo_dangki_lophoc?						
@@ -25,7 +25,7 @@ class DangkilophocsController < ApplicationController
 					.where("sinhvien_id=? and hocki_id=?",@sinhvien.id,@hocki_modangkilophoc.id)
 					.select("dangkilophocs.*","dangkilophocs.hesohocphi*hocphans.tinchihocphi as tongphi")
 			else
-				flash[:info]= t 'c.shared.noclass'
+				flash[:info]= t 'shared.noclass'
 				redirect_to root_url
 			end			
 		end							
@@ -34,29 +34,29 @@ class DangkilophocsController < ApplicationController
 		unless @dangkilophoc=Dangkilophoc.joins({lophoc: :hocphan},:sinhvien)
 									.select("dangkilophocs.*","malophoc","masinhvien")
 									.find_by_id(params[:id])																	
-			flash[:warning]= t 'c.shared.notfound'
+			flash[:warning]= t 'shared.notfound'
 			redirect_to root_url
 		end
 	end
 	def destroy
 		@dangkilophoc.destroy
-		flash[:info]= t 'c.shared.deleted'
+		flash[:info]= t 'shared.deleted'
 		redirect_back fallback_location: root_path
 	end
 	def update
 		if @dangkilophoc.update(update_params)
-			flash[:info]= t 'c.shared.updated'			        	
+			flash[:info]= t 'shared.updated'			        	
 		else
-			flash[:danger]= t('c.shared.error') + @dangkilophoc.errors.full_messages.join(',')
+			flash[:danger]= t('shared.error') + @dangkilophoc.errors.full_messages.join(',')
 		end
 		redirect_back fallback_location: root_path					    
-  	end
+  end
 	def create
 		@dangkilophoc=Dangkilophoc.new(create_params)
 		if @dangkilophoc.save
-			flash[:success]= t 'c.shared.added'							      				        
+			flash[:success]= t 'shared.added'							      				        
 		else
-			flash[:danger]= t('c.shared.error') + @dangkilophoc.errors.full_messages.join(',')					    					        
+			flash[:danger]= t('shared.error') + @dangkilophoc.errors.full_messages.join(',')					    					        
 		end
 		redirect_back fallback_location: root_path		
   end    	
@@ -76,7 +76,7 @@ class DangkilophocsController < ApplicationController
 	private
 	def set_x
 		unless @dangkilophoc=Dangkilophoc.find_by_id(params[:id])
-			flash[:warning]= t 'c.shared.notfound'
+			flash[:warning]= t 'shared.notfound'
 			redirect_to root_url
 		end		
 	end
@@ -97,7 +97,7 @@ class DangkilophocsController < ApplicationController
 	def chinh_chu
     	if sinhvien? && params[:dangkilophoc]  
         	unless @current_sinhvien.id==params[:dangkilophoc][:sinhvien_id].to_i
-          	flash[:danger]= t 'c.shared.notself'
+          	flash[:danger]= t 'shared.notself'
           	redirect_to root_url 
         	end
         end
@@ -130,7 +130,7 @@ class DangkilophocsController < ApplicationController
 	end
 	def not_permit
     	unless @hocki_modangkilophoc=Hocki.find_by_modangkilophoc(true)
-    		flash[:danger]= t 'c.dangkilophocs.cantregister'
+    		flash[:danger]= t '.cantregister'
     		redirect_back fallback_location: dangkilophocs_path 
     	end
     end

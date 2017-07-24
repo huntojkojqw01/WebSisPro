@@ -6,13 +6,13 @@
 table.table.table-bordered
   thead
     tr bgcolor="#6666FF" 
-      th コ➖マ
-      th 時間
-      th 月
-      th 火
-      th 水
-      th 木
-      th 金       
+      th No.
+      th =t '.time'
+      th =t '.mon'
+      th =t '.tue'
+      th =t '.wed'
+      th =t '.thu'
+      th =t '.fri'       
   tbody
     -tiethocs.each.with_index do |tiet,index|
       tr

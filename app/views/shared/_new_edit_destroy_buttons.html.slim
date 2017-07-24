@@ -1,8 +1,8 @@
 -new_path||=nil
 -if new_path
-	button.btn.btn-primary id="new_#{object}" href="#{new_path}" New
+	button.btn.btn-primary id="new_#{object}" href="#{new_path}" =t 'shared.new'
 -else
-	button.btn.btn-primary id="new_#{object}" New
-button.btn.btn-warning id="edit_#{object}" Edit
-button.btn.btn-danger id="destroy_#{object}" Delete
-span#delete_confirm_message hidden="true" Are you sure?
+	button.btn.btn-primary id="new_#{object}" =t 'shared.new'
+button.btn.btn-warning id="edit_#{object}" =t 'shared.edit'
+button.btn.btn-danger id="destroy_#{object}" =t 'shared.delete'
+span#delete_confirm_message hidden="true" =t 'shared.areyousure'

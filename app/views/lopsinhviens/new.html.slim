@@ -1,5 +1,5 @@
--provide(:title,"学生グル➖プ追加")
+-provide(:title,t('.title'))
 .row
   .col-md-6.col-sm-6.col-md-offset-3.col-sm-offset-3[style="background-color:#F2F5A9"]
-    h1[style="text-align:center; margin-bottom: 40px;"] 追加 lớp sinh viên mới 
+    h1(style="text-align:center; margin-bottom: 40px;") =t('.title')
     =render 'form',object: @lopsinhvien

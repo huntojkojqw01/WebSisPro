@@ -1,36 +1,36 @@
 = form_for(object,html: {class: "form-horizontal"}) do |f|
   = render 'shared/error_messages', object: f.object
   .form-group
-    = f.label :"クラスコ➖ド",class: "control-label col-md-4 col-sm-4"
+    = f.label t('.lesson'),class: "control-label col-md-4 col-sm-4"
     .col-sm-8.col-md-8
       -if object.id
         = f.text_field :malophoc,class: 'form-control',readonly: true
       -else      
         = f.text_field :malophoc,class: 'form-control'
   .form-group
-    = f.label :"タイム",class: "control-label col-md-4 col-sm-4"
+    = f.label t('.time'),class: "control-label col-md-4 col-sm-4"
     .col-sm-8.col-md-8
-      = f.text_field :thoigian,placeholder: "日,始まる,終わる",class: 'form-control'
+      = f.text_field :thoigian,placeholder: t('.timehint'),class: 'form-control'
   .form-group
-    = f.label :"教室",class: "control-label col-md-4 col-sm-4"
+    = f.label t('.classroom'),class: "control-label col-md-4 col-sm-4"
     .col-sm-8.col-md-8
       = f.text_field :diadiem,class: 'form-control'
   .form-group
-    = f.label :"最大",class: "control-label col-md-4 col-sm-4"
+    = f.label t('.maximum'),class: "control-label col-md-4 col-sm-4"
     .col-sm-8.col-md-8
       = f.number_field :maxdangki,min: 0,class: 'form-control'
   .form-group
-    = f.label :"教師",class: "control-label col-md-4 col-sm-4"
+    = f.label t('.teacher'),class: "control-label col-md-4 col-sm-4"
     .col-sm-8.col-md-8
-      = f.collection_select :giaovien_id, Giaovien.all, :id, :tengiaovien, prompt: true
+      = f.collection_select :giaovien_id, Giaovien.all, :id, :tengiaovien, prompt: t('.selectteacher')
   .form-group
-    = f.label :"科目",class: "control-label col-md-4 col-sm-4"
+    = f.label t('.subject'),class: "control-label col-md-4 col-sm-4"
     .col-sm-8.col-md-8
-      = f.collection_select :hocphan_id, Hocphan.all, :id, :mahocphan, prompt: true
+      = f.collection_select :hocphan_id, Hocphan.all, :id, :mahocphan, prompt: t('.selectsubject')
   .form-group
-    = f.label :"学期",class: "control-label col-md-4 col-sm-4"
+    = f.label t('.semester'),class: "control-label col-md-4 col-sm-4"
     .col-sm-8.col-md-8
-      = f.collection_select :hocki_id, Hocki.all, :id, :mahocki, prompt: true
+      = f.collection_select :hocki_id, Hocki.all, :id, :mahocki, prompt: t('.selectsemester')
   .form-group
     .col-sm-offset-4.col-md-offset-4.col-sm-8.col-md-8
-      = f.submit (object.id ? "更新" : "追加"),class: "btn btn-primary"
+      = f.submit (object.id ? t('.update') : t('.add')),class: "btn btn-primary"

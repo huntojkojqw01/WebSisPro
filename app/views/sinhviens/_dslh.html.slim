@@ -1,16 +1,16 @@
 -if lophocs.any?
-  h1 style=("text-align: center") クラスリスト
+  h1 style=("text-align: center") =t '.lessonlist'
   table.table.table-bordered.table-striped style=("margin-top: 20px;") 
     thead
       tr
-        th クラスコ➖ド
-        th タイム
-        th 教室
-        th 科目コ➖ド
-        th 科目名
-        th 単位
-        th 学費単位
-        th 学費係数
+        th =t '.lesson'
+        th =t '.time'
+        th =t '.classroom'
+        th =t '.subjectcode'
+        th =t '.subjectname'
+        th =t '.unit'
+        th =t '.tutionunit'
+        th =t '.tutioncoefficient'
     tbody
       -lophocs.each do |lh| 
         tr
@@ -24,23 +24,23 @@
           td= lh.hesohocphi 
     tfooter   
       tr
-        th colspan="5" style="text-align:center" 合計
+        th colspan="5" style="text-align:center" =t '.total'
         th= lophocs.sum(&:tinchi)
         th= lophocs.sum(&:tongphi)
         th
   table style="font-size: 2em"
     tbody
       tr
-        td 単位学費
+        td =t '.tutionunit'
         td 
           b= hocki.dinhmuchocphi
-          b 000VND / 1単位
+          b 000
       tr
-        td 合計学費
+        td =t '.tutiontotal'
         td
           b= (lophocs.sum(&:tongphi)*hocki.dinhmuchocphi).round(0)
-          b 000VND
+          b 000
   -if current_hocki==hocki 
     h3 style=("color: red") =  testTiet lophocs     
 -else
-  h3 登録したクラスがありません。
+  h3 =t '.nodata'

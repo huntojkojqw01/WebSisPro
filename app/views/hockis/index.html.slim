@@ -1,27 +1,27 @@
--provide(:title,"学期リスト")
+-provide(:title,t('.title'))
 .row
   .col-sm-6.col-md-6.col-sm-offset-1.col-md-offset-1
-    h1 danh sach hoc ki
+    h1 =t '.title'
     table#hockis.table.table-striped.table-bordered
       thead
         tr
           th id
           th edit_link
-          th 学期コ➖ド
-          th 単位学費
-          th 始
-          th 終          
+          th=t '.semester'
+          th=t '.tutionunit'
+          th=t '.start'
+          th=t '.end'  
       tfoot
         tr
           th id
           th edit_link
-          th 学期コ➖ド
-          th 単位学費
-          th 始
-          th 終
+          th=t '.semester'
+          th=t '.tutionunit'
+          th=t '.start'
+          th=t '.end'
       tbody
         = render @hockis
     =render 'shared/new_edit_destroy_buttons',object: "hocki",new_path: new_hocki_path
   .col-md-3.col-sm-3
-    =label_tag "Open クラス登録"
-    =select_tag "hocki_id_lh", options_from_collection_for_select(@hockis, "id", "mahocki",@hocki_id_lh),:include_blank=>"Close all"    
+    =label_tag t('.open')
+    =select_tag "hocki_id_lh", options_from_collection_for_select(@hockis, "id", "mahocki",@hocki_id_lh),:include_blank=> t('.closeall')    

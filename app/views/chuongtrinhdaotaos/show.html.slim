@@ -1,21 +1,20 @@
-=provide(:title,"コ➖ス")
+-provide(:title,t('.title'))
 .row
   .col-md-10.col-sm-10.col-md-offset-1.col-sm-offset-1
     h1
-      =t '.kame' 
-      | 学生グル➖プ      
+      =t '.title'          
       b =@lopsinhvien.tenlopsinhvien    
     table#chuongtrinhdaotaos.table.table-striped.table-bordered
       thead
         tr
           th id          
-          th 期
-          th 科目コ➖ド
-          th 科目名
-          th 単位
-          th 学費単位
-          th 科目係数
-          th 学部
+          th =t '.semester'
+          th =t '.subjectcode'
+          th =t '.subjectname'
+          th =t '.unit'
+          th =t '.tutionunit'
+          th =t '.coefficient'
+          th =t '.academy'
       tbody
         -@ctdts.each do |ct| 
           tr
@@ -33,12 +32,12 @@
       tfoot
         tr
           th id          
-          th 期
-          th 科目コ➖ド
-          th 科目名
-          th 単位
-          th 学費単位
-          th 科目係数
-          th 学部
+          th =t '.semester'
+          th =t '.subjectcode'
+          th =t '.subjectname'
+          th =t '.unit'
+          th =t '.tutionunit'
+          th =t '.coefficient'
+          th =t '.academy'
     =render 'shared/new_edit_destroy_buttons',object: 'chuongtrinhdaotao',new_path: new_chuongtrinhdaotao_path
             

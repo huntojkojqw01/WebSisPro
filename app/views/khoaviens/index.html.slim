@@ -1,22 +1,22 @@
--provide(:title,"学部リスト")
+-provide(:title,t('.title'))
 .row
   .col-md-8.col-sm-8.col-md-offset-2.col-sm-offset-2
-    h1 danh sach khoa vien
+    h1 =t('.title')
     table#khoaviens.table.table-striped.table-bordered
       thead
         tr
           th id
           th edit_link
-          th 学部
-          th 教室
-          th 電話
+          th =t '.name' 
+          th =t '.place'
+          th =t '.phone'
       tfoot
         tr
           th id
           th edit_link
-          th 学部
-          th 教室
-          th 電話
+          th =t '.name' 
+          th =t '.place'
+          th =t '.phone'
       tbody
         = render @khoaviens
     =render "shared/new_edit_destroy_buttons",object: "khoavien",new_path: new_khoavien_path

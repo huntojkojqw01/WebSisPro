@@ -1,7 +1,7 @@
--provide(:title,"クラス登録追加")
+-provide(:title,t('.title'))
 .row
   .col-md-6.col-md-offset-2.col-sm-6.col-sm-offset-2
-    h1 クラス登録を追加
+    h1 =t '.title'
     =render 'form',object: @dangkilophoc,lophocs: @hocki_modangkilophoc.lophocs    
   .col-md-3.col-sm-3
     h3 From .CSV file

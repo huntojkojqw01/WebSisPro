@@ -11,7 +11,7 @@ class SinhviensController < ApplicationController
 	end
 	def show
 		unless @sinhvien=Sinhvien.includes(:lopsinhvien).find_by_id(params[:id])			
-			flash[:danger]= t 'c.shared.notfound'
+			flash[:danger]= t 'shared.notfound'
 			redirect_to sinhviens_path
 		else
 			if params[:hocki_id]
@@ -103,15 +103,16 @@ class SinhviensController < ApplicationController
 			if user!=nil
 			    user.destroy
 			end
-			flash[:info]= t 'c.shared.deleted'
+			flash[:info]= t 'shared.deleted'
 			redirect_to sinhviens_path
 		end
 	end
 	def update
 	    if @sinhvien.update(update_params)
-	      	flash[:info]= t 'c.shared.updated'
+	      	flash[:info]= t 'shared.updated'
 	        redirect_to @sinhvien
 	    else
+	    		flash.now[:danger]= t 'shared.notupdate'
 	       	render 'edit'
 	    end
   	end
@@ -121,14 +122,15 @@ class SinhviensController < ApplicationController
 		if user.id
 			@sinhvien[:user_id]=user.id			
 			if @sinhvien.save				
-				flash[:success]= t 'c.shared.added'
+				flash[:success]= t 'shared.added'
 				redirect_to @sinhvien
 			else
 				user.destroy
+				flash.now[:danger]= t 'shared.notadd'
 				render 'new'
 			end
 		else
-			flash[:danger]= t '.cantcreateuser'
+			flash.now[:danger]= t '.cantcreateuser'
 			render 'new'
 		end		    
 	end	
@@ -148,7 +150,7 @@ class SinhviensController < ApplicationController
 	private
 	def set_x
 		unless params[:ids] || @sinhvien=Sinhvien.find_by_id(params[:id])
-			flash[:danger]= t 'c.shared.notfound'
+			flash[:danger]= t 'shared.notfound'
 			redirect_to root_url	
 		end
 	end
@@ -161,7 +163,7 @@ class SinhviensController < ApplicationController
 	def chinh_chu
     if sinhvien?  
 	    unless @current_sinhvien.id==params[:id].to_i
-	      flash[:danger]= t 'c.shared.notself'
+	      flash[:danger]= t 'shared.notself'
 	      redirect_to(root_url) 
 	    end
     end

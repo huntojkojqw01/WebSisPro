@@ -27,27 +27,29 @@ class HocphansController < ApplicationController
 			end
 		else			
 			@hocphan.destroy
-			flash[:info]= t 'c.shared.deleted'
+			flash[:info]= t 'shared.deleted'
 			redirect_to hocphans_path
 		end		
 	end
 	def update
-	    if @hocphan.update(x_params)
-	      	flash[:info]= t 'c.shared.updated'
-	        redirect_to @hocphan
-	    else
-	       	render 'edit'
-	    end
-  	end
+	  if @hocphan.update(x_params)
+	    flash[:info]= t 'shared.updated'
+	    redirect_to @hocphan
+	  else
+	  	flash.now[:danger]= t 'shared.notupdate'
+	    render 'edit'
+	  end
+  end
 	def create
 		@hocphan=Hocphan.new(x_params)
 		if @hocphan.save
-	      	flash[:success]= t 'c.shared.added'
-	        redirect_to @hocphan
-	    else
-	        render 'new'
-	    end
-    end    
+	    flash[:success]= t 'shared.added'
+	    redirect_to @hocphan
+	  else
+	  	flash.now[:danger]= t 'shared.notadd'
+	    render 'new'
+	  end
+  end    
   def import
     begin
 	  	r=Hocphan.import(params[:file])    	
@@ -64,7 +66,7 @@ class HocphansController < ApplicationController
 	private
 	def set_x
 		unless params[:ids] || @hocphan=Hocphan.find_by_id(params[:id])
-			flash[:danger]= t 'c.shared.notfound'
+			flash[:danger]= t 'shared.notfound'
 			redirect_to root_url	
 		end		
 	end

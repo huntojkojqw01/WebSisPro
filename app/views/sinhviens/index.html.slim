@@ -1,28 +1,28 @@
--provide(:title,"学生list")
+-provide(:title,t('.title'))
 .row
 	.col-md-10.col-sm-10.col-md-offset-1.col-sm-offset-1
-		h1 Sinh vien list
+		h1 =t('.title')
 		table#sinhviens.table.table-striped.table-bordered
 			thead
 				tr
 					th id
 					th edit_link
-					th Khoa hoc
-					th Khoa vien
-					th 学生グル➖プ
-					th 学生コ➖ド
-					th 学生名
-					th 誕生日				
+					th =t '.schoolyear'
+					th =t '.academy'
+					th =t '.class'
+					th =t '.studentcode'
+					th =t '.studentname'
+					th =t '.birthday'
 			tbody
 				= render @sinhviens		
 			tfoot
 				tr
 					th id
 					th edit_link
-					th Khoa hoc
-					th Khoa vien
-					th 学生グル➖プ
-					th 学生コ➖ド
-					th 学生名
-					th 誕生日
+					th =t '.schoolyear'
+					th =t '.academy'
+					th =t '.class'
+					th =t '.studentcode'
+					th =t '.studentname'
+					th =t '.birthday'
 		=render "shared/new_edit_destroy_buttons",object: "sinhvien",new_path: new_sinhvien_path
