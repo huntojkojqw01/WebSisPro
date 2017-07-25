@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170307032749) do
+ActiveRecord::Schema.define(version: 20161118124855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20170307032749) do
     t.index ["hocphan_id"], name: "index_chuongtrinhdaotaos_on_hocphan_id", using: :btree
     t.index ["lopsinhvien_id", "hocphan_id"], name: "index_chuongtrinhdaotaos_on_lopsinhvien_id_and_hocphan_id", unique: true, using: :btree
     t.index ["lopsinhvien_id"], name: "index_chuongtrinhdaotaos_on_lopsinhvien_id", using: :btree
-  end  
+  end
 
   create_table "dangkilophocs", force: :cascade do |t|
     t.float   "diemquatrinh"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20170307032749) do
     t.integer "sinhvien_id"
     t.integer "lophoc_id"
     t.index ["lophoc_id"], name: "index_dangkilophocs_on_lophoc_id", using: :btree
+    t.index ["sinhvien_id", "lophoc_id"], name: "index_dangkilophocs_on_sinhvien_id_and_lophoc_id", unique: true, using: :btree
     t.index ["sinhvien_id"], name: "index_dangkilophocs_on_sinhvien_id", using: :btree
   end
 
@@ -49,7 +50,7 @@ ActiveRecord::Schema.define(version: 20170307032749) do
     t.string  "mahocki"
     t.integer "dinhmuchocphi"
     t.date    "bd"
-    t.date    "kt"    
+    t.date    "kt"
     t.boolean "modangkilophoc"
   end
 
@@ -61,11 +62,6 @@ ActiveRecord::Schema.define(version: 20170307032749) do
     t.float   "trongso"
     t.integer "khoavien_id"
     t.index ["khoavien_id"], name: "index_hocphans_on_khoavien_id", using: :btree
-  end
-
-  create_table "hungs", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "khoaviens", force: :cascade do |t|
@@ -96,15 +92,6 @@ ActiveRecord::Schema.define(version: 20170307032749) do
     t.index ["khoavien_id"], name: "index_lopsinhviens_on_khoavien_id", using: :btree
   end
 
-  create_table "pg_search_documents", force: :cascade do |t|
-    t.text     "content"
-    t.string   "searchable_type"
-    t.integer  "searchable_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id", using: :btree
-  end
-
   create_table "sinhviens", force: :cascade do |t|
     t.string  "masinhvien"
     t.string  "tensinhvien"
@@ -126,9 +113,6 @@ ActiveRecord::Schema.define(version: 20170307032749) do
 
   add_foreign_key "chuongtrinhdaotaos", "hocphans"
   add_foreign_key "chuongtrinhdaotaos", "lopsinhviens"
-  add_foreign_key "dangkihocphans", "hockis"
-  add_foreign_key "dangkihocphans", "hocphans"
-  add_foreign_key "dangkihocphans", "sinhviens"
   add_foreign_key "dangkilophocs", "lophocs"
   add_foreign_key "dangkilophocs", "sinhviens"
   add_foreign_key "giaoviens", "khoaviens"
