@@ -8,11 +8,11 @@
         .form-group   
           = f.label t('.class'),class:"control-label col-sm-4 col-md-4"   
           .col-sm-8.col-md-8
-            = f.collection_select :lopsinhvien_id, Lopsinhvien.all, :id, :tenlopsinhvien, prompt: true
+            = f.collection_select :lopsinhvien_id, Lopsinhvien.all, :id, :tenlopsinhvien, prompt: t('.selectclass')
         .form-group  
           = f.label t('.subject'),class:"control-label col-sm-4 col-md-4"  
           .col-sm-8.col-md-8
-            = f.collection_select :hocphan_id, Hocphan.all, :id, :mahocphan, prompt: true   
+            = f.collection_select :hocphan_id, Hocphan.all, :id, :mahocphan, prompt: t('.selectsubject')   
         .form-group
           = f.label t('.semester'),class:"control-label col-sm-4 col-md-4" 
           .col-sm-8.col-md-8

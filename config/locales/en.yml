@@ -1,5 +1,314 @@
 en:
-  hello: "Hello world"  
+  hello: "Hello world"
+  activerecord:
+    errors:
+      messages:
+        record_invalid: "Validation failed: %{errors}"
+        restrict_dependent_destroy:
+          has_one: "Cannot delete record because a dependent %{record} exists"
+          has_many: "Cannot delete record because dependent %{record} exist"
+      models:
+        dangkilophoc:
+          attributes:
+            sinhvien_id:
+              finished: "has quitted"
+            lophoc_id:
+              notopen: "belongs to semester that not open registration"
+              isfull: "is full" 
+              duplicationtime: "has time that is a duplication of current timetable"
+              duplicationsubject: "belongs_to subject that already registered"
+        hocki:
+          duplicationsemestertime: "is a duplication of another semester's time"
+          attributes:
+            bd:
+              bdgreaterthankt: "is later than end time"              
+        lophoc:
+          unabledit: "can't be edit because this lesson is registered"
+          attributes:
+            diadiem:
+              isusing: "is using by another lesson at this time"
+            giaovien_id:
+              isteaching: "is teaching another lesson at this time"
+            maxdangki:
+              unablesmall: "can't be edit because it is less than numbers of registration"            
+    models:
+      chuongtrinhdaotao: "Course"
+      dangkilophoc: "Registration"
+      giaovien: "Teacher"
+      hocki: "Semester"
+      hocphan: "Subject"
+      khoavien: "Academy"
+      lophoc: "Lesson"
+      lopsinhvien: "Class"
+      sinhvien: "Student"
+      user: "User"
+    attributes:      
+      chuongtrinhdaotao:
+        hocki: "Semester"
+        hocphan_id: "Subject"
+        lopsinhvien_id: "Class"
+      dangkilophoc:
+        diemquatrinh: "Middle point"
+        diemthi: "Final point"
+        diemso: "Point"
+        diemchu: "Letter point"
+        hesohocphi: "Tution coefficient"
+        sinhvien_id: "Student"
+        lophoc_id: "Lesson"
+      giaovien:
+        magiaovien: "Teacher code"
+        tengiaovien: "Teacher name"
+        ngaysinh: "Birthday"
+        email: "Email"
+        khoavien_id: "Academy"
+      hocki:
+        mahocki: "Semester code"
+        dinhmuchocphi: "Tution unit"
+        bd: "Start time"
+        kt: "End time"
+        modangkilophoc: "Open"
+      hocphan:
+        mahocphan: "Subject code"
+        tenhocphan: "Subject name"
+        tinchi: "Unit"
+        tinchihocphi: "Tution unit"
+        trongso: "Coefficient"
+        khoavien_id: "Academy"
+      khoavien:
+        tenkhoavien: "Academy name"
+        sodienthoai: "Phone"
+        diadiem: "Address"
+      lophoc:
+        malophoc: "Lesson code"
+        maxdangki: "Maximum"
+        thoigian: "Time"
+        diadiem: "Classroom"
+        giaovien_id: "Teacher"
+        hocphan_id: "Subject"
+        hocki_id: "Semester"
+        info: "Lesson infomation"
+      lopsinhvien:
+        tenlopsinhvien: "Class name"
+        khoahoc: "School year"
+        giaovien_id: "Teacher"
+        khoavien_id: "Academy"        
+      sinhvien:
+        masinhvien: "Student code"
+        tensinhvien: "Student name"
+        ngaysinh: "Birthday"
+        email: "Email"
+        trangthai: "State"
+        lopsinhvien_id: "Class"
+        user_id: "User"
+      user:
+        name: "User name"
+        password_digest: "Password"
+        remember_digest: "Remember"
+        loai: "Type"      
+  date:
+    abbr_day_names:
+    - Sun
+    - Mon
+    - Tue
+    - Wed
+    - Thu
+    - Fri
+    - Sat
+    abbr_month_names:
+    -
+    - Jan
+    - Feb
+    - Mar
+    - Apr
+    - May
+    - Jun
+    - Jul
+    - Aug
+    - Sep
+    - Oct
+    - Nov
+    - Dec
+    day_names:
+    - Sunday
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    formats:
+      default: "%Y-%m-%d"
+      long: "%B %d, %Y"
+      short: "%b %d"
+    month_names:
+    -
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - October
+    - November
+    - December
+    order:
+    - :year
+    - :month
+    - :day
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: about 1 hour
+        other: about %{count} hours
+      about_x_months:
+        one: about 1 month
+        other: about %{count} months
+      about_x_years:
+        one: about 1 year
+        other: about %{count} years
+      almost_x_years:
+        one: almost 1 year
+        other: almost %{count} years
+      half_a_minute: half a minute
+      less_than_x_minutes:
+        one: less than a minute
+        other: less than %{count} minutes
+      less_than_x_seconds:
+        one: less than 1 second
+        other: less than %{count} seconds
+      over_x_years:
+        one: over 1 year
+        other: over %{count} years
+      x_days:
+        one: 1 day
+        other: "%{count} days"
+      x_minutes:
+        one: 1 minute
+        other: "%{count} minutes"
+      x_months:
+        one: 1 month
+        other: "%{count} months"
+      x_years:
+        one: 1 year
+        other: "%{count} years"  
+      x_seconds:
+        one: 1 second
+        other: "%{count} seconds"
+    prompts:
+      day: Day
+      hour: Hour
+      minute: Minute
+      month: Month
+      second: Seconds
+      year: Year
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: must be accepted
+      blank: can't be blank
+      present: must be blank
+      confirmation: doesn't match %{attribute}
+      empty: can't be empty
+      equal_to: must be equal to %{count}
+      even: must be even
+      exclusion: is reserved
+      greater_than: must be greater than %{count}
+      greater_than_or_equal_to: must be greater than or equal to %{count}
+      inclusion: is not included in the list
+      invalid: is invalid
+      less_than: must be less than %{count}
+      less_than_or_equal_to: must be less than or equal to %{count}
+      model_invalid: "Validation failed: %{errors}"
+      not_a_number: is not a number
+      not_an_integer: must be an integer
+      odd: must be odd
+      required: must exist
+      taken: has already been taken
+      too_long:
+        one: is too long (maximum is 1 character)
+        other: is too long (maximum is %{count} characters)
+      too_short:
+        one: is too short (minimum is 1 character)
+        other: is too short (minimum is %{count} characters)
+      wrong_length:
+        one: is the wrong length (should be 1 character)
+        other: is the wrong length (should be %{count} characters)
+      other_than: must be other than %{count}
+    template:
+      body: 'There were problems with the following fields:'
+      header:
+        one: 1 error prohibited this %{model} from being saved
+        other: "%{count} errors prohibited this %{model} from being saved"
+  helpers:
+    select:
+      prompt: Please select
+    submit:
+      create: Create %{model}
+      submit: Save %{model}
+      update: Update %{model}
+  number:
+    currency:
+      format:
+        delimiter: ","
+        format: "%u%n"
+        precision: 2
+        separator: "."
+        significant: false
+        strip_insignificant_zeros: false
+        unit: "$"
+    format:
+      delimiter: ","
+      precision: 3
+      separator: "."
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          billion: Billion
+          million: Million
+          quadrillion: Quadrillion
+          thousand: Thousand
+          trillion: Trillion
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+        format: "%n%"
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: ", and "
+      two_words_connector: " and "
+      words_connector: ", "
+  time:
+    am: am
+    formats:
+      default: "%a, %d %b %Y %H:%M:%S %z"
+      long: "%B %d, %Y %H:%M"
+      short: "%d %b %H:%M"
+    pm: pm  
   chuongtrinhdaotaos:
     index:
       title: "Course"
@@ -10,7 +319,9 @@ en:
     new:
       title: "Add subject to the course"
       class: "Class"
+      selectclass: "Select class"
       subject: "Subject"
+      selectsubject: "Select subject"
       semester: "Semester"
       add: "Add"
     show:
@@ -401,4 +712,4 @@ en:
       login: "Log in"
       username: "User name"
       password: "Password"
-      remember: "Remember me on this computer"
+      remember: "Remember me on this computer"  

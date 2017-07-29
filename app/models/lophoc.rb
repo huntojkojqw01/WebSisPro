@@ -7,28 +7,31 @@ class Lophoc < ApplicationRecord
   delegate :mahocki,to: :hocki
   has_many :dangkilophocs, dependent: :destroy    
   has_many :sinhviens ,through: :dangkilophocs
-  validate :lophoc_validate
-  validates :thoigian, presence: true, numericality: { only_integer: true ,:greater_than=>0,:message => " can't be blank " }
+  validates :hocphan_id,:hocki_id,:giaovien_id, presence: true  
+  validates :thoigian, presence: true, numericality: { only_integer: true ,:greater_than=>0}
   validates :diadiem, presence: true, length: { maximum: 50}
   validates :malophoc, presence: true, length: { maximum: 10 }, uniqueness: true
   validates :maxdangki, presence: true, numericality: { only_integer: true, :greater_than=>0, :less_than_or_equal_to=>200 }
+  validate :lophoc_validate
   default_scope {order(:malophoc)}
-  def lophoc_validate    
-    errors.add(:diadiem, "場所がないクラス") unless diadiem
-    errors.add(:giaovien, "教師がいないクラス") unless giaovien=Giaovien.find_by_id(giaovien_id)
+  def lophoc_validate
+    giaovien=Giaovien.find_by_id(giaovien_id)
     lop=Lophoc.find_by(malophoc: malophoc)
     if lop
-      errors.add(:lophoc,"このクラスに誰かが登録しましたから、修正できない情報がある") if (lop.diadiem!=diadiem||lop.thoigian!=thoigian||lop.hocphan_id!=hocphan_id||lop.hocki_id!=hocki_id)&&lop.dangkilophocs.count>0    
-      errors.add(:limited,"登録した学生は最大だから、減少できない") if lop.maxdangki>maxdangki&&lop.dangkilophocs.count>maxdangki
+      errors.add(:hocki_id, :unabledit) if lop.hocki_id!=hocki_id&&lop.dangkilophocs.count>0
+      errors.add(:diadiem, :unabledit) if lop.diadiem!=diadiem&&lop.dangkilophocs.count>0
+      errors.add(:thoigian, :unabledit) if lop.thoigian!=thoigian&&lop.dangkilophocs.count>0
+      errors.add(:hocphan_id, :unabledit) if lop.hocphan_id!=hocphan_id&&lop.dangkilophocs.count>0    
+      errors.add(:maxdangki, :unablesmall) if lop.maxdangki>maxdangki&&lop.dangkilophocs.count>maxdangki
     end
     lophocs=Lophoc.where("hocki_id=? and diadiem=? and malophoc!=?",hocki_id,diadiem,malophoc)
     lophocs.each do |lh|
-      errors.add(:diadiem,"場所：#{diadiem} が 使われています。 クラス： #{lh.malophoc}.") if lh.thoigian&thoigian>0
+      errors.add(:diadiem, :isusing) if lh.thoigian&thoigian>0
     end
     if giaovien   
       lophocs=giaovien.lophocs.where("hocki_id=? and malophoc!=?",hocki_id,malophoc)
       lophocs.each do |lh|
-        errors.add(:giaovien,"先生： #{giaovien.tengiaovien} が 時間重複です。クラス： (#{lh.malophoc}).")  if lh.thoigian&thoigian>0
+        errors.add(:giaovien_id, :isteaching)  if lh.thoigian&thoigian>0
       end
     end    
   end    
