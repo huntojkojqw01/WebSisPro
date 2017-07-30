@@ -82,7 +82,7 @@ en:
         malophoc: "Lesson code"
         maxdangki: "Maximum"
         thoigian: "Time"
-        diadiem: "Classroom"
+        diadiem: "Class room"
         giaovien_id: "Teacher"
         hocphan_id: "Subject"
         hocki_id: "Semester"
@@ -335,7 +335,7 @@ en:
       academy: "Academy"
   dangkilophocs:
     new:
-      title: "New register"
+      title: "New registration"
       cantregister: "You can not register now"
     create:
       cantregister: "You can not register now"
@@ -661,7 +661,9 @@ en:
       cpa: "CPA"
       onsemester: "On semester"
       oncourse: "On course"
-      registedclass: "Registed class"      
+      registedclass: "Registed class"
+      subjectcode: "Subject code"
+      subjectname: "Subject name"     
       unit: "Unit"
       lesson: "Lesson"
       midpoint: "Middle point"
